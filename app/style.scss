@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+// THIS IS THROWAWAY STYLES
+// USE FUCKING BEM
+
+body {
+  background-color: #282c34;
+  color: #fff
+}
+
+header {
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+  hr {
+    border-color: rgba(255,255,255,.2);
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li a {
+      color: #fff;
+      font-size: 2rem;
+      display: block;
+      margin: 0 0 1rem;
+    }
+
+  }
+}
+
+.App {
+  font-family: 'Lato', sans-serif;
+}
