@@ -3,5 +3,6 @@ export default {
   TIMEOUT: 10000,
   HEADERS: {
     'Content-Type': 'application/json'
-  }
+  },
+  LOG_RESPONSE_IN_DEV: false
 };
