@@ -78,7 +78,7 @@ export default function Amount(props: Props) {
 
   const renderCurrencySymbol = (currencySymbol) => (
     <span className={'amount__currency'} >
-      { ` ${currencySymbol}` }
+      { `${currencySymbol}` }
     </span>
   );
 
@@ -116,13 +116,14 @@ export default function Amount(props: Props) {
         { majorPart }
       </span>
       {renderSeparatorAndMinorPart(minorPart)}
-      {renderCurrencySymbol(currencySymbol)}
     </span>
   );
 
   return (
     <div className={'amount'} id={id}>
       <div size={size}>
+        {renderCurrencySymbol(currencySymbol)}
+
         { renderInner() }
       </div>
     </div>
