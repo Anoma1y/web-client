@@ -1,28 +1,39 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default class SelectList extends React.Component<{}> {
+type State = {
+  focused: boolean,
+  errorIsOpen: boolean,
+};
+
+type Props = {|
+  options: Array<{
+    label: string,
+    value: string,
+  }>,
+|};
+
+export default class SelectList extends React.Component<Props, State> {
 
   static defaulProps = {
-    disabled: false,
-    errorMessage: false
+    options: []
   };
 
   render() {
     const {
-      disabled,
-      errorMessage,
+      options
     } = this.props;
-
-    const classes = classnames(
-      'select',
-      disabled ? 'select__disabled' : 'disabled__enabled',
-      errorMessage ? 'select__errored' : 'select__normal'
-    );
+    const classes = classnames('select');
 
     return (
       <div>
-        <h1>1</h1>
+        <select>
+          {options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
     );
   }

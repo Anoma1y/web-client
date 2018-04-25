@@ -1,4 +1,4 @@
-export const countryOptions = [
+export default [
   { key: 'af', value: 'af', label: 'Afghanistan' },
   { key: 'ax', value: 'ax', label: 'Aland Islands' },
   { key: 'al', value: 'al', label: 'Albania' },

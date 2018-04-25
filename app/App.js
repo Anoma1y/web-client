@@ -9,17 +9,6 @@ class App extends React.Component<{}> {
   render() {
     return (
       <div className={'App'}>
-        <header>
-          <div>
-            {/* <img src="/static/images/react-logo.png" alt="" /> */}
-          </div>
-          <ul>
-            <li><Link to={'/'}>ButtonClickState</Link></li>
-            <li><Link to={'/redux'}>ButtonClickRedux</Link></li>
-            <li><Link to={'/reduxthunk'}>ButtonClickReduxThunk</Link></li>
-          </ul>
-          <hr />
-        </header>
         <Switch>
           <Route exact path={'/'} component={ButtonClickState} />
           <Route exact path={'/redux'} component={ButtonClickRedux} />
