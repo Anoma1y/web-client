@@ -36,10 +36,12 @@ class Home extends Component<{}, HomeState> {
     return (
       <div>
         <SelectList
+          id="country"
+          name="country"
           options={countries} // req
-          disabled
+          // disabled
           onChange={this._handleChange} // req
-          placeholder={'Select city'}
+          // placeholder={'Select country'}
           value={this.state.country} // req
         />
       </div>

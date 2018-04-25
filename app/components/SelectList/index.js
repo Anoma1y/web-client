@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import './style.scss';
 
 type State = {
   focused: boolean,
@@ -64,22 +65,23 @@ export default class SelectList extends React.Component<Props, State> {
       },
       className !== '' ? className : ''
     );
-    console.log('классы:', classes);
 
     return (
       <div>
         <select
           id={id}
           name={name}
+          disabled={disabled}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
           onChange={this.handleOnChange}
           value={value}
+          className={classes}
         >
           {placeholder &&
           !value && (
             /* selected ?? */
-            <option disabled value={''} hidden>
+            <option disabled={disabled} value={''} hidden>
               {placeholder}
             </option>
           )}
