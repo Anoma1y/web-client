@@ -11,7 +11,7 @@ class App extends React.Component<{}> {
       <div className={'App'}>
         <header>
           <div>
-            <img src="/static/images/react-logo.png" alt="" />
+            {/* <img src="/static/images/react-logo.png" alt="" /> */}
           </div>
           <ul>
             <li><Link to={'/'}>ButtonClickState</Link></li>
