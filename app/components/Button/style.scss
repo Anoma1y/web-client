@@ -24,7 +24,7 @@ $button-disabled-color:           #efefef;
   }
 
   &__disabled {
-    background-color: $button-disabled-color;
+    background-color: darken($button-disabled-color, 15%) !important;
     cursor: default;
   }
 

@@ -28,6 +28,7 @@ export default function Button(props: Props) {
 
   const classes = classnames(classBlockName,
     {
+      [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__color_${color}`]: color,
       [`${classBlockName}__inline`]: inline,
       [`${classBlockName}__block`]: !inline,
