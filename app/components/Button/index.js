@@ -16,7 +16,7 @@ export default function Button(props: Props) {
 
   const {
     children,
-    disabled = false,
+    disabled,
     name,
     onClick,
     size = 'md',
@@ -42,7 +42,6 @@ export default function Button(props: Props) {
       name={name}
       onClick={event => onClick && onClick({ event })}
     >
-      {/* TODO add component Text */}
       {children}
     </button>
   );

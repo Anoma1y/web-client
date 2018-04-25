@@ -29,7 +29,7 @@ class Home extends Component<{}, HomeState> {
   // }
 
   _handleChange = (value: any): any => {
-    console.log(value)
+    console.log(value);
     this.setState({
       country: value.value
     });
@@ -42,19 +42,28 @@ class Home extends Component<{}, HomeState> {
           id="country"
           name="country"
           options={countries} // req
-          // disabled
           onChange={this._handleChange} // req
           placeholder={'Select country'}
           value={this.state.country} // req
         />
+
         <Button
-          // disabled
           size={'md'}
-          // inline
+          inline
           color={'green'}
           onClick={() => console.log('Click')}
         > <span style={{ color: '#fff' }}>Withdraw</span>
         </Button>
+
+        <Button
+          disabled
+          size={'md'}
+          inline
+          color={'red'}
+          onClick={() => console.log('Click')}
+        > <span style={{ color: '#fff' }}>Blocked</span>
+        </Button>
+
       </div>
     );
   }

@@ -3,7 +3,7 @@ import ButtonClickState from 'containers/ButtonClickState';
 import ButtonClickRedux from 'containers/ButtonClickRedux';
 import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
 import { Route, Link, Switch } from 'react-router-dom';
-import 'style.scss';
+import './style.scss';
 
 class App extends React.Component<{}> {
   render() {
