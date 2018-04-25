@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import './style.scss';
 
-type Props = {|
+type Props = {
   children: any,
   fluid?: boolean,
   color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green',
@@ -12,12 +12,14 @@ type Props = {|
   floated?: 'left' | 'right',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
-|};
+  className?: string
+};
 
 export default function Button(props: Props) {
 
   const {
     children,
+    className,
     disabled,
     name,
     onClick,
@@ -39,7 +41,8 @@ export default function Button(props: Props) {
       [`${classBlockName}__inline`]: inline,
       [`${classBlockName}__block`]: !inline,
       [`${classBlockName}__size_${size}`]: size,
-    }
+    },
+    className !== '' ? className : ''
   );
 
   return (

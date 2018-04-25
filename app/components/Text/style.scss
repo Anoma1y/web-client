@@ -1,0 +1,89 @@
+@import "breakpoints.scss";
+
+$font-size-1:              12px;
+$font-size-2:              14px;
+$font-size-3:              16px;
+$font-size-4:              18px;
+$font-size-5:              21px;
+
+.text {
+
+  &__size {
+    &_1 {
+      font-size: $font-size-1;
+    }
+    &_2 {
+      font-size: $font-size-2;
+    }
+    &_3 {
+      font-size: $font-size-3;
+    }
+    &_4 {
+      font-size: $font-size-4;
+    }
+    &_5 {
+      font-size: $font-size-5;
+    }
+  }
+
+  @media screen and (min-width: $break-sm) {
+    &__sm {
+      &-size_1 {
+        font-size: $font-size-1;
+      }
+      &-size_2 {
+        font-size: $font-size-2;
+      }
+      &-size_3 {
+        font-size: $font-size-3;
+      }
+      &-size_4 {
+        font-size: $font-size-4;
+      }
+      &-size_5 {
+        font-size: $font-size-5;
+      }
+    }
+  }
+
+  @media screen and (min-width: $break-md) {
+    &__md {
+      &-size_1 {
+        font-size: $font-size-1;
+      }
+      &-size_2 {
+        font-size: $font-size-2;
+      }
+      &-size_3 {
+        font-size: $font-size-3;
+      }
+      &-size_4 {
+        font-size: $font-size-4;
+      }
+      &-size_5 {
+        font-size: $font-size-5;
+      }
+    }
+  }
+
+  @media screen and (min-width: $break-lg) {
+    &__lg {
+      &-size_1 {
+        font-size: $font-size-1;
+      }
+      &-size_2 {
+        font-size: $font-size-2;
+      }
+      &-size_3 {
+        font-size: $font-size-3;
+      }
+      &-size_4 {
+        font-size: $font-size-4;
+      }
+      &-size_5 {
+        font-size: $font-size-5;
+      }
+    }
+  }
+
+}

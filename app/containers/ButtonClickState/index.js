@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ExampleButton from 'components/ExampleButton';
 import SelectList from 'components/SelectList';
 import Button from 'components/Button';
+import Text from 'components/Text';
 import countries from 'lib/countries';
 // import { api } from 'lib/api';
 
@@ -37,34 +38,41 @@ class Home extends Component<{}, HomeState> {
 
   render() {
     return (
-      <div>
-        <SelectList
-          id="country"
-          name="country"
-          options={countries} // req
-          onChange={this._handleChange} // req
-          placeholder={'Select country'}
-          value={this.state.country} // req
-        />
+      <React.Fragment>
+        <div>
+          <SelectList
+            id="country"
+            name="country"
+            options={countries} // req
+            onChange={this._handleChange} // req
+            placeholder={'Select country'}
+            value={this.state.country} // req
+          />
 
-        <Button
-          size={'md'}
-          inline
-          color={'green'}
-          onClick={() => console.log('Click')}
-        > <span style={{ color: '#fff' }}>Withdraw</span>
-        </Button>
+          <Button
+            size={'md'}
+            inline
+            color={'green'}
+            onClick={() => console.log('Click')}
+          > <span style={{ color: '#fff' }}>Withdraw</span>
+          </Button>
 
-        <Button
-          disabled
-          size={'md'}
-          inline
-          color={'red'}
-          onClick={() => console.log('Click')}
-        > <span style={{ color: '#fff' }}>Blocked</span>
-        </Button>
+          <Button
+            disabled
+            size={'md'}
+            inline
+            color={'red'}
+            onClick={() => console.log('Click')}
+          > <span style={{ color: '#fff' }}>Blocked</span>
+          </Button>
 
-      </div>
+        </div>
+        <div>
+          <Text>
+            Text kakoi to
+          </Text>
+        </div>
+      </React.Fragment>
     );
   }
 }

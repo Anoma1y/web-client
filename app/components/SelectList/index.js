@@ -42,37 +42,38 @@ export default class SelectList extends React.Component<Props, {}> {
       value,
       className
     } = this.props;
+
+    const classBlockName = 'select';
+
     const classes = classnames(
-      'select',
+      classBlockName,
       {
-        select__disabled: disabled,
+        [`${classBlockName}__disabled`]: disabled,
       },
       className !== '' ? className : ''
     );
 
     return (
-      <div>
-        <select
-          id={id}
-          name={name}
-          disabled={disabled}
-          onChange={this.handleOnChange}
-          value={value}
-          className={classes}
-        >
-          {placeholder &&
-          !value && (
-            <option disabled={disabled} value={''} hidden>
-              {placeholder}
-            </option>
-          )}
-          {options.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      <select
+        id={id}
+        name={name}
+        disabled={disabled}
+        onChange={this.handleOnChange}
+        value={value}
+        className={classes}
+      >
+        {placeholder &&
+        !value && (
+          <option disabled={disabled} value={''} hidden>
+            {placeholder}
+          </option>
+        )}
+        {options.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     );
   }
 }
