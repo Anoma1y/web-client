@@ -83,6 +83,10 @@ class Home extends Component<{}, HomeState> {
             Text right bold
           </Text>
         </div>
+        <div>
+          <Text inline>inl</Text>
+          <Text inline>ine</Text>
+        </div>
       </React.Fragment>
     );
   }
