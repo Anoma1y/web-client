@@ -10,7 +10,8 @@ type HomeState = {
 
 class Home extends Component<{}, HomeState> {
   state = {
-    clicks: 0
+    clicks: 0,
+    country: ''
   };
 
   // componentDidMount() {
@@ -25,11 +26,22 @@ class Home extends Component<{}, HomeState> {
   //   });
   // }
 
+  _handleChange = (value) => {
+    this.setState({
+      country: value.value
+    });
+  };
 
   render() {
     return (
       <div>
-        <SelectList options={countries} />
+        <SelectList
+          options={countries} // req
+          disabled
+          onChange={this._handleChange} // req
+          placeholder={'Select city'}
+          value={this.state.country} // req
+        />
       </div>
     );
   }
