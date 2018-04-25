@@ -1,0 +1,22 @@
+.amount {
+  display: inline-block;
+  white-space: nowrap;
+
+  &__minor-container {
+    display: inline-block;
+  }
+
+  &__currency {
+    display: inline-block;
+    min-width: 1em;
+    text-align: right;
+  }
+
+  &__separator, &__minor, &__currency {
+    opacity: 0.6;
+  }
+
+  .heading {
+    margin: 0;
+  }
+}

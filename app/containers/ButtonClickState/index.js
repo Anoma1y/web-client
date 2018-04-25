@@ -4,6 +4,7 @@ import SelectList from 'components/SelectList';
 import Button from 'components/Button';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
+import Amount from 'components/Amount';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -27,6 +28,9 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <React.Fragment>
+        <div>
+          <Amount amount={{ value: 75435799.12, currency: 'EUR' }} />
+        </div>
         <div>
           <Avatar
             size="md"
