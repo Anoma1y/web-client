@@ -4,7 +4,7 @@ import './style.scss';
 
 type Props = {
   align?: 'left' | 'right' | 'center' | 'justify',
-  bold?: boolean,
+  weight?: 'lighter' | 'normal' | 'bold' | 'bolder',
   children?: React.Node,
   color?: 'black' | 'green' | 'red' | 'white',
   inline?: boolean,
@@ -27,7 +27,7 @@ const SIZE_SCALES: { [size: ?string]: number } = {
 export default function Text(props: Props) {
   const {
     align = 'left',
-    weight = 400,
+    weight = 'normal',
     children,
     color = 'black',
     inline = false,

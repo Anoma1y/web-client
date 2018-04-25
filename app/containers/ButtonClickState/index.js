@@ -71,6 +71,17 @@ class Home extends Component<{}, HomeState> {
           <Text>
             Text kakoi to
           </Text>
+          <Text
+            weight={'bold'}
+          >
+            Text bold
+          </Text>
+          <Text
+            align={'right'}
+            weight={'bold'}
+          >
+            Text right bold
+          </Text>
         </div>
       </React.Fragment>
     );
