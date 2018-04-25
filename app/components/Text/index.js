@@ -27,7 +27,7 @@ const SIZE_SCALES: { [size: ?string]: number } = {
 export default function Text(props: Props) {
   const {
     align = 'left',
-    bold = false,
+    weight = 400,
     children,
     color = 'black',
     inline = false,
@@ -49,28 +49,19 @@ export default function Text(props: Props) {
   const classes = classnames(
     classBlockName,
     `align_${align}`,
+    `text-weight_${weight}`,
+    `text-color_${color}`,
     `${classBlockName}__size_${defaultScale}`,
-    // `${classBlockName}__align_${align}`,
     {
       [`${classBlockName}__lg-fize_${lgScale}`]: lgScale,
       [`${classBlockName}__md-fize_${mdScale}`]: mdScale,
       [`${classBlockName}__sm-fize_${smScale}`]: smScale,
       [`overflow_${overflow}`]: overflow === 'breakWord',
-      [`text-style_italic`]: italic,
-      // [`${classBlockName}__color_${color}`]: color,
-      // [`${classBlockName}__inline`]: inline,
-      // [`${classBlockName}__block`]: !inline,
-      // [`${classBlockName}__size_${size}`]: size,
+      'text-style_italic': italic,
     },
     className !== '' ? className : ''
   );
-`
-text 
-text__default-font-size_3 
-text__lg-font-fize_4 
-text__md-font-fize_3 
-text__sm-font-fize_2
-`
+
   const TextType = inline ? 'span' : 'div';
 
   return (
@@ -78,5 +69,4 @@ text__sm-font-fize_2
       {children}
     </TextType>
   );
-
 }

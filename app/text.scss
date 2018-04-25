@@ -1,4 +1,48 @@
+@import './colors.scss';
 
+//  Text weight
+.text-weight_100 {
+  font-weight: 100;
+}
+.text-weight_200 {
+  font-weight: 200;
+}
+.text-weight_lighter {
+  font-weight: lighter;
+}
+.text-weight_300 {
+  font-weight: 300;
+}
+.text-weight_400 {
+  font-weight: 400;
+}
+.text-weight_normal {
+  font-weight: normal;
+}
+.text-weight_500 {
+  font-weight: 500;
+}
+.text-weight_600 {
+  font-weight: 600;
+}
+.text-weight_bold {
+  font-weight: 700;
+}
+.text-weight_700 {
+  font-weight: 700;
+}
+.text-weight_800 {
+  font-weight: 800;
+}
+.text-weight_900 {
+  font-weight: 900;
+}
+.text-weight_bolder {
+  font-weight: bolder;
+}
+
+
+//  Aligment
 .align_left {
   text-align: left;
 }
@@ -15,6 +59,7 @@
   text-align: justify;
 }
 
+//  Text wrap
 .text_breakword {
   hyphens: auto;
   word-wrap: break-word;
@@ -26,4 +71,14 @@
 
 .text-style_italic {
   font-style: italic;
+}
+
+//  Text color
+.text-color {
+  &_black {
+    color: $black-color;
+  }
+  &_white {
+    color: $white-color;
+  }
 }
