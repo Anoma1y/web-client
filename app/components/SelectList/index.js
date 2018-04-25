@@ -2,11 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import './style.scss';
 
-type State = {
-  focused: boolean,
-  errorIsOpen: boolean,
-};
-
 type Props = {
   id?: string,
   name?: string,
@@ -21,22 +16,10 @@ type Props = {
   className?: ?string
 };
 
-export default class SelectList extends React.Component<Props, State> {
+export default class SelectList extends React.Component<Props, {}> {
   static defaultProps = {
     disabled: false,
     options: []
-  };
-
-  state: State = {
-    focused: false
-  };
-
-  handleBlur = () => {
-
-  };
-
-  handleFocus = () => {
-
   };
 
   handleOnChange = (event: SyntheticInputEvent<>) => {
@@ -72,15 +55,12 @@ export default class SelectList extends React.Component<Props, State> {
           id={id}
           name={name}
           disabled={disabled}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
           onChange={this.handleOnChange}
           value={value}
           className={classes}
         >
           {placeholder &&
           !value && (
-            /* selected ?? */
             <option disabled={disabled} value={''} hidden>
               {placeholder}
             </option>

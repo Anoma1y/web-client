@@ -5,7 +5,8 @@ import countries from 'lib/countries';
 // import { api } from 'lib/api';
 
 type HomeState = {
-  clicks: number
+  clicks: number,
+  country: string
 }
 
 class Home extends Component<{}, HomeState> {
@@ -26,7 +27,7 @@ class Home extends Component<{}, HomeState> {
   //   });
   // }
 
-  _handleChange = (value) => {
+  _handleChange = (value: any): any => {
     this.setState({
       country: value.value
     });
