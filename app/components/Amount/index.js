@@ -14,10 +14,11 @@ type Props = {
   className?: string
 };
 
-const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = ',';
+const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед ...
 const AMOUNT_MAJOR_PART_SIZE = 3;
 const ZERO_MINOR_PART_REGEXP = /^0+$/;
 const MINUS_SIGN_HTML_CODE = '\u2212';
+const AMOUNT_SPLITTER = ','; // Разделитель между частями
 
 const createSplitter = (partSize) => {
   const parts = (str) => {
@@ -31,6 +32,7 @@ const createSplitter = (partSize) => {
 };
 
 const formatAmount = (amount) => {
+
   const {
     value,
     currency
@@ -39,7 +41,7 @@ const formatAmount = (amount) => {
   const valueAbsStr = (Math.abs(value) / 100).toFixed(fractionDigits);
   const numberParts = valueAbsStr.split('.');
   const amountSplitter = createSplitter(AMOUNT_MAJOR_PART_SIZE);
-  const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(' ');
+  const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(AMOUNT_SPLITTER);
   const formattedValueStr = majorPartFormatted + (numberParts[1] ? `,${numberParts[1]}` : '');
   return {
     majorPart: majorPartFormatted,
@@ -62,9 +64,9 @@ export default function Amount(props: Props) {
     id,
     showZeroMinorPart = true
   } = props;
-
+  const amountValue = amount.value.toString();
   const amounts = {
-    value: amount.value.toString().replace('.', ''),
+    value: amountValue.match(/^\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^\d+$/) ? `${amountValue}00` : '000',
     currency: amount.currency
   };
   const {
@@ -81,18 +83,14 @@ export default function Amount(props: Props) {
   );
 
   const renderSeparatorAndMinorPart = (minorPart) => {
-
     let needMinorPart = false;
 
     if (minorPart) {
-      needMinorPart = true;
-      if (!showZeroMinorPart && ZERO_MINOR_PART_REGEXP.test(minorPart)) {
-        needMinorPart = false;
-      }
+      needMinorPart = showZeroMinorPart && !ZERO_MINOR_PART_REGEXP.test(minorPart);
     }
     if (needMinorPart) {
       return (
-        <div className={'amount__minor-container'}>
+        <div className={'amount__minor-wrapper'}>
           <span className={'amount__separator'} >{ AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR }</span>
           <span className={'amount__minor'} >{ minorPart }</span>
         </div>
@@ -111,7 +109,7 @@ export default function Amount(props: Props) {
     className !== '' ? className : ''
   );
 
-  return (
+  const renderInner = () => (
     <span>
       <span className={'amount__major'}>
         { isNegative && MINUS_SIGN_HTML_CODE }
@@ -120,5 +118,13 @@ export default function Amount(props: Props) {
       {renderSeparatorAndMinorPart(minorPart)}
       {renderCurrencySymbol(currencySymbol)}
     </span>
+  );
+
+  return (
+    <div className={'amount'} id={id}>
+      <div size={size}>
+        { renderInner() }
+      </div>
+    </div>
   );
 }

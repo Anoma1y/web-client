@@ -87,7 +87,7 @@
     //Разные кавычи в пропах
     "jsx-quotes": "warn",
     "max-len": "off",
-
+    "no-nested-ternary": "off",
 
     /****Правила для import****/
 //    "import/no-unresolved": ["error", {"commonjs": true, "amd": true}],
