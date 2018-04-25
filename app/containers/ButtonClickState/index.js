@@ -5,6 +5,7 @@ import Button from 'components/Button';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
+import Table from 'components/Table';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -29,25 +30,10 @@ class Home extends Component<{}, HomeState> {
     return (
       <React.Fragment>
         <div>
+          <Table celled structured columns={10} />
+        </div>
+        <div>
           <Amount amount={{ value: 75435799.20, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 75435799, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 54.21, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 4879.22, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 455, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 2.12, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 45778.2, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 1211.11, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 78999999990, currency: 'EUR' }} />
-          <br />
-          <Amount amount={{ value: 54545.22, currency: 'EUR' }} />
         </div>
         <div>
           <Avatar
