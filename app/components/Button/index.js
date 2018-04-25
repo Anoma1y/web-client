@@ -4,10 +4,12 @@ import './style.scss';
 
 type Props = {|
   children: any,
+  fluid?: boolean,
   color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green',
   disabled?: boolean,
   inline?: boolean,
   name?: string,
+  floated?: 'left' | 'right',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
 |};
@@ -21,6 +23,8 @@ export default function Button(props: Props) {
     onClick,
     size = 'md',
     inline,
+    fluid,
+    floated,
     color = 'gray'
   } = props;
 
@@ -28,6 +32,8 @@ export default function Button(props: Props) {
 
   const classes = classnames(classBlockName,
     {
+      [`${classBlockName}__fluid`]: fluid,
+      [`${classBlockName}__floated_${floated}`]: floated,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__color_${color}`]: color,
       [`${classBlockName}__inline`]: inline,

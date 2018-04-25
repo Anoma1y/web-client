@@ -15,12 +15,28 @@ $button-disabled-color:           #efefef;
   border-radius: $button-border-radius;
   transition: all 0.4s ease;
 
+  &__fluid {
+    width: 100%;
+  }
+
   &__block {
     display: block;
   }
 
   &__inline {
     display: inline-block;
+  }
+
+  &__floated {
+
+    &_left {
+      float: left;
+    }
+
+    &_right {
+      float: right;
+    }
+
   }
 
   &__disabled {
