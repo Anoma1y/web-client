@@ -1,0 +1,86 @@
+$button-border-radius:            4px;
+
+$button-font-color-white:         #ffffff;
+$button-font-family:              'Lato', sans-serif;
+
+$button-bgc-green:                #5FBD8B;
+$button-bgc-red:                  #EE444A;
+
+.button {
+  border: none;
+  outline: none;
+  border-radius: $button-border-radius;
+  transition: all 0.4s ease;
+
+  &__block {
+    display: block;
+  }
+
+  &__inline {
+    display: inline-block;
+  }
+
+  &__color {
+
+    &_green {
+      background-color: $button-bgc-green;
+      &:hover, &_focus {
+        background-color: darken($button-bgc-green, 6%);
+      }
+      &:active {
+        background-color: darken($button-bgc-green, 10%);
+      }
+    }
+
+    &_red {
+      background-color: $button-bgc-red;
+      &:hover, &_focus {
+        background-color: darken($button-bgc-red, 6%);
+      }
+      &:active {
+        background-color: darken($button-bgc-red, 10%);
+      }
+    }
+
+    &_white {
+    //  TODO
+    }
+
+    &_gray {
+    //  TODO
+    }
+
+    &_blue {
+    //  TODO
+    }
+
+    &_transparent {
+
+      background-color: transparent;
+      &:hover, &_focus {
+        background-color: darken(#555555, 6%);
+      }
+      &:active {
+        background-color: darken(#555555, 10%);
+      }
+    }
+  }
+
+  &__size {
+    &_xs {
+      padding: 5px 7px;
+    }
+
+    &_sm {
+      padding: 10px 14px;
+    }
+
+    &_md {
+      padding: 11px 14px;
+    }
+
+    &_lg {
+      padding: 14px;
+    }
+  }
+}

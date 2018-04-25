@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExampleButton from 'components/ExampleButton';
 import SelectList from 'components/SelectList';
+import Button from 'components/Button';
 import countries from 'lib/countries';
 // import { api } from 'lib/api';
 
@@ -46,6 +47,14 @@ class Home extends Component<{}, HomeState> {
           placeholder={'Select country'}
           value={this.state.country} // req
         />
+        <Button
+          // disabled
+          size={'md'}
+          // inline
+          color={'green'}
+          onClick={() => console.log('Click')}
+        > <span style={{ color: '#fff' }}>Withdraw</span>
+        </Button>
       </div>
     );
   }
