@@ -1,0 +1,21 @@
+@import "colors.scss";
+
+.divider {
+  display: block;
+  border-top: 1px solid;
+  margin:  calc(3px * 0) calc(3px * 0);
+  border-bottom: 0;
+  border-left: 0;
+  &__color {
+    &_gray {
+      border-top-color: $gray-color;
+    }
+    &_black {
+      border-top-color: $black-color;
+    }
+    &_white {
+      border-top-color: $white-color;
+    }
+  }
+}
+
