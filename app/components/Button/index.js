@@ -32,7 +32,8 @@ export default function Button(props: Props) {
 
   const classBlockName = 'button';
 
-  const classes = classnames(classBlockName,
+  const classes = classnames(
+    classBlockName,
     {
       [`${classBlockName}__fluid`]: fluid,
       [`${classBlockName}__floated_${floated}`]: floated,

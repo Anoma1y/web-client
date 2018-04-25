@@ -3,6 +3,7 @@ import ExampleButton from 'components/ExampleButton';
 import SelectList from 'components/SelectList';
 import Button from 'components/Button';
 import Text from 'components/Text';
+import Avatar from 'components/Avatar';
 import countries from 'lib/countries';
 // import { api } from 'lib/api';
 
@@ -39,6 +40,12 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <React.Fragment>
+        <div>
+          <Avatar
+            size="md"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/User_font_awesome.svg"
+          />
+        </div>
         <div>
           <SelectList
             id="country"
