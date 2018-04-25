@@ -23,11 +23,12 @@ export default class SelectList extends React.Component<Props, {}> {
   };
 
   handleOnChange = (event: SyntheticInputEvent<>) => {
+    const { target: { value } } = event;
     if (
       event.target instanceof HTMLSelectElement &&
-      this.props.value !== event.target.value
+      this.props.value !== value
     ) {
-      this.props.onChange({ event, value: event.target.value });
+      this.props.onChange({ event, value });
     }
   };
 

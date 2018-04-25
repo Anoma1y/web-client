@@ -28,6 +28,7 @@ class Home extends Component<{}, HomeState> {
   // }
 
   _handleChange = (value: any): any => {
+    console.log(value)
     this.setState({
       country: value.value
     });
@@ -42,7 +43,7 @@ class Home extends Component<{}, HomeState> {
           options={countries} // req
           // disabled
           onChange={this._handleChange} // req
-          // placeholder={'Select country'}
+          placeholder={'Select country'}
           value={this.state.country} // req
         />
       </div>
