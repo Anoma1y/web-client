@@ -68,7 +68,7 @@ export default function Table(props: Props) {
     16: 'sixteen',
   };
 
-  const numberToWord = (value: string): string => {
+  const numberToWord = (value: string | number): string => {
     if (typeof value === 'string' || typeof value === 'number') {
       return numberWord[value] || value;
     }
