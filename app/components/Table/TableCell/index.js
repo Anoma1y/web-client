@@ -32,7 +32,7 @@ export default (props: Props) => {
     singleLine,
     textAlign = 'left',
     verticalAlign = '',
-    width = 'one',
+    width,
     warning
   } = props;
 
@@ -52,7 +52,7 @@ export default (props: Props) => {
       [`${classBlockName}__single-line`]: singleLine,
       [`${classBlockName}__warning`]: warning,
     },
-    `${classBlockName}__wide_${widthClasses}`,
+    `wide_${widthClasses}`,
     className
   );
 

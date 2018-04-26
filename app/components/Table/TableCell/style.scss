@@ -1,0 +1,10 @@
+@import "colors.scss";
+
+&_cell {
+
+  &__error {
+    box-shadow: 0 0 0 $error-box-shadow-color inset;;
+    background: $error-bg-color !important;
+    color: $error-color !important;
+  }
+}

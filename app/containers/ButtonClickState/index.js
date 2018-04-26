@@ -34,36 +34,56 @@ class Home extends Component<{}, HomeState> {
           <Table
             celled
             structured
-            columns={'10'}
+            columns={4}
           >
             <Table.Header>
               <Table.Row>
-                <Table.Cell>Header 1</Table.Cell>
-                <Table.Cell>Header 2</Table.Cell>
-                <Table.Cell>Header 3</Table.Cell>
+                <Table.HeaderCell>Header 1</Table.HeaderCell>
+                <Table.HeaderCell>Header 2</Table.HeaderCell>
+                <Table.HeaderCell>Header 3</Table.HeaderCell>
+                <Table.HeaderCell>Header 4</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              <Table.Row>
+              <Table.Row error>
                 <Table.Cell>Row 1 - 1</Table.Cell>
                 <Table.Cell>Row 1 - 2</Table.Cell>
                 <Table.Cell>Row 1 - 3</Table.Cell>
+                <Table.Cell>Row 1 - 4</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Row 2 - 1</Table.Cell>
                 <Table.Cell>Row 2 - 2</Table.Cell>
                 <Table.Cell>Row 2 - 3</Table.Cell>
               </Table.Row>
+              <Table.Row>
+                <Table.Cell>Row 3 - 1</Table.Cell>
+                <Table.Cell>Row 3 - 2</Table.Cell>
+                <Table.Cell>Row 3 - 3</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Row 4 - 1</Table.Cell>
+                <Table.Cell>Row 4 - 2</Table.Cell>
+                <Table.Cell>Row 4 - 3</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Row 5 - 1</Table.Cell>
+                <Table.Cell>Row 5 - 2</Table.Cell>
+                <Table.Cell>Row 5 - 3</Table.Cell>
+              </Table.Row>
             </Table.Body>
             <Table.Footer>
               <Table.Row>
-                <Table.Cell>Footer 1</Table.Cell>
-                <Table.Cell>Footer 2</Table.Cell>
-                <Table.Cell>Footer 3</Table.Cell>
+                <Table.HeaderCell>Footer 1</Table.HeaderCell>
+                <Table.HeaderCell>Footer 2</Table.HeaderCell>
+                <Table.HeaderCell>Footer 3</Table.HeaderCell>
+                <Table.HeaderCell>Footer 4</Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
         </div>
+        <br />
+        <br />
         <div>
           <Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> <br />
           <Amount amount={{ value: 54.2, currency: 'EUR' }} /> <br />

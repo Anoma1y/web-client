@@ -6,12 +6,13 @@ import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import TableHeaderCell from './TableHeaderCell';
+import './style.scss';
 import { getColumnCount } from 'lib/css_helpers';
 
 export const CLASS_NAME: string = 'table';
 
 type Props = {
-  getColumnCount: typeof getColumnCount,
+  getColumnCount?: typeof getColumnCount,
   children?: any,
   celled?: ?boolean,
   collapsing?: ?boolean,
@@ -64,7 +65,6 @@ const Table = (props: Props) => {
 
   const classBlockName: string = CLASS_NAME;
   const widthClasses: string = getColumnCount(columns);
-
   const classes = classnames(
     classBlockName,
     size,
