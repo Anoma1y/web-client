@@ -7,20 +7,31 @@ import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
 import Table from 'components/Table';
+import Tab from 'components/Tab';
 import countries from 'lib/countries';
 
 type HomeState = {
   clicks: number,
   country: string,
-  gender: string
+  gender: string,
+  activeIndex: number
 }
+
+const panes = [
+  { menuItem: 'Tab 1', render: () => <span>Tab 1 Content</span> },
+  { menuItem: 'Tab 2', render: () => <span>Tab 2 Content</span> },
+  { menuItem: 'Tab 3', render: () => <span>Tab 3 Content</span> },
+];
 
 class Home extends Component<{}, HomeState> {
   state = {
     clicks: 0,
     country: '',
-    gender: 'other'
+    gender: 'other',
+    activeIndex: 0
   };
+
+  handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
 
   _handleChange = (eva: any): any => {
     this.setState({
@@ -31,6 +42,9 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
+        <div>
+          <Tab panes={panes} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange} />
+        </div>
         <div>
           <Breadcrumb size={'md'}>
             <Breadcrumb.Section link>Home</Breadcrumb.Section>
