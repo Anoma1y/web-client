@@ -35,7 +35,11 @@ class Home extends Component<{}, HomeState> {
     return (
       <div>
         <div>
-          <Table celled structured columns={10}>
+          <Table
+            celled
+            structured
+            columns={'10'}
+          >
             <TableHeader>
               <TableRow>
                 <TableHeaderCell>H1</TableHeaderCell>

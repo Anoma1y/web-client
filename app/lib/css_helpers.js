@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 type numberWordType = {
   [key: string]: string
 }
@@ -20,20 +22,6 @@ export const numberWord: numberWordType = {
   '16': 'sixteen',
 };
 
-export const numberToWord = (value: string | number): string | number => {
-  if (typeof value === 'string' || typeof value === 'number') {
-    return numberWord[value] || value;
-  }
-  return '';
-};
+export const numberToWord = (value: string): string => numberWord[value] || value;
 
-export const getColumnCount = (block: string, val: string, widthClass: string = '', canEqual: boolean = false): string | number => {
-  if (canEqual && val === 'equal') {
-    return `${block}__column_equal`;
-  }
-  const valType = typeof val;
-  if ((valType === 'string' || valType === 'number') && widthClass) {
-    return `${block}__${widthClass}_${numberToWord(val)}`;
-  }
-  return numberToWord(val);
-};
+export const getColumnCount = (val: string | number): string => !val || val === 0 || val === 'equal' ? 'equal' : numberToWord(_.toString(val));

@@ -9,7 +9,7 @@ type Props = {
   disabled?: ?boolean,
   inline?: ?boolean,
   name?: ?string,
-  floated?: 'left' | 'right',
+  floated?: 'left' | 'right' | '',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
   className?: ?string
@@ -26,23 +26,22 @@ export default function Button(props: Props) {
     size = 'md',
     inline,
     fluid,
-    floated,
+    floated = '',
     color = 'gray'
   } = props;
-
   const classBlockName = 'button';
 
   const classes = classnames(
     classBlockName,
     {
       [`${classBlockName}__fluid`]: fluid,
-      [`${classBlockName}__floated_${floated}`]: floated,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__color_${color}`]: color,
       [`${classBlockName}__inline`]: inline,
       [`${classBlockName}__block`]: !inline,
       [`${classBlockName}__size_${size}`]: size,
     },
+    floated !== '' ? `${classBlockName}__floated_${floated}` : '',
     className !== '' ? className : ''
   );
 

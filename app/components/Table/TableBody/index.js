@@ -13,7 +13,12 @@ export default function TableBody(props: Props) {
     className,
   } = props;
 
-  const classes = classnames(className);
+  const classBlockName = 'table_tbody';
+
+  const classes = classnames(
+    classBlockName,
+    className
+  );
 
   return <tbody className={classes}>{children}</tbody>;
 }

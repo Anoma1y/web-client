@@ -15,10 +15,12 @@ export default function TableHeader(props: Props) {
     fullWidth = false
   } = props;
 
+  const classBlockName = 'table_header';
+
   const classes = classnames(
-    'table_header',
+    classBlockName,
     {
-      'table_header__size-full-width': fullWidth
+      [`${classBlockName}__size-full-width`]: fullWidth
     },
     className
   );

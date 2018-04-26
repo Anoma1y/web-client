@@ -2,9 +2,13 @@ import React from 'react';
 import classnames from 'classnames';
 
 type Props = {
+  active?: boolean,
   children?: any,
+  disabled?: boolean,
+  error?: boolean,
   fullWidth?: boolean,
-  className?: string
+  className?: string,
+  warning?: boolean
 };
 
 export default function TableRow(props: Props) {
@@ -15,25 +19,21 @@ export default function TableRow(props: Props) {
     className,
     disabled,
     error,
-    negative,
-    positive,
-    textAlign,
-    verticalAlign,
+    textAlign = 'left',
+    verticalAlign = '',
     warning,
-  } = props
+  } = props;
 
   const classBlockName = 'table__row';
 
   const classes = classnames(
     classBlockName,
     `${classBlockName}__align_${textAlign}`,
+    verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}__vertical-align_${verticalAlign}`]: verticalAlign,
       [`${classBlockName}_active`]: active,
       [`${classBlockName}_disabled`]: disabled,
       [`${classBlockName}_error`]: error,
-      [`${classBlockName}_negative`]: negative,
-      [`${classBlockName}_positive`]: positive,
       [`${classBlockName}_warning`]: warning,
     },
     className

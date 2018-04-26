@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { getColumnCount } from 'lib/css_helpers';
 
 type Props = {
+  children?: any,
   celled?: ?boolean,
   collapsing?: ?boolean,
   definition?: ?boolean,
@@ -21,7 +22,7 @@ type Props = {
   padded?: ?boolean,
   columns?: ?string | ?number,
   textAlign?: 'left' | 'center' | 'right' | 'justify',
-  verticalAlign?: 'bottom' | 'middle' | 'top',
+  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
   size?: 'small' | 'large',
   className?: ?string
 };
@@ -34,7 +35,7 @@ export default function Table(props: Props) {
     children,
     className,
     collapsing,
-    columns,
+    columns = 'equal',
     compact,
     definition,
     fixed,
@@ -49,17 +50,18 @@ export default function Table(props: Props) {
     structured,
     textAlign = 'left',
     unstackable,
-    verticalAlign,
+    verticalAlign = '',
   } = props;
 
-  const classBlockName = 'table';
+  const classBlockName: string = 'table';
+  const widthClasses: string = getColumnCount(columns);
 
   const classes = classnames(
     classBlockName,
     size,
     `${classBlockName}__align_${textAlign}`,
+    verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}__vertical-align_${verticalAlign}`]: verticalAlign,
       [`${classBlockName}__celled`]: celled,
       [`${classBlockName}__collapsing`]: collapsing,
       [`${classBlockName}__definition`]: definition,
@@ -77,7 +79,7 @@ export default function Table(props: Props) {
       [`${classBlockName}__compact`]: compact,
       [`${classBlockName}__padded`]: padded,
     },
-    getColumnCount(classBlockName, columns, 'column'),
+    `${classBlockName}__columns_${widthClasses}`,
     className,
   );
 
