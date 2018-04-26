@@ -2,22 +2,22 @@
   display: inline-block;
   white-space: nowrap;
 
-  &__minor-wrapper {
+  &_minor-wrapper {
     display: inline-block;
   }
 
-  &__currency {
+  &_currency {
     display: inline-block;
     min-width: 1em;
     text-align: right;
-    margin-right: 5px;
   }
 
-  &__separator, &__minor, &__currency {
+  &_separator, &_minor, &_currency {
     opacity: 0.6;
   }
 
-  .heading {
-    margin: 0;
+  &__size {
+  //  TODO
   }
+
 }

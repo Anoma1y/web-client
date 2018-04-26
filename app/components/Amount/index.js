@@ -73,20 +73,34 @@ export default (props: Props) => {
     id,
     showZeroMinorPart = true
   } = props;
+
+  const classBlockName = 'amount';
+
+  const classes = classnames(
+    classBlockName,
+    {
+      [`${classBlockName}__size_${size}`]: size,
+    },
+    className
+  );
+
   const amountValue = amount.value.toString();
+
   const amounts = {
     value: amountValue.match(/^\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^\d+$/) ? `${amountValue}00` : '000',
     currency: amount.currency
   };
+
   const {
     majorPart,
     minorPart,
     isNegative,
     currencySymbol
   } = formatAmount(amounts);
+
   const renderCurrencySymbol = (currencySymbol) => (
-    <span className={'amount__currency'} >
-      { `${currencySymbol}` }
+    <span className={`${classBlockName}_currency`} >
+      { ` ${currencySymbol}` }
     </span>
   );
 
@@ -98,40 +112,31 @@ export default (props: Props) => {
     }
     if (needMinorPart) {
       return (
-        <div className={'amount__minor-wrapper'}>
-          <span className={'amount__separator'} >{ AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR }</span>
-          <span className={'amount__minor'} >{ minorPart }</span>
+        <div className={`${classBlockName}_minor-wrapper`}>
+          <span className={`${classBlockName}_separator`} >{ AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR }</span>
+          <span className={`${classBlockName}_minor`} >{ minorPart }</span>
         </div>
       );
     }
     return null;
   };
 
-  const classBlockName = 'amount';
 
-  const classes = classnames(
-    classBlockName,
-    {
-      [`${classBlockName}__size_${size}`]: size,
-    },
-    className !== '' ? className : ''
-  );
 
   const renderInner = () => (
     <span>
-      <span className={'amount__major'}>
+      <span className={`${classBlockName}_major`}>
         { isNegative && MINUS_SIGN_HTML_CODE }
         { majorPart }
       </span>
       {renderSeparatorAndMinorPart(minorPart)}
+      {renderCurrencySymbol(currencySymbol)}
     </span>
   );
 
   return (
-    <div className={'amount'} id={id}>
+    <div className={classes} id={id}>
       <div size={size}>
-        {renderCurrencySymbol(currencySymbol)}
-
         { renderInner() }
       </div>
     </div>
