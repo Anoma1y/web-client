@@ -5,8 +5,8 @@ import Button from 'components/Button';
 import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
-import Table from 'components/Table';
 import Breadcrumb from 'components/Breadcrumb';
+import Table from 'components/Table';
 import countries from 'lib/countries';
 
 type HomeState = {

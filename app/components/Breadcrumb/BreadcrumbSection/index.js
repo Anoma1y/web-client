@@ -5,20 +5,18 @@ import _ from 'lodash';
 import './style.scss';
 
 type Props = {
+  active?: boolean,
   children?: ?any,
   className?: ?string,
   link?: boolean,
   onClick?: () => void,
+  href?: string,
+  link?: boolean
 };
 
 export default class BreadcrumbSection extends Component<Props> {
   //
-  handleClick = e => console.log(_.invoke(this.props, 'onClick', e, this.props));
-
-  computeElementType = () => {
-    const { link, onClick } = this.props;
-    if (link || onClick) return 'a';
-  }
+  handleClick = (e: any) => console.log(_.invoke(this.props, 'onClick', e, this.props));
 
   render() {
     const {
@@ -26,11 +24,12 @@ export default class BreadcrumbSection extends Component<Props> {
       children,
       className,
       href,
+      link = false,
+      onClick
     } = this.props;
+
     const classBlockName = 'breadcrumb_section';
 
-    const ElementType = getElementType(BreadcrumbSection, this.props, this.computeElementType);
-    console.log(ElementType)
     const classes = classnames(
       classBlockName,
       {
@@ -38,11 +37,16 @@ export default class BreadcrumbSection extends Component<Props> {
       },
       className
     );
-    return (
-      <ElementType className={classes} href={href} onClick={this.handleClick}>
-        {children}
-      </ElementType>
-    )
+
+    if (onClick) {
+      return <div className={classes} onClick={this.handleClick}>{children}</div>;
+    }
+
+    if (link || href || !active) {
+      return <a href={href} className={classes}> {children} </a>;
+    }
+
+    return <div className={classes}>{children}</div>;
   }
 
 }
