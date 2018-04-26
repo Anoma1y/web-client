@@ -6,7 +6,7 @@ import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Table from 'components/Table';
-
+import Breadcrumb from 'components/Breadcrumb';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -30,6 +30,15 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
+        <div>
+          <Breadcrumb size={'md'}>
+            <Breadcrumb.Section link>Home</Breadcrumb.Section>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section link>Dashboard</Breadcrumb.Section>
+            <Breadcrumb.Divider />
+            <Breadcrumb.Section active>Payments</Breadcrumb.Section>
+          </Breadcrumb>
+        </div>
         <div>
           <Table
             celled

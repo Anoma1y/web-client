@@ -27,3 +27,12 @@ export const numberToWord = (value: string): string => numberWord[value] || valu
 export const getColumnCount = (val: ?string | ?number) => {
   return !val || val === 0 ? '' : val === 'equal' ? 'equal' : numberToWord(_.toString(val));
 };
+
+export const getElementType = (Component: { as: string }, props: { href: string }, getDefault?: ?any): ?any => {
+  if (getDefault) {
+    const computedDefault = getDefault();
+    if (computedDefault) return computedDefault;
+  }
+  if (props.href) return 'a';
+  return 'div';
+};

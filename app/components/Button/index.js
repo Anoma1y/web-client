@@ -43,7 +43,7 @@ export default (props: Props) => {
       [`${classBlockName}__size_${size}`]: size,
     },
     floated !== '' ? `${classBlockName}__floated_${floated}` : '',
-    className !== '' ? className : ''
+    className
   );
 
   return (

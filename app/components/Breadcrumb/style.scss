@@ -1,0 +1,45 @@
+$breadcrumb-link-color:             #4183C4;
+$breadcrumb-link-color-hover:       #1e70bf;
+.breadcrumb {
+
+  line-height: 1;
+  display: inline-block;
+  margin: 0;
+  vertical-align: middle;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  & a {
+    color: $breadcrumb-link-color;
+    a:hover {
+      color: $breadcrumb-link-color-hover;
+    }
+  }
+
+  &__size {
+
+    &_xs {
+      font-size: 0.78571429rem;
+    }
+
+    &_sm {
+      font-size:  0.85714286rem;
+    }
+
+    &_md {
+      font-size: 1rem;
+    }
+
+    &_lg {
+      font-size: 1.42857143rem;
+    }
+
+  }
+
+}
