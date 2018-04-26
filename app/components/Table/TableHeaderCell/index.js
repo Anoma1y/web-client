@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { CLASS_NAME } from '../index';
 
 type Props = {
   children?: any,
@@ -7,7 +8,7 @@ type Props = {
   className?: string
 };
 
-export default function TableHeaderCell(props: Props) {
+export default (props: Props) => {
 
   const {
     children,
@@ -15,7 +16,7 @@ export default function TableHeaderCell(props: Props) {
     sorted = ''
   } = props
 
-  const classBlockName = 'table-header_cell';
+  const classBlockName = `${CLASS_NAME}-header_cell`;
 
   const classes = classnames(
     classBlockName,
@@ -30,4 +31,4 @@ export default function TableHeaderCell(props: Props) {
       {children}
     </th>
   )
-}
+};

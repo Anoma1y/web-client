@@ -5,7 +5,9 @@ type Props = {
   color?: 'gray',
 };
 
-export default function Divider(props: Props) {
-  const { color } = props;
+export default (props: Props) => {
+  const {
+    color = 'gray'
+  } = props;
   return <hr className={`divider divider__color_${color}`} />;
-}
+};

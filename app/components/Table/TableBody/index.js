@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { CLASS_NAME } from '../index';
 
 type Props = {
   children?: any,
@@ -13,7 +14,7 @@ export default function TableBody(props: Props) {
     className,
   } = props;
 
-  const classBlockName = 'table_tbody';
+  const classBlockName = `${CLASS_NAME}_body`;
 
   const classes = classnames(
     classBlockName,

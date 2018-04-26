@@ -6,10 +6,12 @@ import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import TableHeaderCell from './TableHeaderCell';
-
 import { getColumnCount } from 'lib/css_helpers';
 
+export const CLASS_NAME: string = 'table';
+
 type Props = {
+  getColumnCount: typeof getColumnCount,
   children?: any,
   celled?: ?boolean,
   collapsing?: ?boolean,
@@ -42,7 +44,7 @@ const Table = (props: Props) => {
     children,
     className,
     collapsing,
-    columns = 'equal',
+    columns,
     compact,
     definition,
     fixed,
@@ -60,7 +62,7 @@ const Table = (props: Props) => {
     verticalAlign = '',
   } = props;
 
-  const classBlockName: string = 'table';
+  const classBlockName: string = CLASS_NAME;
   const widthClasses: string = getColumnCount(columns);
 
   const classes = classnames(

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { getColumnCount } from 'lib/css_helpers';
-import { getCurrencySymbol } from '../../../lib/currency_code';
+import { CLASS_NAME } from '../index';
 
 type Props = {
   active?: boolean,
@@ -19,7 +19,7 @@ type Props = {
   warning?: boolean
 };
 
-export default function TableCell(props: Props) {
+export default (props: Props) => {
 
   const {
     active,
@@ -36,7 +36,7 @@ export default function TableCell(props: Props) {
     warning
   } = props;
 
-  const classBlockName = 'table_cell';
+  const classBlockName = `${CLASS_NAME}_cell`;
   const widthClasses: string = getColumnCount(width);
 
   const classes = classnames(
@@ -44,13 +44,13 @@ export default function TableCell(props: Props) {
     `${classBlockName}__align_${textAlign}`,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}_active`]: active,
-      [`${classBlockName}_disabled`]: disabled,
-      [`${classBlockName}_error`]: error,
-      [`${classBlockName}_collapsing`]: collapsing,
-      [`${classBlockName}_selectable`]: selectable,
-      [`${classBlockName}_single-line`]: singleLine,
-      [`${classBlockName}_warning`]: warning,
+      [`${classBlockName}__active`]: active,
+      [`${classBlockName}__disabled`]: disabled,
+      [`${classBlockName}__error`]: error,
+      [`${classBlockName}__collapsing`]: collapsing,
+      [`${classBlockName}__selectable`]: selectable,
+      [`${classBlockName}__single-line`]: singleLine,
+      [`${classBlockName}__warning`]: warning,
     },
     `${classBlockName}__wide_${widthClasses}`,
     className

@@ -24,4 +24,6 @@ export const numberWord: numberWordType = {
 
 export const numberToWord = (value: string): string => numberWord[value] || value;
 
-export const getColumnCount = (val: string | number): string => !val || val === 0 || val === 'equal' ? 'equal' : numberToWord(_.toString(val));
+export const getColumnCount = (val: ?string | ?number) => {
+  return !val || val === 0 || val === 'equal' ? 'equal' : numberToWord(_.toString(val));
+};

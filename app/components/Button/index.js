@@ -15,7 +15,7 @@ type Props = {
   className?: ?string
 };
 
-export default function Button(props: Props) {
+export default (props: Props) => {
 
   const {
     children,
@@ -29,6 +29,7 @@ export default function Button(props: Props) {
     floated = '',
     color = 'gray'
   } = props;
+
   const classBlockName = 'button';
 
   const classes = classnames(
@@ -55,4 +56,4 @@ export default function Button(props: Props) {
       {children}
     </button>
   );
-}
+};

@@ -6,7 +6,7 @@ type Props = {
   src?: string
 };
 
-export default function Avatar(props: Props) {
+export default (props: Props) => {
   const sizes = {
     xs: 12,
     sm: 24,
@@ -27,4 +27,4 @@ export default function Avatar(props: Props) {
       <img className="avatar__img" src={src} />
     </div>
   );
-}
+};

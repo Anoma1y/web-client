@@ -58,7 +58,7 @@
     "arrow-parens": ["off", "always"],
     //Проверка отступов
     "padded-blocks": "off",
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": "off",
     //Проверка наличия знака ";" после переменных и функций
     "semi": ["warn", "always"],
     //Перенос скобок в объектах

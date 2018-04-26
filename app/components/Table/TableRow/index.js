@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { CLASS_NAME } from '../index';
 
 type Props = {
   active?: boolean,
@@ -8,10 +9,12 @@ type Props = {
   error?: boolean,
   fullWidth?: boolean,
   className?: string,
-  warning?: boolean
+  warning?: boolean,
+  textAlign?: 'left' | 'center' | 'right' | 'justify',
+  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
 };
 
-export default function TableRow(props: Props) {
+export default (props: Props) => {
 
   const {
     active,
@@ -24,19 +27,19 @@ export default function TableRow(props: Props) {
     warning,
   } = props;
 
-  const classBlockName = 'table__row';
+  const classBlockName = `${CLASS_NAME}_row`;
 
   const classes = classnames(
     classBlockName,
     `${classBlockName}__align_${textAlign}`,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}_active`]: active,
-      [`${classBlockName}_disabled`]: disabled,
-      [`${classBlockName}_error`]: error,
-      [`${classBlockName}_warning`]: warning,
+      [`${classBlockName}__active`]: active,
+      [`${classBlockName}__disabled`]: disabled,
+      [`${classBlockName}__error`]: error,
+      [`${classBlockName}__warning`]: warning,
     },
     className
   );
   return <tr className={classes}>{children}</tr>;
-}
+};
