@@ -1,4 +1,5 @@
 @import "lib/style/breakpoints.scss";
+@import "lib/style/colors.scss";
 
 $table-border-color:                            rgba(34, 36, 38, 0.15);
 $table-border-radius:                           4px;
@@ -8,10 +9,11 @@ $table-thead-th-padding-bottom:                 1em;
 
 $table-break-sm-padding:                        0.45em 0.75em;
 
+$table:               table;
+
 .table {
 
   width: 100%;
-  background: #FFFFFF;
   margin: 1em 0;
   border: 1px solid $table-border-color;
   box-shadow: none;
@@ -33,383 +35,206 @@ $table-break-sm-padding:                        0.45em 0.75em;
 
   }
 
-  & th, & td {
-
+  & th,
+  & td {
     transition: background 0.1s ease, color 0.1s ease;
-
   }
 
-  &__singleLine {
-
-    white-space: nowrap;
-
+  & thead th {
+    cursor: auto;
+    background: #F9FAFB;
+    text-align: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 1em 0.7em;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-transform: none;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.1);
+    border-left: none;
   }
 
-  &__columns {
+  & thead tr {
+    & > th:first-child {
+      border-left: none;
+    }
+    &:first-child > th:first-child {
+      border-radius: 0.28571429rem 0 0 0;
+    }
+    &:first-child > th:last-child {
+      border-radius: 0 0.28571429rem 0 0;
+    }
+    &:first-child > th:only-child {
+      border-radius: 0.28571429rem 0.28571429rem 0 0;
+    }
+  }
 
-    &_one td {
+  & tfoot {
+    box-shadow: none;
+  }
 
-      width: 100%;
+  & tfoot th {
+    cursor: auto;
+    border-top: 1px solid rgba(34, 36, 38, 0.15);
+    background: #F9FAFB;
+    text-align: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 0.78571429em 0.78571429em;
+    vertical-align: middle;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+  }
 
+  & tfoot tr {
+
+    & > th:first-child {
+      border-left: none;
     }
 
-    &_two td {
-
-      width: 50%;
-
+    &:first-child > th:first-child {
+      border-radius: 0 0 0 0.28571429rem;
     }
-
-    &_three td {
-
-      width: 33.33333333%;
-
+    &:first-child > th:last-child {
+      border-radius: 0 0 0.28571429rem 0;
     }
-
-    &_four td {
-
-      width: 25%;
-
-    }
-
-    &_five td {
-
-      width: 20%;
-
-    }
-
-    &_six td {
-
-      width: 16.66666667%;
-
-    }
-
-    &_seven td {
-
-      width: 14.28571429%;
-
-    }
-
-    &_eight td {
-
-      width: 12.5%;
-
-    }
-
-    &_nine td {
-
-      width: 11.11111111%;
-
-    }
-
-    &_ten td {
-
-      width: 10%;
-
-    }
-
-    &_eleven td {
-
-      width: 9.09090909%;
-
-    }
-
-    &_twelve td {
-
-      width: 8.33333333%;
-
-    }
-
-    &_thirteen td {
-
-      width: 7.69230769%;
-
-    }
-
-    &_fourteen td {
-
-      width: 7.14285714%;
-
-    }
-
-    &_fifteen td {
-
-      width: 6.66666667%;
-
-    }
-
-    &_sixteen td {
-
-      width: 6.25%;
-
+    &:first-child > th:only-child {
+      border-radius: 0 0 0.28571429rem 0.28571429rem;
     }
 
   }
 
-  /* TD, TH Column wide */
 
-  & th.wide_one, & td.wide_one {
-
-    width: 6.25%;
-
+  & tr td {
+    border-top: 1px solid rgba(34, 36, 38, 0.1);
+  }
+  & tr:first-child td {
+    border-top: none;
   }
 
-  & th.wide_two, & td.wide_two {
-
-    width: 12.5%;
-
+  & tbody + tbody tr:first-child td {
+    border-top: 1px solid rgba(34, 36, 38, 0.1);
   }
 
-  & th.wide_three, & td.wide_three {
-
-    width: 18.75%;
-
+  & td {
+    padding: 0.78571429em 0.78571429em;
+    text-align: inherit;
   }
 
-  & th.wide_four, & td.wide_four {
-
-    width: 25%;
-
-  }
-
-  & th.wide_five, & td.wide_five {
-
-    width: 31.25%;
-
-  }
-
-  & th.wide_six, & td.wide_six {
-
-    width: 37.5%;
-
-  }
-
-  & th.wide_seven, & td.wide_seven {
-
-    width: 43.75%;
-
-  }
-
-  & th.wide_eight, & td.wide_eight {
-
-    width: 50%;
-
-  }
-
-  & th.wide_nine, & td.wide_nine {
-
-    width: 56.25%;
-
-  }
-
-  & th.wide_ten, & td.wide_ten {
-
-    width: 62.5%;
-
-  }
-
-  & th.wide_eleven, & td.wide_eleven {
-
-    width: 68.75%;
-
-  }
-
-  & th.wide_twelve, & td.wide_twelve {
-
-    width: 75%;
-
-  }
-
-  & th.wide_thirteen, & td.wide_thirteen {
-
-    width: 81.25%;
-
-  }
-
-  & th.wide_fourteen, & td.wide_fourteen {
-
-    width: 87.5%;
-
-  }
-
-  & th.wide_fifteen, & td.wide_fifteen {
-
-    width: 93.75%;
-
-  }
-
-  & th.wide_sixteen, & td.wide_sixteen {
-
-    width: 100%;
-
-  }
-
-  & th.wide_equal, & td.wide_equal {
-
-    width: 100%;
-    flex: 1 1 auto;
-
-  }
-
-  & tr {
-
-    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1) inset;
-
-  }
-
-  & tr > th, & tr > td {
-
-    background: none;
-    border: none;
-    padding: $table-break-sm-padding;
-    box-shadow: none !important;
-
-  }
-
-  & thead tr > th {
-    padding-top: $table-thead-th-padding-top;
-    padding-bottom: $table-thead-th-padding-bottom;
-  }
-
-
-  @media screen and (max-width: $break-sm) {
-
+  @media only screen and (max-width: 767px) {
     &:not(.unstackable) {
-
       width: 100%;
-      padding: 0;
+    }
+    &:not(.unstackable) tbody,
+    &:not(.unstackable) tr,
+    &:not(.unstackable) tr > th,
+    &:not(.unstackable) tr > td {
+      width: auto !important;
+      display: block !important;
+    }
+    &:not(.unstackable) {
+      padding: 0em;
+    }
+    &:not(.unstackable) thead {
+      display: block;
+    }
+    &:not(.unstackable) tfoot {
+      display: block;
+    }
+    &:not(.unstackable) tr {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+      box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+    }
+    &:not(.unstackable) tr > th,
+    &:not(.unstackable) tr > td {
+      background: none;
+      border: none !important;
+      padding: 0.25em 0.75em !important;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+    &:not(.unstackable) th:first-child,
+    &:not(.unstackable) td:first-child {
+      font-weight: bold;
+    }
 
+  }
+
+  @media only screen and (max-width: 991px) {
+    // Стакивание td блоков
+    &__stackable {
+      padding: 0;
       & tbody,
       & tr,
       & tr > th,
       & tr > td {
-
-        width: auto !important;
+        width: 100% !important;
         display: block !important;
-
       }
-
-      & thead, & tfoot {
-
+      & thead,
+      & tfoot {
         display: block;
-
       }
-
       & tr {
-
-        box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1) inset !important;
-
+        padding-top: 1em;
+        padding-bottom: 1em;
+        -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+        box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
       }
 
-      & tr > th, & tr > td {
-
+      & tr > th,
+      & tr > td {
         background: none;
         border: none !important;
-        padding: $table-break-sm-padding;
+        padding: 0.25em 0.75em;
+        -webkit-box-shadow: none !important;
         box-shadow: none !important;
-
       }
-
     }
   }
 
-  // Рамка внутри
-
-  &__celled {
-
-    & th, & td {
-
-      border-left: 1px solid rgba(34, 36, 38, 0.1) !important;
-
-      &:first-child {
-
-        border-left: none !important;
-
-      }
-
-    }
-
-  }
-
-  // Компактный вид
-
-  &__compact {
-
-    & th {
-      padding-left: 0.4em !important;
-      padding-right: 0.4em !important;
-    }
-
-    & td {
-      padding: 0.2em 0.4em !important;
-    }
-
-  }
-
-  // Размер шрифта
-
-  &__size {
-
-    &_xs {
-
-      font-size: 0.7em;
-
-    }
-
-    &_sm {
-
-      font-size: 0.8em;
-
-    }
-
-    &_md {
-
-      font-size: 0.9em;
-
-    }
-
-    &_lg {
-
-      font-size: 1.1em;
-
-    }
-
+  & th .image,
+  & th .image img,
+  & td .image,
+  & td .image img {
+    max-width: none;
   }
 
   // Выравнивание текста
-
   &__align {
-
     &_left {
-
       text-align: left;
-
     }
-
     &_center {
-
       text-align: center;
-
     }
-
     &_right {
-
       text-align: right;
-
     }
-
     &_justify {
-
       text-align: justify;
-
     }
-
   }
 
-  // Фиксация
+  //Выравниванием по вертикали
+
+  &__vertical-align {
+    &_top{
+      vertical-align: top;
+    }
+    &_middle{
+      vertical-align: middle;
+    }
+    &_bottom{
+      vertical-align: bottom;
+    }
+  }
+
+  // Фиксирование элементов таблицы (запрет изменения при изменении содержимого)
 
   &__fixed {
     table-layout: fixed;
-
     & th,
     & td {
       overflow: hidden;
@@ -417,36 +242,270 @@ $table-break-sm-padding:                        0.45em 0.75em;
     }
   }
 
-  // Сортировка
+  // Для форматирования структурированых данных
 
-  &__sortable {
+  &__structured {
+    border-collapse: collapse;
+    & thead th {
+      border-left: none;
+      border-right: none;
+    }
+  }
 
-    & th.table-header_cell__sorted {
+  // Выделение
 
-      background-color: rgba(0, 0, 0, 0.05) !important;
-      color: rgba(0, 0, 0, 0.95);
+  &__selectable {
+    & tbody tr:hover {
+      background: rgba(0, 0, 0, 0.05) !important;
+      color: rgba(0, 0, 0, 0.95) !important;
+    }
+  }
 
-      &:after {
-
-        display: inline-block;
-
+  &_cell, &_row {
+    &__disabled {
+      pointer-events: none;
+      cursor: auto;
+      color: rgba(40, 40, 40, 0.3);
+      &:hover {
+        color: rgba(40, 40, 40, 0.3);
       }
-
+    }
+    &__active {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.87) inset;
+      background: #E0E0E0 !important;
+      color: rgba(0, 0, 0, 0.87) !important;
+    }
+    &__error {
+      box-shadow: 0 0 0 $error-box-shadow-color inset;;
+      background: $error-bg-color !important;
+      color: $error-color !important;
+    }
+    &__warning {
+      box-shadow: 0 0 0 #C9BA9B inset;
+      background: #FFFAF3 !important;
+      color: #573A08 !important;
+    }
+    &__collapsing {
+      width: 1px;
+      white-space: nowrap;
+    }
+    &__singleLine {
+      white-space: nowrap;
+    }
+    &__align {
+      &_left {
+        text-align: left;
+      }
+      &_center {
+        text-align: center;
+      }
+      &_right {
+        text-align: right;
+      }
+      &_justify {
+        text-align: justify;
+      }
+    }
+    &__vertical-align {
+      &_top{
+        vertical-align: top;
+      }
+      &_middle{
+        vertical-align: middle;
+      }
+      &_bottom{
+        vertical-align: bottom;
+      }
     }
 
-    & thead th {
+  }
 
+  &_cell {
+    &__selectable:hover {
+      background: rgba(0, 0, 0, 0.05) !important;
+      color: rgba(0, 0, 0, 0.95) !important;
+    }
+  }
+
+  &_row {
+
+  }
+  &.#{$table}__structured.#{$table}__sortable {
+    & thead th {
+      border-left: 1px solid rgba(34, 36, 38, 0.15);
+      border-right: 1px solid rgba(34, 36, 38, 0.15);
+    }
+    & th {
+      border-left: none;
+      border-right: none;
+    }
+    & tr th,
+    & tr td {
+      border-left: 1px solid rgba(34, 36, 38, 0.1);
+      border-right: 1px solid rgba(34, 36, 38, 0.1);
+    }
+  }
+
+  &__attached {
+    top: 0;
+    bottom: 0;
+    border-radius: 0;
+    margin: 0em -1px;
+    width: calc(100% +  2px );
+    max-width: calc(100% +  2px );
+    box-shadow: none;
+    border: 1px solid #D4D4D5;
+    &:not(&_top) {
+      border-top: none;
+    }
+    &_top {
+      bottom: 0;
+      margin-bottom: 0;
+      top: 0;
+      margin-top: 1em;
+      border-radius: 0.28571429rem 0.28571429rem 0 0;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    &_bottom {
+      bottom: 0;
+      margin-top: 0em;
+      top: 0;
+      margin-bottom: 1em;
+      box-shadow: none;
+      border-radius: 0 0 0.28571429rem 0.28571429rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__singleLine {
+    white-space: nowrap;
+  }
+  &__columns {
+    &_one td {
+      width: 100%;
+    }
+    &_two td {
+      width: 50%;
+    }
+    &_three td {
+      width: 33.33333333%;
+    }
+    &_four td {
+      width: 25%;
+    }
+    &_five td {
+      width: 20%;
+    }
+    &_six td {
+      width: 16.66666667%;
+    }
+    &_seven td {
+      width: 14.28571429%;
+    }
+    &_eight td {
+      width: 12.5%;
+    }
+    &_nine td {
+      width: 11.11111111%;
+    }
+    &_ten td {
+      width: 10%;
+    }
+    &_eleven td {
+      width: 9.09090909%;
+    }
+    &_twelve td {
+      width: 8.33333333%;
+    }
+    &_thirteen td {
+      width: 7.69230769%;
+    }
+    &_fourteen td {
+      width: 7.14285714%;
+    }
+    &_fifteen td {
+      width: 6.66666667%;
+    }
+    &_sixteen td {
+      width: 6.25%;
+    }
+  }
+
+  ///* TD, TH Column wide */
+
+  & th.wide_one, & td.wide_one {
+    width: 6.25%;
+  }
+  & th.wide_two, & td.wide_two {
+    width: 12.5%;
+  }
+  & th.wide_three, & td.wide_three {
+    width: 18.75%;
+  }
+  & th.wide_four, & td.wide_four {
+    width: 25%;
+  }
+  & th.wide_five, & td.wide_five {
+    width: 31.25%;
+  }
+  & th.wide_six, & td.wide_six {
+    width: 37.5%;
+  }
+  & th.wide_seven, & td.wide_seven {
+    width: 43.75%;
+  }
+  & th.wide_eight, & td.wide_eight {
+    width: 50%;
+  }
+  & th.wide_nine, & td.wide_nine {
+    width: 56.25%;
+  }
+  & th.wide_ten, & td.wide_ten {
+    width: 62.5%;
+  }
+  & th.wide_eleven, & td.wide_eleven {
+    width: 68.75%;
+  }
+  & th.wide_twelve, & td.wide_twelve {
+    width: 75%;
+  }
+  & th.wide_thirteen, & td.wide_thirteen {
+    width: 81.25%;
+  }
+  & th.wide_fourteen, & td.wide_fourteen {
+    width: 87.5%;
+  }
+  & th.wide_fifteen, & td.wide_fifteen {
+    width: 93.75%;
+  }
+  & th.wide_sixteen, & td.wide_sixteen {
+    width: 100%;
+  }
+  & th.wide_equal, & td.wide_equal {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+
+  &__sortable {
+    & th.table_cell__sorted {
+      background-color: rgba(0, 0, 0, 0.05) !important;
+      color: rgba(0, 0, 0, 0.95);
+      &:after {
+        display: inline-block;
+      }
+    }
+    & thead th {
       cursor: pointer;
       white-space: nowrap;
       border-left: 1px solid rgba(34, 36, 38, 0.15) !important;
       color: rgba(0, 0, 0, 0.87) !important;
-
       &:first-child {
-
         border-left: none !important;
-
       }
-
       &:after {
           display: none;
           font-style: normal;
@@ -458,36 +517,89 @@ $table-break-sm-padding:                        0.45em 0.75em;
           opacity: 0.8;
           margin: 0 0 0 0.5em;
       }
-
-
     }
-
     & thead th.sorted {
-
       user-select: none;
-
     }
-
-    & thead th.table-header_cell__sorted_ascending {
-
+    & thead th.table_cell__sorted_ascending {
       &:after {
-
         content: 'Up';
-
       }
-
     }
-
-    & thead th.table-header_cell__sorted_desceding {
-
+    & thead th.table_cell__sorted_desceding {
       &:after {
-
         content: 'Down';
-
       }
-
     }
+  }
 
+  // Collapsing
+
+  &__collapsing {
+    width: auto;
+  }
+
+  // Basic
+
+  &__basic {
+    background: transparent;
+    border: 1px solid rgba(34, 36, 38, 0.15);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    & thead,
+    & tfoot {
+      box-shadow: none;
+    }
+    & th {
+      background: transparent;
+      border-left: none;
+    }
+    & tbody {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    & td {
+      background-color: transparent;
+    }
+  }
+
+  // Табличный вид (рамки везде)
+
+  &__celled {
+    & tr th, & tr td {
+      border-left: 1px solid rgba(34, 36, 38, 0.1);
+      &:first-child {
+        border-left: none;
+      }
+    }
+  }
+
+  // Компактный вид
+
+  &__compact {
+    & th {
+      padding-left: 0.4em;
+      padding-right: 0.4em;
+    }
+    & td {
+      padding: 0.2em 0.4em;
+    }
+  }
+
+  // Размер шрифта
+
+  &__size {
+    &_xs {
+      font-size: 0.7em;
+    }
+    &_sm {
+      font-size: 0.8em;
+    }
+    &_md {
+      font-size: 0.9em;
+    }
+    &_lg {
+      font-size: 1.1em;
+    }
   }
 
 }

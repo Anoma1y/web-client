@@ -79,7 +79,7 @@ export default class Radio extends Component<Props, State> {
         />
         <label htmlFor={id}>{label}</label>
       </div>
-    )
+    );
   }
 
 }

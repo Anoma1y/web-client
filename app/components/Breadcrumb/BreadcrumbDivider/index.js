@@ -22,5 +22,5 @@ export default (props: Props) => {
 
   return (
     <div className={classes}> / </div>
-  )
+  );
 };

@@ -17,18 +17,18 @@ export default (props: Props) => {
     className,
     sorted = '',
     width
-  } = props
+  } = props;
 
-  const classBlockName = `${CLASS_NAME}-header_cell`;
+  const classBlockName = `${CLASS_NAME}_cell`;
   const widthClasses: string = getColumnCount(width);
 
   const classes = classnames(
     classBlockName,
     {
       [`${classBlockName}__sorted_${sorted}`]: sorted !== '',
-      [`${classBlockName}__sorted`]: sorted !== ''
+      [`${classBlockName}__sorted`]: sorted !== '',
+      [`wide_${widthClasses}`]: width
     },
-    `wide_${widthClasses}`,
     className
   );
 

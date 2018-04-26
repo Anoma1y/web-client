@@ -121,8 +121,6 @@ export default (props: Props) => {
     return null;
   };
 
-
-
   const renderInner = () => (
     <span>
       <span className={`${classBlockName}_major`}>
@@ -141,4 +139,4 @@ export default (props: Props) => {
       </div>
     </div>
   );
-}
+};

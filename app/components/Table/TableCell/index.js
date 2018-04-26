@@ -51,8 +51,9 @@ export default (props: Props) => {
       [`${classBlockName}__selectable`]: selectable,
       [`${classBlockName}__single-line`]: singleLine,
       [`${classBlockName}__warning`]: warning,
+      [`wide_${widthClasses}`]: width
     },
-    `wide_${widthClasses}`,
+
     className
   );
 
@@ -60,5 +61,5 @@ export default (props: Props) => {
     <td className={classes}>
       {children}
     </td>
-  )
-}
+  );
+};

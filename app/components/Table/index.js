@@ -22,10 +22,9 @@ type Props = {
   singleLine?: ?boolean,
   sortable?: ?boolean,
   stackable?: ?boolean,
-  striped?: ?boolean,
   structured?: ?boolean,
   unstackable?: ?boolean,
-  attached?: ?boolean,
+  attached?: '' | 'top' | 'bottom',
   basic?: ?boolean,
   compact?: ?boolean,
   columns?: ?string | ?number,
@@ -37,7 +36,7 @@ type Props = {
 
 const Table = (props: Props) => {
   const {
-    attached,
+    attached = '',
     basic,
     celled = true, // Рамка для всех полей
     children,
@@ -46,14 +45,13 @@ const Table = (props: Props) => {
     columns, // Количество колонок, от 1 до 16
     compact,
     definition,
-    fixed,
-    selectable,
+    fixed, // Фиксирование элементов таблицы (запрет изменения при изменении содержимого)
+    selectable, // Hover эффект
     singleLine,
     size = '', // Размер шрифта
     sortable, // Вкл/Выкл сортировку
     stackable,
-    striped,
-    structured,
+    structured, // Для форматирования структурированых данных
     textAlign = 'left',
     unstackable,
     verticalAlign = '',
@@ -65,6 +63,7 @@ const Table = (props: Props) => {
     classBlockName,
     `${classBlockName}__align_${textAlign}`,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
+    attached !== '' ? `${classBlockName}__attached_${attached}` : '',
     {
       [`${classBlockName}__celled`]: celled, // +
       [`${classBlockName}__collapsing`]: collapsing,
@@ -74,10 +73,8 @@ const Table = (props: Props) => {
       [`${classBlockName}__singleLine`]: singleLine, // +
       [`${classBlockName}__sortable`]: sortable,
       [`${classBlockName}__stackable`]: stackable, // ?
-      [`${classBlockName}__striped`]: striped, // ?
       [`${classBlockName}__structured`]: structured, // ?
       [`${classBlockName}__unstackable`]: unstackable, // ?
-      [`${classBlockName}__attached`]: attached,
       [`${classBlockName}__basic`]: basic,
       [`${classBlockName}__compact`]: compact,
       [`${classBlockName}__size_${size}`]: size
@@ -91,7 +88,7 @@ const Table = (props: Props) => {
       {children}
     </table>
   );
-}
+};
 
 Table.Body = TableBody;
 Table.Cell = TableCell;

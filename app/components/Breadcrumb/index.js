@@ -29,7 +29,7 @@ const Breadcrumb = (props: Props) => {
   );
 
   return <div className={classes}>{children}</div>;
-}
+};
 
 Breadcrumb.Divider = BreadcrumbDivider;
 Breadcrumb.Section = BreadcrumbSection;

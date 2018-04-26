@@ -1,7 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
-import './style.scss';
 
 type Props = {
   children?: any,

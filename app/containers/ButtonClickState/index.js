@@ -46,12 +46,13 @@ class Home extends Component<{}, HomeState> {
             singleLine
             columns={3}
             textAlign={'center'}
+            sortable
           >
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Header 1</Table.HeaderCell>
-                <Table.HeaderCell>Header 2</Table.HeaderCell>
-                <Table.HeaderCell>Amount 3</Table.HeaderCell>
+                <Table.HeaderCell sorted="ascending">Header 1</Table.HeaderCell>
+                <Table.HeaderCell sorted="ascending">Header 2</Table.HeaderCell>
+                <Table.HeaderCell sorted="ascending">Amount 3</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -81,13 +82,6 @@ class Home extends Component<{}, HomeState> {
                 <Table.Cell><Amount amount={{ value: 4789.02, currency: 'EUR' }} /> </Table.Cell>
               </Table.Row>
             </Table.Body>
-            <Table.Footer>
-              <Table.Row>
-                <Table.HeaderCell>Footer 1</Table.HeaderCell>
-                <Table.HeaderCell>Footer 2</Table.HeaderCell>
-                <Table.HeaderCell>Footer 3</Table.HeaderCell>
-              </Table.Row>
-            </Table.Footer>
           </Table>
         </div>
         <div>
