@@ -1,9 +1,9 @@
-@import "breakpoints.scss";
+@import "lib/style/breakpoints.scss";
+
 $table-border-color:            rgba(34, 36, 38, 0.15);
 $table-border-radius:           4px;
 $table-tr-padding-top:          2em;
 $table-tr-padding-bottom:       2em;
-
 $table-break-sm-padding:        0.45em 0.75em !important;
 
 .table {
@@ -166,6 +166,24 @@ $table-break-sm-padding:        0.45em 0.75em !important;
   & th.wide_equal, & td.wide_equal {
     width: 100%;
     flex: 1 1 auto;
+  }
+
+  &:not(.unstackable) {
+
+    & tr {
+      padding-top: $table-tr-padding-top;
+      padding-bottom: $table-tr-padding-bottom;
+      -webkit-box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1) inset !important;
+      box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1) inset !important;
+    }
+
+    & tr > th, & tr > td {
+      background: none;
+      border: none !important;
+      padding: $table-break-sm-padding;
+      box-shadow: none !important;
+    }
+
   }
 
   @media screen and (max-width: $break-sm) {
