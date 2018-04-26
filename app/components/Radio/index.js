@@ -13,7 +13,6 @@ type Props = {
     checked: boolean,
   }) => void,
   value: string,
-  size?: 'xs' | 'sm' | 'md' | 'lg',
   className?: string
 };
 
@@ -26,7 +25,6 @@ export default class Radio extends Component<Props, State> {
   static defaultProps = {
     checked: false,
     disabled: false,
-    size: 'md',
     label: ''
   };
 
@@ -52,7 +50,6 @@ export default class Radio extends Component<Props, State> {
       disabled,
       id,
       name,
-      size,
       value,
       className
     } = this.props;

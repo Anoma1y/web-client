@@ -39,6 +39,8 @@ class Home extends Component<{}, HomeState> {
             name="gender"
             onChange={() => this.setState({ gender: 'male' })}
             value="male"
+            label={'male'}
+            disabled
           />
           <Radio
             checked={this.state.gender === 'female'}
@@ -46,6 +48,7 @@ class Home extends Component<{}, HomeState> {
             name="gender"
             onChange={() => this.setState({ gender: 'female' })}
             value="female"
+            label={'female'}
           />
           <Radio
             checked={this.state.gender === 'other'}

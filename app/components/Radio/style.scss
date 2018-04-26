@@ -1,6 +1,5 @@
 $radio-main-bgc-color:              #16a085;
 $radio-secondary-bgc-color:         #f2f2f2;
-$twitter:                           #2980b9;
 
 .radio {
 
@@ -55,6 +54,12 @@ $twitter:                           #2980b9;
       border: 2px solid $radio-secondary-bgc-color;
       border-radius: 50%;
 
+    }
+  }
+
+  &__disabled {
+    label {
+      color: #716f6f;
     }
   }
 
