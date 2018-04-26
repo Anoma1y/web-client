@@ -7,7 +7,6 @@ import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
 import Table from 'components/Table';
-import Radio from 'components/Radio';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -33,33 +32,6 @@ class Home extends Component<{}, HomeState> {
     return (
       <div>
         <div>
-          <Radio
-            checked={this.state.gender === 'male'}
-            id="genderMale"
-            name="gender"
-            onChange={() => this.setState({ gender: 'male' })}
-            value="male"
-            label={'male'}
-            disabled
-          />
-          <Radio
-            checked={this.state.gender === 'female'}
-            id="genderFemale"
-            name="gender"
-            onChange={() => this.setState({ gender: 'female' })}
-            value="female"
-            label={'female'}
-          />
-          <Radio
-            checked={this.state.gender === 'other'}
-            id="genderOther"
-            name="gender"
-            label={'other'}
-            onChange={() => this.setState({ gender: 'other' })}
-            value="other"
-          />
-        </div>
-        <div>
           <Breadcrumb size={'md'}>
             <Breadcrumb.Section link>Home</Breadcrumb.Section>
             <Breadcrumb.Divider />
@@ -71,43 +43,42 @@ class Home extends Component<{}, HomeState> {
         <div>
           <Table
             celled
-            structured
-            columns={4}
+            singleLine
+            columns={3}
+            textAlign={'center'}
           >
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Header 1</Table.HeaderCell>
                 <Table.HeaderCell>Header 2</Table.HeaderCell>
-                <Table.HeaderCell>Header 3</Table.HeaderCell>
-                <Table.HeaderCell>Header 4</Table.HeaderCell>
+                <Table.HeaderCell>Amount 3</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               <Table.Row error>
                 <Table.Cell>Row 1 - 1</Table.Cell>
                 <Table.Cell>Row 1 - 2</Table.Cell>
-                <Table.Cell>Row 1 - 3</Table.Cell>
-                <Table.Cell>Row 1 - 4</Table.Cell>
+                <Table.Cell><Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Row 2 - 1</Table.Cell>
                 <Table.Cell>Row 2 - 2</Table.Cell>
-                <Table.Cell>Row 2 - 3</Table.Cell>
+                <Table.Cell><Amount amount={{ value: 54.2, currency: 'EUR' }} /> </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Row 3 - 1</Table.Cell>
                 <Table.Cell>Row 3 - 2</Table.Cell>
-                <Table.Cell>Row 3 - 3</Table.Cell>
+                <Table.Cell><Amount amount={{ value: 242, currency: 'EUR' }} /> </Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Row 4 - 1</Table.Cell>
                 <Table.Cell>Row 4 - 2</Table.Cell>
-                <Table.Cell>Row 4 - 3</Table.Cell>
+                <Table.Cell><Amount amount={{ value: 2.20, currency: 'EUR' }} /></Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>Row 5 - 1</Table.Cell>
                 <Table.Cell>Row 5 - 2</Table.Cell>
-                <Table.Cell>Row 5 - 3</Table.Cell>
+                <Table.Cell><Amount amount={{ value: 4789.02, currency: 'EUR' }} /> </Table.Cell>
               </Table.Row>
             </Table.Body>
             <Table.Footer>
@@ -115,19 +86,9 @@ class Home extends Component<{}, HomeState> {
                 <Table.HeaderCell>Footer 1</Table.HeaderCell>
                 <Table.HeaderCell>Footer 2</Table.HeaderCell>
                 <Table.HeaderCell>Footer 3</Table.HeaderCell>
-                <Table.HeaderCell>Footer 4</Table.HeaderCell>
               </Table.Row>
             </Table.Footer>
           </Table>
-        </div>
-        <br />
-        <br />
-        <div>
-          <Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> <br />
-          <Amount amount={{ value: 54.2, currency: 'EUR' }} /> <br />
-          <Amount amount={{ value: 242, currency: 'EUR' }} /> <br />
-          <Amount amount={{ value: 2.20, currency: 'EUR' }} /> <br />
-          <Amount amount={{ value: 4789.02, currency: 'EUR' }} /> <br />
         </div>
         <div>
           <Avatar

@@ -25,7 +25,8 @@ export default (props: Props) => {
   const classes = classnames(
     classBlockName,
     {
-      [`${classBlockName}__sorted_${sorted}`]: sorted !== ''
+      [`${classBlockName}__sorted_${sorted}`]: sorted !== '',
+      [`${classBlockName}__sorted`]: sorted !== ''
     },
     `wide_${widthClasses}`,
     className
@@ -35,5 +36,5 @@ export default (props: Props) => {
     <th className={classes}>
       {children}
     </th>
-  )
+  );
 };

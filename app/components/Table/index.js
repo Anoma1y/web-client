@@ -18,7 +18,6 @@ type Props = {
   collapsing?: ?boolean,
   definition?: ?boolean,
   fixed?: ?boolean,
-  inverted?: ?boolean,
   selectable?: ?boolean,
   singleLine?: ?boolean,
   sortable?: ?boolean,
@@ -29,11 +28,10 @@ type Props = {
   attached?: ?boolean,
   basic?: ?boolean,
   compact?: ?boolean,
-  padded?: ?boolean,
   columns?: ?string | ?number,
   textAlign?: 'left' | 'center' | 'right' | 'justify',
   verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-  size?: 'small' | 'large',
+  size?: 'xs' | 'sm' | 'md' | 'lg' | '',
   className?: ?string
 };
 
@@ -41,20 +39,18 @@ const Table = (props: Props) => {
   const {
     attached,
     basic,
-    celled,
+    celled = true, // Рамка для всех полей
     children,
     className,
     collapsing,
-    columns,
+    columns, // Количество колонок, от 1 до 16
     compact,
     definition,
     fixed,
-    inverted,
-    padded,
     selectable,
     singleLine,
-    size,
-    sortable,
+    size = '', // Размер шрифта
+    sortable, // Вкл/Выкл сортировку
     stackable,
     striped,
     structured,
@@ -67,26 +63,24 @@ const Table = (props: Props) => {
   const widthClasses: string = getColumnCount(columns);
   const classes = classnames(
     classBlockName,
-    size,
     `${classBlockName}__align_${textAlign}`,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}__celled`]: celled,
+      [`${classBlockName}__celled`]: celled, // +
       [`${classBlockName}__collapsing`]: collapsing,
       [`${classBlockName}__definition`]: definition,
-      [`${classBlockName}__fixed`]: fixed,
-      [`${classBlockName}__inverted`]: inverted,
+      [`${classBlockName}__fixed`]: fixed, // +
       [`${classBlockName}__selectable`]: selectable,
-      [`${classBlockName}__singleLine`]: singleLine,
+      [`${classBlockName}__singleLine`]: singleLine, // +
       [`${classBlockName}__sortable`]: sortable,
-      [`${classBlockName}__stackable`]: stackable,
-      [`${classBlockName}__striped`]: striped,
-      [`${classBlockName}__structured`]: structured,
-      [`${classBlockName}__unstackable`]: unstackable,
+      [`${classBlockName}__stackable`]: stackable, // ?
+      [`${classBlockName}__striped`]: striped, // ?
+      [`${classBlockName}__structured`]: structured, // ?
+      [`${classBlockName}__unstackable`]: unstackable, // ?
       [`${classBlockName}__attached`]: attached,
       [`${classBlockName}__basic`]: basic,
       [`${classBlockName}__compact`]: compact,
-      [`${classBlockName}__padded`]: padded,
+      [`${classBlockName}__size_${size}`]: size
     },
     `${classBlockName}__columns_${widthClasses}`,
     className,

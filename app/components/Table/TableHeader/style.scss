@@ -7,7 +7,6 @@ $table_header_border_bottom_color:            rgba(34, 36, 38, 0.1);
   & th {
     cursor: auto;
     text-align: inherit;
-    padding: 0;
     vertical-align: inherit;
     text-transform: none;
     border-bottom: 1px solid $table_header_border_bottom_color;
