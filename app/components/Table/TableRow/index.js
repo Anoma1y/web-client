@@ -1,10 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-import _ from 'lodash';
-import TableCell from '../TableCell';
 
 type Props = {
-  children?: React.Node,
+  children?: any,
   fullWidth?: boolean,
   className?: string
 };
@@ -13,7 +11,6 @@ export default function TableRow(props: Props) {
 
   const {
     active,
-    cells,
     children,
     className,
     disabled,

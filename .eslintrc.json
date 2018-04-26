@@ -88,7 +88,7 @@
     "jsx-quotes": "warn",
     "max-len": "off",
     "no-nested-ternary": "off",
-
+    "quote-props": "off",
     /****Правила для import****/
 //    "import/no-unresolved": ["error", {"commonjs": true, "amd": true}],
     "import/no-unresolved": 0,

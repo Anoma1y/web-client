@@ -9,6 +9,8 @@ import Table from 'components/Table';
 import TableRow from 'components/Table/TableRow';
 import TableBody from 'components/Table/TableBody';
 import TableCell from 'components/Table/TableCell';
+import TableHeader from 'components/Table/TableHeader';
+import TableHeaderCell from 'components/Table/TableHeaderCell';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -31,9 +33,19 @@ class Home extends Component<{}, HomeState> {
 
   render() {
     return (
-      <React.Fragment>
+      <div>
         <div>
           <Table celled structured columns={10}>
+            <TableHeader>
+              <TableRow>
+                <TableHeaderCell>H1</TableHeaderCell>
+                <TableHeaderCell>H2</TableHeaderCell>
+                <TableHeaderCell>H3</TableHeaderCell>
+                <TableHeaderCell>H4</TableHeaderCell>
+                <TableHeaderCell>H5</TableHeaderCell>
+                <TableHeaderCell>H6</TableHeaderCell>
+              </TableRow>
+            </TableHeader>
             <TableBody>
               <TableRow>
                 <TableCell>1</TableCell>
@@ -47,7 +59,11 @@ class Home extends Component<{}, HomeState> {
           </Table>
         </div>
         <div>
-          <Amount amount={{ value: 75435799.20, currency: 'EUR' }} />
+          <Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> <br />
+          <Amount amount={{ value: 54.2, currency: 'EUR' }} /> <br />
+          <Amount amount={{ value: 242, currency: 'EUR' }} /> <br />
+          <Amount amount={{ value: 2.20, currency: 'EUR' }} /> <br />
+          <Amount amount={{ value: 4789.02, currency: 'EUR' }} /> <br />
         </div>
         <div>
           <Avatar
@@ -71,7 +87,7 @@ class Home extends Component<{}, HomeState> {
           <Button
             size={'md'}
             inline
-            color={'green'}
+            color={'green'}ljl
             onClick={() => console.log('Click')}
           > <span style={{ color: '#fff' }}>Withdraw</span>
           </Button>
@@ -106,7 +122,7 @@ class Home extends Component<{}, HomeState> {
           <Text inline>inl</Text>
           <Text inline>ine</Text>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -4,4 +4,4 @@ export const CURRENCY_CODE = {
   USD: '\u0024',
 };
 
-export const getCurrencySymbol = (currencyCode) => CURRENCY_CODE[currencyCode] || currencyCode;
+export const getCurrencySymbol = (currencyCode: string): string => CURRENCY_CODE[currencyCode] || currencyCode;

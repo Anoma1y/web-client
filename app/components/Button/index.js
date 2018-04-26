@@ -3,16 +3,16 @@ import classnames from 'classnames';
 import './style.scss';
 
 type Props = {
-  children: any,
-  fluid?: boolean,
+  children: ?any,
+  fluid?: ?boolean,
   color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green',
-  disabled?: boolean,
-  inline?: boolean,
-  name?: string,
+  disabled?: ?boolean,
+  inline?: ?boolean,
+  name?: ?string,
   floated?: 'left' | 'right',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
-  className?: string
+  className?: ?string
 };
 
 export default function Button(props: Props) {

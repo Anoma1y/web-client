@@ -20,8 +20,8 @@ const ZERO_MINOR_PART_REGEXP = /^0+$/;
 const MINUS_SIGN_HTML_CODE = '\u2212';
 const AMOUNT_SPLITTER = ','; // Разделитель между частями
 
-const createSplitter = (partSize) => {
-  const parts = (str) => {
+const createSplitter = (partSize: number): Function => {
+  const parts = (str: string): Array<string> => {
     const { length } = str;
     if (length <= partSize) {
       return [str];
@@ -31,23 +31,32 @@ const createSplitter = (partSize) => {
   return parts;
 };
 
-const formatAmount = (amount) => {
+type AmountType = {
+  value: string,
+  currency: string
+};
 
+type FormatAmountType = {
+  majorPart: string,
+  minorPart: string,
+  isNegative: boolean,
+  currencySymbol: string
+}
+
+const formatAmount = (amount: AmountType): FormatAmountType => {
   const {
     value,
     currency
   } = amount;
   const fractionDigits = Math.log(100) / Math.LN10;
-  const valueAbsStr = (Math.abs(value) / 100).toFixed(fractionDigits);
+  const valueAbsStr = (Math.abs(Number(value)) / 100).toFixed(fractionDigits);
   const numberParts = valueAbsStr.split('.');
   const amountSplitter = createSplitter(AMOUNT_MAJOR_PART_SIZE);
   const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(AMOUNT_SPLITTER);
-  const formattedValueStr = majorPartFormatted + (numberParts[1] ? `,${numberParts[1]}` : '');
   return {
     majorPart: majorPartFormatted,
     minorPart: numberParts[1],
-    value: formattedValueStr,
-    isNegative: value < 0,
+    isNegative: Number(value) < 0,
     currencySymbol: getCurrencySymbol(currency)
   };
 };
@@ -75,7 +84,6 @@ export default function Amount(props: Props) {
     isNegative,
     currencySymbol
   } = formatAmount(amounts);
-
   const renderCurrencySymbol = (currencySymbol) => (
     <span className={'amount__currency'} >
       { `${currencySymbol}` }

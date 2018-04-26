@@ -1,47 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
+import { getColumnCount } from 'lib/css_helpers';
 
 type Props = {
-  children?: React.Node,
+  children?: any,
   fullWidth?: boolean,
   className?: string
 };
-
-const numberWord = {
-  1: 'one',
-  2: 'two',
-  3: 'three',
-  4: 'four',
-  5: 'five',
-  6: 'six',
-  7: 'seven',
-  8: 'eight',
-  9: 'nine',
-  10: 'ten',
-  11: 'eleven',
-  12: 'twelve',
-  13: 'thirteen',
-  14: 'fourteen',
-  15: 'fifteen',
-  16: 'sixteen',
-};
-const numberToWord = (value: string | number): string => {
-  if (typeof value === 'string' || typeof value === 'number') {
-    return numberWord[value] || value;
-  }
-  return '';
-};
-const getColumnCount = (block: string, val: string, widthClass: string = '', canEqual: boolean = false): string => {
-  if (canEqual && val === 'equal') {
-    return `${block}__column_equal`;
-  }
-  const valType = typeof val;
-  if ((valType === 'string' || valType === 'number') && widthClass) {
-    return `${block}__${widthClass}_${numberToWord(val)}`;
-  }
-  return numberToWord(val);
-};
-
 
 export default function TableCell(props: Props) {
 
@@ -60,7 +25,7 @@ export default function TableCell(props: Props) {
     verticalAlign,
     warning,
     width = 1,
-  } = props
+  } = props;
 
   const classBlockName = 'table__cell';
 

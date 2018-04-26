@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 
 type Props = {
-  children?: React.Node,
+  children?: any,
   fullWidth?: boolean,
   className?: string
 };
@@ -16,9 +16,9 @@ export default function TableHeader(props: Props) {
   } = props;
 
   const classes = classnames(
-    'table__header',
+    'table_header',
     {
-      'table__header_size-full-width': fullWidth
+      'table_header__size-full-width': fullWidth
     },
     className
   );

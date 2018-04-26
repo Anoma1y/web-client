@@ -5,7 +5,7 @@ import './style.scss';
 type Props = {
   align?: 'left' | 'right' | 'center' | 'justify',
   weight?: 'lighter' | 'normal' | 'bold' | 'bolder',
-  children?: React.Node,
+  children?: any,
   color?: 'black' | 'green' | 'red' | 'white',
   inline?: boolean,
   italic?: boolean,
