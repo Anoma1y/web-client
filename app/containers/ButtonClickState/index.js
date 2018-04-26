@@ -7,29 +7,55 @@ import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
 import Table from 'components/Table';
+import Radio from 'components/Radio';
 import countries from 'lib/countries';
 
 type HomeState = {
   clicks: number,
-  country: string
+  country: string,
+  gender: string
 }
 
 class Home extends Component<{}, HomeState> {
   state = {
     clicks: 0,
-    country: ''
+    country: '',
+    gender: 'other'
   };
 
-  _handleChange = (value: any): any => {
-    console.log(value);
+  _handleChange = (eva: any): any => {
     this.setState({
-      country: value.value
+      country: eva.value
     });
   };
 
   render() {
     return (
       <div>
+        <div>
+          <Radio
+            checked={this.state.gender === 'male'}
+            id="genderMale"
+            name="gender"
+            onChange={() => this.setState({ gender: 'male' })}
+            value="male"
+          />
+          <Radio
+            checked={this.state.gender === 'female'}
+            id="genderFemale"
+            name="gender"
+            onChange={() => this.setState({ gender: 'female' })}
+            value="female"
+          />
+          <Radio
+            checked={this.state.gender === 'other'}
+            id="genderOther"
+            name="gender"
+            label={'other'}
+            onChange={() => this.setState({ gender: 'other' })}
+            value="other"
+          />
+        </div>
         <div>
           <Breadcrumb size={'md'}>
             <Breadcrumb.Section link>Home</Breadcrumb.Section>
