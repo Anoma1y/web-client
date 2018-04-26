@@ -6,6 +6,9 @@ import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Table from 'components/Table';
+import TableRow from 'components/Table/TableRow';
+import TableBody from 'components/Table/TableBody';
+import TableCell from 'components/Table/TableCell';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -30,7 +33,18 @@ class Home extends Component<{}, HomeState> {
     return (
       <React.Fragment>
         <div>
-          <Table celled structured columns={10} />
+          <Table celled structured columns={10}>
+            <TableBody>
+              <TableRow>
+                <TableCell>1</TableCell>
+                <TableCell>2</TableCell>
+                <TableCell>3</TableCell>
+                <TableCell>4</TableCell>
+                <TableCell>5</TableCell>
+                <TableCell>6</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
         <div>
           <Amount amount={{ value: 75435799.20, currency: 'EUR' }} />

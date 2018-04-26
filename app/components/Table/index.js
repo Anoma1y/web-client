@@ -1,5 +1,45 @@
 import React from 'react';
 import classnames from 'classnames';
+import TableBody from './TableBody';
+import TableHeader from './TableHeader';
+import TableRow from './TableRow';
+
+const numberWord = {
+  1: 'one',
+  2: 'two',
+  3: 'three',
+  4: 'four',
+  5: 'five',
+  6: 'six',
+  7: 'seven',
+  8: 'eight',
+  9: 'nine',
+  10: 'ten',
+  11: 'eleven',
+  12: 'twelve',
+  13: 'thirteen',
+  14: 'fourteen',
+  15: 'fifteen',
+  16: 'sixteen',
+};
+
+const numberToWord = (value: string | number): string => {
+  if (typeof value === 'string' || typeof value === 'number') {
+    return numberWord[value] || value;
+  }
+  return '';
+};
+
+const getColumnCount = (block: string, val: string, widthClass: string = '', canEqual: boolean = false): string => {
+  if (canEqual && val === 'equal') {
+    return `${block}__column_equal`;
+  }
+  const valType = typeof val;
+  if ((valType === 'string' || valType === 'number') && widthClass) {
+    return `${block}__${widthClass}_${numberToWord(val)}`;
+  }
+  return numberToWord(val);
+};
 
 type Props = {
   celled?: boolean,
@@ -29,6 +69,7 @@ export default function Table(props: Props) {
     attached,
     basic,
     celled,
+    children,
     className,
     collapsing,
     columns,
@@ -37,54 +78,19 @@ export default function Table(props: Props) {
     fixed,
     inverted,
     padded,
+    renderBodyRow,
     selectable,
     singleLine,
     size,
     sortable,
     stackable,
     striped,
+    tableData,
     structured,
     textAlign = 'left',
     unstackable,
     verticalAlign,
   } = props;
-
-  const numberWord = {
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-    6: 'six',
-    7: 'seven',
-    8: 'eight',
-    9: 'nine',
-    10: 'ten',
-    11: 'eleven',
-    12: 'twelve',
-    13: 'thirteen',
-    14: 'fourteen',
-    15: 'fifteen',
-    16: 'sixteen',
-  };
-
-  const numberToWord = (value: string | number): string => {
-    if (typeof value === 'string' || typeof value === 'number') {
-      return numberWord[value] || value;
-    }
-    return '';
-  };
-
-  const getColumnCount = (block: string, val: string, widthClass: string = '', canEqual: boolean = false): string => {
-    if (canEqual && val === 'equal') {
-      return `${block}__column_equal`;
-    }
-    const valType = typeof val;
-    if ((valType === 'string' || valType === 'number') && widthClass) {
-      return `${block}__${widthClass}_${numberToWord(val)}`;
-    }
-    return numberToWord(val);
-  };
 
   const classBlockName = 'table';
 
@@ -117,12 +123,7 @@ export default function Table(props: Props) {
 
   return (
     <table className={classes}>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-        </tr>
-      </tbody>
+      {children}
     </table>
   );
 }
