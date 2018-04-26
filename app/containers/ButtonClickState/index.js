@@ -6,11 +6,7 @@ import Text from 'components/Text';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Table from 'components/Table';
-import TableRow from 'components/Table/TableRow';
-import TableBody from 'components/Table/TableBody';
-import TableCell from 'components/Table/TableCell';
-import TableHeader from 'components/Table/TableHeader';
-import TableHeaderCell from 'components/Table/TableHeaderCell';
+
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -40,26 +36,32 @@ class Home extends Component<{}, HomeState> {
             structured
             columns={'10'}
           >
-            <TableHeader>
-              <TableRow>
-                <TableHeaderCell>H1</TableHeaderCell>
-                <TableHeaderCell>H2</TableHeaderCell>
-                <TableHeaderCell>H3</TableHeaderCell>
-                <TableHeaderCell>H4</TableHeaderCell>
-                <TableHeaderCell>H5</TableHeaderCell>
-                <TableHeaderCell>H6</TableHeaderCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>2</TableCell>
-                <TableCell>3</TableCell>
-                <TableCell>4</TableCell>
-                <TableCell>5</TableCell>
-                <TableCell>6</TableCell>
-              </TableRow>
-            </TableBody>
+            <Table.Header>
+              <Table.Row>
+                <Table.Cell>Header 1</Table.Cell>
+                <Table.Cell>Header 2</Table.Cell>
+                <Table.Cell>Header 3</Table.Cell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                <Table.Cell>Row 1 - 1</Table.Cell>
+                <Table.Cell>Row 1 - 2</Table.Cell>
+                <Table.Cell>Row 1 - 3</Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>Row 2 - 1</Table.Cell>
+                <Table.Cell>Row 2 - 2</Table.Cell>
+                <Table.Cell>Row 2 - 3</Table.Cell>
+              </Table.Row>
+            </Table.Body>
+            <Table.Footer>
+              <Table.Row>
+                <Table.Cell>Footer 1</Table.Cell>
+                <Table.Cell>Footer 2</Table.Cell>
+                <Table.Cell>Footer 3</Table.Cell>
+              </Table.Row>
+            </Table.Footer>
           </Table>
         </div>
         <div>

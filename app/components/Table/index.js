@@ -1,5 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
+import TableBody from './TableBody';
+import TableCell from './TableCell';
+import TableFooter from './TableFooter';
+import TableHeader from './TableHeader';
+import TableRow from './TableRow';
+import TableHeaderCell from './TableHeaderCell';
+
 import { getColumnCount } from 'lib/css_helpers';
 
 type Props = {
@@ -27,7 +34,7 @@ type Props = {
   className?: ?string
 };
 
-export default function Table(props: Props) {
+const Table = (props: Props) => {
   const {
     attached,
     basic,
@@ -89,3 +96,12 @@ export default function Table(props: Props) {
     </table>
   );
 }
+
+Table.Body = TableBody;
+Table.Cell = TableCell;
+Table.Footer = TableFooter;
+Table.Header = TableHeader;
+Table.HeaderCell = TableHeaderCell;
+Table.Row = TableRow;
+
+export default Table;
