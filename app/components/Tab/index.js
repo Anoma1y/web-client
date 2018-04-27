@@ -6,11 +6,17 @@ import './style.scss';
 type Props = {
   activeIndex: string | number,
   defaultActiveIndex?: string | number,
-  onTabChange: ?Function,
-  panes: any // need fix
+  onTabChange?: ({ activeIndex: number, event: SyntheticMouseEvent<> }) => void,
+  panes: any // TODO need fix array of objects [{ activeMenu: string, panes: Function }]
 }
 
 export default class Tab extends Component<Props> {
+
+  handleTabClick = (index: number, event: SyntheticMouseEvent<>) => {
+    this.props.onTabChange({
+      activeIndex: index, event
+    });
+  };
 
   renderItems() {
     const { panes, activeIndex } = this.props
@@ -26,11 +32,6 @@ export default class Tab extends Component<Props> {
       );
     });
   }
-
-  handleTabClick = (i: number, e: SyntheticMouseEvent<>) => {
-    const { onTabChange } = this.props;
-    onTabChange({ activeIndex: i, event: e });
-  };
 
   renderMenu() {
     const { panes, activeIndex } = this.props;
