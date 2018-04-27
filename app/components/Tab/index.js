@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import TabMenu from './TabMenu';
 import TabPanel from './TabPanel';
-import classnames from 'classnames';
-import _ from 'lodash';
 import './style.scss';
 
 type Props = {
@@ -35,7 +33,7 @@ export default class Tab extends Component<Props> {
   };
 
   renderMenu() {
-    const { panes, activeIndex, onTabChange } = this.props
+    const { panes, activeIndex } = this.props;
 
     return panes.map((item, index) => {
       return (

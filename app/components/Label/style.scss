@@ -1,0 +1,130 @@
+.label {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: baseline;
+  margin: 0 0.1em;
+  background: #E8E8E8;
+  padding: 0.5em 0.7em;
+  color: rgba(0, 0, 0, 0.6);
+  text-transform: none;
+  font-weight: bold;
+  border: 0 solid transparent;
+  border-radius: 0.2rem;
+  -webkit-transition: background 0.1s ease;
+  transition: background 0.1s ease;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+  & > a {
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.5;
+    transition: 0.1s opacity ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  & > img {
+    width: auto !important;
+    vertical-align: middle;
+    height: 2.1666em !important;
+  }
+  & > .icon {
+    width: auto;
+    margin: 0 0.75em 0 0;
+  }
+  &__tag {
+    margin-left: 1em;
+    position: relative;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-radius: 0em 0.28571429rem 0.28571429rem 0em;
+    -webkit-transition: none;
+    transition: none;
+    &:before {
+      position: absolute;
+      -webkit-transform: translateY(-50%) translateX(50%) rotate(-45deg);
+      transform: translateY(-50%) translateX(50%) rotate(-45deg);
+      top: 50%;
+      right: 100%;
+      content: '';
+      background-color: inherit;
+      background-image: none;
+      width: 1.56em;
+      height: 1.56em;
+      -webkit-transition: none;
+      transition: none;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: -0.25em;
+      margin-top: -0.25em;
+      background-color: #FFFFFF !important;
+      width: 0.5em;
+      height: 0.5em;
+      -webkit-box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.3);
+      border-radius: 500rem;
+    }
+  }
+  &__attached {
+    width: 100%;
+    position: absolute;
+    padding: 0.75em 1em;
+    margin: 0;
+    &_top {
+      top: 0;
+      left: 0;
+      width: 100%;
+      border-radius: 0.2rem 0.2rem 0 0;
+    }
+    &_bottom {
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-radius: 0 0 0.2rem 0.2rem;
+    }
+    &_top-left {
+      width: auto;
+      margin-top: 0 !important;
+      border-radius: 0.21rem 0 0.28rem 0;
+    }
+    &_top-right {
+      width: auto;
+      left: auto;
+      right: 0;
+      border-radius: 0 0.21rem 0 0.28rem;
+    }
+    &_bottom-left {
+      width: auto;
+      top: auto;
+      bottom: 0;
+      border-radius: 0 0.28rem 0 0.21rem;
+    }
+    &_bottom-right {
+      top: auto;
+      bottom: 0;
+      left: auto;
+      right: 0;
+      width: auto;
+      border-radius: 0.28rem 0 0.21rem 0;
+    }
+  }
+}
+
+a.label {
+  cursor: pointer;
+}
+
+// Group
+.labels {
+  & > .label {
+    margin: 0 0.5em 0.5em 0;
+  }
+
+}

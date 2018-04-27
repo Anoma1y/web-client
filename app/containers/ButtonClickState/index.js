@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Divider from 'components/Divider';
 import SelectList from 'components/SelectList';
 import Button from 'components/Button';
-import Text from 'components/Text';
+import Label from 'components/Label';
 import Avatar from 'components/Avatar';
 import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
@@ -47,6 +47,14 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
+        <div style={{ width: 300, height: 300, backgroundColor: 'tomato' }}>
+          <Label>Text label</Label>
+          <Label.Group>
+            <Label>Group label 1 </Label>
+            <Label>Group label 2</Label>
+            <Label>Group label 3</Label>
+          </Label.Group>
+        </div>
         <div>
           <Tab panes={panes} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange} />
         </div>

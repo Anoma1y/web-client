@@ -18,16 +18,16 @@ type Props = {
 export default (props: Props) => {
 
   const {
-    children,
+    children, // Какой либо текст внутри кнопочки
     className,
-    disabled,
-    name,
-    onClick,
-    size = 'md',
-    inline,
-    fluid,
-    floated = '',
-    color = 'gray'
+    disabled, // Задизейблить
+    name, // Имя
+    onClick, // Экшен онклик
+    size = 'md', // Размер кнопки
+    inline, // Все кнопки будут распологаться друг за другом
+    fluid, // Кнопка на весь размер внутреннего блока
+    floated = '', // Расположение кнопки внутри блока (слева или справа)
+    color = 'gray' // Цвет кнопки
   } = props;
 
   const classBlockName = 'button';
