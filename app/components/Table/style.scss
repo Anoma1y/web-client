@@ -121,41 +121,41 @@ $table:               table;
   }
 
   @media only screen and (max-width: 767px) {
-    &:not(.unstackable) {
+    &:not(&__unstackable) {
       width: 100%;
     }
-    &:not(.unstackable) tbody,
-    &:not(.unstackable) tr,
-    &:not(.unstackable) tr > th,
-    &:not(.unstackable) tr > td {
+    &:not(&__unstackable) tbody,
+    &:not(&__unstackable) tr,
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
       width: auto !important;
       display: block !important;
     }
-    &:not(.unstackable) {
+    &:not(&__unstackable) {
       padding: 0em;
     }
-    &:not(.unstackable) thead {
+    &:not(&__unstackable) thead {
       display: block;
     }
-    &:not(.unstackable) tfoot {
+    &:not(&__unstackable) tfoot {
       display: block;
     }
-    &:not(.unstackable) tr {
+    &:not(&__unstackable) tr {
       padding-top: 1em;
       padding-bottom: 1em;
       -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
       box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
     }
-    &:not(.unstackable) tr > th,
-    &:not(.unstackable) tr > td {
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
       background: none;
       border: none !important;
       padding: 0.25em 0.75em !important;
       -webkit-box-shadow: none !important;
       box-shadow: none !important;
     }
-    &:not(.unstackable) th:first-child,
-    &:not(.unstackable) td:first-child {
+    &:not(&__unstackable) th:first-child,
+    &:not(&__unstackable) td:first-child {
       font-weight: bold;
     }
 
@@ -204,16 +204,16 @@ $table:               table;
   // Выравнивание текста
   &__align {
     &_left {
-      text-align: left;
+      text-align: left !important;
     }
     &_center {
-      text-align: center;
+      text-align: center !important;
     }
     &_right {
-      text-align: right;
+      text-align: right !important;
     }
     &_justify {
-      text-align: justify;
+      text-align: justify !important;
     }
   }
 
@@ -292,32 +292,6 @@ $table:               table;
     &__singleLine {
       white-space: nowrap;
     }
-    &__align {
-      &_left {
-        text-align: left;
-      }
-      &_center {
-        text-align: center;
-      }
-      &_right {
-        text-align: right;
-      }
-      &_justify {
-        text-align: justify;
-      }
-    }
-    &__vertical-align {
-      &_top{
-        vertical-align: top;
-      }
-      &_middle{
-        vertical-align: middle;
-      }
-      &_bottom{
-        vertical-align: bottom;
-      }
-    }
-
   }
 
   &_cell {
@@ -349,6 +323,7 @@ $table:               table;
   &__attached {
     top: 0;
     bottom: 0;
+    position: absolute;
     border-radius: 0;
     margin: 0em -1px;
     width: calc(100% +  2px );
@@ -381,9 +356,6 @@ $table:               table;
     }
   }
 
-  &__singleLine {
-    white-space: nowrap;
-  }
   &__columns {
     &_one td {
       width: 100%;
@@ -533,33 +505,52 @@ $table:               table;
     }
   }
 
+  // Definition
+
+  &__definition {
+    & thead:not(.full-width) th:first-child {
+      pointer-events: none;
+      background: transparent;
+      font-weight: normal;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: -1px -1px 0 1px #FFFFFF;
+    }
+    & thead:not(.full-width) th:first-child {
+      pointer-events: none;
+      background: transparent;
+      font-weight: normal;
+      color: rgba(0, 0, 0, 0.4);
+      box-shadow: 1px 1px 0 1px #FFFFFF;
+    }
+    &.#{$table}__celled {
+      & thead:not(.full-width) th:first-child {
+        box-shadow: 0 -1px 0 1px #FFFFFF;
+      }
+      & tfoot:not(.full-width) th:first-child {
+        box-shadow: 0 1px 0 1px #FFFFFF;
+      }
+    }
+    & tr td:first-child:not(.ignored),
+    & tr td.definition {
+      background: rgba(0, 0, 0, 0.03);
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.95);
+    }
+    & thead:not(.full-width) th:nth-child(2) {
+      border-left: 1px solid rgba(34, 36, 38, 0.15);
+    }
+    & tfoot:not(.full-width) th:nth-child(2) {
+      border-left: 1px solid rgba(34, 36, 38, 0.15);
+    }
+    & td:nth-child(2) {
+      border-left: 1px solid rgba(34, 36, 38, 0.15);
+    }
+  }
+
   // Collapsing
 
   &__collapsing {
     width: auto;
-  }
-
-  // Basic
-
-  &__basic {
-    background: transparent;
-    border: 1px solid rgba(34, 36, 38, 0.15);
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    & thead,
-    & tfoot {
-      box-shadow: none;
-    }
-    & th {
-      background: transparent;
-      border-left: none;
-    }
-    & tbody {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    & td {
-      background-color: transparent;
-    }
   }
 
   // Табличный вид (рамки везде)

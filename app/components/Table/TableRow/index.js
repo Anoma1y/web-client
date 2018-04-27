@@ -10,7 +10,7 @@ type Props = {
   fullWidth?: boolean,
   className?: string,
   warning?: boolean,
-  textAlign?: 'left' | 'center' | 'right' | 'justify',
+  textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
   verticalAlign?: 'bottom' | 'middle' | 'top' | '',
 };
 
@@ -22,7 +22,7 @@ export default (props: Props) => {
     className,
     disabled,
     error,
-    textAlign = 'left',
+    textAlign = '',
     verticalAlign = '',
     warning,
   } = props;
@@ -31,7 +31,7 @@ export default (props: Props) => {
 
   const classes = classnames(
     classBlockName,
-    `${classBlockName}__align_${textAlign}`,
+    textAlign !== '' ? `${CLASS_NAME}__align_${textAlign}` : '',
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
       [`${classBlockName}__active`]: active,

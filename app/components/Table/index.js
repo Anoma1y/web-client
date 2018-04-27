@@ -19,7 +19,6 @@ type Props = {
   definition?: ?boolean,
   fixed?: ?boolean,
   selectable?: ?boolean,
-  singleLine?: ?boolean,
   sortable?: ?boolean,
   stackable?: ?boolean,
   structured?: ?boolean,
@@ -36,25 +35,23 @@ type Props = {
 
 const Table = (props: Props) => {
   const {
-    attached = '',
-    basic,
+    attached = '', // Прикрепление таблицы к другим элементам
     celled = true, // Рамка для всех полей
     children,
-    className,
-    collapsing,
+    className, // Свои классы
+    collapsing, // Сжатие таблицы по ширине текста
     columns, // Количество колонок, от 1 до 16
-    compact,
-    definition,
+    compact, // Убирает падинги для всего, кроме Header и Footer
+    definition, // Удаление стилей Header cell и Footer cell, если используется row cell вместо заголовка
     fixed, // Фиксирование элементов таблицы (запрет изменения при изменении содержимого)
     selectable, // Hover эффект
-    singleLine,
     size = '', // Размер шрифта
     sortable, // Вкл/Выкл сортировку
-    stackable,
+    stackable, // Включить стаки колонок
     structured, // Для форматирования структурированых данных
-    textAlign = 'left',
-    unstackable,
-    verticalAlign = '',
+    textAlign = 'left', // Выравнивание текста
+    unstackable, // Запрет стака
+    verticalAlign = '', // Выравнивание по вертикали
   } = props;
 
   const classBlockName: string = CLASS_NAME;
@@ -63,19 +60,17 @@ const Table = (props: Props) => {
     classBlockName,
     `${classBlockName}__align_${textAlign}`,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
-    attached !== '' ? `${classBlockName}__attached_${attached}` : '',
+    attached !== '' ? `${classBlockName}__attached ${classBlockName}__attached_${attached}` : '',
     {
-      [`${classBlockName}__celled`]: celled, // +
+      [`${classBlockName}__celled`]: celled,
       [`${classBlockName}__collapsing`]: collapsing,
       [`${classBlockName}__definition`]: definition,
-      [`${classBlockName}__fixed`]: fixed, // +
+      [`${classBlockName}__fixed`]: fixed,
       [`${classBlockName}__selectable`]: selectable,
-      [`${classBlockName}__singleLine`]: singleLine, // +
       [`${classBlockName}__sortable`]: sortable,
-      [`${classBlockName}__stackable`]: stackable, // ?
-      [`${classBlockName}__structured`]: structured, // ?
-      [`${classBlockName}__unstackable`]: unstackable, // ?
-      [`${classBlockName}__basic`]: basic,
+      [`${classBlockName}__stackable`]: stackable,
+      [`${classBlockName}__structured`]: structured,
+      [`${classBlockName}__unstackable`]: unstackable,
       [`${classBlockName}__compact`]: compact,
       [`${classBlockName}__size_${size}`]: size
     },
