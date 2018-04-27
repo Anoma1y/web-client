@@ -8,6 +8,7 @@ import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
 import Table from 'components/Table';
 import Tab from 'components/Tab';
+import Loader from 'components/Loader';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import countries from 'lib/countries';
 
@@ -44,16 +45,15 @@ class Home extends Component<{}, HomeState> {
     });
   };
 
+  // TODO нужно добавить контейнер с относительным позиционированием
+
   render() {
     return (
       <div>
-        <div style={{ width: 300, height: 300, backgroundColor: 'tomato' }}>
-          <Label>Text label</Label>
-          <Label.Group>
-            <Label>Group label 1 </Label>
-            <Label>Group label 2</Label>
-            <Label>Group label 3</Label>
-          </Label.Group>
+
+        <div style={{ width: 400, height: 150, backgroundColor: 'rgba(0,0,0,.1)', textAlign: 'center', lineHeight: '150px', position: 'relative' }}>
+          Lorem ipsum dolor sit amet, consectetur
+          <Loader active text>Loading</Loader>
         </div>
         <div>
           <Tab panes={panes} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange} />

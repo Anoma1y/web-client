@@ -6,7 +6,7 @@ import './style.scss';
 type Props = {
   activeIndex: string | number,
   defaultActiveIndex?: string | number,
-  onTabChange?: ({ activeIndex: number, event: SyntheticMouseEvent<> }) => void,
+  onTabChange?: () => void,
   panes: any // TODO need fix array of objects [{ activeMenu: string, panes: Function }]
 }
 
