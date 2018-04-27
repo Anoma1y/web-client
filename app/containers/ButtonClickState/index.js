@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Loader from 'components/Loader';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
+import Amount from 'components/Amount';
 
 type HomeState = {
   clicks: number,
@@ -52,6 +53,11 @@ class Home extends Component<{}, HomeState> {
             </Col>
             <Col md={6}>
               <DateTime />
+              <div>
+                <Amount amount={{ value: 1247.44, currency: 'EUR' }} />
+                <br />
+                <Amount amount={{ value: -1247.4, currency: 'EUR' }} />
+              </div>
             </Col>
           </Row>
         </Grid>

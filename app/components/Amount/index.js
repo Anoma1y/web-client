@@ -1,64 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
-import { getCurrencySymbol } from 'lib/currency_code';
+import {
+  AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR,
+  ZERO_MINOR_PART_REGEXP,
+  MINUS_SIGN_HTML_CODE,
+  formatAmount
+} from 'lib/amount';
 import './style.scss';
 
 type Props = {
-  amount: {
-    value: number,
-    currency: string
+  +amount: {
+    +value: number | string,
+    +currency: string
   },
   id?: string,
   showZeroMinorPart?: boolean,
   size?: 'xs' | 'sm' | 'md' | 'lg',
   className?: string
-};
-
-const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед ...
-const AMOUNT_MAJOR_PART_SIZE = 3;
-const ZERO_MINOR_PART_REGEXP = /^0+$/;
-const MINUS_SIGN_HTML_CODE = '\u2212';
-const AMOUNT_SPLITTER = ','; // Разделитель между частями
-
-const createSplitter = (partSize: number): Function => {
-  const parts = (str: string): Array<string> => {
-    const { length } = str;
-    if (length <= partSize) {
-      return [str];
-    }
-    return [str.slice(length - partSize, length)].concat(parts(str.slice(0, length - partSize)));
-  };
-  return parts;
-};
-
-type AmountType = {
-  value: string,
-  currency: string
-};
-
-type FormatAmountType = {
-  majorPart: string,
-  minorPart: string,
-  isNegative: boolean,
-  currencySymbol: string
-}
-
-const formatAmount = (amount: AmountType): FormatAmountType => {
-  const {
-    value,
-    currency
-  } = amount;
-  const fractionDigits = Math.log(100) / Math.LN10;
-  const valueAbsStr = (Math.abs(Number(value)) / 100).toFixed(fractionDigits);
-  const numberParts = valueAbsStr.split('.');
-  const amountSplitter = createSplitter(AMOUNT_MAJOR_PART_SIZE);
-  const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(AMOUNT_SPLITTER);
-  return {
-    majorPart: majorPartFormatted,
-    minorPart: numberParts[1],
-    isNegative: Number(value) < 0,
-    currencySymbol: getCurrencySymbol(currency)
-  };
 };
 
 const Amount = (props: Props) => {
@@ -87,7 +45,7 @@ const Amount = (props: Props) => {
   const amountValue = amount.value.toString();
 
   const amounts = {
-    value: amountValue.match(/^\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^\d+$/) ? `${amountValue}00` : '000',
+    value: amountValue.match(/^-?\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^-?\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^-?\d+$/) ? `${amountValue}00` : '000',
     currency: amount.currency
   };
 
