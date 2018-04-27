@@ -8,6 +8,7 @@ import Amount from 'components/Amount';
 import Breadcrumb from 'components/Breadcrumb';
 import Table from 'components/Table';
 import Tab from 'components/Tab';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import countries from 'lib/countries';
 
 type HomeState = {
@@ -31,11 +32,15 @@ class Home extends Component<{}, HomeState> {
     activeIndex: 0
   };
 
-  handleTabChange = (e) => this.setState({ activeIndex: e.activeIndex });
+  handleTabChange = (eva: any) => {
+    const { activeIndex } = eva;
+    this.setState({ activeIndex });
+  };
 
-  _handleChange = (eva: any): any => {
+  handleChange = (eva: any): any => {
+    const { value } = eva;
     this.setState({
-      country: eva.value
+      country: value
     });
   };
 
@@ -112,7 +117,7 @@ class Home extends Component<{}, HomeState> {
             id="country"
             name="country"
             options={countries} // req
-            onChange={this._handleChange} // req
+            onChange={this.handleChange} // req
             placeholder={'Select country'}
             value={this.state.country} // req
           />
@@ -135,26 +140,13 @@ class Home extends Component<{}, HomeState> {
           </Button>
 
         </div>
-        <div>
-          <Text>
-            Text kakoi to
-          </Text>
-          <Text
-            weight={'bold'}
-          >
-            Text bold
-          </Text>
-          <Text
-            align={'right'}
-            weight={'bold'}
-          >
-            Text right bold
-          </Text>
-        </div>
-        <div>
-          <Text inline>inl</Text>
-          <Text inline>ine</Text>
-        </div>
+        <Grid>
+          <Row>
+            <Col xs={12} sm={3} md={2} lg={1}> 1 </Col>
+            <Col xs={6} sm={6} md={8} lg={10}> 2 </Col>
+            <Col xs={6} sm={3} md={2} lg={1}> 3 </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
