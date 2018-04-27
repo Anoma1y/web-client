@@ -67,15 +67,8 @@ class Home extends Component<{}, HomeState> {
             textAlign={'center'}
             sortable
           >
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell sorted="ascending">Header 1</Table.HeaderCell>
-                <Table.HeaderCell sorted="ascending">Header 2</Table.HeaderCell>
-                <Table.HeaderCell sorted="ascending">Amount 3</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
             <Table.Body>
-              <Table.Row error>
+              <Table.Row>
                 <Table.Cell>Row 1 - 1</Table.Cell>
                 <Table.Cell>Row 1 - 2</Table.Cell>
                 <Table.Cell><Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> </Table.Cell>

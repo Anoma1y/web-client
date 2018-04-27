@@ -4,35 +4,27 @@
 $table-border-color:                            rgba(34, 36, 38, 0.15);
 $table-border-radius:                           4px;
 
-$table-thead-th-padding-top:                    1em;
-$table-thead-th-padding-bottom:                 1em;
-
-$table-break-sm-padding:                        0.45em 0.75em;
-
 $table:               table;
 
 .table {
 
   width: 100%;
   margin: 1em 0;
-  border: 1px solid $table-border-color;
+  border-top: 1px solid $table-border-color;
+  border-bottom: 1px solid $table-border-color;
   box-shadow: none;
-  border-radius: $table-border-radius;
+  border-radius: 4px;
   text-align: left;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 1em;
 
   &:first-child {
-
     margin-top: 0;
-
   }
 
   &:last-child {
-
     margin-bottom: 0;
-
   }
 
   & th,
@@ -74,7 +66,7 @@ $table:               table;
 
   & tfoot th {
     cursor: auto;
-    border-top: 1px solid rgba(34, 36, 38, 0.15);
+    border-top: 1px solid $table-border-color;
     background: #F9FAFB;
     text-align: inherit;
     color: rgba(0, 0, 0, 0.87);
@@ -116,7 +108,7 @@ $table:               table;
   }
 
   & td {
-    padding: 0.78571429em 0.78571429em;
+    padding: 1em 0.7em;
     text-align: inherit;
   }
 
@@ -285,6 +277,14 @@ $table:               table;
       background: #FFFAF3 !important;
       color: #573A08 !important;
     }
+    &__processing {
+      box-shadow: 0 0 0 #D0D1D2 inset;
+      background: #FAFBFC !important;
+    }
+    &__complete {
+      background: #FFFFFF !important;
+      color: #333333 !important;
+    }
     &__collapsing {
       width: 1px;
       white-space: nowrap;
@@ -306,8 +306,8 @@ $table:               table;
   }
   &.#{$table}__structured.#{$table}__sortable {
     & thead th {
-      border-left: 1px solid rgba(34, 36, 38, 0.15);
-      border-right: 1px solid rgba(34, 36, 38, 0.15);
+      border-left: 1px solid $table-border-color;
+      border-right: 1px solid $table-border-color;
     }
     & th {
       border-left: none;
@@ -473,7 +473,7 @@ $table:               table;
     & thead th {
       cursor: pointer;
       white-space: nowrap;
-      border-left: 1px solid rgba(34, 36, 38, 0.15) !important;
+      border-left: 1px solid $table-border-color !important;
       color: rgba(0, 0, 0, 0.87) !important;
       &:first-child {
         border-left: none !important;
@@ -537,13 +537,13 @@ $table:               table;
       color: rgba(0, 0, 0, 0.95);
     }
     & thead:not(.full-width) th:nth-child(2) {
-      border-left: 1px solid rgba(34, 36, 38, 0.15);
+      border-left: 1px solid $table-border-color;
     }
     & tfoot:not(.full-width) th:nth-child(2) {
-      border-left: 1px solid rgba(34, 36, 38, 0.15);
+      border-left: 1px solid $table-border-color;
     }
     & td:nth-child(2) {
-      border-left: 1px solid rgba(34, 36, 38, 0.15);
+      border-left: 1px solid $table-border-color;
     }
   }
 

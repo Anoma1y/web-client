@@ -10,6 +10,7 @@ type Props = {
   fullWidth?: boolean,
   className?: string,
   warning?: boolean,
+  processing?: boolean,
   textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
   verticalAlign?: 'bottom' | 'middle' | 'top' | '',
 };
@@ -21,6 +22,7 @@ export default (props: Props) => {
     children,
     className,
     disabled,
+    processing,
     error,
     textAlign = '',
     verticalAlign = '',
@@ -36,6 +38,7 @@ export default (props: Props) => {
     {
       [`${classBlockName}__active`]: active,
       [`${classBlockName}__disabled`]: disabled,
+      [`${classBlockName}__processing`]: processing,
       [`${classBlockName}__error`]: error,
       [`${classBlockName}__warning`]: warning,
     },
