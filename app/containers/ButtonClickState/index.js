@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import Divider from 'components/Divider';
-import SelectList from 'components/SelectList';
-import Button from 'components/Button';
-import Label from 'components/Label';
-import Avatar from 'components/Avatar';
-import Amount from 'components/Amount';
-import Breadcrumb from 'components/Breadcrumb';
-import Table from 'components/Table';
-import Tab from 'components/Tab';
 import Loader from 'components/Loader';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import countries from 'lib/countries';
+import Image from 'components/Image'
 
 type HomeState = {
   clicks: number,
@@ -50,102 +41,20 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
-
-        <div style={{ width: 400, height: 150, backgroundColor: 'rgba(0,0,0,.1)', textAlign: 'center', lineHeight: '150px', position: 'relative' }}>
-          Lorem ipsum dolor sit amet, consectetur
-          <Loader active text>Loading</Loader>
-        </div>
-        <div>
-          <Tab panes={panes} activeIndex={this.state.activeIndex} onTabChange={this.handleTabChange} />
-        </div>
-        <div>
-          <Breadcrumb size={'md'}>
-            <Breadcrumb.Section link>Home</Breadcrumb.Section>
-            <Breadcrumb.Divider />
-            <Breadcrumb.Section link>Dashboard</Breadcrumb.Section>
-            <Breadcrumb.Divider />
-            <Breadcrumb.Section active>Payments</Breadcrumb.Section>
-          </Breadcrumb>
-        </div>
-        <div>
-          <Table
-            celled
-            singleLine
-            columns={3}
-            textAlign={'center'}
-            sortable
-          >
-            <Table.Body>
-              <Table.Row>
-                <Table.Cell>Row 1 - 1</Table.Cell>
-                <Table.Cell>Row 1 - 2</Table.Cell>
-                <Table.Cell><Amount amount={{ value: 75435799.20, currency: 'EUR' }} /> </Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Row 2 - 1</Table.Cell>
-                <Table.Cell>Row 2 - 2</Table.Cell>
-                <Table.Cell><Amount amount={{ value: 54.2, currency: 'EUR' }} /> </Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Row 3 - 1</Table.Cell>
-                <Table.Cell>Row 3 - 2</Table.Cell>
-                <Table.Cell><Amount amount={{ value: 242, currency: 'EUR' }} /> </Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Row 4 - 1</Table.Cell>
-                <Table.Cell>Row 4 - 2</Table.Cell>
-                <Table.Cell><Amount amount={{ value: 2.20, currency: 'EUR' }} /></Table.Cell>
-              </Table.Row>
-              <Table.Row>
-                <Table.Cell>Row 5 - 1</Table.Cell>
-                <Table.Cell>Row 5 - 2</Table.Cell>
-                <Table.Cell><Amount amount={{ value: 4789.02, currency: 'EUR' }} /> </Table.Cell>
-              </Table.Row>
-            </Table.Body>
-          </Table>
-        </div>
-        <div>
-          <Avatar
-            size="md"
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/User_font_awesome.svg"
-          />
-        </div>
-        <Divider
-          color={'gray'}
-        />
-        <div>
-          <SelectList
-            id="country"
-            name="country"
-            options={countries} // req
-            onChange={this.handleChange} // req
-            placeholder={'Select country'}
-            value={this.state.country} // req
-          />
-
-          <Button
-            size={'md'}
-            inline
-            color={'green'}ljl
-            onClick={() => console.log('Click')}
-          > <span style={{ color: '#fff' }}>Withdraw</span>
-          </Button>
-
-          <Button
-            disabled
-            size={'md'}
-            inline
-            color={'red'}
-            onClick={() => console.log('Click')}
-          > <span style={{ color: '#fff' }}>Blocked</span>
-          </Button>
-
-        </div>
         <Grid>
           <Row>
-            <Col xs={12} sm={3} md={2} lg={1}> 1 </Col>
-            <Col xs={6} sm={6} md={8} lg={10}> 2 </Col>
-            <Col xs={6} sm={3} md={2} lg={1}> 3 </Col>
+            <Col md={6}>
+              <div style={{ width: '100%', height: '500px', backgroundColor: '#dddddd', textAlign: 'center', position: 'relative' }}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis est eum, explicabo in ipsam iste magni maxime nihil quae quam quia quisquam repellendus saepe.
+                <Loader>  </Loader>
+              </div>
+
+            </Col>
+            <Col md={6}>
+              <Image
+                src={'https://as01.epimg.net/epik/imagenes/2018/03/10/portada/1520705351_010030_1520705450_noticia_normal.jpg'}
+              />
+            </Col>
           </Row>
         </Grid>
       </div>

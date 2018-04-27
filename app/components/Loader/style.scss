@@ -21,11 +21,20 @@ $spinner:     spinner;
   user-select: none;
   will-change: opacity;
   z-index: 1000;
-  display: flex;
-  opacity: 1;
+  display: none;
+  opacity: 0;
+
+  &__active {
+    opacity: 1;
+    display: flex;
+  }
 
   &__active &_#{$spinner} {
     display: block;
+  }
+
+  &__active.#{$spinner}__inline {
+    display: inline-block;
   }
 
   &_#{$spinner} {
@@ -146,8 +155,6 @@ $spinner:     spinner;
       transform: none;
     }
   }
-  // TODO добавить display: inline-block для активного лоадера, когда модификатор равен __inline
-
 }
 @keyframes loader {
   from {

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
@@ -13,7 +13,7 @@ export const CLASS_NAME: string = 'table';
 
 type Props = {
   getColumnCount?: typeof getColumnCount,
-  children?: any,
+  children?: React.Node,
   celled?: ?boolean,
   collapsing?: ?boolean,
   definition?: ?boolean,
