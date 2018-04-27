@@ -1,16 +1,28 @@
-// @flow
-/* eslint-disable */
+// flow-typed signature: 6f992704fb2d8e06338f3048cc3c1543
+// flow-typed version: e10811d49c/redux-form_v5.x.x/flow_>=v0.53.x
+
+import * as React from 'react';
 
 declare module 'redux-form' {
   declare export type InputProps = {
-    checked?: boolean,
     name: string,
-    value: any,
-    onBlur: Function,
-    onChange: Function,
+    value: string | boolean,
+    valid: boolean,
+    invalid: boolean,
+    dirty: boolean,
+    pristine: boolean,
+    active: boolean,
+    touched: boolean,
+    visited: boolean,
+    autofilled: boolean,
+    error?: string,
+    onChange: (eventOrValue: SyntheticEvent<any> | string | boolean) => mixed,
+    onUpdate: (eventOrValue: SyntheticEvent<any>  | string | boolean) => mixed,
+    onBlur: (eventOrValue: SyntheticEvent<any>  | string | boolean) => mixed,
     onDragStart: Function,
     onDrop: Function,
-  }
+    onFocus: Function,
+  };
 
   declare export type MetaProps = {
     active: boolean,
@@ -25,59 +37,81 @@ declare module 'redux-form' {
     touched: boolean,
     valid: boolean,
     visited: boolean,
-  }
+  };
 
-  declare type FieldInputProps = {
+  declare export type FieldInputProps = {
     input: InputProps,
     meta: MetaProps,
-  }
+  };
 
-  declare type FunctionComponent<P> = (props: P) => ?React$Element<any>;
-  declare type ClassComponent<D, P, S> = Class<React$Component<D, P, S>>;
-  declare type Component<P> = FunctionComponent<P> | ClassComponent<void, P, any>
-
-  declare type FieldProps<P> = {
+  declare export type FieldProps<P> = {
     name: string,
     placeholder?: ?string,
     label?: string,
     value?: ?(string | boolean),
-    component: ClassComponent<void, P, void> | FunctionComponent<P> | string
-  } & $Diff<P, FieldInputProps>
+    component: React.ComponentType<P, void> | string
+  } & $Diff<P, FieldInputProps>;
 
-  declare type RegisteredField<T> = {
+  declare export type RegisteredField<T> = {
     name: $Keys<T>,
     type: string,
-  }
+  };
 
   declare export type FormState<T> = {
     values: T,
     initial: T,
     registeredFields: Array<RegisteredField<T>>,
-  }
+  };
 
-  declare type FormConfig = {
-    form?: string,
+  declare export type FormProps = {
+    active: string,
+    asyncValidate: (values: Object, dispatch: Function, props: Object) => Promise<void>,
+    asyncValidating: string | boolean,
+    destroyForm: Function,
+    dirty: boolean,
+    error: string,
+    fields: { [fieldName: string]: InputProps },
+    handleSubmit: (data: { [field: string]: string }) => void | Promise<any>,
+    initializeForm: (data:Object) => any,
+    invalid: boolean,
+    pristine: boolean,
+    resetForm: Function,
+    formKey: string,
+    submitting: boolean,
+    submitFailed: boolean,
+    touch: (...fields: Array<string>) => void,
+    touchAll: () => void,
+    untouch: (...fields: Array<string>) => void,
+    untouchAll: () => void,
+    valid: boolean,
+    values: Object
+  };
+
+  declare export type FormConfig = {
+    // fields: Array<string>,
+    form: string,
+    // config: any,
     alwaysAsyncValidate?: boolean,
     asyncBlurFields?: Array<string>,
     asyncValidate?: (values: Object, dispatch: Function, props: Object) => Promise<void>,
     destroyOnUnmount?: boolean,
     formKey?: string,
     getFormState?: (state: Object, reduxMountPoint: string) => mixed,
-    initialValues?: { [field: string]: mixed },
+    initialValues?: { [field: string]: string },
     onSubmit?: Function,
     onSubmitFail?: Function,
     onSubmitSuccess?: Function,
-    verwriteOnInitialValuesChange?: boolean,
+    overwriteOnInitialValuesChange?: boolean,
     propNamespace?: string,
     readonly?: boolean,
     reduxMountPoint?: String,
     returnRejectedSubmitPromise?: boolean,
     touchOnBlur?: boolean,
     touchOnChange?: boolean,
-    validate?: (values:Object, props:Object) => Object,
-  }
+    validate?: (values:Object, props:Object) => Object
+  };
 
-  declare type FormComponentProps = {
+  declare export type FormComponentProps = {
     // State:
     asyncValidating: boolean,   // true if async validation is running
     dirty: boolean,             // true if any values are different from initialValues
@@ -114,8 +148,9 @@ declare module 'redux-form' {
     untouch: Function,           // action to mark fields as untouched
   };
 
-  declare export class Field<P> extends React$Component<void, FieldProps<P>, void> {}
+  declare function getValues(state: any): any;
+  declare export class Field<P> extends React.Component<FieldProps<P>, void> {}
   declare export function reducer(state: any, action: Object): any;
   declare export function reduxForm<P>(config: FormConfig):
-  (component: Component<P>) => FunctionComponent<$Diff<P, FormComponentProps>>
+  (component: React.ComponentType<P>) => React.StatelessFunctionalComponent<$Diff<P, FormComponentProps>, void>
 }

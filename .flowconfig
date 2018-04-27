@@ -6,6 +6,7 @@
 .*\.test\.js
 .*\.scss
 
+  <PROJECT_ROOT>/node_modules/editions  # you can still selectively ignore packages that cause flow errors
 [include]
 flow-typed
 
