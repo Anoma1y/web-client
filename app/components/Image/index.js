@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
+import { childrenCheck } from 'lib/children_utils';
 import './style.scss';
 
 type Props = {
@@ -20,26 +21,28 @@ type Props = {
 
 export default (props: Props) => {
 
+  const renderImage = (src: string): React.Node => {
+    return <img src={src} alt={'Pictures'} />;
+  };
+
   const renderElement = (
     classNames: string,
     href: string,
-    children: Function,
+    children: React.Node,
     src: string
   ): React.Node => {
+
+    const childrenIsNull = childrenCheck(children);
 
     if (href) {
       return (
         <a className={classNames} href={href}>
-          {children(src)}
+          {childrenIsNull ? renderImage(src) : children}
         </a>
       );
     }
 
-    return <div className={classNames}>{children(src)}</div>;
-  };
-
-  const renderImage = (src: string): React.Node => {
-    return <img src={src} alt={'Pictures'} />;
+    return <div className={classNames}>{childrenIsNull ? renderImage(src) : children}</div>;
   };
 
   const {
@@ -47,6 +50,7 @@ export default (props: Props) => {
     centered,
     className,
     disabled,
+    children,
     floated = '',
     fluid = false,
     hidden = false,
@@ -76,6 +80,6 @@ export default (props: Props) => {
     className
   );
 
-  return renderElement(classes, href, renderImage, src);
+  return renderElement(classes, href, children, src);
 
 };
