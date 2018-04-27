@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Loader from 'components/Loader';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import Image from 'components/Image'
+import DateTime from 'react-datetime';
 
 type HomeState = {
   clicks: number,
@@ -51,11 +51,7 @@ class Home extends Component<{}, HomeState> {
 
             </Col>
             <Col md={6}>
-              <Image
-                src={'https://as01.epimg.net/epik/imagenes/2018/03/10/portada/1520705351_010030_1520705450_noticia_normal.jpg'}
-              >
-
-              </Image>
+              <DateTime />
             </Col>
           </Row>
         </Grid>
