@@ -61,7 +61,7 @@ const formatAmount = (amount: AmountType): FormatAmountType => {
   };
 };
 
-export default (props: Props) => {
+const Amount = (props: Props) => {
 
   const {
     className,
@@ -140,3 +140,5 @@ export default (props: Props) => {
     </div>
   );
 };
+
+export default Amount;
