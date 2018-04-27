@@ -31,7 +31,7 @@ class Home extends Component<{}, HomeState> {
     activeIndex: 0
   };
 
-  handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex })
+  handleTabChange = (e) => this.setState({ activeIndex: e.activeIndex });
 
   _handleChange = (eva: any): any => {
     this.setState({

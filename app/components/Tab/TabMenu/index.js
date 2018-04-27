@@ -4,7 +4,7 @@ import classnames from 'classnames';
 type Props = {
   activeIndex: boolean,
   children?: any,
-  handleOnClick?: Function
+  onClick?: Function
 };
 
 export default (props: Props) => {
@@ -12,7 +12,7 @@ export default (props: Props) => {
   const {
     activeIndex,
     children,
-    handleOnClick,
+    onClick,
   } = props;
 
   const classBlockName = 'tab_menu';
@@ -23,6 +23,5 @@ export default (props: Props) => {
     }
   );
 
-  return <a className={classes} onClick={handleOnClick}>{children}</a>;
-
+  return <a className={classes} onClick={onClick} >{children}</a>;
 };
