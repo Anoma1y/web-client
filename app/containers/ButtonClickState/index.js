@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
-import Button from 'components/Button';
+import Divider from 'components/Divider';
 import Input from 'components/Input';
 import SimpleForm from './SimpleForm';
 
@@ -46,8 +46,9 @@ class Home extends Component<{}, HomeState> {
         <Grid>
           <Row>
             <Col md={6}>
-              My input <Input />
-
+              <Divider />
+                  <Input placeholder={'I am placeholder text'} label={'I am label name'} error={'I am error'} id={'test_id_input'} />
+              <Divider />
             </Col>
             <Col md={6}>
 

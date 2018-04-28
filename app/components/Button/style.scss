@@ -9,6 +9,10 @@ $button-disabled-color:           #efefef;
 
 .button {
 
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   border: none;
   outline: none;
   cursor: pointer;
