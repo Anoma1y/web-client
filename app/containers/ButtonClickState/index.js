@@ -4,6 +4,7 @@ import DateTime from 'react-datetime';
 import Divider from 'components/Divider';
 import Input from 'components/Input';
 import SimpleForm from './SimpleForm';
+import Icon from 'components/Icon';
 
 type HomeState = {
   clicks: number,
@@ -53,7 +54,8 @@ class Home extends Component<{}, HomeState> {
             <Col md={6}>
 
               <div>
-
+                <Icon icon="add" />
+                <Icon icon="add" />
               </div>
 
             </Col>
