@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classnames from 'classnames';
+import InputRedux from './InputRedux';
 import './style.scss';
 
 type Props = {
@@ -41,7 +42,7 @@ type InputProp = {
   value?: string,
 };
 
-export default (props: Props) => {
+const Input = (props: Props) => {
 
   const {
     className,
@@ -163,3 +164,7 @@ export default (props: Props) => {
     </div>
   );
 };
+
+Input.Redux = InputRedux;
+
+export default Input;

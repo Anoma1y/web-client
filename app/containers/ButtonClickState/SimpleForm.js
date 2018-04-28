@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form'
-import InputRedux from 'components/InputRedux'
+import Input from 'components/Input'
 
 import 'components/Input/style.scss';
 
@@ -10,7 +10,6 @@ type Props = FormProps & {
 
 };
 
-
 const SimpleForm = (props: Props) => {
   return (
     <form>
@@ -18,7 +17,7 @@ const SimpleForm = (props: Props) => {
         <div>
           <Field
             name="firstName"
-            component={InputRedux}
+            component={Input.Redux}
             type="text"
             label="Username"
             placeholder="First Name"
@@ -29,7 +28,7 @@ const SimpleForm = (props: Props) => {
         <div>
           <Field
             name="lastName"
-            component={InputRedux}
+            component={Input.Redux}
             type="text"
             label="Lastname"
             placeholder="Last Name"
