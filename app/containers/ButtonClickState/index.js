@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
 import Button from 'components/Button';
-import Loader from 'components/Loader';
+import Input from 'components/Input';
 import SimpleForm from './SimpleForm';
 
 type HomeState = {
@@ -46,25 +46,13 @@ class Home extends Component<{}, HomeState> {
         <Grid>
           <Row>
             <Col md={6}>
-              <div style={{ width: '100%', height: '500px', backgroundColor: '#dddddd', textAlign: 'center', position: 'relative' }}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis est eum, explicabo in ipsam iste magni maxime nihil quae quam quia quisquam repellendus saepe.
-              </div>
+              My input <Input />
 
             </Col>
             <Col md={6}>
 
               <div>
-                <Button>
 
-                  Fight Me!
-
-                  <Loader
-                    active
-                    inline
-                    size={'xs'}
-                  />
-
-                </Button>
               </div>
 
             </Col>
