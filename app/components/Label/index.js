@@ -1,4 +1,4 @@
-import * as React from 'react';3254234
+import * as React from 'react';
 import classnames from 'classnames';
 import LabelGroup from './LabelGroup';
 import './style.scss';

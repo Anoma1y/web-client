@@ -40,8 +40,6 @@ class Home extends Component<{}, HomeState> {
     });
   };
 
-  // TODO нужно добавить контейнер с относительным позиционированием
-
   render() {
     return (
       <div>
@@ -55,7 +53,7 @@ class Home extends Component<{}, HomeState> {
             <Col md={6}>
               <div>
                 <Icon icon="add" size={22} color={'blue'} />
-                <Icon icon="add" size={33} color={'green'} />
+                <Icon icon="add" size={33} color={'red'} />
               </div>
             </Col>
           </Row>

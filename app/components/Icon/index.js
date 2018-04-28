@@ -4,7 +4,7 @@ import ReactSVG from 'react-svg';
 import './style.scss';
 
 type Props = {
-  color?: | 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
+  color?: 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
   icon: string,
   inline?: boolean,
   size?: number | string,
@@ -31,7 +31,7 @@ const Icon = (props: Props) => {
   return (
     <ReactSVG
       path={`/static/images/icons/${icon}.svg`}
-      className={`${classBlockName}_svg ${classBlockName}_svg__color_${color}`}
+      className={`${classBlockName}_svg svg__color_${color}`}
       wrapperClassName={classes}
       style={{
         width: size,

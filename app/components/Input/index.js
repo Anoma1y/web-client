@@ -1,31 +1,34 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import InputRedux from './InputRedux';
+import Icon from 'components/Icon';
 import './style.scss';
 
 type Props = {
-  children?: ?any,
-  fluid?: ?boolean,
-  icon?: string,
-  disabled?: boolean,
-  readOnly?: boolean,
-  label?: ?string,
-  error?: string,
-  errorPosition?: 'under' | 'upper',
+  fluid?: ?boolean, // Инпут будет занимать весь блок
+  icon?: string, // Имя иконки
+  iconColor?: 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white', // Цвет иконки
+  iconSize?: number, // Размер иконки (не трогать!)
+  iconPosition?: 'left' | 'right' | '', // Позиция иконки
+  disabled?: boolean, // Инпут дизейбл
+  readOnly?: boolean, // Только для чтения
+  label?: ?string, // Подпись
+  error?: string, // Ошибка
+  errorPosition?: 'under' | 'upper', // Позиция ошибки (2 стиля) или слева снизу или справа сверху
   labelPosition?: 'left' | 'right' | '',
-  floated?: 'left' | 'right' | '',
-  placeholder?: string,
-  onClick?: ({ event: SyntheticMouseEvent<> }) => void,
+  floated?: 'left' | 'right' | '', // Позиционирование блока с инпутом
+  placeholder?: string, // Плейсхолдер
+  onClick?: ({ event: SyntheticMouseEvent<> }) => void, // Обработчики
   onChange?: ({ event: SyntheticMouseEvent<> }) => void,
   onFocus?: ({ event: SyntheticMouseEvent<> }) => void,
   onBlur?: ({ event: SyntheticMouseEvent<> }) => void,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | '',
-  transparent?: boolean,
+  size?: 'xs' | 'sm' | 'md' | 'lg' | '', // Размер
+  transparent?: boolean, // Без рамок
   className?: ?string,
-  type?: 'text' | 'email' | 'password',
-  id?: string,
-  name?: string,
-  value?: string
+  type?: 'text' | 'email' | 'password', // Тип
+  id?: string, // Айди
+  name?: string, // Имя
+  value?: string // Значение
 };
 
 type InputProp = {
@@ -46,7 +49,10 @@ const Input = (props: Props) => {
 
   const {
     className,
-    icon,
+    icon = 'search',
+    iconColor = 'gray',
+    iconSize = 16,
+    iconPosition = 'right',
     size = '', // Размер инпута
     label,
     labelPosition,
@@ -84,17 +90,19 @@ const Input = (props: Props) => {
     className
   );
 
-  const renderIcon = (icon: string): React.Node => (
-    <i className={`${classBlockName}_icon icon_${icon}`}> </i>
-  );
+  const renderIcon = (): React.Node => {
+    return (
+      <div className={`${classBlockName}_icon ${icon && `${classBlockName}_icon__position_${iconPosition}`}`}>
+        <Icon icon={icon} size={iconSize} color={iconColor} />
+      </div>
+    )
+  };
 
   const renderLabel = (id?, labelText: string): React.Node => (
     <label className={`${classBlockName}_label`} htmlFor={id}>{labelText}</label>
   );
 
-  // TODO добавить иконки и стили для неё
-
-  const renderInput = (prop: InputProp): React.Node => {
+  const renderInputBlock = (prop: InputProp): React.Node => {
 
     const {
       disabled,
@@ -110,7 +118,7 @@ const Input = (props: Props) => {
       value,
     } = prop;
 
-    return (
+    const renderInput = () => (
       <input
         className={`${classBlockName}_control`}
         disabled={disabled}
@@ -126,6 +134,19 @@ const Input = (props: Props) => {
         value={value}
       />
     )
+    const inputClasses = classnames(
+      `${classBlockName}_wrapper`,
+      {
+        [`${classBlockName}_wrapper__icon`]: icon,
+        [`${classBlockName}_wrapper__icon-position_${iconPosition}`]: iconPosition
+      }
+    )
+    return (
+      <div className={inputClasses}>
+        {icon && renderIcon()}
+        {renderInput()}
+      </div>
+    );
   };
 
   const renderError = (errorMessage: string, positionError: string): React.Node => {
@@ -159,7 +180,7 @@ const Input = (props: Props) => {
   return (
     <div className={classes}>
       {label && renderLabel(id, label)}
-      {renderInput(prop)}
+      {renderInputBlock(prop)}
       {error && renderError(error, errorPosition)}
     </div>
   );

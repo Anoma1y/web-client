@@ -16,7 +16,7 @@ module.exports = require('./base.config')({
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: 'public/index.html'

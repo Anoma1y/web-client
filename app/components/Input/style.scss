@@ -1,5 +1,7 @@
-.input {
+$input: input;
 
+
+.input {
   width: 400px;
   margin-bottom: 1em;
   position: relative;
@@ -30,6 +32,43 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
+  &_wrapper {
+    position: relative;
+
+    // TODO изменить паддинги и возможно переделать абсолютное позиционирование
+    &__icon {
+      .input_control {
+        padding-left: 35px;
+      }
+    }
+    &__icon-position_left {
+      .input_control {
+        padding-left: 35px;
+      }
+    }
+    &__icon-position_right {
+      .input_control {
+        padding-right: 35px;
+      }
+    }
+  }
+  &_icon {
+    position: absolute;
+    left: 2px;
+    right: auto;
+    transform: translate(50%, 50%);
+    &__position {
+      &_right {
+        right: 20px;
+        left: auto;
+      }
+      &_left {
+        left: 2px;
+        right: auto;
+      }
+    }
+  }
+
   &_error {
     &__under {
       display: block;
