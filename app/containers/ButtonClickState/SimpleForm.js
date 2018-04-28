@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import type { FormProps } from 'redux-form'
+import InputRedux from 'components/InputRedux'
 
 import 'components/Input/style.scss';
 
@@ -9,15 +10,6 @@ type Props = FormProps & {
 
 };
 
-const renderField = ({ input, label, type, meta: { touched, error = 'Error', warning = 'Warning' } }) => (
-  <div className={'input'}>
-    <label className={'input_label'}>{label}</label>
-    <input {...input} placeholder={label} type={type} className={'input_control'} />
-    <div className="input_error__under">
-       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
-    </div>
-  </div>
-)
 
 const SimpleForm = (props: Props) => {
   return (
@@ -26,7 +18,7 @@ const SimpleForm = (props: Props) => {
         <div>
           <Field
             name="firstName"
-            component={renderField}
+            component={InputRedux}
             type="text"
             label="Username"
             placeholder="First Name"
@@ -37,7 +29,7 @@ const SimpleForm = (props: Props) => {
         <div>
           <Field
             name="lastName"
-            component={renderField}
+            component={InputRedux}
             type="text"
             label="Lastname"
             placeholder="Last Name"
