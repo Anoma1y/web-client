@@ -45,6 +45,8 @@ type InputProp = {
   value?: string,
 };
 
+// TODO провести рефакторинг этой хуйни
+
 const Input = (props: Props) => {
 
   const {

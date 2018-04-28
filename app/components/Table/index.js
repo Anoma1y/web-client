@@ -32,6 +32,7 @@ type Props = {
   size?: 'xs' | 'sm' | 'md' | 'lg' | '',
   className?: ?string
 };
+// TODO потестить таблицы + изменить стили для меньшего расшерения при большом кол-ве столбцов
 
 const Table = (props: Props) => {
   const {

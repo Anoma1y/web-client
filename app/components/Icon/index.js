@@ -10,6 +10,8 @@ type Props = {
   size?: number | string,
 };
 
+// TODO изменить цвета или добавить новые + потестить
+
 const Icon = (props: Props) => {
 
   const {

@@ -15,6 +15,8 @@ type Props = {
   className?: ?string
 };
 
+// TODO изменить цвета или добавить новые + потестить онклик
+
 export default (props: Props) => {
 
   const {

@@ -19,6 +19,8 @@ type Props = {
   className?: string
 };
 
+// TODO проестировать
+
 const Amount = (props: Props) => {
 
   const {

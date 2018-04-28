@@ -19,6 +19,8 @@ type Props = {
   verticalAlign?: 'bottom' | 'middle' | 'top' | ''
 };
 
+// TODO потестить
+
 export default (props: Props) => {
 
   const renderImage = (src: string): React.Node => {
