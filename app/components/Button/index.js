@@ -16,7 +16,6 @@ type Props = {
 };
 
 export default (props: Props) => {
-
   const {
     children, // Какой либо текст внутри кнопочки
     className,
@@ -52,8 +51,7 @@ export default (props: Props) => {
       disabled={disabled}
       name={name}
       onClick={event => onClick && onClick({ event })}
-    >
-      {children}
+    >{children}
     </button>
   );
 };

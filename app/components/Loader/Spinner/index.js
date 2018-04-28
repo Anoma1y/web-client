@@ -8,7 +8,8 @@ export default (props: SpinnerProps) => {
   const {
     children,
     size = 'sm',
-    text = false
+    text = false,
+    inline = false
   } = props;
 
   const classBlockName: string = 'spinner';
@@ -17,6 +18,7 @@ export default (props: SpinnerProps) => {
     `${CLASS_NAME}_${classBlockName}`,
     {
       [`${CLASS_NAME}_${classBlockName}__text`]: text,
+      [`${CLASS_NAME}_${classBlockName}__inline`]: inline,
       [`${CLASS_NAME}_${classBlockName}__size_${size}`]: size
     },
   );

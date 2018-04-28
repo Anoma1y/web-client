@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Loader from 'components/Loader';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
-import Amount from 'components/Amount';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
 import SimpleForm from './SimpleForm';
 
 type HomeState = {
@@ -12,11 +12,11 @@ type HomeState = {
   activeIndex: number
 }
 
-const panes = [
-  { menuItem: 'Tab 1', render: () => <span>Tab 1 Content</span> },
-  { menuItem: 'Tab 2', render: () => <span>Tab 2 Content</span> },
-  { menuItem: 'Tab 3', render: () => <span>Tab 3 Content</span> },
-];
+// const panes = [
+//   { menuItem: 'Tab 1', render: () => <span>Tab 1 Content</span> },
+//   { menuItem: 'Tab 2', render: () => <span>Tab 2 Content</span> },
+//   { menuItem: 'Tab 3', render: () => <span>Tab 3 Content</span> },
+// ];
 
 class Home extends Component<{}, HomeState> {
   state = {
@@ -48,17 +48,25 @@ class Home extends Component<{}, HomeState> {
             <Col md={6}>
               <div style={{ width: '100%', height: '500px', backgroundColor: '#dddddd', textAlign: 'center', position: 'relative' }}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis est eum, explicabo in ipsam iste magni maxime nihil quae quam quia quisquam repellendus saepe.
-                <Loader>  </Loader>
               </div>
 
             </Col>
             <Col md={6}>
-              <DateTime />
+
               <div>
-                <Amount amount={{ value: 1247.44, currency: 'EUR' }} />
-                <br />
-                <Amount amount={{ value: -1247.4, currency: 'EUR' }} />
+                <Button>
+
+                  Fight Me!
+
+                  <Loader
+                    active
+                    inline
+                    size={'xs'}
+                  />
+
+                </Button>
               </div>
+
             </Col>
           </Row>
           <Row>

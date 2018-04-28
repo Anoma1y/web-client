@@ -29,6 +29,7 @@ export default (props: Props) => {
     CLASS_NAME,
     {
       [`${CLASS_NAME}__active`]: active,
+      [`${CLASS_NAME}__inline`]: inline
     },
     className
   );

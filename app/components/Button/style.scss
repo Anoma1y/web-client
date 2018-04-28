@@ -5,15 +5,16 @@ $button-font-family:              'Lato', sans-serif;
 
 $button-bgc-green:                #5FBD8B;
 $button-bgc-red:                  #EE444A;
-
 $button-disabled-color:           #efefef;
 
 .button {
+
   border: none;
   outline: none;
   cursor: pointer;
   border-radius: $button-border-radius;
   transition: all 0.4s ease;
+  position: relative;
 
   &__fluid {
     width: 100%;

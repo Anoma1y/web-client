@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = require('./base.config')({
   entry: [
-    path.join(process.cwd(), 'app/index.js')
+    path.join(process.cwd(), '/app/index.js')
   ],
   output: {
     filename: '[name].js',
@@ -35,7 +35,5 @@ module.exports = require('./base.config')({
   devserver: {
     historyApiFallback: true,
     contentBase: path.resolve(process.cwd() + '/public'),
-    hot: true,
-    inline: true,
   }
 });

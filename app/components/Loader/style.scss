@@ -2,7 +2,6 @@ $loader:      loader;
 $spinner:     spinner;
 
 .#{$loader} {
-
   position: absolute;
   top: 0 !important;
   left: 0 !important;
@@ -33,7 +32,11 @@ $spinner:     spinner;
     display: block;
   }
 
-  &__active.#{$spinner}__inline {
+  &__active .#{loader}_#{$spinner}__inline {
+    display: inline-block;
+  }
+
+  &__inline {
     display: inline-block;
   }
 

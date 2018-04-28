@@ -3,14 +3,27 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = require('./base.config')({
-    entry: [
-        path.join(process.cwd(), 'app/index.js')
-    ],
+
+
+    devtool: 'eval-source-map',
+
+    entry: {
+      main: path.join(__dirname, '/app/index.js')
+    },
 
     output: {
-        filename: '[name].[chunkhash].js',
-        chunkFilename: '[name].[chunkhash].chunk.js'
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[name].[chunkhash].chunk.js'
     },
+
+    // entry: [
+    //     path.join(process.cwd(), 'app/index.js')
+    // ],
+    //
+    // output: {
+    //     filename: '[name].[chunkhash].js',
+    //     chunkFilename: '[name].[chunkhash].chunk.js'
+    // },
 
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
