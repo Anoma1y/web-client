@@ -1,4 +1,9 @@
 .amount {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   display: inline-block;
   white-space: nowrap;
 

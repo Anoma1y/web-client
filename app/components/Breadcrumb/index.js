@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import BreadcrumbSection from './BreadcrumbSection';
 import BreadcrumbDivider from './BreadcrumbDivider';
 import './style.scss';
 
 type Props = {
-  children: ?any,
+  children?: React.Node,
   className?: ?string,
   size: 'xs' | 'sm' | 'md' | 'lg'
 };

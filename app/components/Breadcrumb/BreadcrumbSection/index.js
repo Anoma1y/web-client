@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
-import { getElementType } from 'lib/css_helpers';
 import _ from 'lodash';
-import './style.scss';
 
 type Props = {
   active?: boolean,
-  children?: ?any,
+  children?: React.Node,
   className?: ?string,
   link?: boolean,
   onClick?: () => void,
@@ -14,7 +12,7 @@ type Props = {
   link?: boolean
 };
 
-export default class BreadcrumbSection extends Component<Props> {
+export default class BreadcrumbSection extends React.Component<Props> {
   //
   handleClick = (e: any) => console.log(_.invoke(this.props, 'onClick', e, this.props));
 

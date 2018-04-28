@@ -91,9 +91,41 @@ export default (props: Props) => {
     <label className={`${classBlockName}_label`} htmlFor={id}>{labelText}</label>
   );
 
-  const renderInput = (prop: InputProp): React.Node => (
-    <input className={`${classBlockName}_control`} {...prop} />
-  );
+  // TODO добавить иконки и стили для неё
+
+  const renderInput = (prop: InputProp): React.Node => {
+
+    const {
+      disabled,
+      id,
+      name,
+      onBlur,
+      onChange,
+      onClick,
+      onFocus,
+      placeholder,
+      readOnly,
+      type,
+      value,
+    } = prop;
+
+    return (
+      <input
+        className={`${classBlockName}_control`}
+        disabled={disabled}
+        id={id}
+        name={name}
+        onBlur={event => onBlur && onBlur({ event })}
+        onChange={event => onChange && onChange({ event })}
+        onClick={event => onClick && onClick({ event })}
+        onFocus={event => onFocus && onFocus({ event })}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        type={type}
+        value={value}
+      />
+    )
+  };
 
   const renderError = (errorMessage: string, positionError: string): React.Node => {
     const errorClasses: string = classnames(

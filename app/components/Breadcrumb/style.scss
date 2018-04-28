@@ -1,6 +1,13 @@
 $breadcrumb-link-color:             #4183C4;
 $breadcrumb-link-color-hover:       #1e70bf;
-.breadcrumb {
+
+$breadcrumb: breadcrumb;
+
+.#{$breadcrumb} {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
 
   line-height: 1;
   display: inline-block;
@@ -41,5 +48,31 @@ $breadcrumb-link-color-hover:       #1e70bf;
     }
 
   }
+
+
+  &_divider {
+    display: inline-block;
+    opacity: 0.7;
+    margin: 0 0.21428571rem 0;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.4);
+    vertical-align: baseline;
+  }
+
+
+
+  a.#{$breadcrumb}_section {
+    cursor: pointer;
+  }
+
+  &_section {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    &__active {
+      font-weight: bold;
+    }
+  }
+
 
 }

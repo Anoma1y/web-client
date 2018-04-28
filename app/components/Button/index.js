@@ -16,6 +16,7 @@ type Props = {
 };
 
 export default (props: Props) => {
+
   const {
     children, // Какой либо текст внутри кнопочки
     className,

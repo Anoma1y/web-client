@@ -1,4 +1,9 @@
 .avatar {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
   position: relative;
   border-radius: 50%;
   overflow: hidden;
