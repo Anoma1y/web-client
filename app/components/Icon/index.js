@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import ReactSVG from 'react-svg';
 import './style.scss';
 
-// TODO добавить стиль для цветов
 type Props = {
   color?: | 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
   icon: string,
@@ -24,7 +23,6 @@ const Icon = (props: Props) => {
 
   const classes = classnames(
     classBlockName,
-    `${classBlockName}_${color}`,
     {
       [`${classBlockName}__inline`]: !inline,
     }
@@ -33,7 +31,7 @@ const Icon = (props: Props) => {
   return (
     <ReactSVG
       path={`/static/images/icons/${icon}.svg`}
-      className={`${classBlockName}_svg`}
+      className={`${classBlockName}_svg ${classBlockName}_svg__color_${color}`}
       wrapperClassName={classes}
       style={{
         width: size,

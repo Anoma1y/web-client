@@ -20,6 +20,7 @@ type HomeState = {
 // ];
 
 class Home extends Component<{}, HomeState> {
+
   state = {
     clicks: 0,
     country: '',
@@ -52,12 +53,10 @@ class Home extends Component<{}, HomeState> {
               <Divider />
             </Col>
             <Col md={6}>
-
               <div>
-                <Icon icon="add" />
-                <Icon icon="add" />
+                <Icon icon="add" size={22} color={'blue'} />
+                <Icon icon="add" size={33} color={'green'} />
               </div>
-
             </Col>
           </Row>
           <Row>

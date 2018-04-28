@@ -1,9 +1,63 @@
 .icon {
-  fill: currentColor;
-  stroke-width: 0;
-  vertical-align: middle;
-}
-
-.iconBlock {
   display: block;
+
+  &__inline {
+    display: inline-block;
+  }
+  &_svg__color {
+
+  }
+  &_svg__color {
+    &_blue path {
+      fill: blue;
+    }
+    &_darkGray path {
+      fill: darkGray;
+    }
+    &_eggplant path {
+      fill: eggplant;
+    }
+    &_gray path {
+      fill: gray;
+    }
+    &_green path {
+      fill: green;
+    }
+    &_lightGray path {
+      fill: lightGray;
+    }
+    &_maroon path {
+      fill: maroon;
+    }
+    &_midnight path {
+      fill: midnight;
+    }
+    &_navy path {
+      fill: navy;
+    }
+    &_olive path {
+      fill: olive;
+    }
+    &_orange path {
+      fill: orange;
+    }
+    &_orchid path {
+      fill: orchid;
+    }
+    &_pine path {
+      fill: pine;
+    }
+    &_purple path {
+      fill: purple;
+    }
+    &_red path {
+      fill: red;
+    }
+    &_watermelon path {
+      fill: watermelon;
+    }
+    &_white path {
+      fill: white;
+    }
+  }
 }
