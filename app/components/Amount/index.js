@@ -33,7 +33,7 @@ const Amount = (props: Props) => {
     currency = 'EUR', // Валюты
     showZeroMinorPart = true, // Показывать копейки
     operation, // Операция зачисления или снятия, принимает параметры plus или минус
-    lightMinor, // Засветление копеек
+    lightMinor = true, // Засветление копеек
     showCurrency = true, // Показывать знак валюты
   } = props;
 

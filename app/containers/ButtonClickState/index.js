@@ -5,6 +5,8 @@ import Divider from 'components/Divider';
 import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
 import Table from 'components/Table';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
 
 type HomeState = {
   clicks: number,
@@ -43,6 +45,13 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
+        <div style={{ position: 'relative', width: 400, height: 200, backgroundColor: 'tomato' }}>
+          <Loader
+            active
+            text
+          >Loading text
+          </Loader>
+        </div>
         <Grid>
           <Row>
             <Col md={12}>
