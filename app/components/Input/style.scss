@@ -36,7 +36,7 @@ $input: input;
     position: relative;
 
     // TODO изменить паддинги и возможно переделать абсолютное позиционирование
-    &__icon {
+    &__icon:not(&__icon-position_right) {
       .input_control {
         padding-left: 35px;
       }

@@ -5,6 +5,7 @@
   }
 
   display: inline-block;
+
   white-space: nowrap;
 
   &_minor-wrapper {
@@ -18,11 +19,30 @@
   }
 
   &_separator, &_minor, &_currency {
-    opacity: 0.6;
+
+    &__light {
+      opacity: 0.6;
+    }
   }
 
   &__size {
   //  TODO
   }
 
+  &_sign {
+    margin-right: 1px;
+  }
+
+  // TODO добавить цвета для операций
+  &_operation {
+    font-family: 'Lato', sans-serif;
+    &__color {
+      &_minus {
+        color: #FB8C90;
+      }
+      &_plus {
+        color: #8FCA9C;
+      }
+    }
+  }
 }

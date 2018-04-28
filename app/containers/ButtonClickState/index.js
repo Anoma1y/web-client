@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
 import Divider from 'components/Divider';
-import Input from 'components/Input';
+import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
-import Icon from 'components/Icon';
+import Table from 'components/Table';
 
 type HomeState = {
   clicks: number,
@@ -45,21 +45,76 @@ class Home extends Component<{}, HomeState> {
       <div>
         <Grid>
           <Row>
-            <Col md={6}>
-              <Divider />
-                  <Input placeholder={'I am placeholder text'} label={'I am label name'} error={'I am error'} id={'test_id_input'} />
-              <Divider />
-            </Col>
-            <Col md={6}>
-              <div>
-                <Icon icon="add" size={22} color={'blue'} />
-                <Icon icon="add" size={33} color={'red'} />
-              </div>
-            </Col>
-          </Row>
-          <Row>
             <Col md={12}>
-              <SimpleForm />
+              <Table>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Name</Table.HeaderCell>
+                    <Table.HeaderCell>Date</Table.HeaderCell>
+                    <Table.HeaderCell>Status</Table.HeaderCell>
+                    <Table.HeaderCell>Amount</Table.HeaderCell>
+                    <Table.HeaderCell> </Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'plus'} value={34321.43} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row processing>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'plus'} value={432.43} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'minus'} value={65.40} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'minus'} value={644} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row processing>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'plus'} value={5000.00} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'plus'} value={45789.99} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'minus'} value={0.11} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>FROM: Superhero Savings Bank </Table.Cell>
+                    <Table.Cell>04/23/18</Table.Cell>
+                    <Table.Cell>Pending</Table.Cell>
+                    <Table.Cell><Amount operation={'plus'} value={0} /></Table.Cell>
+                    <Table.Cell>...</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
             </Col>
           </Row>
         </Grid>

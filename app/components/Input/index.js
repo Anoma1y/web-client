@@ -106,20 +106,6 @@ const Input = (props: Props) => {
 
   const renderInputBlock = (prop: InputProp): React.Node => {
 
-    const {
-      disabled,
-      id,
-      name,
-      onBlur,
-      onChange,
-      onClick,
-      onFocus,
-      placeholder,
-      readOnly,
-      type,
-      value,
-    } = prop;
-
     const renderInput = () => (
       <input
         className={`${classBlockName}_control`}
@@ -135,7 +121,8 @@ const Input = (props: Props) => {
         type={type}
         value={value}
       />
-    )
+    );
+
     const inputClasses = classnames(
       `${classBlockName}_wrapper`,
       {
@@ -143,6 +130,7 @@ const Input = (props: Props) => {
         [`${classBlockName}_wrapper__icon-position_${iconPosition}`]: iconPosition
       }
     )
+
     return (
       <div className={inputClasses}>
         {icon && renderIcon()}
@@ -152,17 +140,20 @@ const Input = (props: Props) => {
   };
 
   const renderError = (errorMessage: string, positionError: string): React.Node => {
+
     const errorClasses: string = classnames(
       `${classBlockName}_error`,
       {
         [`${classBlockName}_error__${positionError}`]: positionError
       }
     );
+
     return (
       <div className={errorClasses}>
         <span>{errorMessage}</span>
       </div>
-    )
+    );
+
   };
 
   const prop = {

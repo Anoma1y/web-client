@@ -4,19 +4,21 @@ import {
   AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR,
   ZERO_MINOR_PART_REGEXP,
   MINUS_SIGN_HTML_CODE,
+  PLUS_SIGN_HTML_CODE,
   formatAmount
 } from 'lib/amount';
 import './style.scss';
 
 type Props = {
-  +amount: {
-    +value: number | string,
-    +currency: string
-  },
+  +value: number | string,
+  currency?: string,
+  doubleZero?: boolean,
   id?: string,
   showZeroMinorPart?: boolean,
-  size?: 'xs' | 'sm' | 'md' | 'lg',
-  className?: string
+  className?: string,
+  showCurrency?: boolean,
+  operation?: 'minus' | 'plus',
+  lightMinor?: boolean
 };
 
 // TODO проестировать
@@ -25,30 +27,32 @@ const Amount = (props: Props) => {
 
   const {
     className,
-    size = 'md',
-    amount = {
-      value: 0,
-      currency: 'EUR'
-    },
+    doubleZero = false, // Если число без копеек, то показывать 00
+    value = 0, // Значение
     id,
-    showZeroMinorPart = true
+    currency = 'EUR', // Валюты
+    showZeroMinorPart = true, // Показывать копейки
+    operation, // Операция зачисления или снятия, принимает параметры plus или минус
+    lightMinor, // Засветление копеек
+    showCurrency = true, // Показывать знак валюты
   } = props;
 
   const classBlockName = 'amount';
 
   const classes = classnames(
     classBlockName,
-    {
-      [`${classBlockName}__size_${size}`]: size,
-    },
     className
   );
 
-  const amountValue = amount.value.toString();
+  const mainClass = `${classBlockName}_operation ${classBlockName}_operation__color_${operation}`;
+  const operationSignClass = `${classBlockName}_sign`;
+  const majorClass = `${classBlockName}_major`;
+
+  const amountValue = value.toString();
 
   const amounts = {
     value: amountValue.match(/^-?\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^-?\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^-?\d+$/) ? `${amountValue}00` : '000',
-    currency: amount.currency
+    currency
   };
 
   const {
@@ -58,11 +62,16 @@ const Amount = (props: Props) => {
     currencySymbol
   } = formatAmount(amounts);
 
-  const renderCurrencySymbol = (currencySymbol) => (
-    <span className={`${classBlockName}_currency`} >
-      { ` ${currencySymbol}` }
-    </span>
-  );
+  const renderCurrencySymbol = (currencySymbol) => {
+    if (showCurrency) {
+      return (
+        <span className={`${classBlockName}_currency`}>
+          {` ${currencySymbol}`}
+        </span>
+      );
+    }
+    return null;
+  };
 
   const renderSeparatorAndMinorPart = (minorPart) => {
     let needMinorPart = false;
@@ -70,20 +79,43 @@ const Amount = (props: Props) => {
     if (minorPart) {
       needMinorPart = showZeroMinorPart && !ZERO_MINOR_PART_REGEXP.test(minorPart);
     }
-    if (needMinorPart) {
+
+    if (doubleZero || needMinorPart) {
       return (
         <div className={`${classBlockName}_minor-wrapper`}>
           <span className={`${classBlockName}_separator`} >{ AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR }</span>
-          <span className={`${classBlockName}_minor`} >{ minorPart }</span>
+          <span className={`${classBlockName}_minor ${lightMinor ? `${classBlockName}_minor__light` : ''}`} >{ minorPart }</span>
         </div>
       );
     }
     return null;
   };
 
+  /**
+  * Рэндэр если стоит знак операции
+  * Значение не дожно быть минусовое!!!
+  * TODO ченуть знаки юникода
+  */
+  const renderOperation = () => {
+
+    return (
+      <span className={mainClass}>
+        <span className={majorClass}>
+          <span className={operationSignClass}>{ operation === 'plus' ? PLUS_SIGN_HTML_CODE : MINUS_SIGN_HTML_CODE }</span>
+          { majorPart }
+        </span>
+        {renderSeparatorAndMinorPart(minorPart)}
+        {renderCurrencySymbol(currencySymbol)}
+      </span>
+    );
+  };
+
+  /**
+   * Рэндэр обычный
+  */
   const renderInner = () => (
     <span>
-      <span className={`${classBlockName}_major`}>
+      <span className={majorClass}>
         { isNegative && MINUS_SIGN_HTML_CODE }
         { majorPart }
       </span>
@@ -92,11 +124,17 @@ const Amount = (props: Props) => {
     </span>
   );
 
+  if (operation) {
+    return (
+      <div className={classes} id={id}>
+        { renderOperation() }
+      </div>
+    )
+  }
+
   return (
     <div className={classes} id={id}>
-      <div size={size}>
-        { renderInner() }
-      </div>
+      { renderInner() }
     </div>
   );
 };

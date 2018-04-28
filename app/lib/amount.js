@@ -17,6 +17,7 @@ export const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед 
 export const AMOUNT_MAJOR_PART_SIZE = 3; // Отброс последних 3х значение в копейки и точку
 export const ZERO_MINOR_PART_REGEXP = /^0+$/;
 export const MINUS_SIGN_HTML_CODE = '\u2212'; // символы минуса
+export const PLUS_SIGN_HTML_CODE = '\u002B';
 export const AMOUNT_SPLITTER = ','; // Разделитель между частями
 
 /**

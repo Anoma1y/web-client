@@ -557,8 +557,8 @@ $table:               table;
   &__celled {
     & tr th, & tr td {
       border-left: 1px solid rgba(34, 36, 38, 0.1);
-      &:first-child {
-        border-left: none;
+      &:last-child {
+        border-right: 1px solid rgba(34, 36, 38, 0.1);
       }
     }
   }
