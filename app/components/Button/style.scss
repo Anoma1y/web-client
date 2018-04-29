@@ -21,6 +21,8 @@ $button-disabled-color:           #efefef;
   border: none;
   outline: none;
   cursor: pointer;
+
+  color: $white-color;
   border-radius: $button-border-radius;
   transition: all 0.4s ease;
   position: relative;
@@ -89,9 +91,51 @@ $button-disabled-color:           #efefef;
 
   &__color {
 
+    &_black {
+      background-color: $black-color;
+      &:hover, &:focus {
+        background-color: lighten($black-color, 10%);
+      }
+      &:active {
+        background-color: lighten($black-color, 20%);
+      }
+    }
+
+    &_white {
+      background-color: $white-color;
+      color: $black-color;
+      &:hover, &:focus {
+        background-color: darken($white-color, 6%);
+      }
+      &:active {
+        background-color: darken($white-color, 10%);
+      }
+    }
+
+    &_gray {
+      background-color: $gray-color;
+      color: $white-color;
+      &:hover, &:focus {
+        background-color: darken($gray-color, 6%);
+      }
+      &:active {
+        background-color: darken($gray-color, 10%);
+      }
+    }
+
+    &_lightblue {
+      background-color: $lightblue-color;
+      &:hover, &:focus {
+        background-color: darken($lightblue-color, 6%);
+      }
+      &:active {
+        background-color: darken($lightblue-color, 10%);
+      }
+    }
+
     &_green {
-      background-color: $button-bgc-green;
-      &:hover, &_focus {
+      background-color: $green-color;
+      &:hover, &:focus {
         background-color: darken($button-bgc-green, 6%);
       }
       &:active {
@@ -100,18 +144,18 @@ $button-disabled-color:           #efefef;
     }
 
     &_red {
-      background-color: $button-bgc-red;
-      &:hover, &_focus {
-        background-color: darken($button-bgc-red, 6%);
+      background-color: $red-color;
+      &:hover, &:focus {
+        background-color: darken($red-color, 6%);
       }
       &:active {
-        background-color: darken($button-bgc-red, 10%);
+        background-color: darken($red-color, 10%);
       }
     }
 
     &_blue {
       background-color: $blue-color;
-      &:hover, &_focus {
+      &:hover, &:focus {
         background-color: darken($blue-color, 6%);
       }
       &:active {
@@ -119,22 +163,20 @@ $button-disabled-color:           #efefef;
       }
     }
 
-    &_white {
-    //  TODO
-    }
-
-    &_gray {
-    //  TODO
-    }
-
-    &_blue {
-    //  TODO
+    &_orange {
+      background-color: $orange-color;
+      &:hover, &:focus {
+        background-color: darken($orange-color, 6%);
+      }
+      &:active {
+        background-color: darken($orange-color, 10%);
+      }
     }
 
     &_transparent {
 
       background-color: transparent;
-      &:hover, &_focus {
+      &:hover, &:focus {
         background-color: darken(#555555, 6%);
       }
       &:active {
@@ -153,7 +195,7 @@ $button-disabled-color:           #efefef;
     }
 
     &_md {
-      padding: 11px 14px;
+      padding: 0.8em 2em;
     }
 
     &_lg {

@@ -5,7 +5,7 @@ import './style.scss';
 type Props = {
   children: ?any,
   fluid?: ?boolean,
-  color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green',
+  color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green' | 'lightblue' | 'orange' | 'black',
   disabled?: ?boolean,
   inline?: ?boolean,
   name?: ?string,
@@ -30,7 +30,7 @@ export default (props: Props) => {
     fluid, // Кнопка на весь размер внутреннего блока
     floated = '', // Расположение кнопки внутри блока (слева или справа)
     color = 'gray', // Цвет кнопки
-    loading = true // Если тру, то будет отображаться лоадер
+    loading // Если тру, то будет отображаться лоадер
   } = props;
 
   const classBlockName = 'button';

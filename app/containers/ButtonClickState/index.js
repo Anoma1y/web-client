@@ -45,9 +45,15 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
-        <Button color="blue">
-          <span style={{ color: '#ddd' }}>I am button baby</span>
-        </Button>
+        <Button color="blue">Blue</Button>
+        <Button color="lightblue">Light Blue</Button>
+        <Button color="green">Green</Button>
+        <Button color="orange">Orange</Button>
+        <Button color="red">Red</Button>
+        <Button color="black">Black</Button>
+        <Button color="white">White</Button>
+        <Button color="gray">Gray</Button>
+
         <Grid>
           <Row>
             <Col md={12}>
