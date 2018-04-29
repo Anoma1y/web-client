@@ -45,13 +45,9 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
-        <div style={{ position: 'relative', width: 400, height: 200, backgroundColor: 'tomato' }}>
-          <Loader
-            active
-            text
-          >Loading text
-          </Loader>
-        </div>
+        <Button color="blue">
+          <span style={{ color: '#ddd' }}>I am button baby</span>
+        </Button>
         <Grid>
           <Row>
             <Col md={12}>

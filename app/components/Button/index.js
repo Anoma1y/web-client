@@ -12,11 +12,11 @@ type Props = {
   floated?: 'left' | 'right' | '',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
-  className?: ?string
+  className?: ?string,
+  loading?: boolean
 };
 
 // TODO изменить цвета или добавить новые + потестить онклик
-
 export default (props: Props) => {
 
   const {
@@ -29,7 +29,8 @@ export default (props: Props) => {
     inline, // Все кнопки будут распологаться друг за другом
     fluid, // Кнопка на весь размер внутреннего блока
     floated = '', // Расположение кнопки внутри блока (слева или справа)
-    color = 'gray' // Цвет кнопки
+    color = 'gray', // Цвет кнопки
+    loading = true // Если тру, то будет отображаться лоадер
   } = props;
 
   const classBlockName = 'button';
@@ -43,6 +44,7 @@ export default (props: Props) => {
       [`${classBlockName}__inline`]: inline,
       [`${classBlockName}__block`]: !inline,
       [`${classBlockName}__size_${size}`]: size,
+      [`${classBlockName}__loading`]: loading
     },
     floated !== '' ? `${classBlockName}__floated_${floated}` : '',
     className
@@ -55,6 +57,7 @@ export default (props: Props) => {
       name={name}
       onClick={event => onClick && onClick({ event })}
     >{children}
+      { loading && <div className="spinner"> </div> }
     </button>
   );
 };

@@ -1,3 +1,4 @@
+@import "lib/style/base.scss";
 $button-border-radius:            4px;
 
 $button-font-color-white:         #ffffff;
@@ -7,9 +8,13 @@ $button-bgc-green:                #5FBD8B;
 $button-bgc-red:                  #EE444A;
 $button-disabled-color:           #efefef;
 
+
+
 .button {
 
   &, *, *:before, *:after {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
 
@@ -19,6 +24,39 @@ $button-disabled-color:           #efefef;
   border-radius: $button-border-radius;
   transition: all 0.4s ease;
   position: relative;
+
+  &__loading {
+    // TODO вынести в отдельный стайл
+    .spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(147,147,147,0.7);
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f3f3;
+        border-top: 3px solid lighten($blue-color, 10%);
+        border-radius: 100%;
+        animation: spin 1s infinite linear;
+      }
+    }
+  }
+
+  @include keyframes(spin) {
+    from{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }to{
+       transform: translate(-50%, -50%) rotate(360deg);
+     }
+  }
 
   &__fluid {
     width: 100%;
@@ -68,6 +106,16 @@ $button-disabled-color:           #efefef;
       }
       &:active {
         background-color: darken($button-bgc-red, 10%);
+      }
+    }
+
+    &_blue {
+      background-color: $blue-color;
+      &:hover, &_focus {
+        background-color: darken($blue-color, 6%);
+      }
+      &:active {
+        background-color: darken($blue-color, 10%);
       }
     }
 
