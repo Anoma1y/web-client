@@ -45,6 +45,11 @@ class Home extends Component<{}, HomeState> {
   render() {
     return (
       <div>
+
+        <Button color="blue" floated="left">Floated left</Button>
+        <Button color="blue" loading floated="right">Floated right</Button>
+        <Button color="blue" loading fluid>Fluid</Button>
+        <br />
         <Button color="blue">Blue</Button>
         <Button color="lightblue">Light Blue</Button>
         <Button color="green">Green</Button>
@@ -53,7 +58,12 @@ class Home extends Component<{}, HomeState> {
         <Button color="black">Black</Button>
         <Button color="white">White</Button>
         <Button color="gray">Gray</Button>
+        <br />
 
+        <Button color="orange" size="xs">Orange xs</Button>
+        <Button color="orange" size="sm">Orange sm</Button>
+        <Button color="orange" size="md">Orange md</Button>
+        <Button color="orange" size="lg">Orange lg</Button>
         <Grid>
           <Row>
             <Col md={12}>

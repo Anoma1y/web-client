@@ -13,15 +13,16 @@ type Props = {
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
   size?: 'xs' | 'sm' | 'md' | 'lg',
   className?: ?string,
-  loading?: boolean
+  loading?: boolean,
+  outline?: boolean
 };
 
 // TODO изменить цвета или добавить новые + потестить онклик
 export default (props: Props) => {
 
   const {
-    children, // Какой либо текст внутри кнопочки
-    className,
+    children, // Какой либо текст внутри кнопочки, можно вставить ноду
+    className, // Дополнительные класс
     disabled, // Задизейблить
     name, // Имя
     onClick, // Экшен онклик
@@ -30,7 +31,8 @@ export default (props: Props) => {
     fluid, // Кнопка на весь размер внутреннего блока
     floated = '', // Расположение кнопки внутри блока (слева или справа)
     color = 'gray', // Цвет кнопки
-    loading // Если тру, то будет отображаться лоадер
+    loading, // Если тру, то будет отображаться лоадер,
+    outline
   } = props;
 
   const classBlockName = 'button';
@@ -44,7 +46,8 @@ export default (props: Props) => {
       [`${classBlockName}__inline`]: inline,
       [`${classBlockName}__block`]: !inline,
       [`${classBlockName}__size_${size}`]: size,
-      [`${classBlockName}__loading`]: loading
+      [`${classBlockName}__loading`]: loading,
+      [`${classBlockName}__outline`]: outline
     },
     floated !== '' ? `${classBlockName}__floated_${floated}` : '',
     className

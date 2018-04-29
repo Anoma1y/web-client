@@ -4,6 +4,7 @@ import ButtonClickRedux from 'containers/ButtonClickRedux';
 import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
 import { Route, Switch } from 'react-router-dom';
 import 'lib/style/text.scss';
+import 'lib/style/color.scss';
 import 'lib/style/rdt.scss';
 import './style.scss';
 
