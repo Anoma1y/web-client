@@ -252,7 +252,13 @@ $button: button;
         animation: spin 1s infinite linear;
       }
     }
-    &.#{$button}__color {
+    &.#{$button}__outline {
+      color: transparent !important;
+      .spinner {
+        background: none !important;
+      }
+    }
+    &:not(.#{$button}__outline).#{$button}__color {
       &_gray .spinner {
         background-color: darken($gray-color, 15%);
       }
