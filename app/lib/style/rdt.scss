@@ -1,5 +1,21 @@
 .rdt {
   position: relative;
+
+  input {
+    &, *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    width: 100%;
+    display: block;
+    padding: .375rem .75rem .375rem 2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
 }
 .rdtPicker {
   display: none;
@@ -204,9 +220,7 @@ td.rdtYear:hover {
 }
 
 .rdtMilli input {
-  width: 100%;
-  font-size: 1.2em;
-  margin-top: 37px;
+
 }
 
 .rdtTime td {

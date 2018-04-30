@@ -51,7 +51,7 @@ const Input = (props: Props) => {
 
   const {
     className,
-    icon = 'search',
+    icon,
     iconColor = 'gray',
     iconSize = 16,
     iconPosition = 'right',

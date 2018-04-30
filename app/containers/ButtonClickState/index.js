@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import DateTime from 'react-datetime';
-import Divider from 'components/Divider';
+import Notification from 'components/Notification';
 import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
 import Table from 'components/Table';
-import Button from 'components/Button';
+import Input from 'components/Input';
 import Loader from 'components/Loader';
 
 type HomeState = {
@@ -42,29 +42,44 @@ class Home extends Component<{}, HomeState> {
     });
   };
 
+  showNotification = (): any => {
+    this.notificator.error('Error:', 'You can use any of bootstraps other alert styles as well by default.', 3500);
+  };
+
   render() {
     return (
       <div>
+        <button onClick={this.showNotification}>Click</button>
+        <Notification ref={(node) => { this.notificator = node; }} />
 
-        <Button color="blue" floated="left">Floated left</Button>
-        <Button color="blue" loading floated="right">Floated right</Button>
-        <Button color="blue" loading fluid>Fluid</Button>
-        <br />
-        <Button color="blue">Blue</Button>
-        <Button color="lightblue">Light Blue</Button>
-        <Button color="green">Green</Button>
-        <Button color="orange">Orange</Button>
-        <Button color="red">Red</Button>
-        <Button color="black">Black</Button>
-        <Button color="white">White</Button>
-        <Button color="gray">Gray</Button>
-        <br />
-
-        <Button color="orange" size="xs">Orange xs</Button>
-        <Button color="orange" size="sm">Orange sm</Button>
-        <Button color="orange" size="md">Orange md</Button>
-        <Button color="orange" size="lg">Orange lg</Button>
         <Grid>
+          <Row between="md">
+            <Col md={4}>
+              <Input />
+            </Col>
+            <Col md={4}>
+              <DateTime
+                inputProps={{
+                  readOnly: true,
+                  placeholder: 'Date from'
+                }}
+                dateFormat="DD.MM.YYYY"
+                timeFormat=""
+                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
+              />
+            </Col>
+            <Col md={4}>
+              <DateTime
+                inputProps={{
+                  readOnly: true,
+                  placeholder: 'Date to'
+                }}
+                dateFormat="DD.MM.YYYY"
+                timeFormat=""
+                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
+              />
+            </Col>
+          </Row>
           <Row>
             <Col md={12}>
               <Table>

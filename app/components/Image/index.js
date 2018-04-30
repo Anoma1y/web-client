@@ -20,7 +20,6 @@ type Props = {
 };
 
 // TODO потестить
-
 export default (props: Props) => {
 
   const renderImage = (src: string): React.Node => {
@@ -48,10 +47,10 @@ export default (props: Props) => {
   };
 
   const {
-    bordered,
+    bordered, // Рамка вокруг картинки
     centered,
     className,
-    disabled,
+    disabled, // дизейбл
     children,
     floated = '',
     fluid = false,
