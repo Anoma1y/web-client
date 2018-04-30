@@ -13,13 +13,8 @@ type State = {
 // TODO need fix flow type
 export default class Notify extends React.Component<{}, State> {
 
-  constructor() {
-    super();
-
-    this.id = document.createElement('div');
-    this.id.className = 'notify-container';
-    document.body.appendChild(this.id);
-
+  constructor(props) {
+    super(props);
     this.wasMounted = true;
     this.key = 0;
     this.state = {};
@@ -42,19 +37,27 @@ export default class Notify extends React.Component<{}, State> {
   };
 
   addNotify = (title: string, msg: string, time: number, theme: string) => {
-    const key = this.key++;
-    const state = Object.assign(this.state, { [key]: { title, msg, time, theme } });
+    const { key } = this;
+    this.key += 1;
 
-    this.setState(state, () => this.countToHide(time, key));
-  }
+    const state = {
+      ...this.state,
+      [String(key)]: { title, msg, time, theme }
+    };
+
+    this.setState(state, () => this.countToHide(time, String(key)));
+  };
 
   countToHide = (duration: number, key: number) => {
+
     setTimeout(() => {
       this.hideNotification(key);
     }, duration);
-  }
 
-  hideNotification = (key) => {
+  };
+
+  hideNotification = (key: string) => {
+
     if (!this.wasMounted) {
       return;
     }
@@ -63,24 +66,29 @@ export default class Notify extends React.Component<{}, State> {
       delete state[key];
       return state;
     });
+
   };
 
-  item = (key) => {
+  renderItem = (key: string): React.Node => {
 
-    const { theme, title, msg } = this.state[key];
+    const {
+      theme,
+      title,
+      msg
+    } = this.state[key];
 
     return (
-      <div key={key} className={`notify-item ${theme}`} onClick={() => this.hideNotification(key)}>
-        <p className="notify-title">{title}</p>
-        <p className="notify-body">{msg}</p>
+      <div key={key} className={`notification_item notification_item__${theme}`} onClick={() => this.hideNotification(key)}>
+        <p className="notification_title">{title}</p>
+        <p className="notification_body">{msg}</p>
       </div>
     );
   };
 
   render() {
     return (
-      <div className="notify-container">
-        {Object.keys(this.state).map((key) => this.item(key))}
+      <div className="notification">
+        {Object.keys(this.state).map((key) => this.renderItem(key))}
       </div>
     );
   }

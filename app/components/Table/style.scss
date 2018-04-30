@@ -112,7 +112,7 @@ $table:               table;
     text-align: inherit;
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: $break-sm) {
     &:not(&__unstackable) {
       width: 100%;
     }
@@ -153,7 +153,7 @@ $table:               table;
 
   }
 
-  @media only screen and (max-width: 991px) {
+  @media only screen and (max-width: $break-md) {
     // Стакивание td блоков
     &__stackable {
       padding: 0;

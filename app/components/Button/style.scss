@@ -24,6 +24,9 @@ $button: button;
   border-radius: $button-border-radius;
   transition: all 0.4s ease;
   position: relative;
+  //display: block;
+  display: flex;
+  align-items: center;
 
   &:focus {
     outline: none;
@@ -33,10 +36,6 @@ $button: button;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-  }
-
-  &__block {
-    display: block;
   }
 
   &__inline {

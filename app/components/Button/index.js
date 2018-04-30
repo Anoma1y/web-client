@@ -44,7 +44,6 @@ export default (props: Props) => {
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__color_${color}`]: color,
       [`${classBlockName}__inline`]: inline,
-      [`${classBlockName}__block`]: !inline,
       [`${classBlockName}__size_${size}`]: size,
       [`${classBlockName}__loading`]: loading,
       [`${classBlockName}__outline`]: outline

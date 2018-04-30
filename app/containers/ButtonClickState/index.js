@@ -5,8 +5,11 @@ import Notification from 'components/Notification';
 import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
 import Table from 'components/Table';
+import Button from 'components/Button';
 import Input from 'components/Input';
-import Loader from 'components/Loader';
+import Icon from 'components/Icon';
+import Breadcrumb from 'components/Breadcrumb';
+import _ from 'lodash';
 
 type HomeState = {
   clicks: number,
@@ -43,7 +46,7 @@ class Home extends Component<{}, HomeState> {
   };
 
   showNotification = (): any => {
-    this.notificator.error('Error:', 'You can use any of bootstraps other alert styles as well by default.', 3500);
+    this.notificator.error(`Error № ${_.random(1, 5000)}`, 'You can use any of bootstraps other alert styles as well by default.', 200000);
   };
 
   render() {
@@ -53,6 +56,16 @@ class Home extends Component<{}, HomeState> {
         <Notification ref={(node) => { this.notificator = node; }} />
 
         <Grid>
+          <Row>
+            <Col md={6}>
+              <Button
+                color="blue"
+              >
+                <Icon icon="search" color="white" />
+                Click
+              </Button>
+            </Col>
+          </Row>
           <Row between="md">
             <Col md={4}>
               <Input />
