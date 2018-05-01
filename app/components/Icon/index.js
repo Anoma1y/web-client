@@ -10,7 +10,7 @@ type Props = {
   size?: number | string,
 };
 
-// TODO изменить цвета или добавить новые + потестить
+// TODO изменить цвета или добавить новые + потестить + пофиксить проп size
 
 const Icon = (props: Props) => {
 
@@ -18,7 +18,7 @@ const Icon = (props: Props) => {
     color = 'gray',
     icon,
     inline,
-    size = 16
+    size
   } = props;
 
   const classBlockName = 'icon';

@@ -104,7 +104,7 @@ const Input = (props: Props) => {
     <label className={`${classBlockName}_label`} htmlFor={id}>{labelText}</label>
   );
 
-  const renderInputBlock = (prop: InputProp): React.Node => {
+  const renderInputBlock = (): React.Node => {
 
     const renderInput = () => (
       <input
@@ -156,24 +156,10 @@ const Input = (props: Props) => {
 
   };
 
-  const prop = {
-    disabled,
-    onClick,
-    onChange,
-    onFocus,
-    onBlur,
-    placeholder,
-    name,
-    value,
-    readOnly,
-    id,
-    type
-  };
-
   return (
     <div className={classes}>
       {label && renderLabel(id, label)}
-      {renderInputBlock(prop)}
+      {renderInputBlock()}
       {error && renderError(error, errorPosition)}
     </div>
   );

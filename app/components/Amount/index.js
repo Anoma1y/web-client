@@ -129,7 +129,7 @@ const Amount = (props: Props) => {
       <div className={classes} id={id}>
         { renderOperation() }
       </div>
-    )
+    );
   }
 
   return (

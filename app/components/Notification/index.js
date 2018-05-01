@@ -36,7 +36,11 @@ export default class Notify extends React.Component<{}, State> {
     this.addNotify(title, msg, time, 'info');
   };
 
-  addNotify = (title: string, msg: string, time: number, theme: string) => {
+  note = (title: string, msg: string, time: number) => {
+    this.addNotify(title, msg, time);
+  };
+
+  addNotify = (title: string, msg: string, time: number, theme?: string = 'note') => {
     const { key } = this;
     this.key += 1;
 
@@ -79,8 +83,9 @@ export default class Notify extends React.Component<{}, State> {
 
     return (
       <div key={key} className={`notification_item notification_item__${theme}`} onClick={() => this.hideNotification(key)}>
-        <p className="notification_title">{title}</p>
-        <p className="notification_body">{msg}</p>
+        <p className={'notification-content'}>
+          <strong className={'notification-content_header'}>{title}</strong><span className={'notification-content_message'}>{msg}</span>
+        </p>
       </div>
     );
   };
