@@ -57,7 +57,7 @@ class Home extends Component<{}, HomeState> {
         <Notification ref={(node) => { this.notificator = node; }} />
         <Grid>
           <Row>
-            <Col md={12}>
+            <Col md={4}>
               <Header>
                 <Icon icon='search' />
                 <Header.Content>
@@ -68,8 +68,30 @@ class Home extends Component<{}, HomeState> {
                 </Header.Content>
               </Header>
             </Col>
+            <Col md={4}>
+              <Header>
+                <Icon icon='search' />
+                <Header.Content>Header with Icon</Header.Content>
+              </Header>
+            </Col>
+            <Col md={4}>
+              <Header>
+                <Header.Content>
+                  Header content
+                  <Header.Sub>
+                    Header sub
+                  </Header.Sub>
+                </Header.Content>
+              </Header>
+            </Col>
           </Row>
-
+          <Row>
+            <Col md={12}>
+              <Header>
+                Just Header
+              </Header>
+            </Col>
+          </Row>
           <Row between="md">
             <Col md={4}>
               <Input />

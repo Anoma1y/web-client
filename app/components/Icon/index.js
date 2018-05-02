@@ -26,7 +26,7 @@ const Icon = (props: Props) => {
   const classes = classnames(
     classBlockName,
     {
-      [`${classBlockName}__inline`]: !inline,
+      [`${classBlockName}__inline`]: inline,
     }
   );
 

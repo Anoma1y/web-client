@@ -19,19 +19,32 @@ type Props = {
   className?: string
 };
 
+/*
+* Без всего: <Header>Text</Header>
+* С саб текстом:  <Header>
+*                   Сюда можно иконку вставить <Icon icon='name'/>
+*                   <Header.Content> Main text </Header.Content>
+*                   <Header.Sub> Sub text </Header.Sub>
+*                 </Header>
+* Текст + иконка: <Header>
+*                   <Icon icon='name' />
+*                   <Header.Content> Main text </Header.Content>
+*                 </Header>
+*/
+
 const Header = (props: Props) => {
   const {
-    as = 'h2',
+    as, // Отображение компонента как: 'div' | 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     attached = '',
-    block,
+    block, // Вид блока с заливкой и рамкой
     children,
     className,
-    color,
-    disabled,
-    dividing,
-    floated,
-    size,
-    sub,
+    color, // Цвет текста
+    disabled, // Дизейбл
+    dividing, // Линия снизу
+    floated, // Расположение внутри блока
+    size, // Размер
+    sub, // Как сабтекст
     textAlign,
   } = props;
   const classBlockName = 'header';

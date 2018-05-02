@@ -493,7 +493,7 @@ $table:               table;
     & thead th.sorted {
       user-select: none;
     }
-    & thead th.table_cell__sorted_ascending {
+    & thead th.table_cell__sorted_asc {
       &:after {
         content: '';
         display: block;
@@ -508,7 +508,7 @@ $table:               table;
         border-bottom: 5px solid rgba(99,99,99,1);
       }
     }
-    & thead th.table_cell__sorted_descending {
+    & thead th.table_cell__sorted_desc {
       &:after {
         content: '';
         display: block;

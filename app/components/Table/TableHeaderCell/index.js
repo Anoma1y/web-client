@@ -5,7 +5,7 @@ import { getColumnCount } from '../../../lib/css_helpers';
 
 type Props = {
   children?: any,
-  sorted?: 'ascending' | 'descending' | '',
+  sorted?: 'asc' | 'desc' | '',
   className?: string,
   width?: ?number | ?string
 };
