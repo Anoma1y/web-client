@@ -38,57 +38,40 @@ class HeaderBreadcrumbs extends React.Component {
       return item.length !== 0;
     });
     const getPathInfo = (path) => {
-      return  _.compact(this.props.routing.location.pathname.split('/').map((p, i, arr) => {
-        if (i === 0) return;
-        // if (i === 0) return {
-        //   key: i,
-        //   content: (<Link to={'/'}>home</Link>),
-        //   active: (i === arr.length - 1),
-        //   link: (i < arr.length - 1)
-        // };
+      return _.compact(this.props.routing.location.pathname.split('/').map((p, i, arr) => {
+        if (p !== '') {
+          let link = arr.slice(0, i + 1).join('/');
 
-        if (i === arr.length - 1) {
+          if (link.charAt(link.length - 1) !== '/') {
+            link = `${link}/`;
+          }
+
           return {
             key: i,
             name: p,
-            active: (i === arr.length - 1),
-            isLink: (i < arr.length - 1)
+            link
           };
+
         }
+      }));
+    };
+    const breadcrumbsList = getPathInfo(this.props.routing.location.pathname);
 
-        return {
-          key: i,
-          name: p,
-          link: arr.slice(0, i + 1).join('/'),
-          active: (i === arr.length - 1),
-          isLink: (i < arr.length - 1)
-        };
-
-      }))
-    }
-
-    console.log(getPathInfo(this.props.routing.location.pathname));
-    const arr = [''];
     return (
       <div>
-        <BreadcrumbsSSSSSSS />
-        {/* <Breadcrumb className={'header-breadcrumb'}> */}
-        {/* { */}
-        {/* fuckBreadcrubms.map((item, index) => { */}
-        {/* return ( */}
-        {/* <React.Fragment key={item}> */}
-        {/* <Breadcrumb.Section active={fuckBreadcrubms.length === index + 1}> */}
-        {/* /!*<Link to={match.url || ''} className={da ? 'header-breadcrumb__active' : ''}>*!/ */}
-        {/* /!*{upperCase(match.params.path)}*!/ */}
-        {/* /!*</Link>*!/ */}
-        {/* </Breadcrumb.Section> */}
-        {/* {fuckBreadcrubms.length !== index + 1 ? <Breadcrumb.Divider /> : null} */}
-        {/* </React.Fragment> */}
-
-        {/* ) */}
-        {/* }) */}
-        {/* } */}
-        {/* </Breadcrumb> */}
+        <Breadcrumb className={'header-breadcrumb'}>
+          {
+            breadcrumbsList.map((item, index) => {
+              return (
+                <Breadcrumb.Section key={item.key} active={breadcrumbsList.length === index + 1}>
+                  <Link to={item.link} className={breadcrumbsList.length === index + 1 ? 'header-breadcrumb__active' : ''}>
+                    {upperCase(item.name)}
+                  </Link>
+                </Breadcrumb.Section>
+              )
+            })
+          }
+        </Breadcrumb>
       </div>
     );
   }
