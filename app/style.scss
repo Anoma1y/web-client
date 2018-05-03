@@ -3,33 +3,7 @@
 // USE FUCKING BEM
 
 body {
-  padding: 150px;
+  padding: 0;
+  margin: 0;
 }
 
-header {
-  img {
-    margin: 0 auto;
-    display: block;
-  }
-  hr {
-    border-color: rgba(255,255,255,.2);
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-
-    li a {
-      color: #fff;
-      font-size: 2rem;
-      display: block;
-      margin: 0 0 1rem;
-    }
-
-  }
-}
-
-.App {
-  font-family: 'Lato', sans-serif;
-}
