@@ -6,25 +6,29 @@ $font-size-3:              16px;
 $font-size-4:              18px;
 $font-size-5:              21px;
 
-$header: header;
+$text: text;
 
 
 
-.#{$header} {
+.#{$text} {
   border: none;
-  margin: calc(2rem -  0.14285714em ) 0 1rem;
+  //margin: calc(2rem -  0.14285714em ) 0 1rem;
   padding: 0;
+  margin: 0;
   font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
   line-height: 1.28571429em;
   text-transform: none;
   color: rgba(0, 0, 0, 0.87);
 
-  &:first-child {
-    margin-top: -0.14285714em;
-  }
-  &:last-child {
-    margin-bottom: 0;
-  }
+  //&:first-child {
+  //  margin-top: -0.14285714em;
+  //}
+  //
+  //&:last-child {
+  //  margin-bottom: 0;
+  //}
 
   &_sub, &__sub {
     display: block;
@@ -36,7 +40,7 @@ $header: header;
     color: rgba(0, 0, 0, 0.6);
   }
 
-  &_sub.#{$header}, &__sub {
+  &_sub.#{$text}, &__sub {
     padding: 0em;
     margin-bottom: 0.14285714rem;
     font-weight: bold;
@@ -99,7 +103,7 @@ $header: header;
     padding-bottom: 0.21428571rem;
     border-bottom: 1px solid rgba(34, 36, 38, 0.15);
   }
-  &__dividing.#{$header}__sub {
+  &__dividing.#{$text}__sub {
     padding-bottom: 0.21428571rem;
   }
 
@@ -121,7 +125,7 @@ $header: header;
       border-radius: 0em 0em 0.28571429rem 0.28571429rem;
     }
   }
-  &__attached.#{$header}__block {
+  &__attached.#{$text}__block {
     background: #F3F4F5;
   }
   &__attached:not(&__attached_top):not(&__attached_bottom) {
@@ -192,7 +196,7 @@ $header: header;
   //  text-align: center;
   //  margin: 2rem 0em 1rem;
   //}
-  //.#{$header}.icon {
+  //.#{$text}.icon {
   //  display: inline-block;
   //  text-align: center;
   //  margin: 2rem 0em 1rem;
@@ -222,35 +226,35 @@ $header: header;
 
 }
 
-h1.#{$header} {
+h1.#{$text} {
   font-size: 2rem;
 }
-h2.#{$header} {
+h2.#{$text} {
   font-size: 1.71428571rem;
 }
-h3.#{$header} {
+h3.#{$text} {
   font-size: 1.28571429rem;
 }
-h4.#{$header} {
+h4.#{$text} {
   font-size: 1.07142857rem;
 }
-h5.#{$header} {
+h5.#{$text} {
   font-size: 1rem;
 }
 
 /* Sub Header */
-h1.#{$header} .#{$header}__sub.#{$header} {
+h1.#{$text} .#{$text}__sub.#{$text} {
   font-size: 1.14285714rem;
 }
-h2.#{$header} .#{$header}__sub.#{$header} {
+h2.#{$text} .#{$text}__sub.#{$text} {
   font-size: 1.14285714rem;
 }
-h3.#{$header} .#{$header}__sub.#{$header} {
+h3.#{$text} .#{$text}__sub.#{$text} {
   font-size: 1rem;
 }
-h4.#{$header} .#{$header}__sub.#{$header} {
+h4.#{$text} .#{$text}__sub.#{$text} {
   font-size: 1rem;
 }
-h5.#{$header} .#{$header}__sub.#{$header} {
+h5.#{$text} .#{$text}__sub.#{$text} {
   font-size: 0.92857143rem;
 }

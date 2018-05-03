@@ -9,7 +9,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Icon from 'components/Icon';
 import Label from 'components/Label';
-import Header from 'components/Header';
+import Text from 'components/Text';
 import _ from 'lodash';
 
 type HomeState = {
@@ -61,15 +61,15 @@ class Home extends Component<{}, HomeState> {
           <Row>
             <Button>asd</Button>
             <Col md={4}>
-              <Header>
+              <Text>
                 <Icon icon='search' />
-                <Header.Content>
+                <Text.Content>
                   Account Settings
-                  <Header.Sub>
+                  <Text.Sub>
                     Manage your preferences
-                  </Header.Sub>
-                </Header.Content>
-              </Header>
+                  </Text.Sub>
+                </Text.Content>
+              </Text>
             </Col>
             <Col md={4}>
               <Header>

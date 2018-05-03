@@ -1,0 +1,11 @@
+.navigation-menu {
+  //color: #7B7792;
+}
+.navigation-item {
+  display: inline-block;
+  margin-left: 40px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

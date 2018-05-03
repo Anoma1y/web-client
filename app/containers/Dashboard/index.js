@@ -2,13 +2,20 @@ import * as React from 'react';
 import Main from './containers/Main';
 import Transaction from './containers/Transaction';
 import Sidebar from './containers/Sidebar';
+import Header from './containers/Header';
 import {
   Route,
   Switch
 } from 'react-router-dom';
 import './style.scss';
 
-const Dashboard = ({ match }) => (
+type Props = {
+  match: {
+    url: string
+  }
+}
+
+const Dashboard = (props: Props) => (
 
   <div className={'main'}>
 
@@ -18,14 +25,16 @@ const Dashboard = ({ match }) => (
 
     <div className={'wrapper'}>
 
-      <div className={'header'}>I am header</div>
+      <div className={'header-wrapper'}>
+        <Header />
+      </div>
 
       <div className={'container'}>
 
         <Switch>
 
-          <Route exact path={`${match.url}`} component={Main} />
-          <Route exact path={`${match.url}/transaction`} component={Transaction} />
+          <Route exact path={`${props.match.url}`} component={Main} />
+          <Route exact path={`${props.match.url}/transaction`} component={Transaction} />
 
         </Switch>
 

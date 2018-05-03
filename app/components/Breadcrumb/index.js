@@ -7,7 +7,6 @@ import './style.scss';
 type Props = {
   children?: React.Node,
   className?: ?string,
-  size: 'xs' | 'sm' | 'md' | 'lg'
 };
 
 const Breadcrumb = (props: Props) => {
@@ -15,16 +14,12 @@ const Breadcrumb = (props: Props) => {
   const {
     children,
     className,
-    size = 'sm',
   } = props;
 
   const classBlockName = 'breadcrumb';
 
   const classes = classnames(
     classBlockName,
-    {
-      [`${classBlockName}__size_${size}`]: size,
-    },
     className
   );
 

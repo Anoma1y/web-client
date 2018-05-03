@@ -8,7 +8,7 @@ type Props = {
 export default (props: Props) => {
   const { children, className } = props;
 
-  const classBlockName = 'header_sub';
+  const classBlockName = 'text_sub';
 
   return (
     <div className={`${classBlockName} ${className || ''}`}>

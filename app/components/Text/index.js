@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import ContentHeader from './ContentHeader';
-import SubHeader from './SubHeader';
+import ContentText from './ContentText';
+import SubText from './SubText';
 import './style.scss';
 
 type Props = {
@@ -32,7 +32,7 @@ type Props = {
 *                 </Header>
 */
 
-const Header = (props: Props) => {
+const Text = (props: Props) => {
 
   const {
     as, // Отображение компонента как: 'div' | 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -49,7 +49,7 @@ const Header = (props: Props) => {
     textAlign = '',
   } = props;
 
-  const classBlockName = 'header';
+  const classBlockName = 'text';
 
   const classes = classnames(
     classBlockName,
@@ -65,21 +65,21 @@ const Header = (props: Props) => {
       [`${classBlockName}__align_${textAlign}`]: textAlign
 
     },
-    'header__icon',
+    'text__icon',
     className !== '' ? className : '',
   );
 
-  const HeaderType = as || 'div';
+  const TextType = as || 'div';
 
   return (
-    <HeaderType className={classes}>
+    <TextType className={classes}>
       {children}
-    </HeaderType>
+    </TextType>
   );
 };
 
-Header.Content = ContentHeader;
-Header.Sub = SubHeader;
+Text.Content = ContentText;
+Text.Sub = SubText;
 
-export default Header;
+export default Text;
 

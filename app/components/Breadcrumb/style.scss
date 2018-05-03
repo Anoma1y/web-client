@@ -29,26 +29,6 @@ $breadcrumb: breadcrumb;
     }
   }
 
-  &__size {
-
-    &_xs {
-      font-size: 0.78571429rem;
-    }
-
-    &_sm {
-      font-size:  0.85714286rem;
-    }
-
-    &_md {
-      font-size: 1rem;
-    }
-
-    &_lg {
-      font-size: 1.42857143rem;
-    }
-
-  }
-
 
   &_divider {
     display: inline-block;
@@ -59,10 +39,17 @@ $breadcrumb: breadcrumb;
     vertical-align: baseline;
   }
 
-
+  & a {
+    text-decoration: none;
+    &:after {
+      content: ' / ';
+    }
+  }
 
   a.#{$breadcrumb}_section {
     cursor: pointer;
+
+
   }
 
   &_section {
@@ -71,6 +58,12 @@ $breadcrumb: breadcrumb;
     padding: 0;
     &__active {
       font-weight: bold;
+      & a {
+        cursor: default;
+        &:after {
+          content: none;
+        }
+      }
     }
   }
 
