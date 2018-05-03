@@ -44,7 +44,7 @@ const Amount = (props: Props) => {
     className
   );
 
-  const mainClass = `${classBlockName}_operation ${classBlockName}_operation__color_${operation}`;
+  const mainClass = `${classBlockName}_operation ${classBlockName}_operation__color_${operation || ''}`;
   const operationSignClass = `${classBlockName}_sign`;
   const majorClass = `${classBlockName}_major`;
 

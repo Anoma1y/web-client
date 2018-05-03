@@ -9,7 +9,7 @@ type Props = {
   attached?: '' | 'top' | 'bottom',
   block?: boolean,
   children?: React.Node,
-  color?: string,
+  color?: ?string,
   disabled?: boolean,
   dividing?: boolean,
   floated?: '' | 'left' | 'right',
@@ -33,20 +33,22 @@ type Props = {
 */
 
 const Header = (props: Props) => {
+
   const {
     as, // Отображение компонента как: 'div' | 'p' | 'span' | 'a' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     attached = '',
     block, // Вид блока с заливкой и рамкой
     children,
     className,
-    color, // Цвет текста
+    color = '', // Цвет текста
     disabled, // Дизейбл
     dividing, // Линия снизу
-    floated, // Расположение внутри блока
-    size, // Размер
+    floated = '', // Расположение внутри блока
+    size = '', // Размер
     sub, // Как сабтекст
-    textAlign,
+    textAlign = '',
   } = props;
+
   const classBlockName = 'header';
 
   const classes = classnames(
@@ -54,7 +56,7 @@ const Header = (props: Props) => {
     attached !== '' ? `${classBlockName}__attached ${classBlockName}__attached_${attached}` : '',
     {
       [`${classBlockName}__block`]: block,
-      [`color_${color}`]: color,
+      [`${String(color)}-color`]: color,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__dividing`]: dividing,
       [`${classBlockName}__floated_${floated}`]: floated,

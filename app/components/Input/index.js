@@ -6,7 +6,7 @@ import './style.scss';
 
 type Props = {
   fluid?: ?boolean, // Инпут будет занимать весь блок
-  icon?: string, // Имя иконки
+  icon?: ?string, // Имя иконки
   iconColor?: 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white', // Цвет иконки
   iconSize?: number, // Размер иконки (не трогать!)
   iconPosition?: 'left' | 'right' | '', // Позиция иконки
@@ -31,27 +31,12 @@ type Props = {
   value?: string // Значение
 };
 
-type InputProp = {
-  +type: 'text' | 'password' | 'email',
-  disabled?: boolean,
-  readOnly?: boolean,
-  onClick?: ({ event: SyntheticMouseEvent<> }) => void,
-  onChange?: ({ event: SyntheticMouseEvent<> }) => void,
-  onFocus?: ({ event: SyntheticMouseEvent<> }) => void,
-  onBlur?: ({ event: SyntheticMouseEvent<> }) => void,
-  placeholder?: string,
-  id?: string,
-  name?: string,
-  value?: string,
-};
-
 // TODO провести рефакторинг этой хуйни
-
 const Input = (props: Props) => {
 
   const {
     className,
-    icon,
+    icon = '',
     iconColor = 'gray',
     iconSize = 16,
     iconPosition = 'right',
@@ -94,8 +79,8 @@ const Input = (props: Props) => {
 
   const renderIcon = (): React.Node => {
     return (
-      <div className={`${classBlockName}_icon ${icon && `${classBlockName}_icon__position_${iconPosition}`}`}>
-        <Icon icon={icon} size={iconSize} color={iconColor} />
+      <div className={`${classBlockName}_icon ${String(icon) && `${classBlockName}_icon__position_${iconPosition}`}`}>
+        <Icon icon={String(icon)} size={iconSize} color={iconColor} />
       </div>
     )
   };

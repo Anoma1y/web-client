@@ -46,6 +46,8 @@ class Home extends Component<{}, HomeState> {
     });
   };
 
+  notificator: any;
+
   showNotification = (): any => {
     this.notificator.note(`Note № ${_.random(1, 5000)}`, 'You can use any of bootstraps other alert styles as well by default.', 4000);
   };
@@ -54,9 +56,10 @@ class Home extends Component<{}, HomeState> {
     return (
       <div>
         <button onClick={this.showNotification}>Click</button>
-        <Notification ref={(node) => { this.notificator = node; }} />
+        <Notification ref={(notificator) => { this.notificator = notificator; }} />
         <Grid>
           <Row>
+            <Button>asd</Button>
             <Col md={4}>
               <Header>
                 <Icon icon='search' />

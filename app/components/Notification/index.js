@@ -13,32 +13,21 @@ type State = {
 // TODO need fix flow type
 export default class Notify extends React.Component<{}, State> {
 
-  constructor(props) {
-    super(props);
-    this.wasMounted = true;
-    this.key = 0;
-    this.state = {};
-  }
+  key: number = 0;
+  wasMounted: boolean = true;
+  state = {};
 
   componentWillUnmount() {
     this.wasMounted = false;
   }
 
-  success = (title: string, msg: string, time: number) => {
-    this.addNotify(title, msg, time, 'success');
-  };
+  success = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'success');
 
-  error = (title: string, msg: string, time: number) => {
-    this.addNotify(title, msg, time, 'error');
-  };
+  error = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'error');
 
-  info = (title: string, msg: string, time: number) => {
-    this.addNotify(title, msg, time, 'info');
-  };
+  info = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'info');
 
-  note = (title: string, msg: string, time: number) => {
-    this.addNotify(title, msg, time);
-  };
+  note = (title: string, msg: string, time: number) => this.addNotify(title, msg, time);
 
   addNotify = (title: string, msg: string, time: number, theme?: string = 'note') => {
     const { key } = this;
@@ -46,21 +35,21 @@ export default class Notify extends React.Component<{}, State> {
 
     const state = {
       ...this.state,
-      [String(key)]: { title, msg, time, theme }
+      [key]: { title, msg, time, theme }
     };
 
-    this.setState(state, () => this.countToHide(time, String(key)));
+    this.setState(state, () => this.countToHide(time, key));
   };
 
   countToHide = (duration: number, key: number) => {
 
     setTimeout(() => {
-      this.hideNotification(key);
+      this.hideNotification(Number(key));
     }, duration);
 
   };
 
-  hideNotification = (key: string) => {
+  hideNotification = (key: number) => {
 
     if (!this.wasMounted) {
       return;
@@ -73,7 +62,7 @@ export default class Notify extends React.Component<{}, State> {
 
   };
 
-  renderItem = (key: string): React.Node => {
+  renderItem = (key: number): React.Node => {
 
     const {
       theme,
@@ -93,7 +82,7 @@ export default class Notify extends React.Component<{}, State> {
   render() {
     return (
       <div className="notification">
-        {Object.keys(this.state).map((key) => this.renderItem(key))}
+        {Object.keys(this.state).map((key) => this.renderItem(Number(key)))}
       </div>
     );
   }
