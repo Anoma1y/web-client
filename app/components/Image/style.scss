@@ -1,0 +1,116 @@
+$image:       image;
+
+.image {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  background-color: transparent;
+  & img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &__hidden {
+    display: none;
+  }
+
+  &__inline,
+  &__inline img,
+  &__inline svg {
+    display: inline-block;
+  }
+
+  &__bordered,
+  &__bordered img,
+  &__bordered svg {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  &__fluid,
+  &__fluid img,
+  &__fluid svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__verticalAlign,
+  &__verticalAlign img,
+  &__verticalAlign svg {
+    &_top {
+      display: inline-block;
+      vertical-align: top;
+    }
+    &_middle {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    &_bottom {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+
+  &__floated {
+    &_left {
+      float: left;
+      margin-right: 1em;
+      margin-bottom: 1em;
+    }
+    &_right {
+      float: right;
+      margin-right: 0;
+      margin-bottom: 1em;
+      margin-left: 1em;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &__disabled {
+    cursor: default;
+    opacity: 0.45;
+  }
+
+  &__size {
+
+    &_xs,
+    &_xs img,
+    &_xs svg {
+      width: 35px;
+      height: auto;
+      font-size: 0.78571429rem;
+    }
+    &_sm,
+    &_sm img,
+    &_sm svg {
+      width: 150px;
+      height: auto;
+      font-size: 0.92857143rem;
+    }
+    &_md,
+    &_md img,
+    &_md svg {
+      width: 600px;
+      height: auto;
+      font-size: 1.28571429rem;
+    }
+    &_lg,
+    &_lg img,
+    &_lg svg {
+      width: 960px;
+      height: auto;
+      font-size: 1.71428571rem;
+    }
+
+  }
+}
+

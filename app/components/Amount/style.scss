@@ -1,0 +1,48 @@
+.amount {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  display: inline-block;
+
+  white-space: nowrap;
+
+  &_minor-wrapper {
+    display: inline-block;
+  }
+
+  &_currency {
+    display: inline-block;
+    min-width: 1em;
+    text-align: right;
+  }
+
+  &_separator, &_minor, &_currency {
+
+    &__light {
+      opacity: 0.6;
+    }
+  }
+
+  &__size {
+  //  TODO
+  }
+
+  &_sign {
+    margin-right: 1px;
+  }
+
+  // TODO добавить цвета для операций
+  &_operation {
+    font-family: 'Lato', sans-serif;
+    &__color {
+      &_minus {
+        color: #FB8C90;
+      }
+      &_plus {
+        color: #8FCA9C;
+      }
+    }
+  }
+}

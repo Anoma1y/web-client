@@ -1,0 +1,319 @@
+@import "lib/style/base.scss";
+$button-border-radius:            4px;
+
+$button-font-color-white:         #ffffff;
+$button-font-family:              'Lato', sans-serif;
+
+$button-bgc-green:                #5FBD8B;
+$button-bgc-red:                  #EE444A;
+$button-disabled-color:           #efefef;
+
+$button: button;
+
+.#{$button} {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0.2em;
+  color: $white-color;
+  border-radius: $button-border-radius;
+  transition: all 0.4s ease;
+  position: relative;
+  //display: block;
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &__fluid {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  &__inline {
+    display: inline-block;
+  }
+
+  &__floated {
+
+    &_left {
+      float: left;
+      margin-left: 0;
+      margin-right: 0.25em;
+    }
+
+    &_right {
+      float: right;
+      margin-right: 0;
+      margin-left: 0.25em;
+    }
+
+  }
+
+  &__disabled {
+    cursor: default;
+  }
+
+  &__outline {
+    background: none !important;
+    border: 1px solid;
+  }
+
+  & > .icon {
+    margin-right: 5px;
+    margin-left: 5px;
+
+  }
+
+  &__color {
+
+    &_black {
+      background-color: $black-color;
+      border-color: $black-color;
+      &:hover, &:focus {
+        background-color: lighten($black-color, 10%);
+      }
+      &:active {
+        background-color: lighten($black-color, 20%);
+      }
+      &.#{$button}__outline {
+        color: $black-color;
+        border-color: $black-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($black-color, 40%);
+      }
+    }
+
+    &_white {
+      background-color: $white-color;
+      color: $black-color;
+      &:hover, &:focus {
+        background-color: darken($white-color, 6%);
+      }
+      &:active {
+        background-color: darken($white-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $black-color;
+        border: none;
+      }
+      &.#{$button}__disabled {
+        background-color: darken($white-color, 20%);
+        color: rgba(255, 255, 255, .6);
+      }
+    }
+
+    &_gray {
+      background-color: $gray-color;
+      color: $white-color;
+      &:hover, &:focus {
+        background-color: darken($gray-color, 6%);
+      }
+      &:active {
+        background-color: darken($gray-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $gray-color;
+        border-color: $gray-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($gray-color, 20%);
+      }
+    }
+
+    &_lightblue {
+      background-color: $lightblue-color;
+      &:hover, &:focus {
+        background-color: darken($lightblue-color, 6%);
+      }
+      &:active {
+        background-color: darken($lightblue-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $lightblue-color;
+        border-color: $lightblue-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($lightblue-color, 20%);
+      }
+    }
+
+    &_green {
+      background-color: $green-color;
+      &:hover, &:focus {
+        background-color: darken($button-bgc-green, 6%);
+      }
+      &:active {
+        background-color: darken($button-bgc-green, 15%);
+      }
+      &.#{$button}__outline {
+        color: $green-color;
+        border-color: $green-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($green-color, 20%);
+      }
+    }
+
+    &_red {
+      background-color: $red-color;
+      &:hover, &:focus {
+        background-color: darken($red-color, 6%);
+      }
+      &:active {
+        background-color: darken($red-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $red-color;
+        border-color: $red-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($red-color, 20%);
+      }
+    }
+
+    &_blue {
+      background-color: $blue-color;
+      &:hover, &:focus {
+        background-color: darken($blue-color, 6%);
+      }
+      &:active {
+        background-color: darken($blue-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $blue-color;
+        border-color: $blue-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($blue-color, 40%);
+      }
+    }
+
+    &_orange {
+      background-color: $orange-color;
+      &:hover, &:focus {
+        background-color: darken($orange-color, 6%);
+      }
+      &:active {
+        background-color: darken($orange-color, 15%);
+      }
+      &.#{$button}__outline {
+        color: $orange-color;
+        border-color: $orange-color;
+      }
+      &.#{$button}__disabled {
+        background-color: lighten($orange-color, 20%);
+      }
+    }
+
+    &_transparent {
+
+      background-color: transparent;
+      &:hover, &:focus {
+        background-color: darken(#555555, 6%);
+      }
+      &:active {
+        background-color: darken(#555555, 15%);
+      }
+
+      &.#{$button}__outline {
+        color: #555555;
+        border-color: #555555;
+      }
+      // TODO добавить дизейбл цвет
+    }
+  }
+
+  &__loading {
+    // TODO вынести в отдельный стайл
+    .spinner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $button-border-radius;
+      background-color: $gray-color;
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f3f3;
+        border-top: 3px solid lighten($blue-color, 10%);
+        border-radius: 100%;
+        animation: spin 1s infinite linear;
+      }
+    }
+    &.#{$button}__outline {
+      color: transparent !important;
+      .spinner {
+        background: none !important;
+      }
+    }
+    &:not(.#{$button}__outline).#{$button}__color {
+      &_gray .spinner {
+        background-color: darken($gray-color, 15%);
+      }
+      &_orange .spinner {
+        background-color: darken($orange-color, 15%);
+      }
+      &_white .spinner {
+        background-color: darken($white-color, 15%);
+      }
+      &_black .spinner {
+        background-color: lighten($white-color, 15%);
+      }
+      &_blue .spinner {
+        background-color: darken($blue-color, 15%);
+      }
+      &_lightblue .spinner {
+        background-color: darken($lightblue-color, 15%);
+      }
+      &_red .spinner {
+        background-color: darken($red-color, 15%);
+      }
+      &_green .spinner {
+        background-color: darken($green-color, 15%);
+      }
+    }
+  }
+
+  @include keyframes(spin) {
+    from{
+      transform: translate(-50%, -50%) rotate(0deg);
+    }to{
+       transform: translate(-50%, -50%) rotate(360deg);
+     }
+  }
+
+  &__size {
+    &_xs {
+      padding: 0.3em 0.4em;
+    }
+
+    &_sm {
+      padding: 0.5em 0.6em;
+    }
+
+    &_md {
+      padding: 0.7em 0.9em;
+    }
+
+    &_lg {
+      padding: 0.9em 1.5em;
+    }
+  }
+}

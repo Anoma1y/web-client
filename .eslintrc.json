@@ -58,7 +58,7 @@
     "arrow-parens": ["off", "always"],
     //Проверка отступов
     "padded-blocks": "off",
-    "arrow-body-style": ["error", "as-needed"],
+    "arrow-body-style": "off",
     //Проверка наличия знака ";" после переменных и функций
     "semi": ["warn", "always"],
     //Перенос скобок в объектах
@@ -87,6 +87,10 @@
     //Разные кавычи в пропах
     "jsx-quotes": "warn",
     "max-len": "off",
+    "no-nested-ternary": "off",
+    "quote-props": "off",
+
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"]}],
 
 
     /****Правила для import****/
@@ -125,7 +129,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     //Проверка defaultProps
     "react/require-default-props": "off",
-
+    "react/prop-types": "off",
     "react/jsx-max-props-per-line": "off",
     "react/jsx-no-bind": "off",
     "react/jsx-no-literals": "off",

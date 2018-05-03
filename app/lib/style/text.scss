@@ -1,0 +1,57 @@
+@import './base.scss';
+
+//  Text weight
+.text-weight_lighter {
+  font-weight: lighter;
+}
+.text-weight_normal {
+  font-weight: normal;
+}
+.text-weight_bold {
+  font-weight: bold;
+}
+.text-weight_bolder {
+  font-weight: bolder;
+}
+
+
+//  Aligment
+.align_left {
+  text-align: left;
+}
+
+.align_right {
+  text-align: right;
+}
+
+.align_center {
+  text-align: center;
+}
+
+.align_justify {
+  text-align: justify;
+}
+
+//  Text wrap
+.text_breakword {
+  hyphens: auto;
+  word-wrap: break-word;
+}
+
+.text-style_regular {
+  font-style: normal;
+}
+
+.text-style_italic {
+  font-style: italic;
+}
+
+//  Text color
+.text-color {
+  &_black {
+    color: $black-color;
+  }
+  &_white {
+    color: $white-color;
+  }
+}
