@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import DateTime from 'react-datetime';
 import Notification from 'components/Notification';
 import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
@@ -89,26 +88,9 @@ class Home extends Component<{}, HomeState> {
             </Col>
 
             <Col md={4}>
-              <DateTime
-                inputProps={{
-                  readOnly: true,
-                  placeholder: 'Date from'
-                }}
-                dateFormat="DD.MM.YYYY"
-                timeFormat=""
-                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
-              />
             </Col>
             <Col md={4}>
-              <DateTime
-                inputProps={{
-                  readOnly: true,
-                  placeholder: 'Date to'
-                }}
-                dateFormat="DD.MM.YYYY"
-                timeFormat=""
-                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
-              />
+
             </Col>
           </Row>
           <Row>

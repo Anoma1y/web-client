@@ -1,0 +1,13 @@
+@import 'lib/style/base.scss';
+
+.header-breadcrumb {
+  & a {
+    color: $blue-color ;
+  }
+  a.header-breadcrumb__active {
+    color: #bbc1ce ;
+  }
+  cursor: default;
+  font-size: 24px;
+  font-weight: bolder;
+}
