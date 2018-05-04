@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Text from 'components/Text';
 import Icon from 'components/Icon';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 export default () => {
@@ -9,13 +10,17 @@ export default () => {
       <div className={'navigation-item'}>
         <Text color={'purple'}>
           <Icon icon={'knoop'} />
-          <Text.Content>Transactions</Text.Content>
+          <Text.Content className={'navigation-item_link'}>
+            <Link to={'/dashboard/transactions/'}>Transactions</Link>
+          </Text.Content>
         </Text>
       </div>
       <div className={'navigation-item'}>
         <Text color={'purple'}>
           <Icon icon={'shopping-bag'} />
-          <Text.Content>Payments</Text.Content>
+          <Text.Content className={'navigation-item_link'}>
+            <Link to={'/dashboard/payments/'}>Payments</Link>
+          </Text.Content>
         </Text>
       </div>
     </div>

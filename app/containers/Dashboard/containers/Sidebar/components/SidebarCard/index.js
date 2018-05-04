@@ -4,7 +4,7 @@ import Amount from 'components/Amount';
 import './style.scss';
 
 const SidebarCard = () => {
-  // TODO переделать под карты
+  // TODO переделать под карты, добавить Dropdown меню для карт и кошельков
   return (
     <div className={'sidebar-wallets'}>
 
@@ -47,8 +47,7 @@ const SidebarCard = () => {
       </div>
 
     </div>
-  )
-
-}
+  );
+};
 
 export default SidebarCard;

@@ -12,4 +12,15 @@
   &:first-child {
     margin-left: 0;
   }
+
+  &_link {
+    a {
+      color: $gray-color;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      &:hover {
+        color: lighten($gray-color, 10%);
+      }
+    }
+  }
 }

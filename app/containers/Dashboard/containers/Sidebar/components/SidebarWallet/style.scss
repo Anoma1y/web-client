@@ -20,7 +20,8 @@
 .sidebar-wallet {
   width: 100%;
   text-align: center;
-  padding: 15px 0;
+  height: 70px;
+  //padding: 15px 0;
   font-family: $font-regular;
   cursor: pointer;
   transition: background-color 0.4s ease;
@@ -40,7 +41,7 @@
   }
   &_btn {
     cursor: pointer;
-    font-size: 20px;
+    font-size: 1.2em;
     @media screen and (max-width: $break-lg) {
       display: none;
     }

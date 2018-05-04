@@ -10,7 +10,7 @@ export default () => (
     </div>
 
     <div className={'user-info_name aside-lr_right'}>
-      <span>Alexander Wasowsky</span>
+      Alexander Wasowsky
     </div>
 
   </div>

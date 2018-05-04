@@ -7,8 +7,10 @@
 
   font-family: $font-regular-serif;
   font-weight: bold;
-  padding-top: 13px;
-  padding-bottom: 13px;
+  //padding-top: 13px;
+  //padding-bottom: 13px;
+  height: 40px;
+  overflow: hidden;
   background-color: $red-color;
   width: 100%;
 

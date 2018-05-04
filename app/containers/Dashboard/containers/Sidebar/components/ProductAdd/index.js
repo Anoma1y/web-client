@@ -5,11 +5,12 @@ import Text from 'components/Text';
 import './style.scss';
 
 const ProductAdd = () => {
-  // TODO переделать под карты
+
+
   return (
     <div className={'sidebar-add aside-c'}>
       <Button outline >
-        <Icon icon={'add'} size={14} />
+        <Icon icon={'add'} size={14} color={'green'} />
         <Text color={'gray'}>Add new product</Text>
       </Button>
     </div>
