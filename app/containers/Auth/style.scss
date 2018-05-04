@@ -1,0 +1,19 @@
+@import 'lib/style/base.scss';
+
+.auth {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: url('/static/images/default-bg-min.jpg');
+  &-header {
+    display: flex;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: space-around;
+  }
+
+  &-additional {
+
+  }
+}

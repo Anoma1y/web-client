@@ -15,9 +15,9 @@ export default () => {
       <div className={'navigation-item'}>
         <Text color={'purple'}>
           <Icon icon={'shopping-bag'} />
-          <Text.Content>Transactions</Text.Content>
+          <Text.Content>Payments</Text.Content>
         </Text>
       </div>
     </div>
-  )
-}
+  );
+};

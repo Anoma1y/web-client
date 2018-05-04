@@ -2,12 +2,13 @@
 
 .header-breadcrumb {
   & a {
-    color: $blue-color ;
+    color: $blue-color;
   }
   a.header-breadcrumb__active {
-    color: #bbc1ce ;
+    color: #bbc1ce;
   }
+  font-family: "Proxima Nova Bold", serif;
   cursor: default;
-  font-size: 24px;
-  font-weight: bolder;
 }
+
+

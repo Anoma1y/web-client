@@ -90,17 +90,16 @@ const Input = (props: Props) => {
   );
 
   const renderInputBlock = (): React.Node => {
-
     const renderInput = () => (
       <input
         className={`${classBlockName}_control`}
         disabled={disabled}
         id={id}
         name={name}
-        onBlur={event => onBlur && onBlur({ event })}
-        onChange={event => onChange && onChange({ event })}
-        onClick={event => onClick && onClick({ event })}
-        onFocus={event => onFocus && onFocus({ event })}
+        onBlur={event => onBlur && onBlur(event)}
+        onChange={event => onChange && onChange(event)}
+        onClick={event => onClick && onClick(event)}
+        onFocus={event => onFocus && onFocus(event)}
         placeholder={placeholder}
         readOnly={readOnly}
         type={type}
