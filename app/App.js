@@ -6,7 +6,7 @@ import Dashboard from 'containers/Dashboard';
 // import Auth from 'containers/Auth';
 import { Route, Switch } from 'react-router-dom';
 import 'lib/style/base.scss';
-import 'react-datepicker/dist/react-datepicker.css';
+// import 'react-datepicker/dist/react-datepicker.css';
 import './style.scss';
 
 class App extends React.Component<{}> {

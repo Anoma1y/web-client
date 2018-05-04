@@ -1,0 +1,65 @@
+@import 'lib/style/vars.scss';
+
+.sidebar-wallets {
+  width: 100%;
+  position: relative;
+  padding: 10px 0;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: rgba(147,147,147,0.4);
+
+  }
+}
+.sidebar-wallet {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  font-family: $font-regular;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  &:hover {
+    background-color: #E4E8F0;
+  }
+  &_icon {
+
+  }
+  &_content {
+    font-family: $font-semibold;
+    text-align: left;
+    //
+    @media screen and (max-width: $break-lg) {
+      display: none;
+    }
+  }
+  &_btn {
+    cursor: pointer;
+    font-size: 20px;
+    @media screen and (max-width: $break-lg) {
+      display: none;
+    }
+  }
+}
+.wallet-amount {
+  &_name {
+    font-weight: normal;
+    color: $gray-color;
+  }
+  &_value {
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    .amount_major {
+      font-weight: bold;
+      color: $black-color;
+    }
+    .amount_minor {
+      color: darken($gray-color, 20%);
+    }
+  }
+}

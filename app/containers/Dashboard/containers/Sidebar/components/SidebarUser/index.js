@@ -1,17 +1,17 @@
 import React from 'react';
 import Avatar from 'components/Avatar';
-import { Row, Col } from 'react-flexbox-grid';
 import './style.scss';
 
 export default () => (
+  <div className={'user-info aside-lr'}>
 
-  <div className={'user-info'}>
-    <div className={'user-info_avatar sidebar__left'}>
+    <div className={'user-info_avatar aside-lr_left'}>
       <Avatar size={'md'} />
     </div>
-    <div className={'user-info_name sidebar__right'}>
-      <p>Alexander Wasowsky</p>
-    </div>
-  </div>
 
+    <div className={'user-info_name aside-lr_right'}>
+      <span>Alexander Wasowsky</span>
+    </div>
+
+  </div>
 );

@@ -1,3 +1,5 @@
+$user-bgc:            #EAF0F7;
+
 .sidebar-content {
 
   &, *, *:before, *:after {
@@ -5,7 +7,7 @@
   }
 
 }
-.sidebar-user {
-  background-color: #EAF0F7;
+.aside-user {
+  background-color: $user-bgc;
 }
 

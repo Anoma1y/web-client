@@ -1,6 +1,8 @@
+@import 'lib/style/vars.scss';
+
 .navigation-menu {
   //color: #7B7792;
-  font-family: 'Proxima Nova Bold', serif;
+  font-family: $font-bold-serif;
 }
 
 .navigation-item {

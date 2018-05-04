@@ -19,7 +19,7 @@ const Label = (props: Props) => {
     attached = '',
     children,
     className,
-    backgroundColor = 'gray',
+    backgroundColor = 'lightgray',
     color = 'white',
     disabled,
     type

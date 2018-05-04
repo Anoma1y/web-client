@@ -5,11 +5,10 @@
     box-sizing: border-box;
   }
 
-  font-family: 'Proxima Nova Semibold', serif;
+  font-family: $font-semibold-serif;
   padding-top: 20px;
   padding-bottom: 20px;
-  display: flex;
-  align-items: center;
+
 
   @media screen and (max-width: $break-lg) {
     justify-content: center;

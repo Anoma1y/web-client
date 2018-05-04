@@ -21,7 +21,6 @@ class HeaderBreadcrumbs extends React.Component<Props> {
   render() {
 
     const { pathname } = this.props.routing.location;
-
     const breadcrumbsList = getPathInfo(pathname);
 
     return (
@@ -29,11 +28,21 @@ class HeaderBreadcrumbs extends React.Component<Props> {
         <Breadcrumb className={'header-breadcrumb'}>
           {
             breadcrumbsList.map((item, index) => {
+
+              const linkName = upperFirstCase(item.name);
+
               return (
-                <Breadcrumb.Section key={item.key} active={breadcrumbsList.length === index + 1}>
-                  {index !== breadcrumbsList.length - 1 ?
-                    <Link to={item.link}> {upperFirstCase(item.name)}</Link>
-                    : <div>{upperFirstCase(item.name)}</div>
+                <Breadcrumb.Section
+                  key={item.key}
+                  active={breadcrumbsList.length === index + 1}
+                >
+                  {
+                    index !== breadcrumbsList.length - 1 ?
+
+                      <Link to={item.link}> {linkName}</Link>
+
+                      : <div>{linkName}</div>
+
                   }
                 </Breadcrumb.Section>
               );
@@ -45,7 +54,5 @@ class HeaderBreadcrumbs extends React.Component<Props> {
   }
 }
 
-export default connect(state => ({ routing: state.routing }), {
-
-})(HeaderBreadcrumbs);
+export default connect((state) => ({ routing: state.routing }), {})(HeaderBreadcrumbs);
 
