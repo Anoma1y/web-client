@@ -26,7 +26,7 @@ const BreadcrumbsSSSSSSS = (props) => (
   </Breadcrumb>
 );
 
-class HeaderBreadcrumbs extends React.Component {
+class HeaderBreadcrumbs extends React.Component<{}> {
 
   // shouldComponentUpdate(nextProps, nextState) {
   //

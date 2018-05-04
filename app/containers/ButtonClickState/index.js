@@ -72,27 +72,15 @@ class Home extends Component<{}, HomeState> {
               </Text>
             </Col>
             <Col md={4}>
-              <Header>
-                <Icon icon='search' />
-                <Header.Content>Header with Icon</Header.Content>
-              </Header>
+
             </Col>
             <Col md={4}>
-              <Header>
-                <Header.Content>
-                  Header content
-                  <Header.Sub>
-                    Header sub
-                  </Header.Sub>
-                </Header.Content>
-              </Header>
+
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <Header>
-                Just Header
-              </Header>
+
             </Col>
           </Row>
           <Row between="md">
