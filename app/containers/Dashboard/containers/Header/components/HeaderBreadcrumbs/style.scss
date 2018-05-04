@@ -1,14 +1,38 @@
-@import 'lib/style/base.scss';
+@import 'lib/style/vars.scss';
 
 .header-breadcrumb {
+
   & a {
+    font-size: 21px;
     color: $blue-color;
   }
-  a.header-breadcrumb__active {
+
+
+
+  a.header-breadcrumb__active, div {
     color: #bbc1ce;
   }
+
+  div {
+    font-size: 21px;
+  }
+
   font-family: "Proxima Nova Bold", serif;
   cursor: default;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

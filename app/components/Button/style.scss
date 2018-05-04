@@ -1,4 +1,6 @@
-@import "lib/style/base.scss";
+@import "lib/style/vars.scss";
+@import "lib/style/mixin.scss";
+
 $button-border-radius:            4px;
 
 $button-font-color-white:         #ffffff;

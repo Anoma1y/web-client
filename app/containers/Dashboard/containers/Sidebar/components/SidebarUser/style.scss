@@ -1,11 +1,11 @@
-@import 'lib/style/base.scss';
+@import 'lib/style/vars.scss';
 
 .user-info {
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
 
-  font-family: 'Proxima Nova Regular', serif;
+  font-family: 'Proxima Nova Semibold', serif;
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;

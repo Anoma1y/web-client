@@ -5,9 +5,7 @@ import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
 import Dashboard from 'containers/Dashboard';
 // import Auth from 'containers/Auth';
 import { Route, Switch } from 'react-router-dom';
-import 'lib/style/fonts.scss';
-import 'lib/style/text.scss';
-import 'lib/style/color.scss';
+import 'lib/style/base.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import './style.scss';
 

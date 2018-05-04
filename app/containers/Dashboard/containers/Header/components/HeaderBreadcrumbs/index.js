@@ -31,11 +31,12 @@ class HeaderBreadcrumbs extends React.Component<Props> {
             breadcrumbsList.map((item, index) => {
               return (
                 <Breadcrumb.Section key={item.key} active={breadcrumbsList.length === index + 1}>
-                  <Link to={item.link} className={breadcrumbsList.length === index + 1 ? 'header-breadcrumb__active' : ''}>
-                    {upperFirstCase(item.name)}
-                  </Link>
+                  {index !== breadcrumbsList.length - 1 ?
+                    <Link to={item.link}> {upperFirstCase(item.name)}</Link>
+                    : <div>{upperFirstCase(item.name)}</div>
+                  }
                 </Breadcrumb.Section>
-              )
+              );
             })
           }
         </Breadcrumb>

@@ -1,4 +1,4 @@
-@import "lib/style/base.scss";
+@import "lib/style/vars.scss";
 
 .sidebar-notice {
   &, *, *:before, *:after {
@@ -30,7 +30,8 @@
 
   &_message {
     color: $white-color;
-    font-size: 18px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
     @media screen and (max-width: $break-lg) {
       display: none;
     }

@@ -14,48 +14,48 @@ type State = {
 
 class Main extends React.Component<{}, State> {
 
-  state = {
-    startDate: moment(),
-    endDate: moment()
-  };
-
-  handleChangeStart = (d: moment) => {
-    this.setState({
-      startDate: d
-    });
-  };
-
-  handleChangeEnd = (d: moment) => {
-    this.setState({
-      endDate: d
-    });
-  };
+  // state = {
+  //   startDate: moment(),
+  //   endDate: moment()
+  // };
+  //
+  // handleChangeStart = (d: moment) => {
+  //   this.setState({
+  //     startDate: d
+  //   });
+  // };
+  //
+  // handleChangeEnd = (d: moment) => {
+  //   this.setState({
+  //     endDate: d
+  //   });
+  // };
 
   render() {
     return (
       <div className={'dashboard'}>
         <Grid>
-          <Row between="md">
-            <Col md={8}>
-              <DatePicker
-                dateFormat="DD/MM/YYYY"
-                selected={this.state.startDate}
-                selectsStart
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onChange={this.handleChangeStart}
-              />
+          {/*<Row between="md">*/}
+            {/*<Col md={8}>*/}
+              {/*<DatePicker*/}
+                {/*dateFormat="DD/MM/YYYY"*/}
+                {/*selected={this.state.startDate}*/}
+                {/*selectsStart*/}
+                {/*startDate={this.state.startDate}*/}
+                {/*endDate={this.state.endDate}*/}
+                {/*onChange={this.handleChangeStart}*/}
+              {/*/>*/}
 
-              <DatePicker
-                dateFormat="DD/MM/YYYY"
-                selected={this.state.endDate}
-                selectsEnd
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onChange={this.handleChangeEnd}
-              />
-            </Col>
-          </Row>
+              {/*<DatePicker*/}
+                {/*dateFormat="DD/MM/YYYY"*/}
+                {/*selected={this.state.endDate}*/}
+                {/*selectsEnd*/}
+                {/*startDate={this.state.startDate}*/}
+                {/*endDate={this.state.endDate}*/}
+                {/*onChange={this.handleChangeEnd}*/}
+              {/*/>*/}
+            {/*</Col>*/}
+          {/*</Row>*/}
           <Row center={'xs'}>
             <Col lg={12}>
               <Table>
