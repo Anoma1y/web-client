@@ -29,7 +29,15 @@
     background-color: #E4E8F0;
   }
   &_icon {
-
+    .test-class {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      background-color: #A3CCEE;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
   }
   &_content {
     font-family: $font-semibold;

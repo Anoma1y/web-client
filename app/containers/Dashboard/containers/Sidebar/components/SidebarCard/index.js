@@ -10,7 +10,9 @@ const SidebarCard = () => {
 
       <div className={'sidebar-wallet aside-lcr'}>
         <div className={'sidebar-wallet_icon aside-lcr_left'}>
-          Visa
+          <div className="test-class">
+            Visa
+          </div>
         </div>
         <div className={'sidebar-wallet_content aside-lcr_center'}>
           <Text className={'wallet-amount'}>
@@ -29,7 +31,9 @@ const SidebarCard = () => {
 
       <div className={'sidebar-wallet aside-lcr'}>
         <div className={'sidebar-wallet_icon aside-lcr_left'}>
-          Visa
+          <div className="test-class">
+            Visa
+          </div>
         </div>
         <div className={'sidebar-wallet_content aside-lcr_center'}>
           <Text className={'wallet-amount'}>

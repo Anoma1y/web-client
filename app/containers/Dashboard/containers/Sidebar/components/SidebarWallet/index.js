@@ -10,7 +10,9 @@ const SidebarWallet = () => {
 
       <div className={'sidebar-wallet aside-lcr'}>
         <div className={'sidebar-wallet_icon aside-lcr_left'}>
-          EUR
+          <div className="test-class">
+            EUR
+          </div>
         </div>
         <div className={'sidebar-wallet_content aside-lcr_center'}>
           <Text className={'wallet-amount'}>
@@ -29,7 +31,9 @@ const SidebarWallet = () => {
 
       <div className={'sidebar-wallet aside-lcr'}>
         <div className={'sidebar-wallet_icon aside-lcr_left'}>
-          USD
+          <div className="test-class">
+            USD
+          </div>
         </div>
         <div className={'sidebar-wallet_content aside-lcr_center'}>
           <Text className={'wallet-amount'}>
