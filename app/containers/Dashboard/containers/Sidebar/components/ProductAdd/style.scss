@@ -1,8 +1,10 @@
 @import "lib/style/vars.scss";
 
 .sidebar-add {
-  margin: 20px 0;
+
+  margin: 20px auto;
   .button {
+    margin: 0 auto;
     @media screen and (max-width: $break-lg) {
       border: none;
     }

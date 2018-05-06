@@ -20,7 +20,7 @@
   box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
 
   overflow: hidden;
-  transition: width 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: width 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
   @media screen and (max-width: $break-lg) {
     width: 70px;
   }
@@ -30,56 +30,17 @@
   }
 }
 
-.aside-lr {
+.sidebar-container {
   display: flex;
   align-items: center;
-  &_left {
-    width: 25%;
+  &_icon {
+    flex: 0 0 70px;
   }
-  &_right {
-    width: 75%;
+  &_content {
+    flex-basis: 100%;
   }
-
-  @media screen and (max-width: $break-lg) {
-    &_left {
-      width: 100%;
-    }
-    &_right {
-      width: 0;
-    }
-  }
-
-}
-.aside-c {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.aside-lcr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  &_left {
-    width: 25%;
-    @media screen and (max-width: $break-lg) {
-      width: 100%;
-    }
-  }
-  &_center {
-    width: 50%;
-  }
-  &_right {
-    width: 25%;
-  }
-  @media screen and (max-width: $break-lg) {
-    &_left {
-      width: 100%;
-    }
-    &_right, &_center {
-      //width: 0;
-      display: none;
-    }
+  &_btn {
+    flex: 0 0 30px;
   }
 }
 
@@ -93,27 +54,41 @@
     //padding-left: 70px;
     padding: 0;
   }
+  //display: flex;
+  //flex-direction: column;
+  //align-items: stretch;
+  //height: 100%;
+  //min-height: 100vh;
+  //flex: 1;
+  flex: 1 1 auto;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  flex-flow: column nowrap;
   min-height: 100vh;
-  //overflow-y: scroll;
   transition: padding-left 0.2s ease;
 }
 .container {
-  width: 100%;
-  flex: 1;
+  //width: 100%;
+  //flex: 1;
+  //min-height: 100vh;
+  //flex: 1 0 auto;
+  flex: 1 1 auto;
   padding: 20px;
-
+  //flex: 1;
+  //flex-grow: 1;
   //background-color: tomato;
 }
 .header-wrapper {
   background-color: #fff;
-  width: 100%;
-  flex: none;
+  //width: 100%;
+  //flex: none;
 }
+
+//.header-wrapper, .footer {
+//  flex-shrink: 0;
+//}
+
 .footer {
   background: #E4E8F0;
-  width: 100%;
-  flex: none;
+  //width: 100%;
+  //flex: none;
 }

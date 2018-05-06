@@ -6,16 +6,14 @@ import './style.scss';
 
 const ProductAdd = () => {
 
-
   return (
-    <div className={'sidebar-add aside-c'}>
+    <div className={'sidebar-add'}>
       <Button outline >
         <Icon icon={'add'} size={14} color={'green'} />
         <Text color={'gray'}>Add new product</Text>
       </Button>
     </div>
   )
-
 }
 
 export default ProductAdd;

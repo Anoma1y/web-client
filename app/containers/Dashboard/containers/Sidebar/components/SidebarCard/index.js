@@ -8,13 +8,13 @@ const SidebarCard = () => {
   return (
     <div className={'sidebar-wallets'}>
 
-      <div className={'sidebar-wallet aside-lcr'}>
-        <div className={'sidebar-wallet_icon aside-lcr_left'}>
+      <div className={'sidebar-wallet sidebar-container'}>
+        <div className={'sidebar-wallet_icon sidebar-container_icon'}>
           <div className="test-class">
             Visa
           </div>
         </div>
-        <div className={'sidebar-wallet_content aside-lcr_center'}>
+        <div className={'sidebar-wallet_content sidebar-container_content'}>
           <Text className={'wallet-amount'}>
             <Text.Content className={'wallet-amount_name'}>
               7356*******4799
@@ -24,18 +24,18 @@ const SidebarCard = () => {
             </Text.Sub>
           </Text>
         </div>
-        <div className={'sidebar-wallet_btn aside-lcr_right'}>
+        <div className={'sidebar-wallet_btn sidebar-container_btn'}>
           <span>...</span>
         </div>
       </div>
 
-      <div className={'sidebar-wallet aside-lcr'}>
-        <div className={'sidebar-wallet_icon aside-lcr_left'}>
+      <div className={'sidebar-wallet sidebar-container'}>
+        <div className={'sidebar-wallet_icon sidebar-container_icon'}>
           <div className="test-class">
             Visa
           </div>
         </div>
-        <div className={'sidebar-wallet_content aside-lcr_center'}>
+        <div className={'sidebar-wallet_content sidebar-container_content'}>
           <Text className={'wallet-amount'}>
             <Text.Content className={'wallet-amount_name'}>
               1434*******2222
@@ -45,7 +45,7 @@ const SidebarCard = () => {
             </Text.Sub>
           </Text>
         </div>
-        <div className={'sidebar-wallet_btn aside-lcr_right'}>
+        <div className={'sidebar-wallet_btn sidebar-container_btn'}>
           <span>...</span>
         </div>
       </div>

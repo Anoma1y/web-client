@@ -7,30 +7,24 @@
 
   font-family: $font-regular-serif;
   font-weight: bold;
-  //padding-top: 13px;
-  //padding-bottom: 13px;
+
   height: 40px;
   overflow: hidden;
   background-color: $red-color;
   width: 100%;
-
-  @media screen and (max-width: $break-lg) {
-    justify-content: center;
-  }
+  white-space: nowrap;
 
   &_icon {
-    // TODO заменить на иконку!!!
-    img {
+    svg {
       display: block;
       margin: 0 auto;
-      width: 22px;
-      height: auto;
     }
   }
 
   &_message {
     color: $white-color;
     font-size: 16px;
+    cursor: default;
     letter-spacing: 0.5px;
     @media screen and (max-width: $break-lg) {
       display: none;

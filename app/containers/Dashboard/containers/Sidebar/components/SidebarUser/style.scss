@@ -1,28 +1,29 @@
 @import 'lib/style/vars.scss';
 
 .user-info {
+
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
 
-  font-family: $font-semibold-serif;
-  //padding-top: 20px;
-  //padding-bottom: 20px;
-
+  font-family: $font-regular-serif;
   height: 80px;
   overflow: hidden;
-  @media screen and (max-width: $break-lg) {
-    justify-content: center;
-  }
 
   &_avatar {
     text-align: center;
     cursor: pointer;
   }
-  &_name {
 
-    color: #9291A8;
+  &_name {
+    color: rgb(140, 139, 160);
+    transition: color 0.3s ease;
+    &:hover {
+      color: lighten(rgb(140,137,160), 10%);
+    }
     font-size: 1.1em;
+    cursor: pointer;
     text-decoration: underline;
   }
+
 }
