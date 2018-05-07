@@ -21,23 +21,11 @@
   width: 100%;
   text-align: center;
   height: 70px;
-  //padding: 15px 0;
   font-family: $font-regular;
   cursor: pointer;
   transition: background-color 0.4s ease;
   &:hover {
     background-color: #E4E8F0;
-  }
-  &_icon {
-    .test-class {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      background-color: #A3CCEE;
-      border-radius: 50%;
-      margin: 0 auto;
-    }
   }
   &_content {
     font-family: $font-semibold;
@@ -50,6 +38,7 @@
   &_btn {
     cursor: pointer;
     font-size: 1.2em;
+    position: relative;
     @media screen and (max-width: $break-lg) {
       display: none;
     }
@@ -72,4 +61,25 @@
       color: darken($gray-color, 20%);
     }
   }
+}
+
+.wallet-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #A3CCEE;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &.wallet-currency {
+    path {
+      fill: $black-color;
+    }
+  }
+
 }

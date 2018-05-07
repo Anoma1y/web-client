@@ -4,7 +4,6 @@ import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
-import './style.scss';
 
 class Sidebar extends React.Component<{}> {
   render() {

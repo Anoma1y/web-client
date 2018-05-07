@@ -1,11 +1,14 @@
 @import 'lib/style/vars.scss';
 
+$user-bgc:            #EAF0F7;
+
 .user-info {
 
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
 
+  background-color: $user-bgc;
   font-family: $font-regular-serif;
   height: 80px;
   overflow: hidden;
@@ -16,11 +19,14 @@
   }
 
   &_name {
+
     color: rgb(140, 139, 160);
     transition: color 0.3s ease;
+
     &:hover {
       color: lighten(rgb(140,137,160), 10%);
     }
+
     font-size: 1.1em;
     cursor: pointer;
     text-decoration: underline;

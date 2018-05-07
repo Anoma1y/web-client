@@ -1,12 +1,14 @@
 @import 'lib/style/vars.scss';
 
+$footer-bgc:              #E4E8F0;
+
 .footer {
 
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
 
-  background: #E4E8F0;
+  background: $footer-bgc;
   height: 100%;
   width: 100%;
   &-container {
@@ -51,6 +53,7 @@
     flex-direction: column;
     justify-content: center;
     cursor: default;
+    font-size: 0.9em;
     p {
       margin: 0;
       color: $gray-color;

@@ -3,21 +3,27 @@
 .sidebar-add {
 
   margin: 20px auto;
+
   .button {
+
     margin: 0 auto;
+    letter-spacing: -0.5px !important;
+
     @media screen and (max-width: $break-lg) {
       border: none;
+    }
+
+    &:hover {
+      background-color: darken($white-color, 5%) !important;
     }
   }
   .text {
     font-family: $font-thin-serif;
     font-size: 15px;
+
     @media screen and (max-width: $break-lg) {
       display: none;
     }
-  }
-
-  @media screen and (max-width: $break-lg) {
 
   }
 }
