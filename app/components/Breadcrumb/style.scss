@@ -41,11 +41,6 @@ $breadcrumb: breadcrumb;
 
   & a {
     text-decoration: none;
-    &:after {
-      content: '/';
-      margin-left: 5px;
-      margin-right: 5px;
-    }
   }
 
   a.#{$breadcrumb}_section {

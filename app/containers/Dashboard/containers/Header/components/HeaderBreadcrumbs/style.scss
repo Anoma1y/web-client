@@ -10,7 +10,31 @@
 
 
   a.header-breadcrumb__active, div {
-    color: #bbc1ce;
+    color: $lightgray-color;
+  }
+
+  div.breadcrumb_section {
+    a {
+      &:after {
+        content: '';
+        border: solid $blue-color;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 3px;
+        transform: rotate(-45deg);
+        margin-left: 2px;
+        margin-right: 4px;
+      }
+    }
+  }
+
+  div.breadcrumb_section__last {
+    a {
+      &:after {
+        border-color: $lightgray-color;
+      }
+    }
   }
 
   div {
@@ -21,17 +45,6 @@
   cursor: default;
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

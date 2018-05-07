@@ -34,6 +34,7 @@ class HeaderBreadcrumbs extends React.Component<Props> {
               return (
                 <Breadcrumb.Section
                   key={item.key}
+                  className={breadcrumbsList.length === index + 2 ? 'breadcrumb_section__last' : ''}
                   active={breadcrumbsList.length === index + 1}
                 >
                   {
