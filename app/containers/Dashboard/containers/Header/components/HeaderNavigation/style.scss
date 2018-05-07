@@ -14,11 +14,15 @@
     box-sizing: border-box;
   }
 
+  // Показывать бургер до 1200 пх
+
   @media screen and (min-width: $break-lg) {
     display: none;
   }
   &_trigger {
+    //display: none;
     border: none;
+    visibility: hidden;
     background-color: transparent;
     cursor: pointer;
     &:focus {
