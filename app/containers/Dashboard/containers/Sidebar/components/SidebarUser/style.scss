@@ -16,14 +16,14 @@ $user-bgc:            #EAF0F7;
   &_avatar {
     text-align: center;
     cursor: pointer;
-    position: relative;
-    left: 0;
-    //transition: left 0.5s ease;
-    @media screen and (max-width: $break-lg - 1) {
-      //position: fixed;
-      top: -5px;
-      left: 280px;
-    }
+    //position: relative;
+    //left: 0;
+    ////transition: left 0.5s ease;
+    //@media screen and (max-width: $break-lg - 1) {
+    //  //position: fixed;
+    //  top: -5px;
+    //  left: 280px;
+    //}
   }
 
   &_name {

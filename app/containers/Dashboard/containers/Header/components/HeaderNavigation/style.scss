@@ -21,8 +21,9 @@
   }
   &_trigger {
     //display: none;
+    display: block;
     border: none;
-    visibility: hidden;
+    //visibility: hidden;
     background-color: transparent;
     cursor: pointer;
     &:focus {
