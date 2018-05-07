@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Breadcrumb from 'components/Breadcrumb';
+import { Grid } from 'react-flexbox-grid'
 import { Link } from 'react-router-dom';
 import {
   getPathInfo,
@@ -24,31 +25,33 @@ class HeaderBreadcrumbs extends React.Component<Props> {
     const breadcrumbsList = getPathInfo(pathname);
 
     return (
-      <Breadcrumb className={'header-breadcrumb'}>
-        {
-          breadcrumbsList.map((item, index) => {
+      <Grid>
+        <Breadcrumb className={'header-breadcrumb'}>
+          {
+            breadcrumbsList.map((item, index) => {
 
-            const linkName = upperFirstCase(item.name);
+              const linkName = upperFirstCase(item.name);
 
-            return (
-              <Breadcrumb.Section
-                key={item.key}
-                className={breadcrumbsList.length === index + 2 ? 'breadcrumb_section__last' : ''}
-                active={breadcrumbsList.length === index + 1}
-              >
-                {
-                  index !== breadcrumbsList.length - 1 ?
+              return (
+                <Breadcrumb.Section
+                  key={item.key}
+                  className={breadcrumbsList.length === index + 2 ? 'breadcrumb_section__last' : ''}
+                  active={breadcrumbsList.length === index + 1}
+                >
+                  {
+                    index !== breadcrumbsList.length - 1 ?
 
-                    <Link to={item.link}> {linkName}</Link>
+                      <Link to={item.link}> {linkName}</Link>
 
-                    : <div>{linkName}</div>
+                      : <div>{linkName}</div>
 
-                }
-              </Breadcrumb.Section>
-            );
-          })
-        }
-      </Breadcrumb>
+                  }
+                </Breadcrumb.Section>
+              );
+            })
+          }
+        </Breadcrumb>
+      </Grid>
     );
   }
 }

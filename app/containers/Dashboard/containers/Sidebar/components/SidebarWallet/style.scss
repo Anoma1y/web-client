@@ -30,18 +30,11 @@
   &_content {
     font-family: $font-semibold;
     text-align: left;
-    //
-    @media screen and (max-width: $break-lg) {
-      display: none;
-    }
   }
   &_btn {
     cursor: pointer;
     font-size: 1.2em;
     position: relative;
-    @media screen and (max-width: $break-lg) {
-      display: none;
-    }
   }
 }
 .wallet-amount {

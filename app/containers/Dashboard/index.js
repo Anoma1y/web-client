@@ -36,7 +36,7 @@ const Dashboard = (props: Props) => (
         <Header item={link} />
       </div>
 
-      <div className={'container'}>
+      <div className={'dashboard-wrapper'}>
 
         <Switch>
 

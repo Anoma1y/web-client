@@ -18,7 +18,7 @@
 
   &-logo {
     cursor: pointer;
-    @media screen and (max-width: $break-lg) {
+    @media screen and (max-width: $break-lg - 1) {
       order: 1;
     }
     @media screen and (max-width: $break-sm) {
@@ -27,11 +27,21 @@
       }
     }
   }
-  &-logout {
+  &-side {
     color: #736F8C;
     font-family: $font-bold-serif;
     font-size: 18px;
     font-weight: bold;
+    &_logout {
+      @media screen and (max-width: $break-sm) {
+        display: none;
+      }
+    }
+    &_trigger {
+      @media screen and (min-width: $break-sm) {
+        display: none;
+      }
+    }
     @media screen and (max-width: $break-lg) {
       order: 2;
     }
@@ -40,7 +50,7 @@
   &_navigation {
     width: 100%;
     padding: 0 100px;
-    @media screen and (max-width: $break-lg) {
+    @media screen and (max-width: $break-lg - 1) {
       order: 0;
       padding: 0;
       width: auto;

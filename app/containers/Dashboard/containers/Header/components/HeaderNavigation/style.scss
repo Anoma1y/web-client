@@ -2,7 +2,7 @@
 
 .navigation-wrapper {
 
-  @media screen and (max-width: $break-lg) {
+  @media screen and (max-width: $break-lg - 1) {
     display: none;
   }
 }

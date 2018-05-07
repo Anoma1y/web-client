@@ -26,9 +26,6 @@
     font-size: 16px;
     cursor: default;
     letter-spacing: 0.5px;
-    @media screen and (max-width: $break-lg) {
-      display: none;
-    }
   }
 }
 

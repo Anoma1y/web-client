@@ -27,8 +27,9 @@ export default (props: Props) => {
           <HeaderNavigation item={props.item} />
         </div>
 
-        <div className={'header-logout'}>
-          Logout
+        <div className={'header-side'}>
+          <div className={'header-side_logout'}>Logout</div>
+          <div className={'header-side_trigger'}>#</div>
         </div>
 
       </div>
@@ -36,7 +37,7 @@ export default (props: Props) => {
       <div className={'header-container header-breadcrumbs-wrapper'}>
         <HeaderBreadcrumbs />
       </div>
-      
+
     </div>
   );
 }
