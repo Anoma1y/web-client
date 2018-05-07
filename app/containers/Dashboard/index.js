@@ -16,6 +16,12 @@ type Props = {
   }
 }
 
+const link: Array<{name: string, link: string}> = [
+  { name: 'Dashboard', link: '/dashboard/' },
+  { name: 'Transactions', link: '/dashboard/transactions/' },
+  { name: 'Payments', link: '/dashboard/payments/' },
+];
+
 const Dashboard = (props: Props) => (
 
   <div className={'main'}>
@@ -27,7 +33,7 @@ const Dashboard = (props: Props) => (
     <div className={'wrapper'}>
 
       <div className={'header-wrapper'}>
-        <Header />
+        <Header item={link} />
       </div>
 
       <div className={'container'}>

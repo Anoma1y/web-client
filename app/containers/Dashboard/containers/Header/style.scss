@@ -4,6 +4,7 @@
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
+
   padding: 0 20px;
 
   &-container {
@@ -17,6 +18,9 @@
 
   &-logo {
     cursor: pointer;
+    @media screen and (max-width: $break-lg) {
+      order: 1;
+    }
     @media screen and (max-width: $break-sm) {
       svg {
         width: 80px;
@@ -28,22 +32,24 @@
     font-family: $font-bold-serif;
     font-size: 18px;
     font-weight: bold;
+    @media screen and (max-width: $break-lg) {
+      order: 2;
+    }
   }
 
   &_navigation {
     width: 100%;
-    @media screen and (max-width: $break-lg) {
-      display: none;
-    }
     padding: 0 100px;
+    @media screen and (max-width: $break-lg) {
+      order: 0;
+      padding: 0;
+      width: auto;
+    }
   }
 }
-
-.mobile-menu {
-  @media screen and (min-width: $break-lg) {
-    display: none;
-  }
-  &_trigger {
-    cursor: pointer;
+.header-breadcrumbs-wrapper {
+  @media screen and (max-width: $break-420) {
+    display: flex;
+    justify-content: center;
   }
 }

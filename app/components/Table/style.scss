@@ -124,12 +124,16 @@ $table:               table;
     &:not(&__unstackable) tr > td {
       width: auto !important;
       display: block !important;
+      // TEST
+      text-align: center;
     }
     &:not(&__unstackable) {
       padding: 0em;
     }
+    // TEST
     &:not(&__unstackable) thead {
-      display: block;
+      //display: block;
+      display: none;
     }
     &:not(&__unstackable) tfoot {
       display: block;

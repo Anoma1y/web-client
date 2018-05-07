@@ -2,7 +2,7 @@
 
 .dashboard-banners {
   margin-bottom: 50px;
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: $break-420) {
     display: none;
   }
   .dashboard-banner {
@@ -28,7 +28,7 @@
     top: 20px;
     right: 20px;
 
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: $break-991) {
       top: 5px;
       right: 5px;
     }
@@ -38,7 +38,7 @@
         margin-top: 0;
       }
       .image {
-        @media screen and (max-width: 1337px) {
+        @media screen and (max-width: $break-1337) {
           width: 90px;
         }
 
@@ -51,11 +51,11 @@
     top: 30px;
     right: 25px;
     color: $white-color;
-    @media screen and (max-width: 991px) {
+    @media screen and (max-width: $break-991) {
       top: 10px;
       right: 10px;
     }
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: $break-575) {
       top: 10px;
       right: 5px;
     }
@@ -65,13 +65,13 @@
       margin-right: 7px;
       font-size: 2.1em;
       cursor: default;
-      @media screen and (max-width: 991px) {
+      @media screen and (max-width: $break-991) {
         font-size: 1.5em;
       }
       @media screen and (max-width: $break-sm) {
         font-size: 1em;
       }
-      @media screen and (max-width: 575px) {
+      @media screen and (max-width: $break-575) {
         font-size: 1.4em;
       }
     }
@@ -80,21 +80,21 @@
       right: 0;
       top: 63px;
       width: 190px;
-      @media screen and (max-width: 1337px) {
+      @media screen and (max-width: $break-1337) {
         width: 150px;
       }
-      @media screen and (max-width: 991px) {
+      @media screen and (max-width: $break-991) {
         top: 30px;
         width: 100px;
       }
       @media screen and (max-width: $break-sm) {
         width: 70px;
       }
-      @media screen and (max-width: 575px) {
+      @media screen and (max-width: $break-575) {
         width: 120px;
         top: 40px;
       }
-      @media screen and (max-width: 490px) {
+      @media screen and (max-width: $break-490) {
         width: 90px;
       }
     }
@@ -105,19 +105,19 @@
       font-family: $font-bold;
       font-size: 1.1em;
       cursor: default;
-      @media screen and (max-width: 1337px) {
+      @media screen and (max-width: $break-1337) {
         font-size: 0.9em;
       }
-      @media screen and (max-width: 991px) {
+      @media screen and (max-width: $break-991) {
         font-size: 0.65em;
       }
       @media screen and (max-width: $break-sm) {
         font-size: 0.5em;
       }
-      @media screen and (max-width: 575px) {
+      @media screen and (max-width: $break-575) {
         font-size: 1em;
       }
-      @media screen and (max-width: 490px) {
+      @media screen and (max-width: $break-490) {
         font-size: 0.7em;
       }
     }
@@ -142,10 +142,10 @@
         background-color: lighten(#120340, 5%);
         box-shadow: 0 0 46px 6px rgba(255, 255, 255, .45);
       }
-      @media screen and (max-width: 1337px) {
+      @media screen and (max-width: $break-1337) {
         margin-top: 20px;
       }
-      @media screen and (max-width: 991px){
+      @media screen and (max-width: $break-991){
         margin-right: 0;
         font-size: 0.9em;
         padding: 6px 15px;
@@ -154,11 +154,11 @@
         margin-top: 5px;
         margin-right: -5px;
       }
-      @media screen and (max-width: 575px) {
+      @media screen and (max-width: $break-575) {
         margin-top: 15px;
         margin-right: 10px;
       }
-      @media screen and (max-width: 490px) {
+      @media screen and (max-width: $break-490) {
         margin-right: 10px;
       }
     }

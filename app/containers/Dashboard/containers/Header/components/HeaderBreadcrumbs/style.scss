@@ -5,6 +5,9 @@
   & a {
     font-size: 21px;
     color: $blue-color;
+    @media screen and (max-width: $break-575) {
+      font-size: 15px;
+    }
   }
 
   a.header-breadcrumb__active, div {
@@ -27,6 +30,9 @@
         transform: rotate(-45deg);
         margin-left: 7px;
         margin-right: 4px;
+        @media screen and (max-width: $break-490) {
+          vertical-align: baseline;
+        }
       }
     }
   }
@@ -41,6 +47,9 @@
 
   div {
     font-size: 21px;
+    @media screen and (max-width: $break-575) {
+      font-size: 15px;
+    }
   }
 
   font-family: $font-bold-serif;

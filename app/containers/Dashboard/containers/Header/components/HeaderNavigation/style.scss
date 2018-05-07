@@ -1,8 +1,35 @@
 @import 'lib/style/vars.scss';
 
+.navigation-wrapper {
+
+  @media screen and (max-width: $break-lg) {
+    display: none;
+  }
+}
+
+
+.mobile-menu {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  @media screen and (min-width: $break-lg) {
+    display: none;
+  }
+  &_trigger {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+
 .navigation-menu {
-  //color: #7B7792;
-  font-family: $font-bold-serif;
+  font-family: $font-semibold-serif;
 }
 
 .navigation-item {
