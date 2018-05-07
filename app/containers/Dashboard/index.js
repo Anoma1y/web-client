@@ -3,6 +3,7 @@ import Main from './containers/Main';
 import Transaction from './containers/Transaction';
 import Sidebar from './containers/Sidebar';
 import Header from './containers/Header';
+import Footer from './containers/Footer';
 import {
   Route,
   Switch
@@ -40,7 +41,9 @@ const Dashboard = (props: Props) => (
 
       </div>
 
-      <div className={'footer'}>I am footer</div>
+      <div className={'footer-wrapper'}>
+        <Footer />
+      </div>
 
     </div>
 
