@@ -26,11 +26,11 @@ const Dashboard = (props: Props) => (
 
   <div className={'page'}>
 
-    <div className={'sidebar-section'}>
+    <div className={'page-sidebar'}>
       <Sidebar />
     </div>
 
-    <div className={'main-section'}>
+    <div className={'page-main'}>
 
       <div className={'header-wrapper'}>
         <Header item={link} />

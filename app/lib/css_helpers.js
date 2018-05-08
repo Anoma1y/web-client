@@ -22,8 +22,18 @@ export const numberWord: numberWordType = {
   '16': 'sixteen',
 };
 
-export const numberToWord = (value: string): string => numberWord[value] || value;
+/**
+ * Функция для преобразования числа в строковый эквивалент
+ * @param value - число
+ * @returns {string} значение из объекта numberWord
+ */
+export const numberToWord = (value: string | number): string => numberWord[String(value)] || String(value);
 
+/**
+ * Функция, преобразующая число в строковый эквивалент или возращающий equal если значение пустое
+ * @param val - число
+ * @returns {string} equal или значение из объекта numberWord
+ */
 export const getColumnCount = (val: ?string | ?number) => {
   return !val || val === 0 ? '' : val === 'equal' ? 'equal' : numberToWord(_.toString(val));
 };

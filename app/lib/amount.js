@@ -21,8 +21,9 @@ export const PLUS_SIGN_HTML_CODE = '\u002B';
 export const AMOUNT_SPLITTER = ','; // Разделитель между частями
 
 /**
- * Создание разделителя
- * @return Function возвращает функцию разделитель
+ * Функция для создания разделителя
+ * @param partSize
+ * @returns {function(string)}
  */
 export const createSplitter = (partSize: number): Function => {
   const parts = (str: string): Array<string> => {
@@ -58,6 +59,9 @@ export const formatAmount = (amount: AmountType): FormatAmountType => {
   };
 };
 
+/**
+ * Функция для тестирования, лол
+ */
 const testAmount = () => {
   for (let i = 1; i <= 25; i++) {
     const value = Number(_.random(-100000, 1000000.99).toFixed(2));
