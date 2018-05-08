@@ -123,20 +123,49 @@ $table:               table;
     &:not(&__unstackable) tr > th,
     &:not(&__unstackable) tr > td {
       width: auto !important;
-      display: block !important;
-      // TEST
+      font-size: 0.8rem;
+    }
+    &:not(&__unstackable) thead {
       text-align: center;
+    }
+    &:not(&__unstackable) {
+      .label {
+        padding: 5px;
+        font-family: $font-regular-serif;
+        font-size: 0.7rem;
+      }
+    }
+    &:not(&__unstackable) tr {
+      -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+      box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+    }
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
+      background: none;
+      border: none !important;
+      padding: 0.6rem 0.75rem !important;
+      box-shadow: none !important;
+    }
+  }
+  @media only screen and (max-width: $break-490) {
+    &:not(&__unstackable) {
+      width: 100%;
+    }
+    &:not(&__unstackable) tbody,
+    &:not(&__unstackable) tr,
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
+      width: auto !important;
+      display: block !important;
     }
     &:not(&__unstackable) {
       padding: 0em;
     }
-    // TEST
     &:not(&__unstackable) thead {
-      //display: block;
       display: none;
     }
     &:not(&__unstackable) tfoot {
-      display: block;
+      display: none;
     }
     &:not(&__unstackable) tr {
       padding-top: 1em;
@@ -148,6 +177,7 @@ $table:               table;
     &:not(&__unstackable) tr > td {
       background: none;
       border: none !important;
+      text-align: center;
       padding: 0.25em 0.75em !important;
       -webkit-box-shadow: none !important;
       box-shadow: none !important;
@@ -156,9 +186,7 @@ $table:               table;
     &:not(&__unstackable) td:first-child {
       font-weight: bold;
     }
-
   }
-
   @media only screen and (max-width: $break-md) {
     // Стакивание td блоков
     &__stackable {
