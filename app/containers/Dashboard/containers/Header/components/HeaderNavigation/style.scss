@@ -1,6 +1,6 @@
 @import 'lib/style/vars.scss';
 
-
+$mobile-menu-width:                   16.875rem;
 
 .navigation {
   font-family: $font-semibold-serif;
@@ -34,10 +34,9 @@
       }
     }
   }
-
 }
 
-.mobile-navigation {
+.mnav {
 
   @media screen and (min-width: $break-lg) {
     display: none;
@@ -50,6 +49,90 @@
     cursor: pointer;
     &:focus {
       outline: none;
+    }
+  }
+
+  &-content {
+    display: block;
+    width: $mobile-menu-width;
+    right: -$mobile-menu-width;
+    height: 100%;
+    max-height: 100%;
+    background: $white-color;
+    box-shadow: 4px 0 29px 0 rgba(147,147,147,0.7);
+    position: fixed;
+    z-index: 6969696969;
+    transition: right 0.6s ease;
+    top: 0;
+    padding: 3rem 0;
+    &__active {
+      right: 0;
+    }
+    &_close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      svg {
+        cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      &:hover {
+        svg line {
+          stroke: $gray-color;
+        }
+      }
+    }
+    &_close-btn {
+      background: none;
+      border: none;
+      &:focus {
+        outline: none;
+      }
+
+    }
+  }
+
+  &-menu {
+    position: relative;
+    font-family: $font-semibold-serif;
+    padding: 0;
+    &_item {
+      list-style: none;
+    }
+    &_logout {
+      text-align: center;
+      position: relative;
+      bottom: -3rem;
+      font-size: 1.5rem;
+    }
+    &_link {
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      color: $black-color;
+      font-size: 1.5rem;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: color .2s ease;
+      &:hover {
+        color: $gray-color;
+      }
+    }
+    &:after {
+      display: block;
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 1px;
+      background-color: $lightgray-color;
+      bottom: -2rem;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

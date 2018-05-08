@@ -27,7 +27,20 @@
   &_item {
     width: 100%;
   }
-
+  &-divider {
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      background-color: rgba(147,147,147,0.4);
+    }
+  }
   &-container {
     display: flex;
     align-items: center;
@@ -43,14 +56,15 @@
   }
 
   &-mobile {
-    position: fixed;
+    position: absolute;
     top: 1.25rem;
     left: 1.25rem;
-    z-index: -9999;
+    z-index: 999999;
     @media screen and (min-width: $break-lg) {
       display: none;
     }
     &_button {
+      cursor: pointer;
       border: none;
       background: none;
       &:focus {

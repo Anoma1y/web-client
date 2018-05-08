@@ -34,9 +34,6 @@ export default (props: Props) => {
         <div className={'header-aside'}>
 
           <div className={'header-aside_logout'}>Logout</div>
-          <div className={'header-aside_trigger'}>
-
-          </div>
         </div>
 
       </div>

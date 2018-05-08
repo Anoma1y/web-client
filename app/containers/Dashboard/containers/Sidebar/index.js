@@ -16,6 +16,11 @@ class Sidebar extends React.Component<{}, State> {
     sidebarIsOpen: false
   };
 
+  /**
+   * После монтирования и демонтирования компонента, добавляются / убираются обработчики событий для
+   * - ресайза области с целью изменения состояния sidebarIsOpen на false - закрытие сайдбара
+   * - клик по любой другой области не совпадающей с сайдбаром
+   */
   componentDidMount() {
     this.updateDimensions();
     (document.addEventListener: Function)('mousedown', this.handleClickOutside);
@@ -27,6 +32,11 @@ class Sidebar extends React.Component<{}, State> {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
+  /**
+   * Функция обработчки клика по области (не сайдбара)
+   * Переводит стейт в состояние false
+   * @param event
+   */
   handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
     if (this.sidebarRef && !this.sidebarRef.contains(event.target)) {
       this.setState({
@@ -35,6 +45,10 @@ class Sidebar extends React.Component<{}, State> {
     }
   };
 
+  /**
+   * Функция обработчки ресайза, если рабочая область больше 1200 пикселей (3ий основной брейкпоинт)
+   * то переводит стейт в состояние false
+   */
   updateDimensions = () => {
     if (window.innerWidth >= 1200) {
       this.setState({
@@ -43,12 +57,19 @@ class Sidebar extends React.Component<{}, State> {
     }
   };
 
+  /**
+   * Функция обработчки клика по батону вызова сайдбара
+    */
   handleSidebar = () => {
     this.setState({
       sidebarIsOpen: !this.state.sidebarIsOpen
     });
   };
 
+  /**
+   * Привязка ref для дива с контейнером сайдбара
+   * @param node
+   */
   handleSidebarRef = (node: ?HTMLDivElement) => {
     this.sidebarRef = node;
   };
@@ -60,8 +81,30 @@ class Sidebar extends React.Component<{}, State> {
     const { sidebarIsOpen } = this.state;
 
     return (
-      <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
+      <React.Fragment>
+        <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
 
+          <div className={'sidebar_item sidebar-user'}>
+            <SidebarUser />
+          </div>
+
+          <div className={'sidebar_item sidebar-notification'}>
+            <SidebarNotification />
+          </div>
+
+          <div className={'sidebar_item sidebar-wallets'}>
+            <SidebarWallet />
+          </div>
+
+          <div className={'sidebar_item sidebar-cards'}>
+            <SidebarCard />
+          </div>
+
+          <div className={'sidebar_item sidebar-product-add'}>
+            <ProductAdd />
+          </div>
+
+        </div>
         <div className={'sidebar-mobile'}>
 
           <button className={'sidebar-mobile_button'} onClick={this.handleSidebar}>
@@ -72,28 +115,8 @@ class Sidebar extends React.Component<{}, State> {
           </button>
 
         </div>
-
-        <div className={'sidebar_item sidebar-user'}>
-          <SidebarUser />
-        </div>
-
-        <div className={'sidebar_item sidebar-notification'}>
-          <SidebarNotification />
-        </div>
-
-        <div className={'sidebar_item sidebar-wallets'}>
-          <SidebarWallet />
-        </div>
-
-        <div className={'sidebar_item sidebar-cards'}>
-          <SidebarCard />
-        </div>
-
-        <div className={'sidebar_item sidebar-product-add'}>
-          <ProductAdd />
-        </div>
-
-      </div>
+        <div className={`blackout ${sidebarIsOpen ? 'blackout__active' : ''}`}> </div>
+      </React.Fragment>
     );
   }
 }

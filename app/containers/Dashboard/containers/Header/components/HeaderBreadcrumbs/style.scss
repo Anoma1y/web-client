@@ -1,12 +1,15 @@
 @import 'lib/style/vars.scss';
 
+$breadcrumb-font-size:            1.4rem;
+$breadcrumb-divider-size:         3px;
+
 .breadcrumb-area {
 
   & a {
-    font-size: 21px;
+    font-size: $breadcrumb-font-size;
     color: $blue-color;
     @media screen and (max-width: $break-575) {
-      font-size: 15px;
+      font-size: $breadcrumb-font-size / 1.5;
     }
   }
 
@@ -23,10 +26,10 @@
       &:after {
         content: '';
         border: solid $blue-color;
-        border-width: 0 3px 3px 0;
+        border-width: 0 $breadcrumb-divider-size $breadcrumb-divider-size 0;
         display: inline-block;
         vertical-align: middle;
-        padding: 3px;
+        padding: $breadcrumb-divider-size;
         transform: rotate(-45deg);
         margin-left: 7px;
         margin-right: 4px;
@@ -46,7 +49,7 @@
   }
 
   div {
-    font-size: 21px;
+    font-size: $breadcrumb-font-size;
     @media screen and (max-width: $break-575) {
       font-size: 15px;
     }

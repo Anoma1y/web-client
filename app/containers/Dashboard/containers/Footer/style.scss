@@ -1,25 +1,25 @@
 @import 'lib/style/vars.scss';
 
-$footer-bgc:              #E4E8F0;
+$footer-bgc:                        #E4E8F0;
+$footer-height:                     5.625rem;
+$footer-padding:                    3.75rem;
+$footer-copyright-margin:           1rem;
 
 .footer {
 
-  &, *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
   background: $footer-bgc;
-  height: 100%;
+  height: $footer-height;
   width: 100%;
+
   &-container {
     width: 100%;
     height: 100%;
     display: flex;
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: $footer-padding;
+    padding-right: $footer-padding;
     @media screen and (max-width: $break-575) {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: $footer-padding / 3;
+      padding-right: $footer-padding / 3;
     }
     justify-content: space-between;
   }
@@ -56,27 +56,30 @@ $footer-bgc:              #E4E8F0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: $footer-copyright-margin;
+    margin-right: $footer-copyright-margin;
+
     @media screen and (max-width: $break-575) {
       display: none;
     }
+
     svg path {
       fill: $lightgray-color;
     }
 
   }
+
   &_content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     cursor: default;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     @media screen and (max-width: $break-sm) {
-      font-size: 0.7em;
+      font-size: 0.7rem;
     }
     @media screen and (max-width: $break-575) {
-      margin-left: 15px;
+      margin-left: $footer-copyright-margin;
     }
     p {
       margin: 0;

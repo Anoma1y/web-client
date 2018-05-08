@@ -1,11 +1,7 @@
+$main-padding:            1.25rem;
+
 .dashboard {
-
-  &, *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
   &-container {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: $main-padding;
   }
 }
