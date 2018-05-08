@@ -1,4 +1,8 @@
 import * as React from 'react';
+import {
+  upperFirstCase
+} from 'lib/pathUtils';
+import { Link } from 'react-router-dom';
 
 type Props = {
   item: Array<{
@@ -67,16 +71,31 @@ export default class MobileMenu extends React.Component<Props, State> {
 
   mobileRef: ?any;
 
+  /**
+   * Функция обработчки открытия меню
+   */
   handleOpen = () => {
     this.setState({
       isOpen: true
     });
   };
 
+  /**
+   * Функция обработчки закрытия меню
+   */
   handleClose = () => {
     this.setState({
       isOpen: false
     });
+  };
+
+  /**
+   * Рендер ссылок
+   * @returns {React.Node}
+   */
+  renderItem = () => {
+    const { item } = this.props;
+    return item.map(({ name, link }) => <Link key={name} className={'mnav-menu_link'} to={link}>{upperFirstCase(name)}</Link>);
   };
 
   render() {
@@ -96,17 +115,9 @@ export default class MobileMenu extends React.Component<Props, State> {
         <div className={`mnav-content ${isOpen ? 'mnav-content__active' : ''}`} ref={this.handleMobileNavRef}>
           <ul className={'mnav-menu'}>
             <li className={'mnav-menu_item'}>
-              <a className={'mnav-menu_link'}>Dashboard</a>
+              { this.renderItem() }
             </li>
-            <li className={'mnav-menu_item'}>
-              <a className={'mnav-menu_link'}>Transactions</a>
-            </li>
-            <li className={'mnav-menu_item'}>
-              <a className={'mnav-menu_link'}>Payments</a>
-            </li>
-            <li className={'mnav-menu_item'}>
-              <a className={'mnav-menu_link'}>Settings</a>
-            </li>
+
           </ul>
 
           <div className={'mnav-menu_logout'}>
