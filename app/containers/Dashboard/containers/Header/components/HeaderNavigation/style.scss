@@ -1,48 +1,27 @@
 @import 'lib/style/vars.scss';
 
-.navigation-wrapper {
-
-  @media screen and (max-width: $break-lg - 1) {
-    display: none;
-  }
-}
 
 
-.mobile-menu {
+.navigation {
+  font-family: $font-semibold-serif;
 
-  &, *, *:before, *:after {
-    box-sizing: border-box;
-  }
-
-  // Показывать бургер до 1200 пх
-
-  @media screen and (min-width: $break-lg) {
-    display: none;
-  }
-  &_trigger {
-    //display: none;
-    display: block;
-    border: none;
-    //visibility: hidden;
-    background-color: transparent;
-    cursor: pointer;
-    &:focus {
-      outline: none;
+  &__main {
+    @media screen and (max-width: $break-lg - 1) {
+      display: none;
     }
   }
+
 }
 
+.navigation-main {
 
-.navigation-menu {
-  font-family: $font-semibold-serif;
-}
+  &_item {
+    display: inline-block;
+    margin-left: 40px;
 
-.navigation-item {
-  display: inline-block;
-  margin-left: 40px;
-
-  &:first-child {
-    margin-left: 0;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 
   &_link {
@@ -53,6 +32,24 @@
       &:hover {
         color: lighten($gray-color, 10%);
       }
+    }
+  }
+
+}
+
+.mobile-navigation {
+
+  @media screen and (min-width: $break-lg) {
+    display: none;
+  }
+
+  &_trigger {
+    display: block;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    &:focus {
+      outline: none;
     }
   }
 }

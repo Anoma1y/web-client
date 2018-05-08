@@ -24,19 +24,19 @@ const link: Array<{name: string, link: string}> = [
 
 const Dashboard = (props: Props) => (
 
-  <div className={'main'}>
+  <div className={'page'}>
 
-    <div className={'sidebar'}>
+    <div className={'sidebar-section'}>
       <Sidebar />
     </div>
 
-    <div className={'wrapper'}>
+    <div className={'main-section'}>
 
       <div className={'header-wrapper'}>
         <Header item={link} />
       </div>
 
-      <div className={'dashboard-wrapper'}>
+      <div className={'content-wrapper'}>
 
         <Switch>
 

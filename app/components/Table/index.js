@@ -58,6 +58,7 @@ const Table = (props: Props) => {
 
   const classBlockName: string = CLASS_NAME;
   const widthClasses: string = getColumnCount(columns);
+
   const classes = classnames(
     classBlockName,
     `${classBlockName}__align_${textAlign}`,
@@ -74,10 +75,10 @@ const Table = (props: Props) => {
       [`${classBlockName}__structured`]: structured,
       [`${classBlockName}__unstackable`]: unstackable,
       [`${classBlockName}__compact`]: compact,
-      [`${classBlockName}__size_${size}`]: size
+      [`${classBlockName}__size_${size}`]: size,
+      [`${classBlockName}__columns_${widthClasses}`]: widthClasses
     },
-    `${classBlockName}__columns_${widthClasses}`,
-    className,
+    className
   );
 
   return (

@@ -13,29 +13,33 @@ type Props = {
 };
 
 export default (props: Props) => {
-  console.log(props)
-  return (
-    <div className={'navigation-menu'}>
 
-      <div className={'navigation-mobile'}>
+  return (
+
+    <div className={'navigation'}>
+
+      <div className={'navigation-wrap navigation__mobile'}>
         <MobileMenu item={props.item} />
       </div>
 
-      <div className={'navigation-wrapper'}>
-        {
-          props.item.map((item) => {
-            return (
-              <div className={'navigation-item'} key={item.name}>
-                <Text color={'purple'}>
-                  <Icon icon={'knoop'} />
-                  <Text.Content className={'navigation-item_link'}>
-                    <Link to={item.link}>{item.name}</Link>
-                  </Text.Content>
-                </Text>
-              </div>
-            )
-          })
-        }
+      <div className={'navigation-wrap navigation__main'}>
+
+        <div className={'navigation-main'}>
+          {
+            props.item.map((item) => {
+              return (
+                <div className={'navigation-main_item'} key={item.name}>
+                  <Text color={'purple'}>
+                    <Icon icon={'knoop'} />
+                    <Text.Content className={'navigation-main_link'}>
+                      <Link to={item.link}>{item.name}</Link>
+                    </Text.Content>
+                  </Text>
+                </div>
+              )
+            })
+          }
+        </div>
 
       </div>
 

@@ -1,9 +1,6 @@
 @import "lib/style/vars.scss";
 
 .sidebar-notice {
-  &, *, *:before, *:after {
-    box-sizing: border-box;
-  }
 
   font-family: $font-regular-serif;
   font-weight: bold;

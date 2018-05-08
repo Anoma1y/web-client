@@ -15,7 +15,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
-
+  // Блок с логотипом
   &-logo {
     cursor: pointer;
     @media screen and (max-width: $break-lg - 1) {
@@ -27,7 +27,9 @@
       }
     }
   }
-  &-side {
+
+  // Блок с дополнительной инфой - логаут и вызов бокового меню
+  &-aside {
     color: #736F8C;
     font-family: $font-bold-serif;
     font-size: 18px;
@@ -54,7 +56,7 @@
     }
   }
 
-  &_navigation {
+  &-navigation {
     width: 100%;
     padding: 0 100px;
     @media screen and (max-width: $break-lg - 1) {
