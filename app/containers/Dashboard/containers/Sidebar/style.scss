@@ -1,5 +1,8 @@
 @import 'lib/style/vars.scss';
 
+$scroll-width:              17px;
+$sidebar-width:             16.875rem;
+
 .sidebar {
 
   &, *, *:before, *:after {
@@ -8,7 +11,7 @@
 
   background: #ffffff;
   box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
-  width: 16.875rem;
+  width: $sidebar-width;
   height: 100%;
   max-height: 100%;
   position: fixed;
@@ -22,12 +25,12 @@
     top: 0;
     bottom: 0;
     left: 0;
-    right: -17px; // Не трогать!
+    right: -$scroll-width; // Не трогать!
     overflow-y: scroll;
   }
   transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
   @media screen and (max-width: $break-lg - 1) {
-    left: -16.875rem;
+    left: -$sidebar-width;
   }
 
   &__active {
@@ -35,7 +38,8 @@
   }
 
   &_item {
-    width: 100%;
+    //width: 100%;
+    width: calc(100% - #{$scroll-width});
   }
   &-divider {
     position: relative;
@@ -61,7 +65,7 @@
       flex-basis: 100%;
     }
     &_btn {
-      flex: 0 0 30px;
+      flex: 0 0 40px;
     }
   }
 

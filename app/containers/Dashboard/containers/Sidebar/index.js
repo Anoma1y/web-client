@@ -10,6 +10,7 @@ type State = {
   sidebarIsOpen: boolean
 };
 
+// TODO добавить кнопку закрытия
 class Sidebar extends React.Component<{}, State> {
 
   state = {
