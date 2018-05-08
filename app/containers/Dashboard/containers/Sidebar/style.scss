@@ -19,6 +19,8 @@ $sidebar-width:             16.875rem;
   left: 0;
   z-index: 9999999;
   overflow: hidden;
+  transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
   // Fix для скрола
   .sidebar-wrapper {
     width: 100%;
@@ -26,26 +28,23 @@ $sidebar-width:             16.875rem;
     overflow-y: scroll;
     padding-right: $scroll-width;
     box-sizing: content-box;
-    //position: absolute;
-    //top: 0;
-    //bottom: 0;
-    //left: 0;
-    //right: -$scroll-width; // Не трогать!
-    //overflow-y: scroll;
   }
-  transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
   @media screen and (max-width: $break-lg - 1) {
     left: -$sidebar-width;
   }
+
 
   &__active {
     left: 0;
   }
 
   &_item {
-    width: 100%;
+    width: $sidebar-width;
+    //width: 100%;
     //width: calc(100% - #{$scroll-width});
   }
+
   &-divider {
     position: relative;
     &:after {
