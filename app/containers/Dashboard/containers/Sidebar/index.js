@@ -84,24 +84,26 @@ class Sidebar extends React.Component<{}, State> {
       <React.Fragment>
         <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
 
-          <div className={'sidebar_item sidebar-user'}>
-            <SidebarUser />
-          </div>
+          <div className={'sidebar-wrapper'}>
+            <div className={'sidebar_item sidebar-user'}>
+              <SidebarUser />
+            </div>
 
-          <div className={'sidebar_item sidebar-notification'}>
-            <SidebarNotification />
-          </div>
+            <div className={'sidebar_item sidebar-notification'}>
+              <SidebarNotification />
+            </div>
 
-          <div className={'sidebar_item sidebar-wallets'}>
-            <SidebarWallet />
-          </div>
+            <div className={'sidebar_item sidebar-wallets'}>
+              <SidebarWallet />
+            </div>
 
-          <div className={'sidebar_item sidebar-cards'}>
-            <SidebarCard />
-          </div>
+            <div className={'sidebar_item sidebar-cards'}>
+              <SidebarCard />
+            </div>
 
-          <div className={'sidebar_item sidebar-product-add'}>
-            <ProductAdd />
+            <div className={'sidebar_item sidebar-product-add'}>
+              <ProductAdd />
+            </div>
           </div>
 
         </div>

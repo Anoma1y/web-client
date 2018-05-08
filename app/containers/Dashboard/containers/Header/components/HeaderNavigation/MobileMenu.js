@@ -105,34 +105,38 @@ export default class MobileMenu extends React.Component<Props, State> {
     return (
       <div className={'mnav'}>
 
-        <button className={'mnav_trigger'} onClick={this.handleOpen}>
+        <div className={'mnav-trigger'}>
+          <button className={'mnav-trigger_btn'} onClick={this.handleOpen}>
 
-          <svg height="32px" version="1.1" viewBox="0 0 32 32" width="32px" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" ><path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z" />
-          </svg>
+            <svg height="32px" version="1.1" viewBox="0 0 32 32" width="32px" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" ><path d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2  s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2  S29.104,22,28,22z" />
+            </svg>
 
-        </button>
+          </button>
+        </div>
 
         <div className={`mnav-content ${isOpen ? 'mnav-content__active' : ''}`} ref={this.handleMobileNavRef}>
-          <ul className={'mnav-menu'}>
-            <li className={'mnav-menu_item'}>
-              { this.renderItem() }
-            </li>
+          <div className={'mnav-wrapper'}>
+            <ul className={'mnav-menu'}>
+              <li className={'mnav-menu_item'}>
+                { this.renderItem() }
+              </li>
 
-          </ul>
+            </ul>
 
-          <div className={'mnav-menu_logout'}>
-            Logout
-          </div>
-          <div className={'mnav-content_close'}>
-            <button className={'mnav-content_close-btn'} onClick={this.handleClose}>
-              <svg viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <line x1="1" y1="11" x2="11" y2="1" stroke="black" strokeWidth="2" />
-                <line x1="1" y1="1" x2="11" y2="11" stroke="black" strokeWidth="2" />
-              </svg>
-            </button>
+            <div className={'mnav-menu_logout'}>
+              Logout
+            </div>
+            <div className={'mnav-content_close'}>
+              <button className={'mnav-content_close-btn'} onClick={this.handleClose}>
+                <svg viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="1" y1="11" x2="11" y2="1" stroke="black" strokeWidth="2" />
+                  <line x1="1" y1="1" x2="11" y2="11" stroke="black" strokeWidth="2" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
-        <div className={`blackout ${isOpen ? 'blackout__active' : ''}`}> </div>
+        <div className={`blackout ${isOpen ? 'blackout__active' : ''}`} />
       </div>
     );
   }

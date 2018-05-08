@@ -15,6 +15,16 @@
   top: 0;
   left: 0;
   z-index: 9999999;
+  overflow: hidden;
+  // Fix для скрола
+  .sidebar-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -17px; // Не трогать!
+    overflow-y: scroll;
+  }
   transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
   @media screen and (max-width: $break-lg - 1) {
     left: -16.875rem;

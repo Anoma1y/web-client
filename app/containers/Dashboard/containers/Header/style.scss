@@ -43,7 +43,8 @@
     font-weight: bold;
     &_logout {
       @media screen and (max-width: $break-lg - 1) {
-        display: none;
+        //display: none;
+        visibility: hidden;
       }
     }
     &_trigger {

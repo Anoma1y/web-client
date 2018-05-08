@@ -42,20 +42,33 @@ $mobile-menu-width:                   16.875rem;
     display: none;
   }
 
-  &_trigger {
-    display: block;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    &:focus {
-      outline: none;
+  position: relative;
+
+  &-trigger {
+    z-index: 999999;
+    &_btn {
+      display: block;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
     }
   }
-
+  &-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: -17px; // Не трогать!
+    overflow-y: scroll;
+    z-index: 899;
+  }
   &-content {
     display: block;
     width: $mobile-menu-width;
-    right: -$mobile-menu-width;
+    right: -($mobile-menu-width + 1rem);
     height: 100%;
     max-height: 100%;
     background: $white-color;
@@ -71,7 +84,7 @@ $mobile-menu-width:                   16.875rem;
     &_close {
       position: absolute;
       top: 1rem;
-      right: 1rem;
+      right: 1.5rem;
       svg {
         cursor: pointer;
         width: 1.5rem;
@@ -96,7 +109,7 @@ $mobile-menu-width:                   16.875rem;
   &-menu {
     position: relative;
     font-family: $font-semibold-serif;
-    padding: 0;
+    padding: 2rem 0;
     &_item {
       list-style: none;
     }
