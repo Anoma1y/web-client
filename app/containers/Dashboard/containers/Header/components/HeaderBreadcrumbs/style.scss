@@ -24,18 +24,18 @@ $breadcrumb-divider-size:         3px;
   div.breadcrumb_section {
     a {
       &:after {
-        content: '';
-        border: solid $blue-color;
-        border-width: 0 $breadcrumb-divider-size $breadcrumb-divider-size 0;
-        display: inline-block;
-        vertical-align: middle;
-        padding: $breadcrumb-divider-size;
-        transform: rotate(-45deg);
+        content: '/';
+        //border: solid $blue-color;
+        //border-width: 0 $breadcrumb-divider-size $breadcrumb-divider-size 0;
+        //display: inline-block;
+        //vertical-align: middle;
+        //padding: $breadcrumb-divider-size;
+        //transform: rotate(-45deg);
         margin-left: 7px;
         margin-right: 4px;
-        @media screen and (max-width: $break-490) {
-          vertical-align: baseline;
-        }
+        //@media screen and (max-width: $break-490) {
+        //  vertical-align: baseline;
+        //}
       }
     }
   }
@@ -43,7 +43,8 @@ $breadcrumb-divider-size:         3px;
   div.breadcrumb_section__last {
     a {
       &:after {
-        border-color: $lightgray-color;
+        color: $lightgray-color;
+        //border-color: $lightgray-color;
       }
     }
   }

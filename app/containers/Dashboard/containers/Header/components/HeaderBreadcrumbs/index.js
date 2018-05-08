@@ -17,44 +17,42 @@ type Props = {
   }
 };
 
-class HeaderBreadcrumbs extends React.Component<Props> {
+const HeaderBreadcrumbs = (props: Props) => {
 
-  render() {
+  const { pathname } = props.routing.location;
+  const breadcrumbsList = getPathInfo(pathname);
 
-    const { pathname } = this.props.routing.location;
-    const breadcrumbsList = getPathInfo(pathname);
+  const renderSection = () => {
+    return breadcrumbsList.map((item, index) => {
 
-    return (
-      <Grid>
-        <Breadcrumb className={'breadcrumb-area'}>
+      const linkName = upperFirstCase(item.name);
+      return (
+        <Breadcrumb.Section
+          key={item.key}
+          className={breadcrumbsList.length === index + 2 ? 'breadcrumb_section__last' : ''}
+          active={breadcrumbsList.length === index + 1}
+        >
           {
-            breadcrumbsList.map((item, index) => {
+            index !== breadcrumbsList.length - 1 ?
 
-              const linkName = upperFirstCase(item.name);
+              <Link to={item.link}> {linkName}</Link>
 
-              return (
-                <Breadcrumb.Section
-                  key={item.key}
-                  className={breadcrumbsList.length === index + 2 ? 'breadcrumb_section__last' : ''}
-                  active={breadcrumbsList.length === index + 1}
-                >
-                  {
-                    index !== breadcrumbsList.length - 1 ?
+              : <div>{linkName}</div>
 
-                      <Link to={item.link}> {linkName}</Link>
-
-                      : <div>{linkName}</div>
-
-                  }
-                </Breadcrumb.Section>
-              );
-            })
           }
-        </Breadcrumb>
-      </Grid>
-    );
-  }
-}
+        </Breadcrumb.Section>
+      );
+    });
+  };
+
+  return (
+    <Grid>
+      <Breadcrumb className={'breadcrumb-area'}>
+        {renderSection()}
+      </Breadcrumb>
+    </Grid>
+  );
+};
 
 export default connect((state) => ({ routing: state.routing }), {})(HeaderBreadcrumbs);
 

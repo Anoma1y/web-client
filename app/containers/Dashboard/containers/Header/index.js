@@ -3,18 +3,20 @@ import HeaderNavigation from './components/HeaderNavigation';
 import HeaderBreadcrumbs from './components/HeaderBreadcrumbs';
 import './style.scss';
 
-type Props = {
-  item: Array<{name: string, link: string}>,
-};
+const link: Array<{name: string, link: string}> = [
+  { name: 'Dashboard', link: '/dashboard/' },
+  { name: 'Transactions', link: '/dashboard/transactions/' },
+  { name: 'Payments', link: '/dashboard/payments/' },
+];
 
-export default (props: Props) => {
+export default () => {
   return (
     <div className={'header'}>
 
+      {/* HEADER CONTENT */}
       <div className={'header-container header-content'}>
-
+        {/* HEADER CONTENT - LOGO */}
         <div className={'header-logo'}>
-
           <a className={'logo'} href={'http://localhost:8080/dashboard/'}>
             <svg xmlns="http://www.w3.org/2000/svg" width="121" height="48" viewBox="0 0 121 48">
               <g fill="none" fillRule="evenodd">
@@ -24,25 +26,27 @@ export default (props: Props) => {
               </g>
             </svg>
           </a>
-
         </div>
-
+        {/* HEADER CONTENT - NAVIGATION */}
         <div className={'header-navigation'}>
-          <HeaderNavigation item={props.item} />
+          <HeaderNavigation item={link} />
         </div>
 
+        {/* HEADER CONTENT - ASIDE MENU */}
         <div className={'header-aside'}>
-
-          <div className={'header-aside_logout'}>Logout</div>
+          <div className={'header-aside_logout'}>
+            Logout
+          </div>
         </div>
 
       </div>
 
+      {/* HEADER BREADCRUMBS */}
       <div className={'header-container header-breadcrumb'}>
         <HeaderBreadcrumbs />
       </div>
 
     </div>
   );
-}
+};
 

@@ -16,43 +16,37 @@ type Props = {
   }
 }
 
-const link: Array<{name: string, link: string}> = [
-  { name: 'Dashboard', link: '/dashboard/' },
-  { name: 'Transactions', link: '/dashboard/transactions/' },
-  { name: 'Payments', link: '/dashboard/payments/' },
-];
-
 class Dashboard extends React.Component<Props> {
 
   render() {
     return (
       <div className={'page'}>
 
+        {/* SIDEBAR SECTION */}
         <div className={'page-sidebar'}>
           <Sidebar />
         </div>
 
+        {/* MAIN SECTION */}
         <div className={'page-main'}>
 
+          {/* MAIN SECTION - HEADER */}
           <div className={'header-wrapper'}>
-            <Header item={link} />
+            <Header />
           </div>
 
+          {/* MAIN SECTION - CONTENT */}
           <div className={'content-wrapper'}>
-
             <Switch>
-
               <Route exact path={`${this.props.match.url}`} component={Main} />
               <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
-
             </Switch>
-
           </div>
 
+          {/* MAIN SECTION - FOOTER */}
           <div className={'footer-wrapper'}>
             <Footer />
           </div>
-
         </div>
 
       </div>
