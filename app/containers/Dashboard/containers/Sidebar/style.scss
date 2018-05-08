@@ -1,15 +1,61 @@
+@import 'lib/style/vars.scss';
 
 .sidebar {
 
   &, *, *:before, *:after {
     box-sizing: border-box;
   }
-  height: 100%;
+
   background: #ffffff;
   box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
+  width: 16.875rem;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  @media screen and (max-width: $break-lg - 1) {
+    left: -16.875rem;
+  }
+
+  &__active {
+    left: 0;
+  }
 
   &_item {
     width: 100%;
   }
 
+  &-container {
+    display: flex;
+    align-items: center;
+    &_icon {
+      flex: 0 0 70px;
+    }
+    &_content {
+      flex-basis: 100%;
+    }
+    &_btn {
+      flex: 0 0 30px;
+    }
+  }
+
+  &-mobile {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: -9999;
+    @media screen and (min-width: $break-lg) {
+      display: none;
+    }
+    &_button {
+      border: none;
+      background: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
 }

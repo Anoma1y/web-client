@@ -5,15 +5,22 @@
     box-sizing: border-box;
   }
 
-  padding: 0 20px;
+  &-content {
+    height: 81px;
+    padding: 0 20px;
+  }
+
+  &-breadcrumb {
+    height: 39px;
+    padding: 0 20px;
+  }
 
   &-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     border-bottom: 1px solid rgba(0,0,0,.1);
-    padding-top: 10px;
-    padding-bottom: 10px;
   }
   // Блок с логотипом
   &-logo {

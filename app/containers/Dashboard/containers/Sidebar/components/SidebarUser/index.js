@@ -2,6 +2,7 @@ import React from 'react';
 import Avatar from 'components/Avatar';
 import './style.scss';
 
+// TODO обрезать svg иконку снизу
 export default () => (
   <div className={'user-info sidebar-container'}>
 

@@ -33,14 +33,14 @@ export default class Dropdown extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    (document.addEventListener: Function)('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    (document.removeEventListener: Function)('mousedown', this.handleClickOutside);
   }
 
-  setWrapperRef = (node: HTMLDivElement) => {
+  setWrapperRef = (node: ?HTMLDivElement) => {
     this.wrapperRef = node;
   };
 

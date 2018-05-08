@@ -8,7 +8,6 @@ export default () => {
   return (
     <div className={'dashboard-banners'}>
       <Row center={'xs'}>
-
         <Col xs={12} sm={6} md={6} lg={6}>
           <div className={'dashboard-banner'}>
             <div className={'dashboard-banner_item dashboard-banner_load-account'}>

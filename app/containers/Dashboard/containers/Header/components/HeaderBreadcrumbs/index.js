@@ -26,7 +26,7 @@ class HeaderBreadcrumbs extends React.Component<Props> {
 
     return (
       <Grid>
-        <Breadcrumb className={'header-breadcrumb'}>
+        <Breadcrumb className={'breadcrumb-area'}>
           {
             breadcrumbsList.map((item, index) => {
 

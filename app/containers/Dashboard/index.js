@@ -22,38 +22,42 @@ const link: Array<{name: string, link: string}> = [
   { name: 'Payments', link: '/dashboard/payments/' },
 ];
 
-const Dashboard = (props: Props) => (
+class Dashboard extends React.Component<Props> {
 
-  <div className={'page'}>
+  render() {
+    return (
+      <div className={'page'}>
 
-    <div className={'page-sidebar'}>
-      <Sidebar />
-    </div>
+        <div className={'page-sidebar'}>
+          <Sidebar />
+        </div>
 
-    <div className={'page-main'}>
+        <div className={'page-main'}>
 
-      <div className={'header-wrapper'}>
-        <Header item={link} />
+          <div className={'header-wrapper'}>
+            <Header item={link} />
+          </div>
+
+          <div className={'content-wrapper'}>
+
+            <Switch>
+
+              <Route exact path={`${this.props.match.url}`} component={Main} />
+              <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
+
+            </Switch>
+
+          </div>
+
+          <div className={'footer-wrapper'}>
+            <Footer />
+          </div>
+
+        </div>
+
       </div>
-
-      <div className={'content-wrapper'}>
-
-        <Switch>
-
-          <Route exact path={`${props.match.url}`} component={Main} />
-          <Route exact path={`${props.match.url}/transaction`} component={Transaction} />
-
-        </Switch>
-
-      </div>
-
-      <div className={'footer-wrapper'}>
-        <Footer />
-      </div>
-
-    </div>
-
-  </div>
-);
+    )
+  }
+}
 
 export default Dashboard;
