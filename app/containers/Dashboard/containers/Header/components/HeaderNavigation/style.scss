@@ -57,13 +57,19 @@ $mobile-menu-width:                   16.875rem;
     }
   }
   &-wrapper {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: -17px; // Не трогать!
+    width: 100%;
+    height: 100%;
     overflow-y: scroll;
-    z-index: 899;
+    padding-right: $scroll-width; /* Increase/decrease this value for cross-browser compatibility */
+    padding-left: $scroll-width;
+    box-sizing: content-box; /* So the width will be 100% + 17px */
+    //position: absolute;
+    //top: 0;
+    //bottom: 0;
+    //left: 0;
+    //right: -17px; // Не трогать!
+    //overflow-y: scroll;
+    //z-index: 899;
   }
   &-content {
     display: block;
@@ -112,7 +118,6 @@ $mobile-menu-width:                   16.875rem;
     padding: 2rem 0;
     &_item {
       list-style: none;
-      margin-right: 1.0625rem;
     }
     &_logout {
       text-align: center;
