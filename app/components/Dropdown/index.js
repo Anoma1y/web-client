@@ -16,7 +16,6 @@ type State = {
   active: boolean,
   isClose: boolean,
 }
-// TODO добавить айди для ссылок
 
 export default class Dropdown extends React.Component<Props, State> {
 

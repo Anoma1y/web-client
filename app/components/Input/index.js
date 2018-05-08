@@ -31,7 +31,6 @@ type Props = {
   value?: string // Значение
 };
 
-// TODO провести рефакторинг этой хуйни
 const Input = (props: Props) => {
 
   const {

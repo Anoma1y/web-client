@@ -216,27 +216,9 @@ $button: button;
         background-color: lighten($orange-color, 20%);
       }
     }
-
-    &_transparent {
-
-      background-color: transparent;
-      &:hover, &:focus {
-        background-color: darken(#555555, 6%);
-      }
-      &:active {
-        background-color: darken(#555555, 15%);
-      }
-
-      &.#{$button}__outline {
-        color: #555555;
-        border-color: #555555;
-      }
-      // TODO добавить дизейбл цвет
-    }
   }
 
   &__loading {
-    // TODO вынести в отдельный стайл
     .spinner {
       position: absolute;
       top: 0;

@@ -14,12 +14,10 @@ type Props = {
   hidden?: boolean,
   href?: string,
   inline?: boolean,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | '',
   src: string,
   verticalAlign?: 'bottom' | 'middle' | 'top' | ''
 };
 
-// TODO потестить
 export default (props: Props) => {
 
   const renderImage = (src: string): React.Node => {
@@ -58,7 +56,6 @@ export default (props: Props) => {
     href = '',
     inline,
     src,
-    size = '',
     verticalAlign = '',
   } = props;
 
@@ -68,14 +65,12 @@ export default (props: Props) => {
     classBlockName,
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
-      [`${classBlockName}__size_${size}`]: size,
       [`${classBlockName}__bordered`]: bordered,
       [`${classBlockName}__centered`]: centered,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__fluid`]: fluid,
       [`${classBlockName}__hidden`]: hidden,
       [`${classBlockName}__inline`]: inline,
-      [`${classBlockName}__size_${size}`]: size,
       [`${classBlockName}__floated_${floated}`]: floated,
     },
     className

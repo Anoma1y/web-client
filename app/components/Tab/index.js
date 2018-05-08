@@ -7,7 +7,7 @@
 //   activeIndex: string | number,
 //   defaultActiveIndex?: string | number,
 //   onTabChange?: () => void,
-//   panes: any // TODO need fix array of objects [{ activeMenu: string, panes: Function }]
+//   panes: any
 // }
 //
 // export default class Tab extends Component<Props> {

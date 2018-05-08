@@ -9,8 +9,7 @@ type State = {
     theme: string
   }
 }
-// [key: string]: string
-// TODO need fix flow type
+
 export default class Notify extends React.Component<{}, State> {
 
   key: number = 0;

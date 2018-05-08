@@ -21,8 +21,6 @@ type Props = {
   lightMinor?: boolean
 };
 
-// TODO проестировать
-
 const Amount = (props: Props) => {
 
   const {
@@ -94,7 +92,6 @@ const Amount = (props: Props) => {
   /**
   * Рэндэр если стоит знак операции
   * Значение не дожно быть минусовое!!!
-  * TODO ченуть знаки юникода и если минусовое значение, менять его на плюс
   */
   const renderOperation = () => {
 

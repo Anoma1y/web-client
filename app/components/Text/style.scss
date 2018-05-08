@@ -1,18 +1,9 @@
 @import "lib/style/vars.scss";
 
-$font-size-1:              12px;
-$font-size-2:              14px;
-$font-size-3:              16px;
-$font-size-4:              18px;
-$font-size-5:              21px;
-
 $text: text;
-
-
 
 .#{$text} {
   border: none;
-  //margin: calc(2rem -  0.14285714em ) 0 1rem;
   padding: 0;
   margin: 0;
   font-weight: bold;
@@ -21,14 +12,6 @@ $text: text;
   line-height: 1.28571429em;
   text-transform: none;
   color: rgba(0, 0, 0, 0.87);
-
-  //&:first-child {
-  //  margin-top: -0.14285714em;
-  //}
-  //
-  //&:last-child {
-  //  margin-bottom: 0;
-  //}
 
   &_sub, &__sub {
     display: block;
@@ -142,87 +125,6 @@ $text: text;
     border: 1px solid #D4D4D5;
     border-radius: 0.28571429rem;
   }
-
-
-  //.ui.icon.header {
-  //  display: inline-block;
-  //  text-align: center;
-  //  margin: 2rem 0em 1rem;
-  //}
-  //.ui.icon.header:after {
-  //  content: '';
-  //  display: block;
-  //  height: 0px;
-  //  clear: both;
-  //  visibility: hidden;
-  //}
-  //.ui.icon.header:first-child {
-  //  margin-top: 0em;
-  //}
-  //.ui.icon.header .icon {
-  //  float: none;
-  //  display: block;
-  //  width: auto;
-  //  height: auto;
-  //  line-height: 1;
-  //  padding: 0em;
-  //  font-size: 3em;
-  //  margin: 0em auto 0.5rem;
-  //  opacity: 1;
-  //}
-  //.ui.icon.header .content {
-  //  display: block;
-  //  padding: 0em;
-  //}
-  //.ui.icon.header .circular.icon {
-  //  font-size: 2em;
-  //}
-  //.ui.icon.header .square.icon {
-  //  font-size: 2em;
-  //}
-  //.ui.block.icon.header .icon {
-  //  margin-bottom: 0em;
-  //}
-  //.ui.icon.header.aligned {
-  //  margin-left: auto;
-  //  margin-right: auto;
-  //  display: block;
-  //}
-
-
-  // TODO нужен фикс иконок внутри
-  //& > icon {
-  //  display: inline-block;
-  //  text-align: center;
-  //  margin: 2rem 0em 1rem;
-  //}
-  //.#{$text}.icon {
-  //  display: inline-block;
-  //  text-align: center;
-  //  margin: 2rem 0em 1rem;
-  //  &:after {
-  //    content: '';
-  //    display: block;
-  //    height: 0px;
-  //    clear: both;
-  //    visibility: hidden;
-  //  }
-  //  &:first-child {
-  //    margin-top: 0;
-  //  }
-  //  .icon {
-  //    float: none;
-  //    display: block;
-  //    width: auto;
-  //    height: auto;
-  //    line-height: 1;
-  //    padding: 0em;
-  //    font-size: 3em;
-  //    margin: 0em auto 0.5rem;
-  //    opacity: 1;
-  //  }
-  //}
-
 
 }
 

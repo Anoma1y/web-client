@@ -15,8 +15,6 @@ export type Props = {
   size?: 'xs' | 'sm' | 'md' | 'lg'
 };
 
-// TODO пофиксить для каждого блока относительное позиционирование
-
 export default (props: Props) => {
   const {
     active = false,

@@ -13,7 +13,6 @@ type Props = {
   disabled?: boolean,
   dividing?: boolean,
   floated?: '' | 'left' | 'right',
-  size?: string, // TODO изменить размеры
   sub?: boolean,
   textAlign?: 'left' | 'center' | 'right' | 'justify',
   className?: string
@@ -44,7 +43,6 @@ const Text = (props: Props) => {
     disabled, // Дизейбл
     dividing, // Линия снизу
     floated = '', // Расположение внутри блока
-    size = '', // Размер
     sub, // Как сабтекст
     textAlign = '',
   } = props;
@@ -60,7 +58,6 @@ const Text = (props: Props) => {
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__dividing`]: dividing,
       [`${classBlockName}__floated_${floated}`]: floated,
-      [`${classBlockName}__size_${size}`]: size,
       [`${classBlockName}__sub`]: sub,
       [`${classBlockName}__align_${textAlign}`]: textAlign
 

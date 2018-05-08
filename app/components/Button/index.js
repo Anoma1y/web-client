@@ -5,7 +5,7 @@ import './style.scss';
 type Props = {
   children: ?any,
   fluid?: ?boolean,
-  color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green' | 'lightblue' | 'orange' | 'black',
+  color?: 'gray' | 'red' | 'blue' | 'white' | 'green' | 'lightblue' | 'orange' | 'black',
   disabled?: ?boolean,
   inline?: ?boolean,
   name?: ?string,
@@ -17,7 +17,6 @@ type Props = {
   outline?: boolean
 };
 
-// TODO изменить цвета или добавить новые + потестить онклик
 export default (props: Props) => {
 
   const {

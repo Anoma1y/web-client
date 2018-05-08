@@ -5,7 +5,7 @@ type Props = {
   children?: ?any,
   className?: ?string,
 };
-// TODO add icon
+
 export default (props: Props) => {
 
   const {
