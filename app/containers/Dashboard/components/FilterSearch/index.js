@@ -3,13 +3,13 @@ import DateFilter from 'components/DateFilter';
 import Input from 'components/Input';
 import './style.scss';
 
-export default () => {
+export default (props) => {
   return (
     <div className={'filter'}>
 
       <div className={'filter-date'}>
         <div className={'filter_date'}>
-          <DateFilter />
+          <DateFilter handleChangeDate={props.handleChangeDate} />
         </div>
       </div>
 
@@ -23,6 +23,7 @@ export default () => {
           iconSize={20}
           iconPosition={'right'}
         />
+
       </div>
     </div>
   )

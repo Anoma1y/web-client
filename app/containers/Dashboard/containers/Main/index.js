@@ -7,6 +7,11 @@ import Banners from './components/Banners';
 import './style.scss';
 
 class Main extends React.Component<{}> {
+
+  handleChangeDate = (e) => {
+    console.log(e);
+  };
+
   render() {
     return (
       <Grid>
@@ -22,7 +27,7 @@ class Main extends React.Component<{}> {
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>
-                <FilterSearch />
+                <FilterSearch handleChangeDate={this.handleChangeDate}/>
               </div>
             </Col>
           </Row>

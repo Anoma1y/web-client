@@ -79,9 +79,30 @@
 
   padding: 30px 20px 20px;
   width: 320px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  .range-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  &_button {
+    width: 90%;
+    margin-top: 5px;
+    padding: 5px;
+    background: $lightgray-color;
+    color: $white-color;
+    border-radius: 2px;
+    font-family:$font-regular-serif;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    &:hover {
+      background-color: lighten($lightgray-color, 5%);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
   &_item {
     width: 40%;
     position: relative;

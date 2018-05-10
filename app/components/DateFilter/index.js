@@ -128,8 +128,9 @@ class DateFilter extends React.Component<{}, State> {
       isRange: !this.state.isRange
     });
   };
-
+  // handleChangeDate
   handleChange = (event: SyntheticEvent<HTMLButtonElement>) => {
+
     const { value } = event.target;
     const {
       dateStart,
@@ -142,6 +143,7 @@ class DateFilter extends React.Component<{}, State> {
       dateStart,
       dateEnd
     });
+    this.props.handleChangeDate({ dateStart, dateEnd });
   };
 
   handleChangeStart = (event: moment) => {
@@ -149,11 +151,20 @@ class DateFilter extends React.Component<{}, State> {
       dateStart: event
     });
   }
+
   handleChangeEnd = (event: moment) => {
     this.setState({
       dateEnd: event
     });
   }
+
+  handleRangeClick = () => {
+    const {
+      dateStart,
+      dateEnd
+    } = this.state;
+    this.props.handleChangeDate({ dateStart, dateEnd });
+  };
 
   render() {
 
@@ -213,43 +224,59 @@ class DateFilter extends React.Component<{}, State> {
             : isOpen && isRange ?
               <div className={'date-select'}>
                 <div className={'date-range'}>
-                  <div className={'date-range_item'}>
-                    <div className={'date-range_label'}>
-                    Start Date
+
+                  <div className={'range-container'}>
+                    <div className={'date-range_item'}>
+
+                      <div className={'date-range_label'}>
+                        Start Date
+                      </div>
+
+                      <DatePicker
+                        selected={this.state.dateStart}
+                        selectsStart
+                        startDate={this.state.dateStart}
+                        endDate={this.state.dateEnd}
+                        onChange={this.handleChangeStart}
+                        dateFormat={'DD/MM/YYYY'}
+                        maxDate={moment().add(0, 'days')}
+                        todayButton={'Today'}
+                        fixedHeight
+                        className={'date-datepicker-input'}
+                        calendarClassName={'date-datepicker-v1'}
+                      />
                     </div>
-                    <DatePicker
-                    selected={this.state.dateStart}
-                    selectsStart
-                    startDate={this.state.dateStart}
-                    endDate={this.state.dateEnd}
-                    onChange={this.handleChangeStart}
-                    dateFormat={'DD/MM/YYYY'}
-                    maxDate={moment().add(0, 'days')}
-                    todayButton={'Today'}
-                    fixedHeight
-                    className={'date-datepicker-input'}
-                    calendarClassName={'date-datepicker-v1'}
-                  />
-                  </div>
-                  <div className={'date-range_divider'} />
-                  <div className={'date-range_item'}>
-                    <div className={'date-range_label'}>
-                    End Date
+
+                    <div className={'date-range_divider'} />
+
+                    <div className={'date-range_item'}>
+
+                      <div className={'date-range_label'}>
+                        End Date
+                      </div>
+
+                      <DatePicker
+                        selected={this.state.dateEnd}
+                        selectsEnd
+                        startDate={this.state.dateStart}
+                        endDate={this.state.dateEnd}
+                        onChange={this.handleChangeEnd}
+                        dateFormat={'DD/MM/YYYY'}
+                        maxDate={moment().add(0, 'days')}
+                        todayButton={'Today'}
+                        fixedHeight
+                        className={'date-datepicker-input'}
+                        calendarClassName={'date-datepicker-v1'}
+                      />
                     </div>
-                    <DatePicker
-                    selected={this.state.dateEnd}
-                    selectsEnd
-                    startDate={this.state.dateStart}
-                    endDate={this.state.dateEnd}
-                    onChange={this.handleChangeEnd}
-                    dateFormat={'DD/MM/YYYY'}
-                    maxDate={moment().add(0, 'days')}
-                    todayButton={'Today'}
-                    fixedHeight
-                    className={'date-datepicker-input'}
-                    calendarClassName={'date-datepicker-v1'}
-                  />
                   </div>
+
+                  <div className={'range-container'}>
+                    <button className={'date-range_button'} onClick={this.handleRangeClick}>
+                      Submit
+                    </button>
+                  </div>
+
                 </div>
               </div>
             : null
