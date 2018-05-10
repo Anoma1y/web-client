@@ -6,6 +6,7 @@ import { CLASS_NAME } from '../index';
 type Props = {
   active?: boolean,
   collapsing?: boolean,
+  colSpan?: number,
   disabled?: boolean,
   error?: boolean,
   children?: any,
@@ -18,13 +19,14 @@ type Props = {
   width?: ?string | ?number,
   warning?: boolean
 };
-
+// TODO colspan переделать под макс значение
 export default (props: Props) => {
 
   const {
     active,
     children,
     className,
+    colSpan = 1,
     collapsing,
     disabled,
     error,
@@ -58,7 +60,7 @@ export default (props: Props) => {
   );
 
   return (
-    <td className={classes}>
+    <td className={classes} colSpan={colSpan}>
       {children}
     </td>
   );

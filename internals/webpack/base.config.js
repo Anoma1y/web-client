@@ -32,8 +32,7 @@ module.exports = (options) => ({
           { loader: 'style-loader' },
           { loader: 'css-loader' }
         ],
-        // exclude: /node_modules/,
-        include: /flexboxgrid/
+        include: [/flexboxgrid/, /node_modules/]
       },
       {
         test: /\.svg$/,

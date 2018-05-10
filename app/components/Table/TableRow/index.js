@@ -5,6 +5,7 @@ import { CLASS_NAME } from '../index';
 type Props = {
   active?: boolean,
   children?: any,
+  date?: boolean,
   disabled?: boolean,
   error?: boolean,
   fullWidth?: boolean,
@@ -21,6 +22,7 @@ export default (props: Props) => {
     active,
     children,
     className,
+    date,
     disabled,
     processing,
     error,
@@ -37,6 +39,7 @@ export default (props: Props) => {
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
       [`${classBlockName}__active`]: active,
+      [`${classBlockName}__date`]: date,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__processing`]: processing,
       [`${classBlockName}__error`]: error,

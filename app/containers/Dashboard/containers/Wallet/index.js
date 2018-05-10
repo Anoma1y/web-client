@@ -1,21 +1,38 @@
-import React from 'react';
+import * as React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Table from 'components/Table';
 import Amount from 'components/Amount';
+import WalletInfo from './components/WalletInfo';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
-import Banners from './components/Banners';
+import ControlPanel from 'containers/Dashboard/components/ControlPanel';
 import './style.scss';
 
-class Main extends React.Component<{}> {
+const items = [
+  { name: 'Transactions', link: '/dashboard/wallet/transactions' },
+  { name: 'Payments', link: '/dashboard/wallet/payments' },
+  { name: 'Withdraw', link: '/dashboard/wallet/withdraw' },
+  { name: 'Exchange', link: '/dashboard/wallet/exchange' },
+  { name: 'Balance & limits', link: '/dashboard/wallet/balance' },
+];
+
+class Wallet extends React.Component<{}> {
+
   render() {
     return (
       <Grid>
-        <div className={'dashboard'}>
-
+        <div className={'wallet'}>
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>
-                <Banners />
+                <WalletInfo />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
+
+              <div className={'dashboard-container'}>
+                <ControlPanel items={items} />
               </div>
             </Col>
           </Row>
@@ -88,4 +105,4 @@ class Main extends React.Component<{}> {
   }
 }
 
-export default Main;
+export default Wallet;
