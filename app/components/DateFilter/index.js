@@ -277,7 +277,7 @@ class DateFilter extends React.Component<Props, State> {
                         endDate={this.state.dateEnd}
                         onChange={this.handleChangeStart}
                         dateFormat={'DD/MM/YYYY'}
-                        maxDate={moment().add(0, 'days')}
+                        maxDate={moment().add(-1, 'days')}
                         todayButton={'Today'}
                         fixedHeight
                         className={'date-datepicker-input'}
