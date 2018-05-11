@@ -2,8 +2,13 @@ import * as React from 'react';
 import DateFilter from 'components/DateFilter';
 import Input from 'components/Input';
 import './style.scss';
+import moment from 'moment';
 
-export default (props) => {
+type Props = {
+  handleChangeDate: (date: { dateStart: moment, dateEnd: moment }) => void
+}
+
+export default (props: Props) => {
   return (
     <div className={'filter'}>
 
@@ -20,7 +25,7 @@ export default (props) => {
           className={'filter_input'}
           icon={'search'}
           iconColor={'gray'}
-          iconSize={20}
+          iconSize={25}
           iconPosition={'right'}
         />
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import HeaderNavigation from './components/HeaderNavigation';
 import HeaderBreadcrumbs from './components/HeaderBreadcrumbs';
+import Logout from './components/Logout';
 import './style.scss';
 
 const link: Array<{name: string, link: string}> = [
@@ -27,6 +28,7 @@ export default () => {
             </svg>
           </a>
         </div>
+
         {/* HEADER CONTENT - NAVIGATION */}
         <div className={'header-navigation'}>
           <HeaderNavigation item={link} />
@@ -35,7 +37,7 @@ export default () => {
         {/* HEADER CONTENT - ASIDE MENU */}
         <div className={'header-aside'}>
           <div className={'header-aside_logout'}>
-            Logout
+            <Logout />
           </div>
         </div>
 

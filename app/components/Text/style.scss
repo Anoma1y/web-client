@@ -35,12 +35,33 @@ $text: text;
     margin-top: 0;
   }
 
-  & > .icon {
-    display: table-cell;
-    opacity: 1;
-    font-size: 1.5em;
-    padding-top: 0;
-    vertical-align: middle;
+  &__hasIcon {
+    display: flex;
+    .icon {
+      display: inline-block;
+    }
+  }
+
+  &__iconPosition {
+    &_left {
+      .icon {
+        margin-right: 5px;
+      }
+    }
+    &_right {
+      .icon {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  & > .icon > div {
+    display: flex;
+    align-items: center;
+  }
+
+  &__fluid > .icon {
+    //float: right;
   }
 
   &_content {
@@ -57,9 +78,10 @@ $text: text;
 
   /* After Icon */
   & > .icon + &_content {
-    padding-left: 0.75rem;
-    display: table-cell;
-    vertical-align: middle;
+
+    //padding-left: 0.75rem;
+    //display: table-cell;
+    //vertical-align: middle;
   }
 
 
@@ -88,6 +110,10 @@ $text: text;
   }
   &__dividing.#{$text}__sub {
     padding-bottom: 0.21428571rem;
+  }
+
+  &__fluid {
+    width: 100%;
   }
 
   &__attached {

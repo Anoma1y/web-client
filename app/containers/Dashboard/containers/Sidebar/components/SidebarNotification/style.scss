@@ -7,7 +7,7 @@
 
   height: 40px;
   overflow: hidden;
-  background-color: $red-color;
+  background-color: darken($red-color, 12%);
   width: 100%;
   white-space: nowrap;
 

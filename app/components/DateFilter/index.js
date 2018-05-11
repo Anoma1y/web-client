@@ -1,14 +1,24 @@
 import * as React from 'react';
+import Icon from 'components/Icon';
+import Text from 'components/Text';
 import _ from 'lodash';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import './style.scss';
 
+type Props = {
+  handleChangeDate: (date: { dateStart: moment, dateEnd: moment }) => void
+};
+
 type State = {
   isOpen: boolean,
   isRange: boolean,
   value: string,
+  current: {
+    label: string,
+    id: string
+  },
   dateStart: moment,
   dateEnd: moment
 };
@@ -24,14 +34,18 @@ const selectItems = [
   { label: 'All time', id: 'date-all' }, // За все время
 ];
 // TODO добавить колбэк для возврата из onChange даты начальной и конечной
-class DateFilter extends React.Component<{}, State> {
+class DateFilter extends React.Component<Props, State> {
 
   state = {
     dateStart: moment(),
     dateEnd: moment(),
     isRange: false,
     isOpen: false,
-    value: 'date-week'
+    current: {
+      label: 'Last month',
+      id: 'date-month'
+    },
+    value: 'date-month'
   };
 
   componentDidMount() {
@@ -112,7 +126,7 @@ class DateFilter extends React.Component<{}, State> {
       dateStart,
       dateEnd
     };
-  }
+  };
 
   wrapperRef: ?any;
 
@@ -128,8 +142,8 @@ class DateFilter extends React.Component<{}, State> {
       isRange: !this.state.isRange
     });
   };
-  // handleChangeDate
-  handleChange = (event: SyntheticEvent<HTMLButtonElement>) => {
+
+  handleChange = (event: { target: { value: string } }) => {
 
     const { value } = event.target;
     const {
@@ -137,12 +151,21 @@ class DateFilter extends React.Component<{}, State> {
       dateEnd
     } = this.getDays(value);
 
+    const {
+      label,
+      id
+    } = _.filter(selectItems, { id: value })[0];
     this.setState({
       value,
       isOpen: false,
+      current: {
+        label,
+        id
+      },
       dateStart,
       dateEnd
     });
+
     this.props.handleChangeDate({ dateStart, dateEnd });
   };
 
@@ -150,19 +173,28 @@ class DateFilter extends React.Component<{}, State> {
     this.setState({
       dateStart: event
     });
-  }
+  };
 
   handleChangeEnd = (event: moment) => {
     this.setState({
       dateEnd: event
     });
-  }
+  };
 
   handleRangeClick = () => {
     const {
       dateStart,
       dateEnd
     } = this.state;
+    this.setState({
+      isOpen: false,
+      isRange: false,
+      value: 'date-range',
+      current: {
+        label: `${moment(dateStart).format('DD MMM YYYY')} - ${moment(dateEnd).format('DD MMM YYYY')}`,
+        id: 'date-range'
+      }
+    });
     this.props.handleChangeDate({ dateStart, dateEnd });
   };
 
@@ -172,23 +204,29 @@ class DateFilter extends React.Component<{}, State> {
     const month2 = moment().subtract(1, 'months').format('MMMM');
     const month3 = moment().subtract(2, 'months').format('MMMM');
 
-    const current = _.filter(selectItems, { id: this.state.value })[0];
+    // const current = _.filter(selectItems, { id: this.state.value })[0];
 
     const {
       isOpen,
-      isRange
+      isRange,
+      current
     } = this.state;
 
     return (
       <div className={'date-filter'} ref={this.setWrapperRef}>
         <div className={'date-filter_current'}>
           <button onClick={this.handleOpen}>
-            {
-              current.id === 'date-month-1' ? `${current.label} ${month1}`
-                : current.id === 'date-month-2' ? `${current.label} ${month2}`
-                : current.id === 'date-month-3' ? `${current.label} ${month3}`
-                : current.label
-            }
+            <Text fluid hasIcon iconPosition={'right'}>
+              <Text.Content>
+                {
+                  current.id === 'date-month-1' ? `${current.label} ${month1}`
+                    : current.id === 'date-month-2' ? `${current.label} ${month2}`
+                    : current.id === 'date-month-3' ? `${current.label} ${month3}`
+                      : current.label
+                }
+              </Text.Content>
+              <Icon icon={'arrow-down'} size={30} />
+            </Text>
           </button>
         </div>
         {

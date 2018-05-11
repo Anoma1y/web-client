@@ -1,6 +1,6 @@
 @import 'lib/style/vars.scss';
 
-$user-bgc:          #EAF0F7;
+$user-bgc: #dbe1e8;
 
 .user-info {
 
@@ -11,11 +11,26 @@ $user-bgc:          #EAF0F7;
   background-color: $user-bgc;
   font-family: $font-regular-serif;
   height: 80px;
-  //overflow: hidden;
 
   &_avatar {
+    position: relative;
     text-align: center;
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+    background: darken($white-color, 5%);
+    border-radius: 50%;
     cursor: pointer;
+    transition: background 0.2s ease;
+    &:hover {
+      background: darken($white-color, 1%);
+    }
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
   &_name {

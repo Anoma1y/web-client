@@ -10,9 +10,12 @@ type Props = {
   block?: boolean,
   children?: React.Node,
   color?: ?string,
+  hasIcon?: boolean,
+  iconPosition?: 'right' | 'left' | '',
   disabled?: boolean,
   dividing?: boolean,
   floated?: '' | 'left' | 'right',
+  fluid?: boolean,
   sub?: boolean,
   textAlign?: 'left' | 'center' | 'right' | 'justify',
   className?: string
@@ -38,7 +41,10 @@ const Text = (props: Props) => {
     attached = '',
     block, // Вид блока с заливкой и рамкой
     children,
+    hasIcon,
+    iconPosition = '',
     className,
+    fluid,
     color = '', // Цвет текста
     disabled, // Дизейбл
     dividing, // Линия снизу
@@ -56,13 +62,14 @@ const Text = (props: Props) => {
       [`${classBlockName}__block`]: block,
       [`${String(color)}-color`]: color,
       [`${classBlockName}__disabled`]: disabled,
+      [`${classBlockName}__fluid`]: fluid,
       [`${classBlockName}__dividing`]: dividing,
       [`${classBlockName}__floated_${floated}`]: floated,
       [`${classBlockName}__sub`]: sub,
-      [`${classBlockName}__align_${textAlign}`]: textAlign
-
+      [`${classBlockName}__align_${textAlign}`]: textAlign,
+      [`${classBlockName}__hasIcon`]: hasIcon,
+      [`${classBlockName}__iconPosition_${iconPosition}`]: iconPosition
     },
-    'text__icon',
     className !== '' ? className : '',
   );
 

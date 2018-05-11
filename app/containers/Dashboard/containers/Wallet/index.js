@@ -5,17 +5,22 @@ import Amount from 'components/Amount';
 import WalletInfo from './components/WalletInfo';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import ControlPanel from 'containers/Dashboard/components/ControlPanel';
+import moment from 'moment';
 import './style.scss';
 
 const items = [
-  { name: 'Transactions', link: '/dashboard/wallet/transactions' },
-  { name: 'Payments', link: '/dashboard/wallet/payments' },
-  { name: 'Withdraw', link: '/dashboard/wallet/withdraw' },
-  { name: 'Exchange', link: '/dashboard/wallet/exchange' },
-  { name: 'Balance & limits', link: '/dashboard/wallet/balance' },
+  { name: 'Transactions', link: '/dashboard/wallet/transactions', icon: 'category-fines' },
+  { name: 'Payments', link: '/dashboard/wallet/payments', icon: 'payment-outbox' },
+  { name: 'Withdraw', link: '/dashboard/wallet/withdraw', icon: 'sent_m' },
+  { name: 'Exchange', link: '/dashboard/wallet/exchange', icon: 'transfer-internal' },
+  { name: 'Balance & limits', link: '/dashboard/wallet/balance', icon: 'filter' },
 ];
 
 class Wallet extends React.Component<{}> {
+
+  handleChange = (date: { dateStart: moment, dateEnd: moment }) => {
+    console.log(date);
+  };
 
   render() {
     return (
@@ -39,7 +44,7 @@ class Wallet extends React.Component<{}> {
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>
-                <FilterSearch />
+                <FilterSearch handleChangeDate={this.handleChange} />
               </div>
             </Col>
           </Row>

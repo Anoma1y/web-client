@@ -6,15 +6,20 @@ import CardInfo from './components/CardInfo';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import ControlPanel from 'containers/Dashboard/components/ControlPanel';
 import './style.scss';
+import moment from 'moment';
 
 const items = [
-  { name: 'Transactions', link: '/dashboard/card/transactions' },
-  { name: 'Top-up', link: '/dashboard/card/topup' },
-  { name: 'Balance & limits', link: '/dashboard/card/balance' },
-  { name: 'Settings', link: '/dashboard/card/settings' },
+  { name: 'Transactions', link: '/dashboard/card/transactions', icon: 'category-fines' },
+  { name: 'Top-up', link: '/dashboard/card/topup', icon: 'transfer-in' },
+  { name: 'Balance & limits', link: '/dashboard/card/balance', icon: 'filter' },
+  { name: 'Settings', link: '/dashboard/card/settings', icon: 'settings' },
 ];
 
 class Card extends React.Component<{}> {
+
+  handleChangeDate = (date: { dateStart: moment, dateEnd: moment }) => {
+    console.log(date);
+  };
 
   render() {
     return (
@@ -31,7 +36,7 @@ class Card extends React.Component<{}> {
             <Col lg={12}>
 
               <div className={'dashboard-container'}>
-                <ControlPanel items={items}/>
+                <ControlPanel items={items} />
               </div>
 
             </Col>
@@ -39,7 +44,7 @@ class Card extends React.Component<{}> {
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>
-                <FilterSearch />
+                <FilterSearch handleChangeDate={this.handleChangeDate}/>
               </div>
             </Col>
           </Row>

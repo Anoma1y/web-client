@@ -5,11 +5,12 @@ import Amount from 'components/Amount';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
 import './style.scss';
+import moment from 'moment';
 
 class Main extends React.Component<{}> {
 
-  handleChangeDate = (e) => {
-    console.log(e);
+  handleChangeDate = (date: { dateStart: moment, dateEnd: moment }) => {
+    console.log(date);
   };
 
   render() {
@@ -27,7 +28,7 @@ class Main extends React.Component<{}> {
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>
-                <FilterSearch handleChangeDate={this.handleChangeDate}/>
+                <FilterSearch handleChangeDate={this.handleChangeDate} />
               </div>
             </Col>
           </Row>
@@ -82,6 +83,43 @@ class Main extends React.Component<{}> {
                       <Table.Cell width={4}>Pay Pal</Table.Cell>
                       <Table.Cell width={4}><Amount operation={'minus'} value={54353.43} /></Table.Cell>
                     </Table.Row>
+
+                    <Table.Row date>
+                      <Table.Cell colSpan={16}>
+                        23.05.2018
+                      </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4}>Refill </Table.Cell>
+                      <Table.Cell width={4}>7356*******0000</Table.Cell>
+                      <Table.Cell width={4}>Pay Pal</Table.Cell>
+                      <Table.Cell width={4}><Amount operation={'minus'} value={789789789.43} /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4}>Refill </Table.Cell>
+                      <Table.Cell width={4}>7356*******0000</Table.Cell>
+                      <Table.Cell width={4}>Pay Pal</Table.Cell>
+                      <Table.Cell width={4}><Amount operation={'minus'} value={54353.43} /></Table.Cell>
+                    </Table.Row>
+
+                    <Table.Row date>
+                      <Table.Cell colSpan={16}>
+                        20.05.2018
+                      </Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4}>Refill </Table.Cell>
+                      <Table.Cell width={4}>7356*******0000</Table.Cell>
+                      <Table.Cell width={4}>Pay Pal</Table.Cell>
+                      <Table.Cell width={4}><Amount operation={'plus'} value={123123.43} /></Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell width={4}>Refill </Table.Cell>
+                      <Table.Cell width={4}>7356*******0000</Table.Cell>
+                      <Table.Cell width={4}>Pay Pal</Table.Cell>
+                      <Table.Cell width={4}><Amount operation={'minus'} value={54353.43} /></Table.Cell>
+                    </Table.Row>
+
                   </Table.Body>
                 </Table>
               </Col>

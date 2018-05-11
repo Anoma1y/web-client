@@ -9,7 +9,8 @@ import './style.scss';
 type Props = {
   items: Array<{
     name: string,
-    link: string
+    link: string,
+    icon: string
   }>
 };
 
@@ -20,7 +21,7 @@ export default (props: Props) => {
       return (
         <div className={'control-panel_item'} key={item.name}>
           <div className={'control-panel_item-icon'}>
-            <Icon icon={'search'} size={16} />
+            <Icon icon={item.icon} size={16} />
           </div>
           <div className={'control-panel_item-link'}>
             <Link to={item.link}> {upperFirstCase(item.name)} </Link>

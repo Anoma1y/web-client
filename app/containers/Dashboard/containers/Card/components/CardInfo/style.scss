@@ -5,11 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 
 .card-content {
+  cursor: default;
   &_text {
     .text_content {
       padding: 10px 0;
@@ -32,12 +32,15 @@
 .card-image {
   position: relative;
   &_thumb {
-
+    img {
+      width: 100%;
+    }
   }
   &_title {
     position: absolute;
     top: 50%;
     right: 10px;
+    cursor: default;
     transform: translateY(-50%);
     color: $white-color;
     font-family: $font-bold-serif;

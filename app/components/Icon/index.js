@@ -15,7 +15,6 @@ type Props = {
 const Icon = (props: Props) => {
 
   const {
-    color = 'gray',
     icon,
     inline,
     size
@@ -33,7 +32,7 @@ const Icon = (props: Props) => {
   return (
     <ReactSVG
       path={`/static/images/icons/${icon}.svg`}
-      className={`${classBlockName}_svg svg__color_${color}`}
+      className={`${classBlockName}_svg`}
       wrapperClassName={classes}
       style={{
         width: size,

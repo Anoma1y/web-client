@@ -9,7 +9,9 @@ const ProductAdd = () => {
   return (
     <div className={'sidebar-add'}>
       <Button outline >
-        <Icon icon={'add'} size={14} color={'green'} />
+        <div className={'sidebar-add_icon'}>
+          <Icon icon={'add_white'} size={13} color={'green'} />
+        </div>
         <Text color={'gray'}>Add new product</Text>
       </Button>
     </div>

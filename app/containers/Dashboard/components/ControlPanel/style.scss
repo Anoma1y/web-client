@@ -1,26 +1,26 @@
 @import 'lib/style/vars.scss';
 
+$item-bgc:            #E4EAF4;
+
 .control-panel {
   &_item {
     display: inline-block;
     margin-left: 40px;
     border-radius: 5px;
     padding: 8px;
+    background-color: transparent;
+    transition: background-color 0.2s ease;
     &:first-child {
       margin-left: 0;
     }
     &__active {
-      background-color: #E4EAF4;
+      background-color: $item-bgc;
     }
 
     &:hover {
-      .icon {
-        svg path {
-          fill: lighten($black-color, 50%);
-        }
-      }
+      background-color: $item-bgc;
       a {
-        color: lighten($black-color, 50%);
+        color: lighten($black-color, 30%);
       }
     }
   }

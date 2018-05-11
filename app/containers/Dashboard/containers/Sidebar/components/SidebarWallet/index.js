@@ -33,7 +33,7 @@ const SidebarWallet = () => {
               My Euro wallet
             </Text.Content>
             <Text.Sub className={'wallet-amount_value'}>
-              <Amount value={24542.22} showCurrency={false} />
+              <Amount value={24542.22} />
             </Text.Sub>
           </Text>
         </div>
@@ -52,7 +52,7 @@ const SidebarWallet = () => {
               My USD wallet
             </Text.Content>
             <Text.Sub className={'wallet-amount_value'}>
-              <Amount value={97877.52} showCurrency={false} />
+              <Amount value={97877.52} />
             </Text.Sub>
           </Text>
         </div>

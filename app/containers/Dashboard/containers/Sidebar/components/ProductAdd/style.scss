@@ -4,6 +4,20 @@
 
   margin: 20px auto;
 
+  &_icon {
+    width: 20px;
+    height: 20px;
+    background-color: $green-color;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    .icon {
+      height: 13px;
+    }
+  }
   .button {
 
     margin: 0 auto;
