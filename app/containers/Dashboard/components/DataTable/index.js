@@ -49,6 +49,13 @@ export default class DataTable extends Component<{}, State> {
     this.tableRef = node;
   };
 
+  debounceData = _.debounce(() => {
+    console.log('Append new data');
+    this.setState({
+      isLoading: false
+    })
+  }, 1500);
+
   tableRef: ?any;
 
   // TODO fix flow type
@@ -60,6 +67,7 @@ export default class DataTable extends Component<{}, State> {
     const windowBottom = windowHeight + window.pageYOffset;
 
     if (windowBottom > docHeight - 100) {
+      this.debounceData();
       setTimeout(() => {
         this.setState({
           isLoading: true

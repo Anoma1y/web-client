@@ -148,7 +148,9 @@ class Sidebar extends React.Component<{}, State> {
           </button>
 
         </div>
+
         <div className={`blackout ${sidebarIsOpen ? 'blackout__active' : ''}`}> </div>
+
       </React.Fragment>
     );
   }
