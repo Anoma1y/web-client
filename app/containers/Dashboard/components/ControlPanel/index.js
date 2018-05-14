@@ -10,7 +10,7 @@ type Props = {
   items: Array<{
     name: string,
     link: string,
-    icon: string
+    icon: string,
   }>
 };
 

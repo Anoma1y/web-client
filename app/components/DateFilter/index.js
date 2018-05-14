@@ -8,7 +8,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './style.scss';
 
 type Props = {
-  handleChangeDate: (date: { dateStart: moment, dateEnd: moment }) => void
+  handleChangeDate: (date: {
+                      dateStart: moment,
+                      dateEnd: moment
+                    }) => void
 };
 
 type State = {
@@ -29,11 +32,11 @@ const selectItems = [
   { label: '', id: 'date-month-1' }, // Май
   { label: '', id: 'date-month-2' }, // Апрель
   { label: '', id: 'date-month-3' }, // Март
-  { label: 'Last 3 month', id: 'date-3month' }, // 3 месяца
-  { label: 'Last year', id: 'date-year' }, // Последний год
-  { label: 'All time', id: 'date-all' }, // За все время
+  { label: 'Last 3 months', id: 'date-3month' }, // 3 месяца
+  { label: 'For the last year', id: 'date-year' }, // Последний год
+  { label: 'For all time', id: 'date-all' }, // За все время
 ];
-// TODO добавить колбэк для возврата из onChange даты начальной и конечной
+
 class DateFilter extends React.Component<Props, State> {
 
   state = {
@@ -60,31 +63,37 @@ class DateFilter extends React.Component<Props, State> {
     this.wrapperRef = node;
   };
 
-  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
-    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.setState({
-        isOpen: false,
-        isRange: false
-      });
-    }
-  };
-
+  /**
+   * Метод для получения первого дня месяца
+   * @param start - количество месяцев от текущего времени
+   * @returns {moment.Moment} дата начала месяца (DD/MM/YYYY)
+   */
   getFirstDay = (start: number): moment => moment().subtract(start, 'months').startOf('month');
 
+  /**
+   * Метод для получения последнего дня месяца
+   * @param end - количество месяцев от текущего времени
+   * @returns {moment.Moment} дата конца месяца (DD/MM/YYYY)
+   */
   getLastDay = (end: number): moment => moment().subtract(end, 'months').endOf('month');
 
+  /**
+   * Метод для получения начальной и конечной даты по ID
+   * @param val - ID периода
+   * @returns {{dateStart: moment.Moment, dateEnd: moment.Moment}} - начальная и конечная дата
+   */
   getDays = (val: string): { dateStart: moment, dateEnd: moment } => {
     let dateStart;
     let dateEnd;
     switch (val) {
       case 'date-week': {
-        dateStart = moment().subtract(1, 'weeks');
-        dateEnd = moment();
+        dateStart = moment().subtract(1, 'weeks').startOf('day');
+        dateEnd = moment().endOf('day');
         break;
       }
       case 'date-month': {
-        dateStart = moment().subtract(1, 'months');
-        dateEnd = moment();
+        dateStart = moment().subtract(1, 'months').startOf('day');
+        dateEnd = moment().endOf('day');
         break;
       }
       case 'date-month-1': {
@@ -114,7 +123,7 @@ class DateFilter extends React.Component<Props, State> {
       }
       case 'date-all': {
         dateStart = moment(1318781876);
-        dateEnd = this.getLastDay(0);
+        dateEnd = moment().endOf('day');
         break;
       }
       default: {
@@ -128,8 +137,24 @@ class DateFilter extends React.Component<Props, State> {
     };
   };
 
+  /**
+   * Функция обработчки клика по любой области не входящей в компонент для закрытия
+   * @param event
+   */
+  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        isOpen: false,
+        isRange: false
+      });
+    }
+  };
+
   wrapperRef: ?any;
 
+  /**
+   * Обработчки открытия выбора периода
+   */
   handleOpen = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -137,24 +162,24 @@ class DateFilter extends React.Component<Props, State> {
     });
   };
 
+  /**
+   * Обработчки открытия выбора периода даты между двумя значениями
+   */
   handleRangeTrigger = () => {
     this.setState({
       isRange: !this.state.isRange
     });
   };
 
+  /**
+   * Метод для обработки клика по календарю
+   * @param event возвращает начальную и конечную дату в обработчик события props
+   */
   handleChange = (event: { target: { value: string } }) => {
 
     const { value } = event.target;
-    const {
-      dateStart,
-      dateEnd
-    } = this.getDays(value);
-
-    const {
-      label,
-      id
-    } = _.filter(selectItems, { id: value })[0];
+    const { dateStart, dateEnd } = this.getDays(value);
+    const { label, id } = _.filter(selectItems, { id: value })[0];
     this.setState({
       value,
       isOpen: false,
@@ -165,27 +190,38 @@ class DateFilter extends React.Component<Props, State> {
       dateStart,
       dateEnd
     });
-
     this.props.handleChangeDate({ dateStart, dateEnd });
   };
 
+  /**
+   * Запись в стейт начальной даты
+   * @param event
+   */
   handleChangeStart = (event: moment) => {
     this.setState({
-      dateStart: event
+      dateStart: moment(event).startOf('day')
     });
   };
 
+  /**
+   * Запись в стейт конечной даты
+   * @param event
+   */
   handleChangeEnd = (event: moment) => {
     this.setState({
-      dateEnd: event
+      dateEnd: moment(event).endOf('day')
     });
   };
 
+  /**
+   * Обработчик клика Submit для колбэка в props начальной и конечной даты
+   */
   handleRangeClick = () => {
     const {
       dateStart,
       dateEnd
     } = this.state;
+    console.log()
     this.setState({
       isOpen: false,
       isRange: false,
@@ -203,8 +239,6 @@ class DateFilter extends React.Component<Props, State> {
     const month1 = moment().subtract(0, 'months').format('MMMM');
     const month2 = moment().subtract(1, 'months').format('MMMM');
     const month3 = moment().subtract(2, 'months').format('MMMM');
-
-    // const current = _.filter(selectItems, { id: this.state.value })[0];
 
     const {
       isOpen,

@@ -10,6 +10,7 @@ export type Props = {
   children?: React.Node,
   className?: string,
   disabled?: boolean,
+  transparent?: boolean,
   text?: boolean,
   inline?: boolean | 'centered',
   size?: 'xs' | 'sm' | 'md' | 'lg'
@@ -17,10 +18,11 @@ export type Props = {
 
 export default (props: Props) => {
   const {
-    active = false,
+    active,
     children,
     className,
-    inline = false,
+    inline,
+    transparent,
     size = 'sm',
     text
   } = props;
@@ -29,7 +31,8 @@ export default (props: Props) => {
     CLASS_NAME,
     {
       [`${CLASS_NAME}__active`]: active,
-      [`${CLASS_NAME}__inline`]: inline
+      [`${CLASS_NAME}__inline`]: inline,
+      [`${CLASS_NAME}__transparent`]: transparent
     },
     className
   );

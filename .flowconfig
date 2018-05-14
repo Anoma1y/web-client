@@ -5,7 +5,7 @@
 .*/app/index\.js
 .*\.test\.js
 .*\.scss
-
+.*/app/lib/scroll.js
   <PROJECT_ROOT>/node_modules/editions  # you can still selectively ignore packages that cause flow errors
 [include]
 flow-typed

@@ -28,12 +28,59 @@ $sidebar-width:             16.875rem;
     overflow-y: scroll;
     padding-right: $scroll-width;
     box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   @media screen and (max-width: $break-lg - 1) {
     left: -$sidebar-width;
   }
 
+  &-close {
+    display: none;
+    width: $sidebar-width;
+    height: 50px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: $white-color;
+    transition: background-color 0.2s ease;
+    @media screen and (max-width: $break-lg - 1) {
+      display: block;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background-color: darken($white-color, 7%);
+    }
+    &:hover &_text {
+      opacity: 1;
+      font-size: 0.9rem;
+    }
+    opacity: 1;
+    &_icon {
+      display: inline-block;
+      vertical-align: middle;
+      svg {
+        width: 45px;
+        height: 45px;
+        path:first-child {
+          fill: $gray-color;
+        }
+      }
+    }
+    &_text {
+      font-size: 0;
+      opacity: 0;
+      vertical-align: middle;
+      display: inline-block;
+      font-family: $font-regular-serif;
+      color: $gray-color;
+      transition: font-size 0.2s ease, opacity 0.2s ease;
+    }
+  }
 
   &__active {
     left: 0;

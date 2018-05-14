@@ -19,9 +19,8 @@ type Props = {
   width?: ?string | ?number,
   warning?: boolean
 };
-// TODO colspan переделать под макс значение
-export default (props: Props) => {
 
+export default (props: Props) => {
   const {
     active,
     children,
@@ -38,10 +37,10 @@ export default (props: Props) => {
     warning
   } = props;
 
-  const classBlockName = `${CLASS_NAME}_cell`;
+  const classBlockName: string = `${CLASS_NAME}_cell`;
   const widthClasses: string = getColumnCount(width);
 
-  const classes = classnames(
+  const classes: string = classnames(
     classBlockName,
     textAlign !== '' ? `${CLASS_NAME}__align_${textAlign}` : '',
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',

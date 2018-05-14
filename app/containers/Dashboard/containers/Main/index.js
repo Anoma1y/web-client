@@ -16,7 +16,6 @@ class Main extends React.Component<{}> {
     return (
       <Grid>
         <div className={'dashboard'}>
-
           <Row>
             <Col lg={12}>
               <div className={'dashboard-container'}>

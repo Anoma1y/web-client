@@ -5,6 +5,7 @@ import Sidebar from './containers/Sidebar';
 import Header from './containers/Header';
 import Card from './containers/Card';
 import Wallet from './containers/Wallet';
+import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import {
   Route,
@@ -43,6 +44,7 @@ class Dashboard extends React.Component<Props> {
               <Route exact path={`${this.props.match.url}`} component={Main} />
               <Route exact path={`${this.props.match.url}/card`} component={Card} />
               <Route exact path={`${this.props.match.url}/wallet`} component={Wallet} />
+              <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
               <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
             </Switch>
           </div>
