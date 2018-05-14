@@ -9,7 +9,7 @@ $sidebar-width:             16.875rem;
     box-sizing: border-box;
   }
 
-  background: #ffffff;
+  background: $white-color;
   box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
   width: $sidebar-width;
   height: 100%;
@@ -40,26 +40,29 @@ $sidebar-width:             16.875rem;
   &-close {
     display: none;
     width: $sidebar-width;
-    height: 50px;
+    height: 55px;
     border: none;
     text-align: center;
     cursor: pointer;
     background-color: $white-color;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.4s ease-out;
+
     @media screen and (max-width: $break-lg - 1) {
       display: block;
     }
+
     &:focus {
       outline: none;
     }
+
     &:hover {
-      background-color: darken($white-color, 7%);
+      background-color: #dbe1e8;
     }
+
     &:hover &_text {
-      opacity: 1;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
-    opacity: 1;
+
     &_icon {
       display: inline-block;
       vertical-align: middle;
@@ -71,14 +74,14 @@ $sidebar-width:             16.875rem;
         }
       }
     }
+
     &_text {
       font-size: 0;
-      opacity: 0;
       vertical-align: middle;
       display: inline-block;
       font-family: $font-regular-serif;
       color: $gray-color;
-      transition: font-size 0.2s ease, opacity 0.2s ease;
+      transition: font-size 0.2s ease;
     }
   }
 
@@ -88,8 +91,6 @@ $sidebar-width:             16.875rem;
 
   &_item {
     width: $sidebar-width;
-    //width: 100%;
-    //width: calc(100% - #{$scroll-width});
   }
 
   &-divider {
