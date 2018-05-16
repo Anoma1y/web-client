@@ -30,9 +30,9 @@ export default () => {
         </div>
 
         {/* HEADER CONTENT - NAVIGATION */}
-        {/*<div className={'header-navigation'}>*/}
-          {/*<HeaderNavigation item={link} />*/}
-        {/*</div>*/}
+        {/* <div className={'header-navigation'}> */}
+          {/* <HeaderNavigation item={link} /> */}
+        {/* </div> */}
 
         {/* HEADER CONTENT - ASIDE MENU */}
         <div className={'header-aside'}>
