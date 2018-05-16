@@ -1,35 +1,15 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { childrenCheck } from 'lib/children_utils';
 import './style.scss';
 
-type Props = {
-  bordered?: boolean,
-  centered?: boolean,
-  children?: React.Node,
-  className?: string,
-  disabled?: boolean,
-  floated?: '' | 'left' | 'right',
-  fluid?: boolean,
-  hidden?: boolean,
-  href?: string,
-  inline?: boolean,
-  src: string,
-  verticalAlign?: 'bottom' | 'middle' | 'top' | ''
-};
+export default (props) => {
 
-export default (props: Props) => {
-
-  const renderImage = (src: string): React.Node => {
+  const renderImage = (src) => {
     return <img src={src} alt={'Pictures'} />;
   };
 
-  const renderElement = (
-    classNames: string,
-    href: string,
-    children: React.Node,
-    src: string
-  ): React.Node => {
+  const renderElement = (classNames, href, children, src) => {
 
     const childrenIsNull = childrenCheck(children);
 
@@ -50,13 +30,13 @@ export default (props: Props) => {
     className,
     disabled, // дизейбл
     children,
-    floated = '',
+    floated = '', // 'left' | 'right'
     fluid = false,
     hidden = false,
     href = '',
     inline,
     src,
-    verticalAlign = '',
+    verticalAlign = '', // 'bottom' | 'middle' | 'top' | ''
   } = props;
 
   const classBlockName = 'image';

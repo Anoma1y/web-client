@@ -1,21 +1,10 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {
   upperFirstCase
 } from 'lib/pathUtils';
 import { Link } from 'react-router-dom';
 
-type Props = {
-  item: Array<{
-    name: string,
-    link: string
-  }>
-};
-
-type State = {
-  isOpen: boolean
-}
-
-export default class MobileMenu extends React.Component<Props, State> {
+export default class MobileMenu extends Component {
 
   state = {
     isOpen: false
@@ -27,12 +16,12 @@ export default class MobileMenu extends React.Component<Props, State> {
    */
   componentDidMount() {
     this.updateDimensions();
-    (document.addEventListener: Function)('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
   }
 
   componentWillUnmount() {
-    (document.removeEventListener: Function)('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
     window.removeEventListener('resize', this.updateDimensions);
   }
 
@@ -41,7 +30,7 @@ export default class MobileMenu extends React.Component<Props, State> {
    * Переводит стейт в состояние false
    * @param event
    */
-  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleClickOutside = (event) => {
     if (this.mobileRef && !this.mobileRef.contains(event.target)) {
       this.setState({
         isOpen: false
@@ -65,11 +54,9 @@ export default class MobileMenu extends React.Component<Props, State> {
    * Привязка ref для дива с контейнером сайдбара
    * @param node
    */
-  handleMobileNavRef = (node: ?HTMLDivElement) => {
+  handleMobileNavRef = (node) => {
     this.mobileRef = node;
   };
-
-  mobileRef: ?any;
 
   /**
    * Функция обработчки открытия меню

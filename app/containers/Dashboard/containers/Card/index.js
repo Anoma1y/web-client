@@ -6,7 +6,6 @@ import CardInfo from './components/CardInfo';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import ControlPanel from 'containers/Dashboard/components/ControlPanel';
 import './style.scss';
-import moment from 'moment';
 
 const items = [
   { name: 'Transactions', link: '/dashboard/card/transactions', icon: 'category-fines' },
@@ -15,9 +14,9 @@ const items = [
   { name: 'Settings', link: '/dashboard/card/settings', icon: 'settings' },
 ];
 
-class Card extends React.Component<{}> {
+class Card extends React.Component {
 
-  handleChangeDate = (date: { dateStart: moment, dateEnd: moment }) => {
+  handleChangeDate = (date) => {
     console.log(date);
   };
 

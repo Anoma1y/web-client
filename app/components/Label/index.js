@@ -1,28 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
-import LabelGroup from './LabelGroup';
 import './style.scss';
 
-type Props = {
-  attached?: 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | '',
-  backgroundColor?: string,
-  children?: React.Node,
-  color?: string,
-  disabled?: boolean,
-  type?: 'div' | 'span' | 'a' | 'p',
-  className?: string
-};
-
-const Label = (props: Props) => {
+const Label = (props) => {
 
   const {
-    attached = '',
+    attached = '', // 'top' | 'bottom' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | '', примыкания лейбла к ...
     children,
     className,
     backgroundColor = 'lightgray',
     color = 'white',
     disabled,
-    type
+    type // 'div' | 'span' | 'a' | 'p', тип
   } = props;
 
   const classBlockName = 'label';
@@ -45,7 +34,5 @@ const Label = (props: Props) => {
   );
 
 };
-
-Label.Group = LabelGroup;
 
 export default Label;

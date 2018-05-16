@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import UserInfo from './components/UserInfo';
 import Tab from 'components/Tab';
@@ -10,11 +10,7 @@ const panes = [
   { icon: 'category-pets', menuItem: 'Verification', render: () => <Verification /> },
 ];
 
-type State = {
-  activeIndex: boolean
-}
-
-export default class Profile extends React.Component<{}, State> {
+export default class Profile extends Component {
 
   state = {
     activeIndex: 0
@@ -24,7 +20,7 @@ export default class Profile extends React.Component<{}, State> {
     this.setState({
       activeIndex
     })
-  }
+  };
 
   render() {
 

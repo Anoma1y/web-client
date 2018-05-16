@@ -3,21 +3,7 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import './style.scss';
 
-type Props = {
-  children: React.Node,
-  item: Array<{
-    name: string,
-    link: string
-  }>,
-  className?: string
-};
-
-type State = {
-  active: boolean,
-  isClose: boolean,
-}
-
-export default class Dropdown extends React.Component<Props, State> {
+export default class Dropdown extends React.Component {
 
   state = {
     active: false,
@@ -32,20 +18,18 @@ export default class Dropdown extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    (document.addEventListener: Function)('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    (document.removeEventListener: Function)('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  setWrapperRef = (node: ?HTMLDivElement) => {
+  setWrapperRef = (node) => {
     this.wrapperRef = node;
   };
 
-  wrapperRef: ?any;
-
-  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleClickOutside = (event) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
         isClose: true,
@@ -58,10 +42,10 @@ export default class Dropdown extends React.Component<Props, State> {
     const {
       children,
       className,
-      item
+      item //   item: Array<{name: string, link: string }>,
     } = this.props;
-    const classBlockName: string = 'dropdown';
-    const classes: string = classnames(
+    const classBlockName = 'dropdown';
+    const classes = classnames(
       classBlockName,
       {
         [`${classBlockName}__active`]: this.state.active && !this.state.isClose

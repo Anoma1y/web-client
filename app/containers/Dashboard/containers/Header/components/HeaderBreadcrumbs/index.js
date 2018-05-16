@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Breadcrumb from 'components/Breadcrumb';
 import { Grid } from 'react-flexbox-grid'
@@ -9,15 +9,7 @@ import {
 } from 'lib/pathUtils';
 import './style.scss';
 
-type Props = {
-  routing: {
-    location: {
-      pathname: string
-    }
-  }
-};
-
-const HeaderBreadcrumbs = (props: Props) => {
+const HeaderBreadcrumbs = (props) => {
 
   const { pathname } = props.routing.location;
   const breadcrumbsList = getPathInfo(pathname);

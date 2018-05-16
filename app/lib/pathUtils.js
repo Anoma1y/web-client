@@ -1,16 +1,11 @@
 import _ from 'lodash';
 
-type Path = Array<{
-  key: number,
-  name: string,
-  link: string
-}>;
 /**
  * Функция для преобразования первого символа строки в верхний регистр
  * @param item строка для преобразования
  * @returns {string}
  */
-export const upperFirstCase = (item: string): string => {
+export const upperFirstCase = (item) => {
   if (item) {
     return `${item.charAt(0)
       .toUpperCase()}${item.slice(1)}`;
@@ -23,7 +18,7 @@ export const upperFirstCase = (item: string): string => {
  * @param item строка для преобразования
  * @returns {string}
  */
-export const lowerFirstCase = (item: string): string => {
+export const lowerFirstCase = (item) => {
   if (item) {
     return `${item.charAt(0)
       .toLowerCase()}${item.slice(1)}`;
@@ -36,7 +31,7 @@ export const lowerFirstCase = (item: string): string => {
  * @param item строка для преобразования
  * @returns {string}
  */
-export const upperCase = (item: string): string => {
+export const upperCase = (item) => {
   if (item) {
     return item.toUpperCase();
   }
@@ -48,7 +43,7 @@ export const upperCase = (item: string): string => {
  * @param item строка для преобразования
  * @returns {string}
  */
-export const lowerCase = (item: string): string => {
+export const lowerCase = (item) => {
   if (item) {
     return item.toLowerCase();
   }
@@ -60,10 +55,10 @@ export const lowerCase = (item: string): string => {
  * @param path полный путь
  * @returns {Array} объектов, содержащих key - ключ, name - имя ссылки и link - ссылка
  */
-export const getPathInfo = (path: string): Path => {
+export const getPathInfo = (path) => {
   return _.compact(path.split('/').map((p, i, arr) => {
     if (p !== '') {
-      let link: string = arr.slice(0, i + 1).join('/');
+      let link = arr.slice(0, i + 1).join('/');
 
       if (link.charAt(link.length - 1) !== '/') {
         link = `${link}/`;

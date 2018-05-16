@@ -1,16 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import ReactSVG from 'react-svg';
 
-type Props = {
-  icon: string,
-  size?: number | string,
-};
-
-const Icon = (props: Props) => {
+const Icon = (props) => {
 
   const {
-    icon,
-    size
+    icon, // Имя иконки
+    size // Размер от 0 до разумных пределов
   } = props;
 
   const classBlockName = 'icon';

@@ -1,11 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 
-type Props = {
-  children?: React.Node,
-  className?: string,
-}
-
-export default (props: Props) => {
+export default (props) => {
   const { children, className } = props;
 
   const classBlockName = 'text_sub';

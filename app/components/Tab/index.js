@@ -2,16 +2,9 @@ import React, { Component } from 'react';
 import TabMenu from './TabMenu';
 import './style.scss';
 
-type Props = {
-  activeIndex: string | number,
-  defaultActiveIndex?: string | number,
-  onTabChange?: ({ activeIndex: number, event: SyntheticMouseEvent<>}) => void,
-  panes: any
-}
-
 export default class Tab extends Component<Props> {
 
-  handleTabClick = (activeIndex: number, event: SyntheticMouseEvent<>) => {
+  handleTabClick = (activeIndex, event) => {
     this.props.onTabChange({
       activeIndex, event
     });
@@ -34,7 +27,7 @@ export default class Tab extends Component<Props> {
           key={item.menuItem}
           activeIndex={index === activeIndex}
           icon={item.icon}
-          onClick={(e: SyntheticMouseEvent<>) => this.handleTabClick(index, e)}
+          onClick={(e) => this.handleTabClick(index, e)}
         >
           {item.menuItem}
         </TabMenu>

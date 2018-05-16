@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Dropdown from 'components/Dropdown';

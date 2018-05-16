@@ -2,12 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  children?: any,
-  className?: string
-};
-
-export default function TableBody(props: Props) {
+export default function TableBody(props) {
 
   const {
     children,

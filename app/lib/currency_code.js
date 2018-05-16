@@ -8,4 +8,4 @@ export const CURRENCY_CODE = {
  * @param currencyCode - текстовое значение валюты
  * @returns {*|string} - символ валюты
  */
-export const getCurrencySymbol = (currencyCode: string): string => CURRENCY_CODE[currencyCode] || currencyCode;
+export const getCurrencySymbol = (currencyCode) => CURRENCY_CODE[currencyCode] || currencyCode;

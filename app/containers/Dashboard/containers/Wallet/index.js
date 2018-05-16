@@ -1,11 +1,10 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Table from 'components/Table';
 import Amount from 'components/Amount';
 import WalletInfo from './components/WalletInfo';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import ControlPanel from 'containers/Dashboard/components/ControlPanel';
-import moment from 'moment';
 import './style.scss';
 
 const items = [
@@ -16,9 +15,9 @@ const items = [
   { name: 'Balance & limits', link: '/dashboard/wallet/balance', icon: 'filter' },
 ];
 
-class Wallet extends React.Component<{}> {
+class Wallet extends Component {
 
-  handleChange = (date: { dateStart: moment, dateEnd: moment }) => {
+  handleChange = (date) => {
     console.log(date);
   };
 

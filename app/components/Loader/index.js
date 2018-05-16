@@ -1,33 +1,22 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import Spinner from './Spinner';
 import './style.scss';
 
 export const CLASS_NAME = 'loader';
 
-export type Props = {
-  active?: boolean,
-  children?: React.Node,
-  className?: string,
-  disabled?: boolean,
-  transparent?: boolean,
-  text?: boolean,
-  inline?: boolean | 'centered',
-  size?: 'xs' | 'sm' | 'md' | 'lg'
-};
-
-export default (props: Props) => {
+export default (props) => {
   const {
     active,
     children,
     className,
-    inline,
+    inline, // 'centered' или boolean
     transparent,
-    size = 'sm',
+    size = 'sm', // Размер 'xs' | 'sm' | 'md' | 'lg'
     text
   } = props;
 
-  const classes: string = classnames(
+  const classes = classnames(
     CLASS_NAME,
     {
       [`${CLASS_NAME}__active`]: active,

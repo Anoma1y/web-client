@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import TableBody from './TableBody';
 import TableCell from './TableCell';
@@ -9,34 +9,12 @@ import TableHeaderCell from './TableHeaderCell';
 import './style.scss';
 import { getColumnCount } from 'lib/css_helpers';
 
-export const CLASS_NAME: string = 'table';
+export const CLASS_NAME = 'table';
 
-type Props = {
-  getColumnCount?: typeof getColumnCount,
-  children?: React.Node,
-  celled?: ?boolean,
-  collapsing?: ?boolean,
-  definition?: ?boolean,
-  fixed?: ?boolean,
-  selectable?: ?boolean,
-  sortable?: ?boolean,
-  stackable?: ?boolean,
-  structured?: ?boolean,
-  unstackable?: ?boolean,
-  attached?: '' | 'top' | 'bottom',
-  basic?: ?boolean,
-  compact?: ?boolean,
-  columns?: ?string | ?number,
-  textAlign?: 'left' | 'center' | 'right' | 'justify',
-  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-  size?: 'xs' | 'sm' | 'md' | 'lg' | '',
-  className?: ?string
-};
-
-const Table = (props: Props) => {
+const Table = (props) => {
 
   const {
-    attached = '', // Прикрепление таблицы к другим элементам
+    attached = '', // Прикрепление таблицы к другим элементам '' | 'top' | 'bottom'
     celled, // Рамка для всех полей
     children,
     className, // Свои классы
@@ -50,13 +28,13 @@ const Table = (props: Props) => {
     sortable, // Вкл/Выкл сортировку
     stackable, // Включить стаки колонок
     structured, // Для форматирования структурированых данных
-    textAlign = 'left', // Выравнивание текста
+    textAlign = 'left', // Выравнивание текста 'left' | 'center' | 'right' | 'justify'
     unstackable, // Запрет стака
-    verticalAlign = '', // Выравнивание по вертикали
+    verticalAlign = '', // Выравнивание по вертикали 'bottom' | 'middle' | 'top' | ''
   } = props;
 
-  const classBlockName: string = CLASS_NAME;
-  const widthClasses: string = getColumnCount(columns);
+  const classBlockName = CLASS_NAME;
+  const widthClasses = getColumnCount(columns);
 
   const classes = classnames(
     classBlockName,

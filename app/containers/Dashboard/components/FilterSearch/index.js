@@ -2,13 +2,8 @@ import * as React from 'react';
 import DateFilter from 'components/DateFilter';
 import Input from 'components/Input';
 import './style.scss';
-import moment from 'moment';
 
-type Props = {
-  handleChangeDate: (date: { dateStart: moment, dateEnd: moment }) => void
-}
-
-export default (props: Props) => {
+export default (props) => {
   return (
     <div className={'filter'}>
 

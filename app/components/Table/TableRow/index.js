@@ -2,21 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  active?: boolean,
-  children?: any,
-  date?: boolean,
-  disabled?: boolean,
-  error?: boolean,
-  fullWidth?: boolean,
-  className?: string,
-  warning?: boolean,
-  processing?: boolean,
-  textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
-  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     active,
@@ -26,8 +12,8 @@ export default (props: Props) => {
     disabled,
     processing,
     error,
-    textAlign = '',
-    verticalAlign = '',
+    textAlign = '', // 'left' | 'center' | 'right' | 'justify' | ''
+    verticalAlign = '', // 'bottom' | 'middle' | 'top' | ''
     warning,
   } = props;
 

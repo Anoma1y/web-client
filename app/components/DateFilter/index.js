@@ -1,30 +1,11 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import Icon from 'components/Icon';
 import Text from 'components/Text';
-import _ from 'lodash';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import _ from 'lodash';
 import 'react-datepicker/dist/react-datepicker.css';
 import './style.scss';
-
-type Props = {
-  handleChangeDate: (date: {
-                      dateStart: moment,
-                      dateEnd: moment
-                    }) => void
-};
-
-type State = {
-  isOpen: boolean,
-  isRange: boolean,
-  value: string,
-  current: {
-    label: string,
-    id: string
-  },
-  dateStart: moment,
-  dateEnd: moment
-};
 
 const selectItems = [
   { label: 'Last week', id: 'date-week' }, // Неделя
@@ -37,7 +18,7 @@ const selectItems = [
   { label: 'For all time', id: 'date-all' }, // За все время
 ];
 
-class DateFilter extends React.Component<Props, State> {
+class DateFilter extends Component {
 
   state = {
     dateStart: moment(),
@@ -52,14 +33,14 @@ class DateFilter extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    (document.addEventListener: Function)('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    (document.removeEventListener: Function)('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  setWrapperRef = (node: ?HTMLDivElement) => {
+  setWrapperRef = (node) => {
     this.wrapperRef = node;
   };
 
@@ -68,21 +49,21 @@ class DateFilter extends React.Component<Props, State> {
    * @param start - количество месяцев от текущего времени
    * @returns {moment.Moment} дата начала месяца (DD/MM/YYYY)
    */
-  getFirstDay = (start: number): moment => moment().subtract(start, 'months').startOf('month');
+  getFirstDay = (start) => moment().subtract(start, 'months').startOf('month');
 
   /**
    * Метод для получения последнего дня месяца
    * @param end - количество месяцев от текущего времени
    * @returns {moment.Moment} дата конца месяца (DD/MM/YYYY)
    */
-  getLastDay = (end: number): moment => moment().subtract(end, 'months').endOf('month');
+  getLastDay = (end) => moment().subtract(end, 'months').endOf('month');
 
   /**
    * Метод для получения начальной и конечной даты по ID
    * @param val - ID периода
    * @returns {{dateStart: moment.Moment, dateEnd: moment.Moment}} - начальная и конечная дата
    */
-  getDays = (val: string): { dateStart: moment, dateEnd: moment } => {
+  getDays = (val) => {
     let dateStart;
     let dateEnd;
     switch (val) {
@@ -141,7 +122,7 @@ class DateFilter extends React.Component<Props, State> {
    * Функция обработчки клика по любой области не входящей в компонент для закрытия
    * @param event
    */
-  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleClickOutside = (event) => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.setState({
         isOpen: false,
@@ -149,8 +130,6 @@ class DateFilter extends React.Component<Props, State> {
       });
     }
   };
-
-  wrapperRef: ?any;
 
   /**
    * Обработчки открытия выбора периода
@@ -175,7 +154,7 @@ class DateFilter extends React.Component<Props, State> {
    * Метод для обработки клика по календарю
    * @param event возвращает начальную и конечную дату в обработчик события props
    */
-  handleChange = (event: { target: { value: string } }) => {
+  handleChange = (event) => {
 
     const { value } = event.target;
     const { dateStart, dateEnd } = this.getDays(value);
@@ -197,7 +176,7 @@ class DateFilter extends React.Component<Props, State> {
    * Запись в стейт начальной даты
    * @param event
    */
-  handleChangeStart = (event: moment) => {
+  handleChangeStart = (event) => {
     this.setState({
       dateStart: moment(event).startOf('day')
     });
@@ -207,7 +186,7 @@ class DateFilter extends React.Component<Props, State> {
    * Запись в стейт конечной даты
    * @param event
    */
-  handleChangeEnd = (event: moment) => {
+  handleChangeEnd = (event) => {
     this.setState({
       dateEnd: moment(event).endOf('day')
     });

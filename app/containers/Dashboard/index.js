@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import Main from './containers/Main';
 import Transaction from './containers/Transaction';
 import Sidebar from './containers/Sidebar';
@@ -13,13 +13,7 @@ import {
 } from 'react-router-dom';
 import './style.scss';
 
-type Props = {
-  match: {
-    url: string
-  }
-}
-
-class Dashboard extends React.Component<Props> {
+class Dashboard extends Component {
 
   render() {
     return (

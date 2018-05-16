@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
 import {
@@ -6,15 +6,13 @@ import {
 } from 'lib/pathUtils';
 import './style.scss';
 
-type Props = {
-  items: Array<{
-    name: string,
-    link: string,
-    icon: string,
-  }>
-};
+export default (props) => {
 
-export default (props: Props) => {
+  // items: Array<{
+  //   name: string,
+  //   link: string,
+  //   icon: string,
+  // }>
 
   const renderItem = () => {
     return props.items.map((item) => {

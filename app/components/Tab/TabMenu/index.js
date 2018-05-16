@@ -2,13 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import Icon from 'components/Icon';
 
-type Props = {
-  activeIndex: boolean,
-  children?: any,
-  onClick?: Function
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     activeIndex,

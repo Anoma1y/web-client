@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Icon from 'components/Icon';
 import Text from 'components/Text';
 import './style.scss';

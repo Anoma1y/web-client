@@ -1,14 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
 import DataTable from 'containers/Dashboard/components/DataTable';
-import moment from 'moment';
 import './style.scss';
 
-class Main extends React.Component<{}> {
+class Main extends Component {
 
-  handleChangeDate = (date: { dateStart: moment, dateEnd: moment }) => {
+  handleChangeDate = (date) => {
     console.log(date);
   };
 

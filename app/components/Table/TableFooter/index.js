@@ -2,13 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  children?: any,
-  fullWidth?: boolean,
-  className?: string
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     children,

@@ -1,7 +1,6 @@
 {
   "extends": [
     "airbnb",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
@@ -20,8 +19,7 @@
 
   "plugins": [
     "react",
-    "import",
-    "flowtype"
+    "import"
   ],
   "env": {
     "browser": true,
@@ -32,7 +30,6 @@
   },
   "rules": {
     "jsx-a11y/anchor-is-valid": 0,
-    "flowtype/no-types-missing-file-annotation": 0,
 
     //Строгий режим
     "strict": ["error", "global"],

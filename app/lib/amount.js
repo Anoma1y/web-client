@@ -1,18 +1,6 @@
 import { getCurrencySymbol } from './currency_code';
 import _ from 'lodash';
 
-export type AmountType = {
-  value: string,
-  currency: string
-};
-
-export type FormatAmountType = {
-  majorPart: string,
-  minorPart: string,
-  isNegative: boolean,
-  currencySymbol: string
-};
-
 export const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед копейками
 export const AMOUNT_MAJOR_PART_SIZE = 3; // Отброс последних 3х значение в копейки и точку
 export const ZERO_MINOR_PART_REGEXP = /^0+$/;
@@ -25,8 +13,8 @@ export const AMOUNT_SPLITTER = ','; // Разделитель между час�
  * @param partSize
  * @returns {function(string)}
  */
-export const createSplitter = (partSize: number): Function => {
-  const parts = (str: string): Array<string> => {
+export const createSplitter = (partSize) => {
+  const parts = (str)=> {
     const { length } = str;
     if (length <= partSize) {
       return [str];
@@ -41,7 +29,7 @@ export const createSplitter = (partSize: number): Function => {
  * @param Object amount { значение валюты? название (EUR)}.
  * @return Object { основная часть, остаточная часть, меньше или больше нуля, символ валюты }
  */
-export const formatAmount = (amount: AmountType): FormatAmountType => {
+export const formatAmount = (amount) => {
   const {
     value,
     currency

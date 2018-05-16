@@ -3,14 +3,7 @@ import Text from 'components/Text';
 import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
 
-type Props = {
-  item: Array<{
-    name: string,
-    link: string
-  }>,
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const renderMenu = () => {
     return props.item.map((item) => {

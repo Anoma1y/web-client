@@ -1,15 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import BreadcrumbSection from './BreadcrumbSection';
 import BreadcrumbDivider from './BreadcrumbDivider';
 import './style.scss';
 
-type Props = {
-  children?: React.Node,
-  className?: ?string,
-};
-
-const Breadcrumb = (props: Props) => {
+const Breadcrumb = (props) => {
 
   const {
     children,

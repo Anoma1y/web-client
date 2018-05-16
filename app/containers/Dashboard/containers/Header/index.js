@@ -1,10 +1,9 @@
-import * as React from 'react';
-import HeaderNavigation from './components/HeaderNavigation';
+import React from 'react';
 import HeaderBreadcrumbs from './components/HeaderBreadcrumbs';
 import Logout from './components/Logout';
 import './style.scss';
 
-const link: Array<{name: string, link: string}> = [
+const link = [
   { name: 'Dashboard', link: '/dashboard/' },
   { name: 'Transactions', link: '/dashboard/transactions/' },
   { name: 'Payments', link: '/dashboard/payments/' },
@@ -28,11 +27,6 @@ export default () => {
             </svg>
           </a>
         </div>
-
-        {/* HEADER CONTENT - NAVIGATION */}
-        {/* <div className={'header-navigation'}> */}
-          {/* <HeaderNavigation item={link} /> */}
-        {/* </div> */}
 
         {/* HEADER CONTENT - ASIDE MENU */}
         <div className={'header-aside'}>

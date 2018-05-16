@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';

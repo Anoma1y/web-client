@@ -1,17 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 
 import MainMenu from './MainMenu';
 import MobileMenu from './MobileMenu';
 import './style.scss';
 
-type Props = {
-  item: Array<{
-    name: string,
-    link: string
-  }>
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   return (
 

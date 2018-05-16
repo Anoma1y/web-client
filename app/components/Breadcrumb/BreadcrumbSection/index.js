@@ -1,16 +1,10 @@
 import * as React from 'react';
 import classnames from 'classnames';
-import _ from 'lodash';
 
-type Props = {
-  active?: boolean,
-  children?: React.Node,
-  className?: ?string,
-};
-
-export default class BreadcrumbSection extends React.Component<Props> {
+export default class BreadcrumbSection extends React.Component {
 
   render() {
+
     const {
       active = false,
       children,

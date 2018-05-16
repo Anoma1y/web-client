@@ -3,24 +3,7 @@ import classnames from 'classnames';
 import { getColumnCount } from 'lib/css_helpers';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  active?: boolean,
-  collapsing?: boolean,
-  colSpan?: number,
-  disabled?: boolean,
-  error?: boolean,
-  children?: any,
-  selectable?: boolean,
-  singleLine?: boolean,
-  fullWidth?: boolean,
-  textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
-  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-  className?: string,
-  width?: ?string | ?number,
-  warning?: boolean
-};
-
-export default (props: Props) => {
+export default (props) => {
   const {
     active,
     children,
@@ -31,16 +14,16 @@ export default (props: Props) => {
     error,
     selectable,
     singleLine,
-    textAlign = '',
-    verticalAlign = '',
-    width,
+    textAlign = '', // 'left' | 'center' | 'right' | 'justify' | ''
+    verticalAlign = '', // 'bottom' | 'middle' | 'top' | ''
+    width, // Ширина ячейки от 1 до 16
     warning
   } = props;
 
-  const classBlockName: string = `${CLASS_NAME}_cell`;
-  const widthClasses: string = getColumnCount(width);
+  const classBlockName = `${CLASS_NAME}_cell`;
+  const widthClasses = getColumnCount(width);
 
-  const classes: string = classnames(
+  const classes = classnames(
     classBlockName,
     textAlign !== '' ? `${CLASS_NAME}__align_${textAlign}` : '',
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',

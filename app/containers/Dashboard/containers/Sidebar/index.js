@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import Icon from 'components/Icon';
 import SidebarUser from './components/SidebarUser';
 import SidebarNotification from './components/SidebarNotification';
@@ -7,11 +7,7 @@ import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
 import './style.scss';
 
-type State = {
-  sidebarIsOpen: boolean
-};
-
-class Sidebar extends React.Component<{}, State> {
+class Sidebar extends Component {
 
   state = {
     sidebarIsOpen: false
@@ -24,12 +20,12 @@ class Sidebar extends React.Component<{}, State> {
    */
   componentDidMount() {
     this.updateDimensions();
-    (document.addEventListener: Function)('mousedown', this.handleClickOutside);
+    document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
   }
 
   componentWillUnmount() {
-    (document.removeEventListener: Function)('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', this.handleClickOutside);
     window.removeEventListener('resize', this.updateDimensions);
   }
 
@@ -38,7 +34,7 @@ class Sidebar extends React.Component<{}, State> {
    * Переводит стейт в состояние false
    * @param event
    */
-  handleClickOutside = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleClickOutside = (event) => {
     if (this.sidebarRef && !this.sidebarRef.contains(event.target)) {
       this.setState({
         sidebarIsOpen: false
@@ -80,11 +76,9 @@ class Sidebar extends React.Component<{}, State> {
    * Привязка ref для дива с контейнером сайдбара
    * @param node
    */
-  handleSidebarRef = (node: ?HTMLDivElement) => {
+  handleSidebarRef = (node) => {
     this.sidebarRef = node;
   };
-
-  sidebarRef: ?any;
 
   render() {
 

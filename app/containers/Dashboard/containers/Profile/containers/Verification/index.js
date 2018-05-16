@@ -1,7 +1,7 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Grid, Row, Column } from 'react-flexbox-grid';
 
-export default class Verification extends React.Component<{}> {
+export default class Verification extends Component {
   componentDidMount() {
     console.log('Verification mounting')
   }

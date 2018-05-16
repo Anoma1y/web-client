@@ -1,14 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-type Props = {
-  active: boolean,
-  children?: any,
-  loading?: boolean,
-  className?: string
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     active = true,

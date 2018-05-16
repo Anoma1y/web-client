@@ -1,28 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import './style.scss';
 
-type Props = {
-  id?: string,
-  name?: string,
-  onChange: ({ event: SyntheticInputEvent<>, value: string }) => void,
-  options: Array<{
-    label: string,
-    value: string,
-  }>,
-  disabled?: boolean,
-  placeholder?: string,
-  value?: ?string,
-  className?: ?string
-};
-
-export default class SelectList extends React.Component<Props, {}> {
+export default class SelectList extends Component {
   static defaultProps = {
     disabled: false,
     options: []
   };
 
-  handleOnChange = (event: SyntheticInputEvent<>) => {
+  handleOnChange = (event) => {
     const { target: { value } } = event;
     if (
       event.target instanceof HTMLSelectElement &&
@@ -31,6 +17,11 @@ export default class SelectList extends React.Component<Props, {}> {
       this.props.onChange({ event, value });
     }
   };
+
+  // options: Array<{
+  //   label: string,
+  //   value: string,
+  // }>,
 
   render() {
     const {

@@ -5,21 +5,7 @@ import Loader from 'components/Loader';
 import _ from 'lodash';
 import './style.scss';
 
-type Transactions = Array<{
-  id: string,
-  date: string,
-  category: string,
-  from: string,
-  to: string,
-  amount: string | number,
-  operation: 'plus' | 'minus'
-}>;
-
-type State = {
-  isLoading: boolean
-};
-
-const transactions: Transactions = [
+const transactions = [
   { id: '1', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
   { id: '2', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
   { id: '3', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
@@ -31,7 +17,7 @@ const transactions: Transactions = [
   { id: '9', date: '15.04.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
 ];
 
-export default class DataTable extends Component<{}, State> {
+export default class DataTable extends Component {
 
   state = {
     isLoading: false
@@ -45,7 +31,7 @@ export default class DataTable extends Component<{}, State> {
     document.removeEventListener('scroll', this.handleScroll);
   }
 
-  setTableRef = (node: ?HTMLDivElement) => {
+  setTableRef = (node) => {
     this.tableRef = node;
   };
 
@@ -55,8 +41,6 @@ export default class DataTable extends Component<{}, State> {
       isLoading: false
     })
   }, 1500);
-
-  tableRef: ?any;
 
   // TODO fix flow type
   handleScroll = () => {
