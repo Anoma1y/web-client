@@ -1,11 +1,69 @@
-.tab_menu {
-  &__active {
-    color: #4183C4;
+@import 'lib/style/vars.scss';
+
+$item-bgc:            #E4EAF4;
+
+.tabs {
+  p {
+    margin: 0;
+  }
+
+  &-item {
+    margin: 1.5rem 0;
+  }
+
+  &-menu {
+    &_item {
+      display: inline-block;
+      margin-left: 40px;
+      border-radius: 5px;
+      padding: 8px;
+      background-color: transparent;
+      transition: background-color 0.2s ease;
+      &:first-child {
+        margin-left: 0;
+      }
+      &__active {
+        background-color: $item-bgc;
+      }
+
+      &:hover {
+        background-color: $item-bgc;
+        p {
+          color: lighten($black-color, 30%);
+        }
+      }
+    }
+    &_item-icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: 3px;
+      cursor: pointer;
+    }
+
+    &_item-link {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 7px;
+      position: relative;
+      cursor: pointer;
+      p {
+        font-family: $font-semibold-serif;
+        color: $black-color;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      &:after {
+        position: absolute;
+        content: '';
+        display: block;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: lighten($black-color, 50%);
+
+      }
+    }
   }
 }
-.tab_item {
-  color: #4183C4;
-  &:not(&__active) {
-    display: none !important;
-  }
-}
+
