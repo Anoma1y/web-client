@@ -26,7 +26,7 @@ export default (props: Props) => {
   return (
     <div className={classes} onClick={onClick}>
       <div className={`${classBlockName}-icon`}>
-        <Icon icon={'user'} size={16} />
+        <Icon icon={props.icon} size={16} />
       </div>
       <div className={`${classBlockName}-link`}>
         <p>{children}</p>

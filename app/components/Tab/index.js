@@ -33,6 +33,7 @@ export default class Tab extends Component<Props> {
         <TabMenu
           key={item.menuItem}
           activeIndex={index === activeIndex}
+          icon={item.icon}
           onClick={(e: SyntheticMouseEvent<>) => this.handleTabClick(index, e)}
         >
           {item.menuItem}

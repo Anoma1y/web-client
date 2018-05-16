@@ -1,45 +1,51 @@
 import * as React from 'react';
-import { Grid, Row, Column } from 'react-flexbox-grid';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
-import {
-  Checkbox,
-  RadioButtonGroup,
-  SelectField,
-  TextField,
-  Toggle,
-  DatePicker
-} from 'material-ui';
+import TextField from 'material-ui/TextField';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import Checkbox from 'material-ui/Checkbox';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+//
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+);
 
-// const renderTextField = (
-//   { input, label, meta: { touched, error }, ...custom },
-// ) => (
-//   <TextField
-//     hintText={label}
-//     floatingLabelText={label}
-//     errorText={touched && error}
-//     {...input}
-//     {...custom}
-//   />
-// );
+const Account = (props) => {
+  return (
+    <Grid>
+      <div className={'profile'}>
 
-class Account extends React.Component<{}> {
-  componentDidMount() {
-    console.log('Account mounting')
-  }
-  componentWillUnmount() {
-    console.log('Account unmounting')
-  }
-  render() {
-    return (
-      <Grid>
-        <div className={'profile'} style={{ backgroundColor: 'red' }}>
-          I am account
-        </div>
-      </Grid>
-    )
-  }
+        <Row>
+          <Col lg={6}>
+            <Field
+              name="email"
+              component={renderTextField}
+              type="text"
+              label="E-Mail"
+            />
+          </Col>
+          <Col lg={6}>
+            <Field
+              name="phone"
+              component={renderTextField}
+              type="text"
+              label="Your current number"
+            />
+          </Col>
+        </Row>
 
+      </div>
+    </Grid>
+  )
 }
+
 export default reduxForm({
-  form: 'MaterialUiForm',
+  form: 'ProfileAccount',
 })(Account);
