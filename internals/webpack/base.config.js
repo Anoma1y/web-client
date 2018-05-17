@@ -30,9 +30,9 @@ module.exports = (options) => ({
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader', options: { modules: true } }
+          { loader: 'css-loader' }
         ],
-        include: /flexboxgrid/
+        include: [/flexboxgrid/, /node_modules/]
       },
       {
         test: /\.svg$/,
@@ -52,7 +52,8 @@ module.exports = (options) => ({
     modules: ['app', 'node_modules'],
     extensions: [
       '.js',
-      '.jsx'
+      '.jsx',
+      '.css'
     ],
   },
   devtool: options.devtool,

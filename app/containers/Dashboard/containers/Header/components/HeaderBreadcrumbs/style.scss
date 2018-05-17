@@ -1,0 +1,66 @@
+@import 'lib/style/vars.scss';
+
+$breadcrumb-font-size:            1.4rem;
+$breadcrumb-divider-size:         3px;
+
+.breadcrumb-area {
+
+  & a {
+    font-size: $breadcrumb-font-size;
+    color: $blue-color;
+    @media screen and (max-width: $break-575) {
+      font-size: $breadcrumb-font-size / 1.5;
+    }
+  }
+
+  a.header-breadcrumb__active, div {
+    color: $lightgray-color;
+  }
+
+  & > div {
+    margin-right: 4px;
+  }
+
+  div.breadcrumb_section {
+    a {
+      &:after {
+        content: '/';
+        //border: solid $blue-color;
+        //border-width: 0 $breadcrumb-divider-size $breadcrumb-divider-size 0;
+        //display: inline-block;
+        //vertical-align: middle;
+        //padding: $breadcrumb-divider-size;
+        //transform: rotate(-45deg);
+        margin-left: 7px;
+        margin-right: 4px;
+        //@media screen and (max-width: $break-490) {
+        //  vertical-align: baseline;
+        //}
+      }
+    }
+  }
+
+  div.breadcrumb_section__last {
+    a {
+      &:after {
+        color: $lightgray-color;
+        //border-color: $lightgray-color;
+      }
+    }
+  }
+
+  div {
+    font-size: $breadcrumb-font-size;
+    @media screen and (max-width: $break-575) {
+      font-size: 15px;
+    }
+  }
+
+  font-family: $font-bold-serif;
+  cursor: default;
+
+}
+
+
+
+

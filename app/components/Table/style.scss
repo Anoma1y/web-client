@@ -1,4 +1,4 @@
-@import "lib/style/base.scss";
+@import "lib/style/vars.scss";
 
 $table-border-color:                            rgba(34, 36, 38, 0.15);
 $table-border-radius:                           4px;
@@ -17,6 +17,8 @@ $table:               table;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 1em;
+  color: $gray-color;
+  font-family: $font-regular-serif;
 
   &:first-child {
     margin-top: 0;
@@ -121,16 +123,49 @@ $table:               table;
     &:not(&__unstackable) tr > th,
     &:not(&__unstackable) tr > td {
       width: auto !important;
+      font-size: 0.8rem;
+    }
+    &:not(&__unstackable) thead {
+      text-align: center;
+    }
+    &:not(&__unstackable) {
+      .label {
+        padding: 5px;
+        font-family: $font-regular-serif;
+        font-size: 0.7rem;
+      }
+    }
+    &:not(&__unstackable) tr {
+      -webkit-box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+      box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;
+    }
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
+      background: none;
+      border: none !important;
+      padding: 0.6rem 0.75rem !important;
+      box-shadow: none !important;
+    }
+  }
+  @media only screen and (max-width: $break-490) {
+    &:not(&__unstackable) {
+      width: 100%;
+    }
+    &:not(&__unstackable) tbody,
+    &:not(&__unstackable) tr,
+    &:not(&__unstackable) tr > th,
+    &:not(&__unstackable) tr > td {
+      width: auto !important;
       display: block !important;
     }
     &:not(&__unstackable) {
       padding: 0em;
     }
     &:not(&__unstackable) thead {
-      display: block;
+      display: none;
     }
     &:not(&__unstackable) tfoot {
-      display: block;
+      display: none;
     }
     &:not(&__unstackable) tr {
       padding-top: 1em;
@@ -142,6 +177,7 @@ $table:               table;
     &:not(&__unstackable) tr > td {
       background: none;
       border: none !important;
+      text-align: center;
       padding: 0.25em 0.75em !important;
       -webkit-box-shadow: none !important;
       box-shadow: none !important;
@@ -150,9 +186,7 @@ $table:               table;
     &:not(&__unstackable) td:first-child {
       font-weight: bold;
     }
-
   }
-
   @media only screen and (max-width: $break-md) {
     // Стакивание td блоков
     &__stackable {
@@ -244,6 +278,7 @@ $table:               table;
     }
   }
 
+
   // Выделение
 
   &__selectable {
@@ -262,6 +297,10 @@ $table:               table;
         color: rgba(40, 40, 40, 0.3);
       }
     }
+    &__date {
+      background-color: #FAFBFC;
+      color: $blue-color;
+    }
     &__active {
       box-shadow: 0 0 0 rgba(0, 0, 0, 0.87) inset;
       background: #E0E0E0 !important;
@@ -279,7 +318,8 @@ $table:               table;
     }
     &__processing {
       box-shadow: 0 0 0 #D0D1D2 inset;
-      background: #FAFBFC !important;
+      //background: #FAFBFC !important;
+      background: #999;
     }
     &__complete {
       background: #FFFFFF !important;
@@ -528,14 +568,14 @@ $table:               table;
   // Definition
 
   &__definition {
-    & thead:not(.full-width) th:first-child {
+    & thead:not(.table_header__size-full-width) th:first-child {
       pointer-events: none;
       background: transparent;
       font-weight: normal;
       color: rgba(0, 0, 0, 0.4);
       box-shadow: -1px -1px 0 1px #FFFFFF;
     }
-    & thead:not(.full-width) th:first-child {
+    & thead:not(.table_header__size-full-width) th:first-child {
       pointer-events: none;
       background: transparent;
       font-weight: normal;
@@ -543,10 +583,10 @@ $table:               table;
       box-shadow: 1px 1px 0 1px #FFFFFF;
     }
     &.#{$table}__celled {
-      & thead:not(.full-width) th:first-child {
+      & thead:not(.table_header__size-full-width) th:first-child {
         box-shadow: 0 -1px 0 1px #FFFFFF;
       }
-      & tfoot:not(.full-width) th:first-child {
+      & tfoot:not(.table_header__size-full-width) th:first-child {
         box-shadow: 0 1px 0 1px #FFFFFF;
       }
     }
@@ -556,10 +596,10 @@ $table:               table;
       font-weight: bold;
       color: rgba(0, 0, 0, 0.95);
     }
-    & thead:not(.full-width) th:nth-child(2) {
+    & thead:not(.table_header__size-full-width) th:nth-child(2) {
       border-left: 1px solid $table-border-color;
     }
-    & tfoot:not(.full-width) th:nth-child(2) {
+    & tfoot:not(.table_header__size-full-width) th:nth-child(2) {
       border-left: 1px solid $table-border-color;
     }
     & td:nth-child(2) {

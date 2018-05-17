@@ -80,37 +80,5 @@ $image:       image;
     opacity: 0.45;
   }
 
-  &__size {
-
-    &_xs,
-    &_xs img,
-    &_xs svg {
-      width: 35px;
-      height: auto;
-      font-size: 0.78571429rem;
-    }
-    &_sm,
-    &_sm img,
-    &_sm svg {
-      width: 150px;
-      height: auto;
-      font-size: 0.92857143rem;
-    }
-    &_md,
-    &_md img,
-    &_md svg {
-      width: 600px;
-      height: auto;
-      font-size: 1.28571429rem;
-    }
-    &_lg,
-    &_lg img,
-    &_lg svg {
-      width: 960px;
-      height: auto;
-      font-size: 1.71428571rem;
-    }
-
-  }
 }
 

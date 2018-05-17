@@ -1,0 +1,14 @@
+@import 'lib/style/vars.scss';
+
+.logout {
+  cursor: pointer;
+  font-family: $font-semibold-serif;
+
+  .text {
+    color: $gray-color;
+    &:hover {
+      color: lighten($gray-color, 10%);
+    }
+  }
+
+}

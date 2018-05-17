@@ -1,23 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ButtonClickState from 'containers/ButtonClickState';
 import ButtonClickRedux from 'containers/ButtonClickRedux';
 import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
+import Dashboard from 'containers/Dashboard';
 import { Route, Switch } from 'react-router-dom';
-import 'lib/style/text.scss';
-import 'lib/style/color.scss';
-import 'lib/style/rdt.scss';
+import 'lib/style/base.scss';
 import './style.scss';
 
-class App extends React.Component<{}> {
+class App extends Component {
   render() {
     return (
-      <div className={'App'}>
-        <Switch>
-          <Route exact path={'/'} component={ButtonClickState} />
-          <Route exact path={'/redux'} component={ButtonClickRedux} />
-          <Route exact path={'/reduxthunk'} component={ButtonClickReduxThunk} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path={'/'} component={ButtonClickState} />
+        <Route path={'/dashboard'} component={Dashboard} />
+        <Route exact path={'/redux'} component={ButtonClickRedux} />
+        <Route exact path={'/reduxthunk'} component={ButtonClickReduxThunk} />
+      </Switch>
     );
   }
 }

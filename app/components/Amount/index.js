@@ -9,30 +9,16 @@ import {
 } from 'lib/amount';
 import './style.scss';
 
-type Props = {
-  +value: number | string,
-  currency?: string,
-  doubleZero?: boolean,
-  id?: string,
-  showZeroMinorPart?: boolean,
-  className?: string,
-  showCurrency?: boolean,
-  operation?: 'minus' | 'plus',
-  lightMinor?: boolean
-};
-
-// TODO проестировать
-
-const Amount = (props: Props) => {
+const Amount = (props) => {
 
   const {
     className,
     doubleZero = false, // Если число без копеек, то показывать 00
-    value = 0, // Значение
+    value = 0, // Значение, может быть меньше 0
     id,
     currency = 'EUR', // Валюты
     showZeroMinorPart = true, // Показывать копейки
-    operation, // Операция зачисления или снятия, принимает параметры plus или минус
+    operation, // Операция зачисления или снятия, принимает параметры plus или minus
     lightMinor = true, // Засветление копеек
     showCurrency = true, // Показывать знак валюты
   } = props;
@@ -94,7 +80,6 @@ const Amount = (props: Props) => {
   /**
   * Рэндэр если стоит знак операции
   * Значение не дожно быть минусовое!!!
-  * TODO ченуть знаки юникода и если минусовое значение, менять его на плюс
   */
   const renderOperation = () => {
 

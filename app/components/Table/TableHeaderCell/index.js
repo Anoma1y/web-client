@@ -3,24 +3,17 @@ import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
 import { getColumnCount } from '../../../lib/css_helpers';
 
-type Props = {
-  children?: any,
-  sorted?: 'asc' | 'desc' | '',
-  className?: string,
-  width?: ?number | ?string
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     children,
     className,
-    sorted = '',
+    sorted = '', // 'asc' | 'desc' | ''
     width
   } = props;
 
   const classBlockName = `${CLASS_NAME}_cell`;
-  const widthClasses: string = getColumnCount(width);
+  const widthClasses = getColumnCount(width);
 
   const classes = classnames(
     classBlockName,

@@ -1,37 +1,27 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import Spinner from './Spinner';
 import './style.scss';
 
 export const CLASS_NAME = 'loader';
 
-export type Props = {
-  active?: boolean,
-  children?: React.Node,
-  className?: string,
-  disabled?: boolean,
-  text?: boolean,
-  inline?: boolean | 'centered',
-  size?: 'xs' | 'sm' | 'md' | 'lg'
-};
-
-// TODO пофиксить для каждого блока относительное позиционирование
-
-export default (props: Props) => {
+export default (props) => {
   const {
-    active = false,
+    active,
     children,
     className,
-    inline = false,
-    size = 'sm',
+    inline, // 'centered' или boolean
+    transparent,
+    size = 'sm', // Размер 'xs' | 'sm' | 'md' | 'lg'
     text
   } = props;
 
-  const classes: string = classnames(
+  const classes = classnames(
     CLASS_NAME,
     {
       [`${CLASS_NAME}__active`]: active,
-      [`${CLASS_NAME}__inline`]: inline
+      [`${CLASS_NAME}__inline`]: inline,
+      [`${CLASS_NAME}__transparent`]: transparent
     },
     className
   );

@@ -2,23 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import './style.scss';
 
-type Props = {
-  children: ?any,
-  fluid?: ?boolean,
-  color?: 'gray' | 'red' | 'blue' | 'transparent' | 'white' | 'green' | 'lightblue' | 'orange' | 'black',
-  disabled?: ?boolean,
-  inline?: ?boolean,
-  name?: ?string,
-  floated?: 'left' | 'right' | '',
-  onClick?: ({ event: SyntheticMouseEvent<> }) => void,
-  size?: 'xs' | 'sm' | 'md' | 'lg',
-  className?: ?string,
-  loading?: boolean,
-  outline?: boolean
-};
-
-// TODO изменить цвета или добавить новые + потестить онклик
-export default (props: Props) => {
+export default (props) => {
 
   const {
     children, // Какой либо текст внутри кнопочки, можно вставить ноду
@@ -29,8 +13,8 @@ export default (props: Props) => {
     size = 'md', // Размер кнопки
     inline, // Все кнопки будут распологаться друг за другом
     fluid, // Кнопка на весь размер внутреннего блока
-    floated = '', // Расположение кнопки внутри блока (слева или справа)
-    color = 'gray', // Цвет кнопки
+    floated = '', // Расположение кнопки внутри блока (слева или справа) left | right
+    color = 'gray', // Цвет кнопки gray | red | blue | white | green | lightblue | orange | black
     loading, // Если тру, то будет отображаться лоадер,
     outline
   } = props;

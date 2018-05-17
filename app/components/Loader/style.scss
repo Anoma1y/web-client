@@ -40,6 +40,10 @@ $spinner:     spinner;
     display: inline-block;
   }
 
+  &__transparent {
+    background-color: transparent !important;
+  }
+
   &_#{$spinner} {
     display: none;
     position: absolute;

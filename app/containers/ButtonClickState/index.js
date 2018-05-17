@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import DateTime from 'react-datetime';
 import Notification from 'components/Notification';
 import Amount from 'components/Amount';
 import SimpleForm from './SimpleForm';
@@ -9,7 +8,7 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Icon from 'components/Icon';
 import Label from 'components/Label';
-import Header from 'components/Header';
+import Text from 'components/Text';
 import _ from 'lodash';
 
 type HomeState = {
@@ -61,38 +60,26 @@ class Home extends Component<{}, HomeState> {
           <Row>
             <Button>asd</Button>
             <Col md={4}>
-              <Header>
-                <Icon icon='search' />
-                <Header.Content>
+              <Text>
+                <Icon name='search' />
+                <Text.Content>
                   Account Settings
-                  <Header.Sub>
+                  <Text.Sub>
                     Manage your preferences
-                  </Header.Sub>
-                </Header.Content>
-              </Header>
+                  </Text.Sub>
+                </Text.Content>
+              </Text>
             </Col>
             <Col md={4}>
-              <Header>
-                <Icon icon='search' />
-                <Header.Content>Header with Icon</Header.Content>
-              </Header>
+
             </Col>
             <Col md={4}>
-              <Header>
-                <Header.Content>
-                  Header content
-                  <Header.Sub>
-                    Header sub
-                  </Header.Sub>
-                </Header.Content>
-              </Header>
+
             </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <Header>
-                Just Header
-              </Header>
+
             </Col>
           </Row>
           <Row between="md">
@@ -101,26 +88,9 @@ class Home extends Component<{}, HomeState> {
             </Col>
 
             <Col md={4}>
-              <DateTime
-                inputProps={{
-                  readOnly: true,
-                  placeholder: 'Date from'
-                }}
-                dateFormat="DD.MM.YYYY"
-                timeFormat=""
-                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
-              />
             </Col>
             <Col md={4}>
-              <DateTime
-                inputProps={{
-                  readOnly: true,
-                  placeholder: 'Date to'
-                }}
-                dateFormat="DD.MM.YYYY"
-                timeFormat=""
-                onChange={(e) => { console.log(e.get('year'), e.get('month'), e.get('date')) }}
-              />
+
             </Col>
           </Row>
           <Row>

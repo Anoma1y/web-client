@@ -1,0 +1,141 @@
+@import 'lib/style/vars.scss';
+
+$scroll-width:              17px;
+$sidebar-width:             16.875rem;
+
+.sidebar {
+
+  &, *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  background: $white-color;
+  box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
+  width: $sidebar-width;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  overflow: hidden;
+  transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+
+  // Fix для скрола
+  .sidebar-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: $scroll-width;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: $break-lg - 1) {
+    left: -$sidebar-width;
+  }
+
+  &-close {
+    display: none;
+    width: $sidebar-width;
+    height: 55px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    background-color: $white-color;
+    transition: background-color 0.4s ease-out;
+
+    @media screen and (max-width: $break-lg - 1) {
+      display: block;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: #dbe1e8;
+    }
+
+    &:hover &_text {
+      font-size: 1rem;
+    }
+
+    &_icon {
+      display: inline-block;
+      vertical-align: middle;
+      svg {
+        width: 45px;
+        height: 45px;
+        path:first-child {
+          fill: $gray-color;
+        }
+      }
+    }
+
+    &_text {
+      font-size: 0;
+      vertical-align: middle;
+      display: inline-block;
+      font-family: $font-regular-serif;
+      color: $gray-color;
+      transition: font-size 0.2s ease;
+    }
+  }
+
+  &__active {
+    left: 0;
+  }
+
+  &_item {
+    width: $sidebar-width;
+  }
+
+  &-divider {
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      background-color: rgba(147,147,147,0.4);
+    }
+  }
+  &-container {
+    display: flex;
+    align-items: center;
+    &_icon {
+      flex: 0 0 70px;
+    }
+    &_content {
+      flex-basis: 100%;
+    }
+    &_btn {
+      flex: 0 0 40px;
+    }
+  }
+
+  &-mobile {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 999999;
+    @media screen and (min-width: $break-lg) {
+      display: none;
+    }
+    &_button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

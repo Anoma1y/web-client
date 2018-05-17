@@ -1,0 +1,60 @@
+@import 'lib/style/vars.scss';
+
+.filter {
+  border: 1px solid $lightgray-color;
+  border-radius: 8px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  &-date {
+    width: 30%;
+    height: 100%;
+    position: relative;
+  }
+  &_date {
+    position: absolute;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50px;
+    background-color: #E4EAF4;
+    border-radius: 6px;
+    color: #A2B2BF;
+    font-size: 1.1rem;
+    font-family: $font-semibold;
+  }
+  &-search {
+    display: inline-block;
+    width: 70%;
+    height: 42px;
+  }
+  &_input {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    float: right;
+    .input_wrapper {
+      height: 100%;
+    }
+    input {
+      padding-left: 35px;
+      margin: 0;
+      height: 100%;
+      border: none;
+      font-size: 1.15rem;
+      font-family: $font-regular-serif;
+      &:focus {
+        border: none;
+        outline: none;
+      }
+      &::placeholder {
+        color: $lightgray-color;
+        font-size: 1.15rem;
+        font-family: $font-regular-serif;
+      }
+    }
+  }
+}

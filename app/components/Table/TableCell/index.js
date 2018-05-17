@@ -3,41 +3,25 @@ import classnames from 'classnames';
 import { getColumnCount } from 'lib/css_helpers';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  active?: boolean,
-  collapsing?: boolean,
-  disabled?: boolean,
-  error?: boolean,
-  children?: any,
-  selectable?: boolean,
-  singleLine?: boolean,
-  fullWidth?: boolean,
-  textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
-  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-  className?: string,
-  width?: ?string | ?number,
-  warning?: boolean
-};
-
-export default (props: Props) => {
-
+export default (props) => {
   const {
     active,
     children,
     className,
+    colSpan = 1,
     collapsing,
     disabled,
     error,
     selectable,
     singleLine,
-    textAlign = '',
-    verticalAlign = '',
-    width,
+    textAlign = '', // 'left' | 'center' | 'right' | 'justify' | ''
+    verticalAlign = '', // 'bottom' | 'middle' | 'top' | ''
+    width, // Ширина ячейки от 1 до 16
     warning
   } = props;
 
   const classBlockName = `${CLASS_NAME}_cell`;
-  const widthClasses: string = getColumnCount(width);
+  const widthClasses = getColumnCount(width);
 
   const classes = classnames(
     classBlockName,
@@ -58,7 +42,7 @@ export default (props: Props) => {
   );
 
   return (
-    <td className={classes}>
+    <td className={classes} colSpan={colSpan}>
       {children}
     </td>
   );

@@ -1,0 +1,35 @@
+@import "lib/style/vars.scss";
+
+.sidebar-add {
+
+  margin: 20px auto;
+
+  &_icon {
+    width: 25px;
+    height: 25px;
+    background-color: #88d0ab;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      height: 13px;
+    }
+  }
+  .button {
+
+    margin: 0 auto;
+    border-radius: 10px;
+    letter-spacing: -0.5px !important;
+
+    &:hover {
+      background-color: darken($white-color, 5%) !important;
+    }
+  }
+  .text {
+    font-family: $font-thin-serif;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

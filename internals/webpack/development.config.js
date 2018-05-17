@@ -28,10 +28,8 @@ module.exports = require('./base.config')({
       'stage-1',
       'stage-3',
       'react',
-      'flow'
     ],
     plugins: [
-      'transform-flow-strip-types',
       'transform-runtime',
     ]
   },

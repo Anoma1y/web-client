@@ -1,0 +1,25 @@
+@import 'lib/style/vars.scss';
+
+.profile-user-name {
+  margin: 20px 0;
+  &_text {
+    font-family: $font-semibold-serif;
+    .text_sub {
+      font-size: 1.125rem;
+    }
+    .text_content {
+      font-size: 2.375rem;
+      margin-top: 15px;
+    }
+    &__role {
+      color: $lightgray-color;
+    }
+    &__first-name {
+      color: lighten($black-color, 20%);
+    }
+    &__last-name {
+      margin-left: 10px;
+      color: $lightgray-color;
+    }
+  }
+}

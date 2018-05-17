@@ -1,9 +1,8 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../';
-import type { Props as SpinnerProps } from '../';
 
-export default (props: SpinnerProps) => {
+export default (props) => {
 
   const {
     children,
@@ -12,9 +11,9 @@ export default (props: SpinnerProps) => {
     inline = false
   } = props;
 
-  const classBlockName: string = 'spinner';
+  const classBlockName = 'spinner';
 
-  const classes: string = classnames(
+  const classes = classnames(
     `${CLASS_NAME}_${classBlockName}`,
     {
       [`${CLASS_NAME}_${classBlockName}__text`]: text,

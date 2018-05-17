@@ -1,68 +1,40 @@
-import * as React from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import InputRedux from './InputRedux';
 import Icon from 'components/Icon';
 import './style.scss';
 
-type Props = {
-  fluid?: ?boolean, // Инпут будет занимать весь блок
-  icon?: ?string, // Имя иконки
-  iconColor?: 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white', // Цвет иконки
-  iconSize?: number, // Размер иконки (не трогать!)
-  iconPosition?: 'left' | 'right' | '', // Позиция иконки
-  disabled?: boolean, // Инпут дизейбл
-  readOnly?: boolean, // Только для чтения
-  label?: ?string, // Подпись
-  error?: string, // Ошибка
-  errorPosition?: 'under' | 'upper', // Позиция ошибки (2 стиля) или слева снизу или справа сверху
-  labelPosition?: 'left' | 'right' | '',
-  floated?: 'left' | 'right' | '', // Позиционирование блока с инпутом
-  placeholder?: string, // Плейсхолдер
-  onClick?: ({ event: SyntheticMouseEvent<> }) => void, // Обработчики
-  onChange?: ({ event: SyntheticMouseEvent<> }) => void,
-  onFocus?: ({ event: SyntheticMouseEvent<> }) => void,
-  onBlur?: ({ event: SyntheticMouseEvent<> }) => void,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | '', // Размер
-  transparent?: boolean, // Без рамок
-  className?: ?string,
-  type?: 'text' | 'email' | 'password', // Тип
-  id?: string, // Айди
-  name?: string, // Имя
-  value?: string // Значение
-};
-
-// TODO провести рефакторинг этой хуйни
-const Input = (props: Props) => {
+const Input = (props) => {
 
   const {
     className,
-    icon = '',
-    iconColor = 'gray',
-    iconSize = 16,
-    iconPosition = 'right',
+    icon = '', // Имя иконки
+    iconColor = 'gray', // 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
+    iconSize = 16, // Размер иконки (не трогать!)
+    iconPosition = 'right', // 'left' | 'right' | '', Позиция иконки
     size = '', // Размер инпута
-    label,
-    labelPosition,
-    transparent,
-    floated = '',
-    error,
-    errorPosition = 'under',
+    label, // Подпись
+    labelPosition, // 'left' | 'right' | '', Позиция лейбла
+    transparent, // Без рамок
+    floated = '', // Позиционирование блока с инпутом 'left' | 'right' | ''
+    error, // Ошибка
+    errorPosition = 'under', // 'under' | 'upper', // Позиция ошибки (2 стиля) или слева снизу или справа сверху
     fluid = false, // Инпут на весь размер внутреннего блока
     // Пропы
-    disabled, // Задизейблить
+    disabled, // Инпут дизейбл
     onClick,
     onChange,
     onFocus,
     onBlur,
-    placeholder,
-    name,
-    value,
-    readOnly,
-    id,
-    type = 'text'
+    placeholder, // плейсхолдер
+    name, // имя
+    value, // значение
+    readOnly, // Только для чтения
+    id, // id
+    type = 'text' // тип 'text' | 'email' | 'password'
   } = props;
 
-  const classBlockName: string = 'input';
+  const classBlockName = 'input';
 
   const classes = classnames(
     classBlockName,
@@ -77,30 +49,29 @@ const Input = (props: Props) => {
     className
   );
 
-  const renderIcon = (): React.Node => {
+  const renderIcon = () => {
     return (
       <div className={`${classBlockName}_icon ${String(icon) && `${classBlockName}_icon__position_${iconPosition}`}`}>
-        <Icon icon={String(icon)} size={iconSize} color={iconColor} />
+        <Icon name={String(icon)} size={iconSize} color={iconColor} />
       </div>
     )
   };
 
-  const renderLabel = (id?, labelText: string): React.Node => (
+  const renderLabel = (id, labelText) => (
     <label className={`${classBlockName}_label`} htmlFor={id}>{labelText}</label>
   );
 
-  const renderInputBlock = (): React.Node => {
-
+  const renderInputBlock = () => {
     const renderInput = () => (
       <input
         className={`${classBlockName}_control`}
         disabled={disabled}
         id={id}
         name={name}
-        onBlur={event => onBlur && onBlur({ event })}
-        onChange={event => onChange && onChange({ event })}
-        onClick={event => onClick && onClick({ event })}
-        onFocus={event => onFocus && onFocus({ event })}
+        onBlur={event => onBlur && onBlur(event)}
+        onChange={event => onChange && onChange(event)}
+        onClick={event => onClick && onClick(event)}
+        onFocus={event => onFocus && onFocus(event)}
         placeholder={placeholder}
         readOnly={readOnly}
         type={type}
@@ -124,9 +95,9 @@ const Input = (props: Props) => {
     );
   };
 
-  const renderError = (errorMessage: string, positionError: string): React.Node => {
+  const renderError = (errorMessage, positionError) => {
 
-    const errorClasses: string = classnames(
+    const errorClasses = classnames(
       `${classBlockName}_error`,
       {
         [`${classBlockName}_error__${positionError}`]: positionError

@@ -34,31 +34,31 @@ $input: input;
   &_wrapper {
     position: relative;
 
-    // TODO изменить паддинги и возможно переделать абсолютное позиционирование
     &__icon:not(&__icon-position_right) {
       .input_control {
-        padding-left: 35px;
+        padding-left: 2rem;
       }
     }
     &__icon-position_left {
       .input_control {
-        padding-left: 35px;
+        padding-left: 2rem;
       }
     }
     &__icon-position_right {
       .input_control {
-        padding-right: 35px;
+        padding-right: 3.7rem;
       }
     }
   }
   &_icon {
     position: absolute;
-    left: 2px;
+    left: 5px;
     right: auto;
-    transform: translate(50%, 50%);
+    top: 50%;
+    transform: translate(50%, -50%);
     &__position {
       &_right {
-        right: 20px;
+        right: 30px;
         left: auto;
       }
       &_left {

@@ -1,3 +1,5 @@
+@import 'lib/style/vars.scss';
+
 .amount {
 
   &, *, *:before, *:after {
@@ -5,8 +7,8 @@
   }
 
   display: inline-block;
-
   white-space: nowrap;
+  font-family: 'Proxima Nova Regular', sans-serif;
 
   &_minor-wrapper {
     display: inline-block;
@@ -25,23 +27,17 @@
     }
   }
 
-  &__size {
-  //  TODO
-  }
-
   &_sign {
     margin-right: 1px;
   }
 
-  // TODO добавить цвета для операций
   &_operation {
-    font-family: 'Lato', sans-serif;
     &__color {
       &_minus {
-        color: #FB8C90;
+        color: darken($red-color, 10%);
       }
       &_plus {
-        color: #8FCA9C;
+        color: darken($green-color, 10%);
       }
     }
   }

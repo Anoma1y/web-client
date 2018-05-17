@@ -2,25 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import './style.scss';
 
-type Props = {
-  checked?: boolean,
-  disabled?: boolean,
-  id: string,
-  name?: string,
-  label?: string,
-  onChange: ({
-    event: SyntheticInputEvent<>,
-    checked: boolean,
-  }) => void,
-  value: string,
-  className?: string
-};
-
-type State = {
-  focused: boolean
-};
-
-export default class Radio extends Component<Props, State> {
+export default class Radio extends Component {
 
   static defaultProps = {
     checked: false,
@@ -32,7 +14,7 @@ export default class Radio extends Component<Props, State> {
     focused: false,
   };
 
-  handleChange = (event: SyntheticInputEvent<>) => {
+  handleChange = (event) => {
     const { checked } = event.target;
     this.props.onChange({ checked, event });
   };

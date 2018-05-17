@@ -20,8 +20,6 @@ class Api {
     this.user = new ExampleApiModule(this.http);
   }
 
-  // TODO: TEst
-
   registerBeforeInterceptor() {
     this.http.interceptors.request.use(
       // Do something before request is made

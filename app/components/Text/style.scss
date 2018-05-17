@@ -1,0 +1,188 @@
+@import "lib/style/vars.scss";
+
+$text: text;
+
+.#{$text} {
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.28571429em;
+  text-transform: none;
+  color: rgba(0, 0, 0, 0.87);
+
+  &_sub, &__sub {
+    display: block;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.2em;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  &_sub.#{$text}, &__sub {
+    padding: 0em;
+    margin-bottom: 0.14285714rem;
+    font-weight: bold;
+    font-size: 0.85714286em;
+    text-transform: uppercase;
+  }
+
+  & + p {
+    margin-top: 0;
+  }
+
+  &__hasIcon {
+    display: flex;
+    .icon {
+      display: inline-block;
+    }
+  }
+
+  &__iconPosition {
+    &_left {
+      .icon {
+        margin-right: 5px;
+      }
+    }
+    &_right {
+      .icon {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  & > .icon > div {
+    display: flex;
+    align-items: center;
+  }
+
+  &__fluid > .icon {
+    //float: right;
+  }
+
+  &_content {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  /* After Image */
+  & > img + &_content,
+  & > .image + &_content {
+    padding-left: 0.75rem;
+    vertical-align: middle;
+  }
+
+  /* After Icon */
+  & > .icon + &_content {
+
+    //padding-left: 0.75rem;
+    //display: table-cell;
+    //vertical-align: middle;
+  }
+
+
+
+
+  &__disabled {
+    opacity: 0.45;
+  }
+
+  &__floated {
+    &_left {
+      float: left;
+      margin-top: 0;
+      margin-right: 0.5em;
+    }
+    &_right {
+      float: right;
+      margin-top: 0;
+      margin-left: 0.5em;
+    }
+  }
+
+  &__dividing {
+    padding-bottom: 0.21428571rem;
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  }
+  &__dividing.#{$text}__sub {
+    padding-bottom: 0.21428571rem;
+  }
+
+  &__fluid {
+    width: 100%;
+  }
+
+  &__attached {
+    background: #FFFFFF;
+    padding: 0.78571429rem 1rem;
+    margin-left: -1px;
+    margin-right: -1px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #D4D4D5;
+    &_top {
+      margin-bottom: 0em;
+      border-radius: 0.28571429rem 0.28571429rem 0em 0em;
+    }
+    &_bottom {
+      margin-top: 0em;
+      border-top: none;
+      border-radius: 0em 0em 0.28571429rem 0.28571429rem;
+    }
+  }
+  &__attached.#{$text}__block {
+    background: #F3F4F5;
+  }
+  &__attached:not(&__attached_top):not(&__attached_bottom) {
+    margin-top: 0em;
+    margin-bottom: 0em;
+    border-top: none;
+    border-radius: 0em;
+  }
+
+  &__block {
+    background: #F3F4F5;
+    padding: 0.78571429rem 1rem;
+    box-shadow: none;
+    border: 1px solid #D4D4D5;
+    border-radius: 0.28571429rem;
+  }
+
+}
+
+h1.#{$text} {
+  font-size: 2rem;
+}
+h2.#{$text} {
+  font-size: 1.71428571rem;
+}
+h3.#{$text} {
+  font-size: 1.28571429rem;
+}
+h4.#{$text} {
+  font-size: 1.07142857rem;
+}
+h5.#{$text} {
+  font-size: 1rem;
+}
+
+/* Sub Header */
+h1.#{$text} .#{$text}__sub.#{$text} {
+  font-size: 1.14285714rem;
+}
+h2.#{$text} .#{$text}__sub.#{$text} {
+  font-size: 1.14285714rem;
+}
+h3.#{$text} .#{$text}__sub.#{$text} {
+  font-size: 1rem;
+}
+h4.#{$text} .#{$text}__sub.#{$text} {
+  font-size: 1rem;
+}
+h5.#{$text} .#{$text}__sub.#{$text} {
+  font-size: 0.92857143rem;
+}

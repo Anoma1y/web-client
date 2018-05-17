@@ -2,30 +2,18 @@ import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
 
-type Props = {
-  active?: boolean,
-  children?: any,
-  disabled?: boolean,
-  error?: boolean,
-  fullWidth?: boolean,
-  className?: string,
-  warning?: boolean,
-  processing?: boolean,
-  textAlign?: 'left' | 'center' | 'right' | 'justify' | '',
-  verticalAlign?: 'bottom' | 'middle' | 'top' | '',
-};
-
-export default (props: Props) => {
+export default (props) => {
 
   const {
     active,
     children,
     className,
+    date,
     disabled,
     processing,
     error,
-    textAlign = '',
-    verticalAlign = '',
+    textAlign = '', // 'left' | 'center' | 'right' | 'justify' | ''
+    verticalAlign = '', // 'bottom' | 'middle' | 'top' | ''
     warning,
   } = props;
 
@@ -37,6 +25,7 @@ export default (props: Props) => {
     verticalAlign !== '' ? `${classBlockName}__vertical-align_${verticalAlign}` : '',
     {
       [`${classBlockName}__active`]: active,
+      [`${classBlockName}__date`]: date,
       [`${classBlockName}__disabled`]: disabled,
       [`${classBlockName}__processing`]: processing,
       [`${classBlockName}__error`]: error,

@@ -1,3 +1,7 @@
-import * as React from 'react';
 
-export const childrenCheck = (children: React.Node): boolean => children === null || children === undefined || (Array.isArray(children) && children.length === 0);
+/**
+ * Функция для проверки наличия пропы children в компоненте
+ * @param children
+ * @returns {React.Node}
+ */
+export const childrenCheck = (children) => children === null || children === undefined || (Array.isArray(children) && children.length === 0);

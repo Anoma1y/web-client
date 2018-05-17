@@ -1,35 +1,25 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import './style.scss';
 
-type State = {
-  [key: number]: {
-    title: string,
-    msg: string,
-    time: number,
-    theme: string
-  }
-}
-// [key: string]: string
-// TODO need fix flow type
-export default class Notify extends React.Component<{}, State> {
+export default class Notify extends Component {
 
-  key: number = 0;
-  wasMounted: boolean = true;
+  key = 0;
+  wasMounted = true;
   state = {};
 
   componentWillUnmount() {
     this.wasMounted = false;
   }
 
-  success = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'success');
+  success = (title, msg, time) => this.addNotify(title, msg, time, 'success');
 
-  error = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'error');
+  error = (title, msg, time) => this.addNotify(title, msg, time, 'error');
 
-  info = (title: string, msg: string, time: number) => this.addNotify(title, msg, time, 'info');
+  info = (title, msg, time) => this.addNotify(title, msg, time, 'info');
 
-  note = (title: string, msg: string, time: number) => this.addNotify(title, msg, time);
+  note = (title, msg, time) => this.addNotify(title, msg, time);
 
-  addNotify = (title: string, msg: string, time: number, theme?: string = 'note') => {
+  addNotify = (title, msg, time, theme = 'note') => {
     const { key } = this;
     this.key += 1;
 
@@ -41,7 +31,7 @@ export default class Notify extends React.Component<{}, State> {
     this.setState(state, () => this.countToHide(time, key));
   };
 
-  countToHide = (duration: number, key: number) => {
+  countToHide = (duration, key) => {
 
     setTimeout(() => {
       this.hideNotification(Number(key));
@@ -49,7 +39,7 @@ export default class Notify extends React.Component<{}, State> {
 
   };
 
-  hideNotification = (key: number) => {
+  hideNotification = (key) => {
 
     if (!this.wasMounted) {
       return;
@@ -62,7 +52,7 @@ export default class Notify extends React.Component<{}, State> {
 
   };
 
-  renderItem = (key: number): React.Node => {
+  renderItem = (key) => {
 
     const {
       theme,

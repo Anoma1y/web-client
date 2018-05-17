@@ -1,4 +1,4 @@
-@import "./base.scss";
+@import "./vars.scss";
 
 .black-color {
   color: $black-color;
@@ -32,6 +32,14 @@
   color: $red-color;
 }
 
+.purple-color {
+  color: $purple-color;
+}
+
+.lightgray-color {
+  color: $lightgray-color;
+}
+
 .black-bgc {
   background-color: $black-color;
 }
@@ -55,4 +63,7 @@
 }
 .red-bgc {
   background-color: $red-color;
+}
+.lightgray-bgc {
+  background-color: $lightgray-color;
 }

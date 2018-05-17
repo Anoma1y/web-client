@@ -1,40 +1,19 @@
-import * as React from 'react';
-import classnames from 'classnames';
+import React from 'react';
 import ReactSVG from 'react-svg';
-import './style.scss';
 
-type Props = {
-  color?: 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
-  icon: string,
-  inline?: boolean,
-  size?: number | string,
-};
-
-// TODO изменить цвета или добавить новые + потестить + пофиксить проп size
-
-const Icon = (props: Props) => {
+const Icon = (props) => {
 
   const {
-    color = 'gray',
-    icon,
-    inline,
-    size
+    name, // Имя иконки
+    size // Размер от 0 до разумных пределов
   } = props;
 
   const classBlockName = 'icon';
 
-  const classes = classnames(
-    classBlockName,
-    {
-      [`${classBlockName}__inline`]: inline,
-    }
-  );
-
   return (
     <ReactSVG
-      path={`/static/images/icons/${icon}.svg`}
-      className={`${classBlockName}_svg svg__color_${color}`}
-      wrapperClassName={classes}
+      path={`/static/images/icons/${name}.svg`}
+      wrapperClassName={classBlockName}
       style={{
         width: size,
         height: size

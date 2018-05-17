@@ -1,0 +1,29 @@
+@import "lib/style/vars.scss";
+
+$notification-bgc:          #fa454d;
+
+.sidebar-notice {
+
+  font-family: $font-regular-serif;
+  font-weight: bold;
+
+  height: 40px;
+  overflow: hidden;
+  background-color: $notification-bgc;
+  width: 100%;
+  white-space: nowrap;
+
+  &_icon {
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &_message {
+    color: $white-color;
+    font-size: 16px;
+    cursor: default;
+  }
+}
+
