@@ -12,7 +12,7 @@ import './style.scss';
 *                   <Header.Sub> Sub text </Header.Sub>
 *                 </Header>
 * Текст + иконка: <Header>
-*                   <Icon icon='name' />
+*                   <Icon name='name' />
 *                   <Header.Content> Main text </Header.Content>
 *                 </Header>
 */

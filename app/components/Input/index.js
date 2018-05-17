@@ -52,7 +52,7 @@ const Input = (props) => {
   const renderIcon = () => {
     return (
       <div className={`${classBlockName}_icon ${String(icon) && `${classBlockName}_icon__position_${iconPosition}`}`}>
-        <Icon icon={String(icon)} size={iconSize} color={iconColor} />
+        <Icon name={String(icon)} size={iconSize} color={iconColor} />
       </div>
     )
   };
@@ -97,7 +97,7 @@ const Input = (props) => {
 
   const renderError = (errorMessage, positionError) => {
 
-    const errorClasses: string = classnames(
+    const errorClasses = classnames(
       `${classBlockName}_error`,
       {
         [`${classBlockName}_error__${positionError}`]: positionError

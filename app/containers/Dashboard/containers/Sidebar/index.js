@@ -119,7 +119,7 @@ class Sidebar extends Component {
               <button className={'sidebar-close'} onClick={this.handleSidebarClose}>
 
                 <div className={'sidebar-close_icon'}>
-                  <Icon icon={'arrow-left'} />
+                  <Icon name={'arrow-left'} />
                 </div>
 
                 <div className={'sidebar-close_text'}>

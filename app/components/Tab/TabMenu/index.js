@@ -20,7 +20,7 @@ export default (props) => {
   return (
     <div className={classes} onClick={onClick}>
       <div className={`${classBlockName}-icon`}>
-        <Icon icon={props.icon} size={16} />
+        <Icon name={props.icon} size={16} />
       </div>
       <div className={`${classBlockName}-link`}>
         <p>{children}</p>

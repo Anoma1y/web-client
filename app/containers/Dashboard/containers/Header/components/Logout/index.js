@@ -15,7 +15,7 @@ export default () => {
         <Text.Content>
           Logout
         </Text.Content>
-        <Icon icon={'logout'} />
+        <Icon name={'logout'} />
       </Text>
     </div>
   )

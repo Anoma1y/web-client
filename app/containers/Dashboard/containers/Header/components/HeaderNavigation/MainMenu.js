@@ -10,7 +10,7 @@ export default (props) => {
       return (
         <div className={'navigation-main_item'} key={item.name}>
           <Text color={'purple'}>
-            <Icon icon={'knoop'} />
+            <Icon name={'knoop'} />
             <Text.Content className={'navigation-main_link'}>
               <Link to={item.link}>{item.name}</Link>
             </Text.Content>

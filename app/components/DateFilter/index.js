@@ -238,7 +238,7 @@ class DateFilter extends Component {
                       : current.label
                 }
               </Text.Content>
-              <Icon icon={'arrow-down'} size={30} />
+              <Icon name={'arrow-down'} size={30} />
             </Text>
           </button>
         </div>

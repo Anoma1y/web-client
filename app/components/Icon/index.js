@@ -4,7 +4,7 @@ import ReactSVG from 'react-svg';
 const Icon = (props) => {
 
   const {
-    icon, // Имя иконки
+    name, // Имя иконки
     size // Размер от 0 до разумных пределов
   } = props;
 
@@ -12,7 +12,7 @@ const Icon = (props) => {
 
   return (
     <ReactSVG
-      path={`/static/images/icons/${icon}.svg`}
+      path={`/static/images/icons/${name}.svg`}
       wrapperClassName={classBlockName}
       style={{
         width: size,

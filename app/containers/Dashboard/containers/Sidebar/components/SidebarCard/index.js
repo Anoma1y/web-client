@@ -6,13 +6,13 @@ import './style.scss';
 
 const renderMasterCard = () => (
   <div className={'wallet-icon wallet-card'}>
-    <Icon icon={'mastercard'} size={35} />
+    <Icon name={'mastercard'} size={35} />
   </div>
 );
 
 const renderVisa = () => (
   <div className={'wallet-icon wallet-card'}>
-    <Icon icon={'visa'} size={35} />
+    <Icon name={'visa'} size={35} />
   </div>
 );
 

@@ -61,7 +61,7 @@ class Home extends Component<{}, HomeState> {
             <Button>asd</Button>
             <Col md={4}>
               <Text>
-                <Icon icon='search' />
+                <Icon name='search' />
                 <Text.Content>
                   Account Settings
                   <Text.Sub>

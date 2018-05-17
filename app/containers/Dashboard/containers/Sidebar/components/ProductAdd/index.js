@@ -10,7 +10,7 @@ const ProductAdd = () => {
     <div className={'sidebar-add'}>
       <Button outline >
         <div className={'sidebar-add_icon'}>
-          <Icon icon={'add_white'} size={13} color={'green'} />
+          <Icon name={'add_white'} size={13} color={'green'} />
         </div>
         <Text color={'gray'}>Add new product</Text>
       </Button>
