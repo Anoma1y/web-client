@@ -9,7 +9,7 @@ export default () => (
 
     <div className={'sidebar-container_icon'}>
       <div className={'user-info_avatar'}>
-        <Icon icon={'user'} size={25} />
+        <Icon icon={'user'} size={18} />
       </div>
     </div>
 

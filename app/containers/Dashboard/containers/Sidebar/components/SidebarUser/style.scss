@@ -1,6 +1,6 @@
 @import 'lib/style/vars.scss';
 
-$user-bgc: #dbe1e8;
+$user-bgc: #e4ebf4;
 
 .user-info {
 
@@ -16,8 +16,8 @@ $user-bgc: #dbe1e8;
     position: relative;
     text-align: center;
     margin: 0 auto;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     background: darken($white-color, 5%);
     border-radius: 50%;
     cursor: pointer;
@@ -37,7 +37,7 @@ $user-bgc: #dbe1e8;
   }
 
   &_name a {
-    color: rgb(140, 139, 160);
+    color: $gray-color;
     transition: color 0.3s ease;
     font-size: 1.1em;
     cursor: pointer;

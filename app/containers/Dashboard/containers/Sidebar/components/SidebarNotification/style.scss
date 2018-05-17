@@ -1,5 +1,7 @@
 @import "lib/style/vars.scss";
 
+$notification-bgc:          #fa454d;
+
 .sidebar-notice {
 
   font-family: $font-regular-serif;
@@ -7,7 +9,7 @@
 
   height: 40px;
   overflow: hidden;
-  background-color: darken($red-color, 12%);
+  background-color: $notification-bgc;
   width: 100%;
   white-space: nowrap;
 
