@@ -86,6 +86,13 @@
   &-form {
     width: 50%;
     margin: 0 auto;
+    &_inline-btn {
+      display: inline-block;
+      margin-left: 10px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
     &_header {
       font-family: $font-semibold-serif;
       margin-bottom: 3rem;

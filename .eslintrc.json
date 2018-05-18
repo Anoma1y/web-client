@@ -48,7 +48,6 @@
     "prefer-const": "warn",
     //Проверка на наличии console.log в коде, allow - разрешить использовать следующие методы консоли
     "no-console": ["warn", { "allow": ["log", "warn", "error"] }],
-    "consistent-return": "error",
     //Проверка отсутсвия пробела =>{
     "arrow-spacing": "error",
     //Проверка оборачивания аргументов стрелочных функций в скобки, если аргумент 1
@@ -58,6 +57,8 @@
     "arrow-body-style": "off",
     //Проверка наличия знака ";" после переменных и функций
     "semi": ["warn", "always"],
+    "no-control-regex": "off",
+    "consistent-return": "off",
     //Перенос скобок в объектах
     "object-curly-newline": "off",
     "no-confusing-arrow": ["error", { "allowParens": false }],
