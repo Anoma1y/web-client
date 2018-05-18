@@ -6,3 +6,4 @@ export const SET_IS_PHONE = 'Auth_Signup/SET_IS_PHONE';
 export const SET_IS_LOADING = 'Auth_Signup/SET_IS_LOADING';
 export const SET_ERROR = 'Auth_Signup/SET_ERROR';
 export const SET_OTP_IS_SEND = 'Auth_Signup/SET_OTP_IS_SEND';
+export const SET_RESEND_OTP_BLOCKED = 'Auth_Signup/SET_RESEND_OTP_BLOCKED';

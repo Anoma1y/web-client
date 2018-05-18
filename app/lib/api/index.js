@@ -1,10 +1,8 @@
 import axios from 'axios';
 import config from './config';
-import ExampleApiModule from './Example';
+import AuthApiModule from './Auth';
 
 class Api {
-  http: axios.Axios;
-  user: ExampleApiModule;
 
   constructor() {
     this.http = axios.create({
@@ -17,7 +15,7 @@ class Api {
     this.registerBeforeInterceptor();
     this.registerAfterInterceptor();
 
-    this.user = new ExampleApiModule(this.http);
+    this.auth = new AuthApiModule(this.http);
   }
 
   registerBeforeInterceptor() {
@@ -41,4 +39,4 @@ class Api {
   }
 }
 
-export const api: Api = new Api();
+export const api = new Api();

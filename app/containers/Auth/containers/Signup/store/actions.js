@@ -6,8 +6,10 @@ import {
   SET_IS_PHONE,
   SET_IS_LOADING,
   SET_OTP_IS_SEND,
+  SET_RESEND_OTP_BLOCKED,
   SET_ERROR,
 } from './types';
+import { api } from 'lib/api';
 import { checkIsPhone } from 'lib/auth';
 
 export const changeLogin = (login) => ({
@@ -28,6 +30,11 @@ export const setOtpIsSend = (isSend = false) => ({
 export const changeOTP = (otp) => ({
   type: CHANGE_OTP,
   payload: otp
+});
+
+export const blockedResendOTP = (blocked = false) => ({
+  type: SET_RESEND_OTP_BLOCKED,
+  payload: blocked
 });
 
 export const changeCountry = (country) => ({
@@ -51,39 +58,73 @@ export const setIsLoading = (isLoading = false) => ({
 });
 
 export const getOTP = () => (dispatch, getState) => {
-  const { login, isError } = getState().Auth_Signup;
+  const { login, role, isError } = getState().Auth_Signup;
 
   if (isError) {
     return;
   }
   dispatch(setIsLoading(true));
-
   if (checkIsPhone(login)) {
     dispatch(setIsPhone(true));
-    setTimeout(() => {
-      dispatch(setOtpIsSend(true));
-      dispatch(setIsLoading(false));
+    api.auth.registration(login, role)
+      .then((data) => {
+        console.log('get', data)
+        dispatch(setOtpIsSend(true));
+        dispatch(setIsLoading(false));
+      })
+      .catch((error) => {
+        // TODO Добавить вывод ошибки
+        dispatch(setIsLoading(false));
+        console.log(error);
+      })
 
-    }, 500);
   } else {
     dispatch(setIsPhone(false));
-    setTimeout(() => {
-      dispatch(setOtpIsSend(true));
-      dispatch(setIsLoading(false));
-
-    }, 500);
+    api.auth.registration(login, role)
+      .then(() => {
+        dispatch(setOtpIsSend(true));
+        dispatch(setIsLoading(false));
+      })
+      .catch((error) => {
+        dispatch(setIsLoading(false));
+        console.log(error);
+      });
   }
-
 };
 
 export const resendOTP = () => (dispatch, getState) => {
+  const { login, resendOTPIsBlocked, isError } = getState().Auth_Signup;
   dispatch(changeOTP(''));
+  if (resendOTPIsBlocked || isError) {
+    return;
+  }
   dispatch(setIsLoading(true));
-  setTimeout(() => { dispatch(setIsLoading(false)) }, 5000)
-}
+  dispatch(blockedResendOTP(true));
+  api.auth.registrationResendOTP(login)
+    .then(() => {
+      dispatch(setIsLoading(false));
+    })
+    .catch((error) => {
+      dispatch(setIsLoading(false));
+      console.log(error);
+    });
+};
 
 export const sendConfirm = () => (dispatch, getState) => {
   const { login, isError, OTP } = getState().Auth_Signup;
 
-  console.log(login, OTP)
+  if (isError) {
+    return;
+  }
+
+  api.auth.registrationConfirm(login, OTP)
+    .then((data) => {
+      dispatch(changeOTP(''));
+      dispatch(setIsLoading(false));
+      console.log('confirm', data);
+    })
+    .catch((error) => {
+      dispatch(setIsLoading(false));
+      console.log(error);
+    });
 };

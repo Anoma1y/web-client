@@ -6,7 +6,8 @@ import {
   SET_IS_LOADING,
   SET_IS_PHONE,
   SET_OTP_IS_SEND,
-  SET_ERROR
+  SET_RESEND_OTP_BLOCKED,
+  SET_ERROR,
 } from './types';
 
 // Auth_Signup
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   isPhone: false,
   isLoading: false,
   otpIsSend: false,
+  resendOTPIsBlocked: false, // TODO добавить таймер
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -39,6 +41,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, otpIsSend: action.payload };
     case CHANGE_OTP:
       return { ...state, OTP: action.payload };
+    case SET_RESEND_OTP_BLOCKED:
+      return { ...state, resendOTPIsBlocked: action.payload };
     default:
       return state;
   }

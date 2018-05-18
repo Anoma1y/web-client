@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import { Link } from 'react-router-dom';
 import SelectList from 'components/SelectList';
 import countries from 'lib/countries';
 import {
@@ -21,12 +22,13 @@ import {
   checkIsPhone
 } from 'lib/auth';
 import './style.scss';
+import axios from 'axios'
 
 class Signup extends React.Component {
 
   state = {
     loginError: '',
-    otpError: ''
+    otpError: '',
   };
 
   /**
@@ -80,7 +82,7 @@ class Signup extends React.Component {
     this.props.changeCountry(value);
   };
 
-  handleSignUp = (e) => {
+  handleSignUp = () => {
     if (this.props.Auth_Signup.login.length === 0) {
       this.setState({
         loginError: 'Please enter a EMail or phone number',
@@ -117,14 +119,51 @@ class Signup extends React.Component {
     return !error;
   };
 
-  handleSendOTP = (e) => {
+  handleSendOTP = () => {
     if (this.validateOTP()) {
       this.props.sendConfirm();
     }
   };
 
-  handleReSendOTP = (e) => {
+  handleReSendOTP = () => {
     this.props.resendOTP();
+  };
+
+  renderSignupForm = () => {
+    return (
+      <React.Fragment>
+        <div className={'auth-form_item'}>
+          <Input
+            type="text"
+            placeholder={'Entering EMail or phone number'}
+            icon={'user'}
+            iconPosition={'right'}
+            error={this.state.loginError}
+            errorPosition={'upper'}
+            value={this.props.Auth_Signup.login}
+            onChange={this.handleChangeLogin}
+            onBlur={this.handleLoginBlur}
+          />
+        </div>
+
+        <div className={'auth-form_item'}>
+          <SelectList
+            options={countries}
+            onChange={this.handleChangeCountry}
+          />
+        </div>
+
+        <div className={'auth-form_item auth-form_btn'}>
+          <Button
+            color={'blue'}
+            onClick={this.handleSignUp}
+            loading={this.props.Auth_Signup.isLoading}
+          >
+            <span className={'auth-btn_text'}>Submit</span>
+          </Button>
+        </div>
+      </React.Fragment>
+    );
   };
 
   renderConfirmForm = () => {
@@ -166,43 +205,6 @@ class Signup extends React.Component {
     );
   };
 
-  renderSignupForm = () => {
-    return (
-      <React.Fragment>
-        <div className={'auth-form_item'}>
-          <Input
-            type="text"
-            placeholder={'Entering EMail or phone number'}
-            icon={'user'}
-            iconPosition={'right'}
-            error={this.state.loginError}
-            errorPosition={'upper'}
-            value={this.props.Auth_Signup.login}
-            onChange={this.handleChangeLogin}
-            onBlur={this.handleLoginBlur}
-          />
-        </div>
-
-        <div className={'auth-form_item'}>
-          <SelectList
-            options={countries}
-            onChange={this.handleChangeCountry}
-          />
-        </div>
-
-        <div className={'auth-form_item auth-form_btn'}>
-          <Button
-            color={'blue'}
-            onClick={this.handleSignUp}
-            loading={this.props.Auth_Signup.isLoading}
-          >
-            <span className={'auth-btn_text'}>Submit</span>
-          </Button>
-        </div>
-      </React.Fragment>
-    );
-  };
-
   renderSignupHeader = () => {
     return (
       <React.Fragment>
@@ -216,7 +218,7 @@ class Signup extends React.Component {
     return (
       <React.Fragment>
         <h1>Confirm</h1>
-        <p>Confirm the registration by typing OTP.</p>
+        <p>Please enter the One Time Password (OTP) sent to you {this.props.Auth_Signup.isPhone ? 'mobile number' : 'EMail'}. If you do not receive your OTP within 30 second, please click on the <span className={'auth-form_header__color_blue'}>Resend OTP</span> button and thi will be resent</p>
       </React.Fragment>
     );
   };
@@ -233,9 +235,16 @@ class Signup extends React.Component {
 
   // TODO распихать по компонентам форму и заголовки
   render() {
+
     return (
       <div className={'signup auth-inner'}>
 
+        <div className={'auth-top'}>
+
+          <span className={'auth-top_text'}>Already have an account?</span>
+          <Link className={'auth-top_link'} to={'/auth/signin/'}>Sign In</Link>
+
+        </div>
         <form className={'auth-form'} onSubmit={(e) => e.preventDefault()}>
 
           <div className={'auth-form_header'}>
