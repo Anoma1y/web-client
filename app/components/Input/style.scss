@@ -84,7 +84,7 @@ $input: input;
       padding: 5px 8px;
       border-radius: 3px;
       position: absolute;
-      right: 0;
+      left: 1rem;
       bottom: 35px;
       margin-bottom: 8px;
       max-width: 230px;
@@ -99,7 +99,7 @@ $input: input;
         border-width: 5px 5px 0;
         border-color: #fb434a transparent transparent;
         position: absolute;
-        right: 20px;
+        left: 20px;
         bottom: -4px;
         margin-left: -5px;
       }
