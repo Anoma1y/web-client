@@ -98,16 +98,20 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) {
     return;
   }
-  dispatch(setIsLoading(true));
   dispatch(blockedResendOTP(true));
-  api.auth.registrationResendOTP(login)
-    .then(() => {
-      dispatch(setIsLoading(false));
-    })
-    .catch((error) => {
-      dispatch(setIsLoading(false));
-      console.log(error);
-    });
+  dispatch(setIsLoading(true));
+  setTimeout(() => {
+    dispatch(setIsLoading(false));
+  }, 1800)
+  // dispatch(blockedResendOTP(true));
+  // api.auth.registrationResendOTP(login)
+  //   .then(() => {
+  //     dispatch(setIsLoading(false));
+  //   })
+  //   .catch((error) => {
+  //     dispatch(setIsLoading(false));
+  //     console.log(error);
+  //   });
 };
 
 export const sendConfirm = () => (dispatch, getState) => {

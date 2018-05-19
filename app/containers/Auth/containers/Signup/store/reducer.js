@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
-  otpIsSend: false,
+  otpIsSend: true,
   resendOTPIsBlocked: false, // TODO добавить таймер
 };
 

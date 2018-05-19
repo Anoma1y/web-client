@@ -13,6 +13,7 @@ import {
   setIsPhone,
   getOTP,
   resendOTP,
+  blockedResendOTP,
   sendConfirm
 } from './store/actions';
 import {
@@ -22,13 +23,13 @@ import {
   checkIsPhone
 } from 'lib/auth';
 import './style.scss';
-import axios from 'axios'
 
 class Signup extends React.Component {
 
   state = {
     loginError: '',
     otpError: '',
+    timer: 0
   };
 
   /**
@@ -126,6 +127,18 @@ class Signup extends React.Component {
   };
 
   handleReSendOTP = () => {
+    this.setState({
+      timer: 30
+    })
+    this.time = setInterval(() => {
+      if (this.state.timer === 1) {
+        this.props.blockedResendOTP(false);
+        clearInterval(this.time);
+      }
+      this.setState({
+        timer: this.state.timer - 1
+      });
+    }, 1000)
     this.props.resendOTP();
   };
 
@@ -185,6 +198,7 @@ class Signup extends React.Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'blue'}
+              disabled={this.props.Auth_Signup.isLoading}
               onClick={this.handleSendOTP}
               loading={this.props.Auth_Signup.isLoading}
             >
@@ -194,10 +208,11 @@ class Signup extends React.Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
+              disabled={this.props.Auth_Signup.isLoading}
               onClick={this.handleReSendOTP}
               loading={this.props.Auth_Signup.isLoading}
             >
-              <span className={'auth-btn_text'}>Resend OTP</span>
+              <span className={'auth-btn_text'}>{this.props.Auth_Signup.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
           </div>
         </div>
@@ -235,7 +250,7 @@ class Signup extends React.Component {
 
   // TODO распихать по компонентам форму и заголовки
   render() {
-
+    console.log(this.state.timer)
     return (
       <div className={'signup auth-inner'}>
 
@@ -284,6 +299,7 @@ export default connect(state => ({ Auth_Signup: state.Auth_Signup }), {
   setIsPhone,
   setError,
   getOTP,
+  blockedResendOTP,
   resendOTP,
   sendConfirm
 })(Signup);
