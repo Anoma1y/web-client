@@ -118,9 +118,44 @@
     }
     &_item {
       padding-bottom: 1rem;
+      position: relative;
       &:last-child {
         padding-bottom: 0;
       }
+    }
+    &_input {
+      &__password {
+        input {
+          padding-right: 5rem !important;
+        }
+      }
+    }
+    &_show-password {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: calc(50% - 1rem);
+      right: 45px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      &:focus {
+        outline: none;
+      }
+      &:hover .auth-form_show-placeholder {
+        display: block;
+      }
+    }
+    &_show-placeholder {
+      display: none;
+      position: absolute;
+      font-family: $font-thin-serif;
+      color: $gray-color;
+      bottom: -25px;
+      width: 95px;
+      right: 0;
     }
     &_btn {
       margin-top: 1rem;

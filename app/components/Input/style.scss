@@ -84,10 +84,10 @@ $input: input;
       padding: 5px 8px;
       border-radius: 3px;
       position: absolute;
-      left: 1rem;
+      right: 1rem;
       bottom: 35px;
       margin-bottom: 8px;
-      max-width: 230px;
+      max-width: 320px;
       font-size: 80%;
       z-index: 1;
       &:after {
@@ -99,7 +99,7 @@ $input: input;
         border-width: 5px 5px 0;
         border-color: #fb434a transparent transparent;
         position: absolute;
-        left: 20px;
+        right: 20px;
         bottom: -4px;
         margin-left: -5px;
       }

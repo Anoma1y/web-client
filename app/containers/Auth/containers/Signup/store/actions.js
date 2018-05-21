@@ -64,11 +64,14 @@ export const getOTP = () => (dispatch, getState) => {
     return;
   }
   dispatch(setIsLoading(true));
+
+  // Отправка OTP на телефон или на почту
   if (checkIsPhone(login)) {
+    const telephone = login.replace(/\+/g, '');
+
     dispatch(setIsPhone(true));
-    api.auth.registration(login, role)
-      .then((data) => {
-        console.log('get', data)
+    api.auth.registration(telephone, role)
+      .then(() => {
         dispatch(setOtpIsSend(true));
         dispatch(setIsLoading(false));
       })
@@ -98,20 +101,16 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) {
     return;
   }
-  dispatch(blockedResendOTP(true));
   dispatch(setIsLoading(true));
-  setTimeout(() => {
-    dispatch(setIsLoading(false));
-  }, 1800)
-  // dispatch(blockedResendOTP(true));
-  // api.auth.registrationResendOTP(login)
-  //   .then(() => {
-  //     dispatch(setIsLoading(false));
-  //   })
-  //   .catch((error) => {
-  //     dispatch(setIsLoading(false));
-  //     console.log(error);
-  //   });
+  api.auth.registrationResendOTP(login)
+    .then(() => {
+      dispatch(blockedResendOTP(true));
+      dispatch(setIsLoading(false));
+    })
+    .catch((error) => {
+      dispatch(setIsLoading(false));
+      console.log(error);
+    });
 };
 
 export const sendConfirm = () => (dispatch, getState) => {
@@ -125,7 +124,7 @@ export const sendConfirm = () => (dispatch, getState) => {
     .then((data) => {
       dispatch(changeOTP(''));
       dispatch(setIsLoading(false));
-      console.log('confirm', data);
+
     })
     .catch((error) => {
       dispatch(setIsLoading(false));

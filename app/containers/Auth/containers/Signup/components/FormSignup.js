@@ -12,9 +12,7 @@ import {
 } from '../store/actions'
 import {
   transformLoginType,
-  validationEmail,
-  validationPhone,
-  checkIsPhone
+  validateLogin,
 } from 'lib/auth';
 
 class FormSignup extends Component {
@@ -46,27 +44,18 @@ class FormSignup extends Component {
    */
   validateForm = () => {
     const { login } = this.props.Auth_Signup;
-    let error = false;
+    const checkLogin = validateLogin(login);
 
-    if (login.length === 0) {
-      this.setState({ loginError: '' });
-      return;
-    }
+    const checkError = checkLogin.error;
 
-    if (checkIsPhone(login)) {
-      error = !validationPhone(login);
+    if (checkLogin.error) {
       this.setState({
-        loginError: error ? 'Please enter a valid phone number' : '',
-      });
-    } else {
-      error = !validationEmail(login);
-      this.setState({
-        loginError: error ? 'Please enter a valid Email' : '',
+        loginError: checkLogin.errorText
       });
     }
 
-    this.props.setError(error);
-    return !error;
+    this.props.setError(checkError);
+    return !checkError;
 
   };
 
@@ -75,12 +64,6 @@ class FormSignup extends Component {
   };
 
   handleSignUp = () => {
-    if (this.props.Auth_Signup.login.length === 0) {
-      this.setState({
-        loginError: 'Please enter a EMail or phone number',
-      });
-      return;
-    }
     if (this.validateForm()) {
       this.props.getOTP();
     }

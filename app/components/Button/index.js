@@ -7,7 +7,7 @@ export default (props) => {
   const {
     children, // Какой либо текст внутри кнопочки, можно вставить ноду
     className, // Дополнительные класс
-    disabled, // Задизейблить
+    disabled = props.loading, // Задизейблить
     name, // Имя
     onClick, // Экшен онклик
     size = 'md', // Размер кнопки

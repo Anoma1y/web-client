@@ -3,18 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FormOTP from './components/FormOTP';
 import FormSignup from './components/FormSignup';
-import {
-  changeLogin,
-  changeCountry,
-  changeOTP,
-  setError,
-  setIsPhone,
-  getOTP,
-  resendOTP,
-  blockedResendOTP,
-  sendConfirm
-} from './store/actions';
-import './style.scss';
 
 class Signup extends React.Component {
 
@@ -46,7 +34,6 @@ class Signup extends React.Component {
     return otpIsSend ? this.renderConfirmHeader() : this.renderSignupHeader();
   };
 
-  // TODO распихать по компонентам форму и заголовки
   render() {
     return (
       <div className={'signup auth-inner'}>
@@ -90,14 +77,6 @@ class Signup extends React.Component {
 }
 
 export default connect(state => ({ Auth_Signup: state.Auth_Signup }), {
-  changeLogin,
-  changeCountry,
-  changeOTP,
-  setIsPhone,
-  setError,
-  getOTP,
-  blockedResendOTP,
-  resendOTP,
-  sendConfirm
+
 })(Signup);
 

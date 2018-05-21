@@ -82,7 +82,6 @@ class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'blue'}
-              disabled={this.props.Auth_Signup.isLoading}
               onClick={this.handleSendOTP}
               loading={this.props.Auth_Signup.isLoading}
             >
@@ -92,7 +91,7 @@ class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
-              disabled={this.props.Auth_Signup.isLoading || this.props.Auth_Signup.resendOTPIsBlocked}
+              disabled={this.props.Auth_Signup.resendOTPIsBlocked}
               onClick={this.handleReSendOTP}
               loading={this.props.Auth_Signup.isLoading}
             >

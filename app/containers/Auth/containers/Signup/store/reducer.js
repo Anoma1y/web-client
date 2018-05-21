@@ -19,8 +19,8 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
-  otpIsSend: false,
-  resendOTPIsBlocked: false, // TODO добавить таймер
+  otpIsSend: false, // TODO добавить сброс после перехода по ссылкам
+  resendOTPIsBlocked: false,
 };
 
 export default (state = INITIAL_STATE, action) => {

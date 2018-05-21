@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import ButtonClickState from 'containers/ButtonClickState';
-import ButtonClickRedux from 'containers/ButtonClickRedux';
-import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
 import Dashboard from 'containers/Dashboard';
 import Auth from 'containers/Auth';
 import { Route, Switch } from 'react-router-dom';
@@ -12,15 +9,11 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path={'/'} component={ButtonClickState} />
         <Route path={'/dashboard'} component={Dashboard} />
         <Route path={'/auth'} component={Auth} />
-        <Route exact path={'/redux'} component={ButtonClickRedux} />
-        <Route exact path={'/reduxthunk'} component={ButtonClickReduxThunk} />
       </Switch>
     );
   }
 }
-
 export default App;
 
