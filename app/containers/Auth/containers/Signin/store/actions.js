@@ -33,7 +33,14 @@ export const setIsLoading = (isLoading = false) => ({
 });
 
 export const signin = () => (dispatch, getState) => {
-  dispatch(setIsLoading(true))
+  const { login, password, isError } = getState().Auth_Signin;
+
+  dispatch(setIsLoading(true));
+
+  if (isError) {
+    return;
+  }
+
   setTimeout(() => {
     dispatch(setIsLoading(false))
   }, 1500)

@@ -136,3 +136,32 @@ export const validatePassword = (val, minLenght = 8) => {
     errorText: ''
   };
 };
+
+/**
+ * Функция для проверки ОТП
+ * @param val - ОТП
+ * @param maxLength - максимальная длина
+ * @returns {*} error - булевое значение ошибки, errorText - текст ошибки
+ */
+export const validateOTP = (val, maxLength = 32) => {
+
+  if (val.length === 0) {
+    return {
+      error: true,
+      errorText: 'Entering OTP'
+    };
+  }
+
+  if (maxLength !== null && val.length > maxLength) {
+    return {
+      error: true,
+      errorText: `OTP can not be longer than ${maxLength} characters`
+    };
+  }
+
+  return {
+    error: false,
+    errorText: ''
+  };
+
+};

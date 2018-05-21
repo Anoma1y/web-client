@@ -8,9 +8,9 @@ import {
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
   SET_ERROR,
+  RESET
 } from './types';
 
-// Auth_Signup
 const INITIAL_STATE = {
   login: '',
   country: '',
@@ -43,6 +43,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, OTP: action.payload };
     case SET_RESEND_OTP_BLOCKED:
       return { ...state, resendOTPIsBlocked: action.payload };
+    case RESET:
+      return { ...state, ...INITIAL_STATE };
     default:
       return state;
   }

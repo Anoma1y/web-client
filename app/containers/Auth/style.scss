@@ -138,12 +138,7 @@
       right: 45px;
       transform: translateY(-50%);
       cursor: pointer;
-      background: none;
-      border: none;
       padding: 0;
-      &:focus {
-        outline: none;
-      }
       &:hover .auth-form_show-placeholder {
         display: block;
       }
@@ -153,8 +148,8 @@
       position: absolute;
       font-family: $font-thin-serif;
       color: $gray-color;
-      bottom: -25px;
-      width: 95px;
+      bottom: -35px;
+      width: 110px;
       right: 0;
     }
     &_btn {

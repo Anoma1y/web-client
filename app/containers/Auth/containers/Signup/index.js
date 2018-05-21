@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import FormOTP from './components/FormOTP';
 import FormSignup from './components/FormSignup';
 
-class Signup extends React.Component {
+@connect(state => ({ Auth_Signup: state.Auth_Signup }))
+export default class Signup extends React.Component {
 
   renderSignupHeader = () => {
     return (
@@ -75,8 +76,4 @@ class Signup extends React.Component {
     );
   }
 }
-
-export default connect(state => ({ Auth_Signup: state.Auth_Signup }), {
-
-})(Signup);
 

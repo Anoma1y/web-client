@@ -31,6 +31,7 @@ module.exports = require('./base.config')({
     ],
     plugins: [
       'transform-runtime',
+      'transform-decorators-legacy'
     ]
   },
   devserver: {

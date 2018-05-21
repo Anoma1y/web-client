@@ -3,19 +3,25 @@ import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import SelectList from 'components/SelectList';
-import countries from 'lib/countries';
 import {
   changeLogin,
   setError,
   changeCountry,
   getOTP
-} from '../store/actions'
+} from '../../store/actions';
+import countries from 'lib/countries';
 import {
   transformLoginType,
   validateLogin,
 } from 'lib/auth';
 
-class FormSignup extends Component {
+@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+  changeLogin,
+  setError,
+  changeCountry,
+  getOTP
+})
+export default class FormSignup extends Component {
 
   state = {
     loginError: '',
@@ -45,7 +51,6 @@ class FormSignup extends Component {
   validateForm = () => {
     const { login } = this.props.Auth_Signup;
     const checkLogin = validateLogin(login);
-
     const checkError = checkLogin.error;
 
     if (checkLogin.error) {
@@ -59,10 +64,17 @@ class FormSignup extends Component {
 
   };
 
+  /**
+   * Переключение страны
+   * @param value - код страны
+   */
   handleChangeCountry = ({ value }) => {
     this.props.changeCountry(value);
   };
 
+  /**
+   * Обработка функции нажатия кнопки регистрации
+   */
   handleSignUp = () => {
     if (this.validateForm()) {
       this.props.getOTP();
@@ -103,13 +115,6 @@ class FormSignup extends Component {
           </Button>
         </div>
       </Fragment>
-    )
+    );
   }
 }
-
-export default connect(state => ({ Auth_Signup: state.Auth_Signup }), {
-  changeLogin,
-  setError,
-  changeCountry,
-  getOTP
-})(FormSignup);

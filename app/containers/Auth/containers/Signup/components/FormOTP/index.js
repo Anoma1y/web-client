@@ -7,26 +7,59 @@ import {
   blockedResendOTP,
   sendConfirm,
   changeOTP,
-  setError
-} from '../store/actions';
+  setError,
+  reset
+} from '../../store/actions';
+import { validateOTP } from 'lib/auth';
 
-class FormOTP extends Component {
+@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+  resendOTP,
+  blockedResendOTP,
+  sendConfirm,
+  changeOTP,
+  setError,
+  reset
+})
+export default class FormOTP extends Component {
 
   state = {
     otpError: '',
     timer: 0
   };
 
+  /**
+   * После истечения 100000 мс, форма сбрасывает в начальное состояние
+   */
+  componentDidMount() {
+    this.timeOut = setTimeout(() => {
+      this.props.reset();
+    }, 100000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeOut);
+  }
+
+  /**
+   * Метод для проверки ввода ОТП только цифр
+   * @param e
+   */
   handleChangeOTP = (e) => {
     const { value } = e.target;
     const otp = value.replace(/[^\d]/g, '');
     this.props.changeOTP(otp);
   };
 
+  /**
+   * Метод для обработки запуска экшена для повторной отправки ОТП
+   * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на 30 секунд
+   */
   handleReSendOTP = () => {
+
     this.setState({
       timer: 30
-    })
+    });
+
     this.time = setInterval(() => {
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(false);
@@ -35,34 +68,40 @@ class FormOTP extends Component {
       this.setState({
         timer: this.state.timer - 1
       });
-    }, 1000)
+    }, 1000);
+
     this.props.resendOTP();
   };
 
-  validateOTP = () => {
+  /**
+   * Метод для валидации ОТП
+   * @returns {boolean}
+   */
+  validateForm = () => {
     const { OTP } = this.props.Auth_Signup;
-    let error = false;
-    if (OTP.length === 0) {
+
+    const checkOTP = validateOTP(OTP);
+    const checkError = checkOTP.error;
+
+    if (checkOTP.error) {
       this.setState({
-        otpError: 'Entering OTP'
+        otpError: checkOTP.errorText
       });
-      error = true;
-      this.props.setError(error);
-    } else {
-      this.setState({
-        otpError: ''
-      });
-      error = false;
-      this.props.setError(error);
     }
-    return !error;
+
+    this.props.setError(checkError);
+    return !checkError;
   };
 
+  /**
+   * Метод для отправки ОТП
+   */
   handleSendOTP = () => {
-    if (this.validateOTP()) {
+    if (this.validateForm()) {
       this.props.sendConfirm();
     }
   };
+
   render() {
     return (
       <Fragment>
@@ -100,15 +139,7 @@ class FormOTP extends Component {
           </div>
         </div>
       </Fragment>
-    )
+    );
   }
-
 }
 
-export default connect(state => ({ Auth_Signup: state.Auth_Signup }), {
-  resendOTP,
-  blockedResendOTP,
-  sendConfirm,
-  changeOTP,
-  setError
-})(FormOTP);

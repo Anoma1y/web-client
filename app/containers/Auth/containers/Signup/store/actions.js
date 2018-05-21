@@ -8,6 +8,7 @@ import {
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
   SET_ERROR,
+  RESET
 } from './types';
 import { api } from 'lib/api';
 import { checkIsPhone } from 'lib/auth';
@@ -57,18 +58,28 @@ export const setIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+export const reset = () => ({
+  type: RESET
+});
+
+/**
+ * Экшен для отправки логина (и страны)? и рендер новой формы для ввода OTP
+ * В зависимости что было отправлено (почта или телефон) придет код
+ * @returns {function(*, *)}
+ */
 export const getOTP = () => (dispatch, getState) => {
+
   const { login, role, isError } = getState().Auth_Signup;
 
   if (isError) {
     return;
   }
+
   dispatch(setIsLoading(true));
 
   // Отправка OTP на телефон или на почту
   if (checkIsPhone(login)) {
     const telephone = login.replace(/\+/g, '');
-
     dispatch(setIsPhone(true));
     api.auth.registration(telephone, role)
       .then(() => {
@@ -79,11 +90,11 @@ export const getOTP = () => (dispatch, getState) => {
         // TODO Добавить вывод ошибки
         dispatch(setIsLoading(false));
         console.log(error);
-      })
-
+      });
   } else {
     dispatch(setIsPhone(false));
-    api.auth.registration(login, role)
+    const email = login.toLowerCase();
+    api.auth.registration(email, role)
       .then(() => {
         dispatch(setOtpIsSend(true));
         dispatch(setIsLoading(false));
@@ -95,12 +106,20 @@ export const getOTP = () => (dispatch, getState) => {
   }
 };
 
+/**
+ * Экшен для повторной отправки ОТП
+ * При активации экшена (в независимости от результата) блочиться кнопка повторной отправки
+ * @returns {function(*, *)}
+ */
 export const resendOTP = () => (dispatch, getState) => {
   const { login, resendOTPIsBlocked, isError } = getState().Auth_Signup;
+
   dispatch(changeOTP(''));
+
   if (resendOTPIsBlocked || isError) {
     return;
   }
+
   dispatch(setIsLoading(true));
   api.auth.registrationResendOTP(login)
     .then(() => {
@@ -113,6 +132,10 @@ export const resendOTP = () => (dispatch, getState) => {
     });
 };
 
+/**
+ * Экшен для отправки ОТП
+ * @returns {function(*, *)}
+ */
 export const sendConfirm = () => (dispatch, getState) => {
   const { login, isError, OTP } = getState().Auth_Signup;
 
@@ -121,11 +144,12 @@ export const sendConfirm = () => (dispatch, getState) => {
   }
 
   api.auth.registrationConfirm(login, OTP)
+
     .then((data) => {
       dispatch(changeOTP(''));
       dispatch(setIsLoading(false));
-
     })
+
     .catch((error) => {
       dispatch(setIsLoading(false));
       console.log(error);
