@@ -23,6 +23,7 @@ export default class Signin extends Component {
           <Link className={'auth-top_link'} to={'/auth/signup/'}>Sign Up</Link>
 
         </div>
+
         <form className={'auth-form'} onSubmit={(e) => e.preventDefault()}>
 
           <div className={'auth-form_header'}>

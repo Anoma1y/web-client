@@ -1,19 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import Dashboard from 'containers/Dashboard';
 import Auth from 'containers/Auth';
 import { Route, Switch } from 'react-router-dom';
+import { actions as notifActions, Notifs } from 'redux-notifications';
 import 'lib/style/base.scss';
 import './style.scss';
 
-class App extends Component {
+const { notifDismiss } = notifActions;
+
+@connect(null, (dispatch) => ({ dispatch }))
+export default class App extends Component {
+
+  closeNotification = (id) => {
+    this.props.dispatch(notifDismiss(id));
+  };
+
   render() {
     return (
-      <Switch>
-        <Route path={'/dashboard'} component={Dashboard} />
-        <Route path={'/auth'} component={Auth} />
-      </Switch>
+      <Fragment>
+        <Switch>
+          <Route path={'/dashboard'} component={Dashboard} />
+          <Route path={'/auth'} component={Auth} />
+        </Switch>
+        <Notifs actionLabel={'X'} onActionClick={this.closeNotification} />
+      </Fragment>
     );
   }
 }
-export default App;
-

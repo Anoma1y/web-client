@@ -5,7 +5,9 @@ import {
   SET_IS_LOADING,
   SET_ERROR,
 } from './types';
+import { reducer as notifReducer, actions as notifActions, Notifs } from 'redux-notifications';
 import { api } from 'lib/api';
+
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -32,8 +34,17 @@ export const setIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+const { notifSend } = notifActions;
+
 export const signin = () => (dispatch, getState) => {
   const { login, password, isError } = getState().Auth_Signin;
+
+  dispatch(notifSend({
+    message: 'Error: Couldn\'t connect to the server. Check your network connection',
+    kind: 'danger',
+    dismissAfter: 5000,
+    id: 4444
+  }));
 
   dispatch(setIsLoading(true));
 

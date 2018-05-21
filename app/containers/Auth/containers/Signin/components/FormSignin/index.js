@@ -34,12 +34,16 @@ export default class FormSignin extends Component {
       passwordInputType: passwordInputType === 'password' ? 'text' : 'password'
     });
   };
+
+  /**
+   * Отключение текста ошибок при фокусировке формы
+   */
   handleFocusForm = () => {
     this.setState({
       passwordError: '',
       loginError: '',
-    })
-  }
+    });
+  };
 
   /**
    * Метод для валидации форм
@@ -86,7 +90,7 @@ export default class FormSignin extends Component {
 
   handleSignIn = () => {
     if (this.validateForm()) {
-      this.props.signin()
+      this.props.signin();
     }
   };
 

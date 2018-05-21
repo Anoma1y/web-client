@@ -68,6 +68,7 @@
     "redux-form-material-ui": "^4.3.4",
     "redux-immutable-state-invariant": "^2.1.0",
     "redux-logger": "^3.0.6",
+    "redux-notifications": "^4.0.1",
     "redux-thunk": "^2.2.0"
   }
 }
