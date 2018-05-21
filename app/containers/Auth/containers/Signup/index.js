@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Input from 'components/Input';
-import Button from 'components/Button';
 import { Link } from 'react-router-dom';
-import SelectList from 'components/SelectList';
-import countries from 'lib/countries';
+import FormOTP from './components/FormOTP';
+import FormSignup from './components/FormSignup';
 import {
   changeLogin,
   changeCountry,
@@ -16,209 +14,9 @@ import {
   blockedResendOTP,
   sendConfirm
 } from './store/actions';
-import {
-  transformLoginType,
-  validationEmail,
-  validationPhone,
-  checkIsPhone
-} from 'lib/auth';
 import './style.scss';
 
 class Signup extends React.Component {
-
-  state = {
-    loginError: '',
-    otpError: '',
-    timer: 0
-  };
-
-  /**
-   * Метод для обработки ввода логина и трансформация значения в подходящий формат (телефон или почта)
-   * @param e - эвент
-   */
-  handleChangeLogin = (e) => {
-    const { value } = e.target;
-    const login = transformLoginType(value);
-    this.props.changeLogin(login);
-  };
-
-  /**
-   * Метод для обработки ошибок после того, как пользователь уберет фокус с инпута
-   */
-  handleLoginBlur = () => {
-    this.validateForm();
-  };
-
-  /**
-   * Метод для валидации форм
-   * @returns {boolean}
-   */
-  validateForm = () => {
-    const { login } = this.props.Auth_Signup;
-    let error = false;
-
-    if (login.length === 0) {
-      this.setState({ loginError: '' });
-      return;
-    }
-
-    if (checkIsPhone(login)) {
-      error = !validationPhone(login);
-      this.setState({
-        loginError: error ? 'Please enter a valid phone number' : '',
-      });
-    } else {
-      error = !validationEmail(login);
-      this.setState({
-        loginError: error ? 'Please enter a valid Email' : '',
-      });
-    }
-
-    this.props.setError(error);
-    return !error;
-
-  };
-
-  handleChangeCountry = ({ value }) => {
-    this.props.changeCountry(value);
-  };
-
-  handleSignUp = () => {
-    if (this.props.Auth_Signup.login.length === 0) {
-      this.setState({
-        loginError: 'Please enter a EMail or phone number',
-      });
-      return;
-    }
-    if (this.validateForm()) {
-      this.props.getOTP();
-    }
-  };
-
-  handleChangeOTP = (e) => {
-    const { value } = e.target;
-    const otp = value.replace(/[^\d]/g, '');
-    this.props.changeOTP(otp);
-  };
-
-  validateOTP = () => {
-    const { OTP } = this.props.Auth_Signup;
-    let error = false;
-    if (OTP.length === 0) {
-      this.setState({
-        otpError: 'Entering OTP'
-      });
-      error = true;
-      this.props.setError(error);
-    } else {
-      this.setState({
-        otpError: ''
-      });
-      error = false;
-      this.props.setError(error);
-    }
-    return !error;
-  };
-
-  handleSendOTP = () => {
-    if (this.validateOTP()) {
-      this.props.sendConfirm();
-    }
-  };
-
-  handleReSendOTP = () => {
-    this.setState({
-      timer: 30
-    })
-    this.time = setInterval(() => {
-      if (this.state.timer === 1) {
-        this.props.blockedResendOTP(false);
-        clearInterval(this.time);
-      }
-      this.setState({
-        timer: this.state.timer - 1
-      });
-    }, 1000)
-    this.props.resendOTP();
-  };
-
-  renderSignupForm = () => {
-    return (
-      <React.Fragment>
-        <div className={'auth-form_item'}>
-          <Input
-            type="text"
-            placeholder={'Entering EMail or phone number'}
-            icon={'user'}
-            iconPosition={'right'}
-            error={this.state.loginError}
-            errorPosition={'upper'}
-            value={this.props.Auth_Signup.login}
-            onChange={this.handleChangeLogin}
-            onBlur={this.handleLoginBlur}
-          />
-        </div>
-
-        <div className={'auth-form_item'}>
-          <SelectList
-            options={countries}
-            onChange={this.handleChangeCountry}
-          />
-        </div>
-
-        <div className={'auth-form_item auth-form_btn'}>
-          <Button
-            color={'blue'}
-            onClick={this.handleSignUp}
-            loading={this.props.Auth_Signup.isLoading}
-          >
-            <span className={'auth-btn_text'}>Submit</span>
-          </Button>
-        </div>
-      </React.Fragment>
-    );
-  };
-
-  renderConfirmForm = () => {
-    return (
-      <React.Fragment>
-        <div className={'auth-form_item'}>
-          <Input
-            type="text"
-            placeholder={'Entering OTP'}
-            icon={'payment-outbox'}
-            iconPosition={'right'}
-            error={this.state.otpError}
-            errorPosition={'upper'}
-            value={this.props.Auth_Signup.OTP}
-            onChange={this.handleChangeOTP}
-          />
-        </div>
-        <div className={'auth-form_item auth-form_btn'}>
-          <div className={'auth-form_inline-btn'}>
-            <Button
-              color={'blue'}
-              disabled={this.props.Auth_Signup.isLoading}
-              onClick={this.handleSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
-            >
-              <span className={'auth-btn_text'}>Send OTP</span>
-            </Button>
-          </div>
-          <div className={'auth-form_inline-btn'}>
-            <Button
-              color={'green'}
-              disabled={this.props.Auth_Signup.isLoading}
-              onClick={this.handleReSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
-            >
-              <span className={'auth-btn_text'}>{this.props.Auth_Signup.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
-            </Button>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  };
 
   renderSignupHeader = () => {
     return (
@@ -240,7 +38,7 @@ class Signup extends React.Component {
 
   renderFormControl = () => {
     const { otpIsSend } = this.props.Auth_Signup;
-    return otpIsSend ? this.renderConfirmForm() : this.renderSignupForm();
+    return otpIsSend ? <FormOTP /> : <FormSignup />;
   };
 
   renderHeader = () => {
@@ -250,7 +48,6 @@ class Signup extends React.Component {
 
   // TODO распихать по компонентам форму и заголовки
   render() {
-    console.log(this.state.timer)
     return (
       <div className={'signup auth-inner'}>
 
