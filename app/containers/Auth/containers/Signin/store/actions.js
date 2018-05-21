@@ -39,13 +39,6 @@ const { notifSend } = notifActions;
 export const signin = () => (dispatch, getState) => {
   const { login, password, isError } = getState().Auth_Signin;
 
-  dispatch(notifSend({
-    message: 'Error: Couldn\'t connect to the server. Check your network connection',
-    kind: 'danger',
-    dismissAfter: 5000,
-    id: 4444
-  }));
-
   dispatch(setIsLoading(true));
 
   if (isError) {
@@ -54,5 +47,11 @@ export const signin = () => (dispatch, getState) => {
 
   setTimeout(() => {
     dispatch(setIsLoading(false))
+    dispatch(notifSend({
+      message: 'Error: Couldn\'t connect to the server. Check your network connection',
+      kind: 'danger',
+      dismissAfter: 5000,
+      id: 1337
+    }));
   }, 1500)
 };
