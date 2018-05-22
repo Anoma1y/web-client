@@ -68,11 +68,11 @@ export default class Reset extends Component {
           {
             this.props.Auth_Reset.otpIsSend && !this.props.Auth_Reset.isPhone ? null :
 
-              <div className={'auth-form_footer'}>
+            <div className={'auth-form_footer'}>
 
-                <FormFooter />
+              <FormFooter />
 
-              </div>
+            </div>
           }
 
         </form>
