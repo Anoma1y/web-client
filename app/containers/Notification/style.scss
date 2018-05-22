@@ -1,0 +1,7 @@
+@import 'lib/style/vars.scss';
+
+.notification {
+  position: fixed;
+  z-index: 999999;
+  color: $white-color;
+}

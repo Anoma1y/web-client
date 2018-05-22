@@ -5,12 +5,13 @@ import {
 } from 'react-router-dom';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
+import Notification from 'containers/Notification';
 import './style.scss';
 
 const Auth = (props) => (
 
   <div className={'auth'}>
-
+    <Notification />
     <div className={'auth-aside'}>
       <div className={'auth_logo'}>
         <a href="http://www.jago.com/">

@@ -5,7 +5,9 @@ import {
   SET_IS_LOADING,
   SET_ERROR,
 } from './types';
-// import { reducer as notifReducer, actions as notifActions, Notifs } from 'redux-notifications';
+import {
+  send
+} from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
 
 export const changeLogin = (login) => ({
@@ -43,12 +45,18 @@ export const signin = () => (dispatch, getState) => {
   }
 
   setTimeout(() => {
-    dispatch(setIsLoading(false))
-    // dispatch(notifSend({
-    //   message: 'Error: Couldn\'t connect to the server. Check your network connection',
-    //   kind: 'danger',
-    //   dismissAfter: 5000,
-    //   id: 1337
-    // }));
+    dispatch(setIsLoading(false));
+    dispatch(send({
+      id: 232,
+      title: 'Error',
+      status: 'error',
+      message: 'Couldn\'t connect to the server. Check your network connection',
+    }))
+    dispatch(send({
+      id: 545,
+      title: 'Attention',
+      status: 'warning',
+      message: 'Check your network connection',
+    }))
   }, 1500)
 };
