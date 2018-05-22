@@ -220,6 +220,11 @@
         padding-left: 2rem;
         padding-right: 2rem;
       }
+      &__indent {
+        &_none {
+          margin: 0 !important;
+        }
+      }
     }
   }
 }

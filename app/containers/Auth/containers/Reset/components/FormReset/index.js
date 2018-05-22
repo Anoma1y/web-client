@@ -84,7 +84,7 @@ export default class FormReset extends Component {
             value={this.props.Auth_Reset.login}
           />
         </div>
-        <div className={'auth-form_item auth-form_btn'}>
+        <div className={'auth-form_item auth-form_btn auth-form_btn__indent_none'}>
           <Button
             color={'lightblue'}
             onClick={this.handleReset}
