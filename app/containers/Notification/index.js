@@ -28,9 +28,9 @@ const Notification = (props) => {
           title={item.title}
           id={item.id}
         />
-      )
-    })
-  }
+      );
+    });
+  };
 
   const {
     className,

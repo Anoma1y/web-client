@@ -9,6 +9,7 @@ import {
   send
 } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
+import uuid from 'uuid/v1';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -47,32 +48,32 @@ export const signin = () => (dispatch, getState) => {
   setTimeout(() => {
     dispatch(setIsLoading(false));
     dispatch(send({
-      id: 232,
+      id: uuid(),
       status: 'error',
       title: 'Error',
       message: 'Couldn\'t connect to the server. Check your network connection',
       actionClose: true,
-    }))
+    }));
     dispatch(send({
-      id: 545,
+      id: uuid(),
       status: 'warning',
       title: 'Attention',
       message: 'Check your network connection',
       actionClose: true,
-    }))
+    }));
     dispatch(send({
-      id: 6541,
+      id: uuid(),
       status: 'info',
       title: 'Information',
       message: 'Hello World',
       actionClose: true,
-    }))
+    }));
     dispatch(send({
-      id: 331,
+      id: uuid(),
       status: 'success',
       title: 'Success',
       message: 'Bye world',
       actionClose: true,
-    }))
-  }, 1500)
+    }));
+  }, 1500);
 };
