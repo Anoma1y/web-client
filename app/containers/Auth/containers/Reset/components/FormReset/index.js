@@ -1,36 +1,30 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import SelectList from 'components/SelectList';
 import {
   changeLogin,
   setError,
-  changeCountry,
-  getOTP
+  setIsPhone,
+  setIsLoading,
 } from '../../store/actions';
-import countries from 'lib/countries';
 import {
   transformLoginType,
-  validateLogin,
+  validateLogin
 } from 'lib/auth';
 
-@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+@connect((state) => ({ Auth_Reset: state.Auth_Reset }), {
   changeLogin,
   setError,
-  changeCountry,
-  getOTP
+  setIsPhone,
+  setIsLoading,
 })
-export default class FormSignup extends Component {
+export default class FormReset extends Component {
 
   state = {
-    loginError: '',
+    loginError: ''
   };
 
-  /**
-   * Метод для обработки ввода логина и трансформация значения в подходящий формат (телефон или почта)
-   * @param e - эвент
-   */
   handleChangeLogin = (e) => {
     const { value } = e.target;
     const login = transformLoginType(value);
@@ -40,7 +34,7 @@ export default class FormSignup extends Component {
   /**
    * Метод для обработки ошибок после того, как пользователь уберет фокус с инпута
    */
-  handleLoginBlur = () => {
+  handleValidateForm = () => {
     this.validateForm();
   };
 
@@ -49,7 +43,7 @@ export default class FormSignup extends Component {
    * @returns {boolean}
    */
   validateForm = () => {
-    const { login } = this.props.Auth_Signup;
+    const { login } = this.props.Auth_Reset;
     const checkLogin = validateLogin(login);
     const checkError = checkLogin.error;
 
@@ -68,20 +62,9 @@ export default class FormSignup extends Component {
 
   };
 
-  /**
-   * Переключение страны
-   * @param value - код страны
-   */
-  handleChangeCountry = ({ value }) => {
-    this.props.changeCountry(value);
-  };
-
-  /**
-   * Обработка функции нажатия кнопки регистрации
-   */
-  handleSignUp = () => {
+  handleReset = () => {
     if (this.validateForm()) {
-      this.props.getOTP();
+      console.log(1);
     }
   };
 
@@ -94,37 +77,23 @@ export default class FormSignup extends Component {
             placeholder={'Entering EMail or phone number'}
             icon={'user-gray'}
             iconPosition={'left'}
-            required
             error={this.state.loginError}
             errorPosition={'under'}
-            value={this.props.Auth_Signup.login}
             onChange={this.handleChangeLogin}
-            onBlur={this.handleLoginBlur}
+            onBlur={this.handleValidateForm}
+            value={this.props.Auth_Reset.login}
           />
         </div>
-
-        <div className={'auth-form_item'}>
-          <SelectList
-            options={countries}
-            icon={'location-gray'}
-            iconPosition={'left'}
-            iconSize={18}
-            placeholder={'Country'}
-            required
-            onChange={this.handleChangeCountry}
-          />
-        </div>
-
         <div className={'auth-form_item auth-form_btn'}>
           <Button
             color={'lightblue'}
-            onClick={this.handleSignUp}
-            loading={this.props.Auth_Signup.isLoading}
+            onClick={this.handleReset}
+            loading={this.props.Auth_Reset.isLoading}
           >
-            <span className={'auth-btn_text'}>Sign Up</span>
+            <span className={'auth-btn_text'}>Reset</span>
           </Button>
         </div>
       </Fragment>
-    );
+    )
   }
 }

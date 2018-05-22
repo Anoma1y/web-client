@@ -1,5 +1,6 @@
-$input: input;
+@import 'lib/style/vars.scss';
 
+$input: input;
 
 .input {
   margin-bottom: 1em;
@@ -30,6 +31,9 @@ $input: input;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    &:focus {
+      outline-color: lighten($lightgray-color, 10%);
+    }
   }
   &_wrapper {
     position: relative;
@@ -71,12 +75,16 @@ $input: input;
   &_error {
     &__under {
       display: block;
+      position: absolute;
       list-style: none;
-      color: #fb434a;
+      top: 100%;
+      left: 0.5rem;
+      right: 0.5rem;
+      color: $notification-error;
       padding: 0;
       margin: 5px 0 0 0;
-      font-size: 80%;
-      font-weight: 400;
+      font-family: $font-regular-serif;
+      font-size: 0.9rem;
     }
     &__upper {
       color: #fff;
@@ -86,9 +94,10 @@ $input: input;
       position: absolute;
       right: 1rem;
       bottom: 35px;
+      max-height: 40px;
       margin-bottom: 8px;
-      max-width: 320px;
-      font-size: 80%;
+      max-width: 420px;
+      font-size: 0.9rem;
       z-index: 1;
       &:after {
         width: 0;

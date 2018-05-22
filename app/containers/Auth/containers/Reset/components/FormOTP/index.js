@@ -12,7 +12,7 @@ import {
 } from '../../store/actions';
 import { validateOTP } from 'lib/auth';
 
-@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+@connect(state => ({ Auth_Reset: state.Auth_Reset }), {
   resendOTP,
   blockedResendOTP,
   sendConfirm,
@@ -78,7 +78,7 @@ export default class FormOTP extends Component {
    * @returns {boolean}
    */
   validateForm = () => {
-    const { OTP } = this.props.Auth_Signup;
+    const { OTP } = this.props.Auth_Reset;
 
     const checkOTP = validateOTP(OTP);
     const checkError = checkOTP.error;
@@ -113,7 +113,7 @@ export default class FormOTP extends Component {
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}
-            value={this.props.Auth_Signup.OTP}
+            value={this.props.Auth_Reset.OTP}
             onChange={this.handleChangeOTP}
           />
         </div>
@@ -122,7 +122,7 @@ export default class FormOTP extends Component {
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
+              loading={this.props.Auth_Reset.isLoading}
             >
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
@@ -130,11 +130,11 @@ export default class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
-              disabled={this.props.Auth_Signup.resendOTPIsBlocked}
+              disabled={this.props.Auth_Reset.resendOTPIsBlocked}
               onClick={this.handleReSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
+              loading={this.props.Auth_Reset.isLoading}
             >
-              <span className={'auth-btn_text'}>{this.props.Auth_Signup.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
+              <span className={'auth-btn_text'}>{this.props.Auth_Reset.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
           </div>
         </div>

@@ -9,6 +9,9 @@ $select-border-color:       #CED4DA;
   height: 40px;
   width: 100%;
   margin-bottom: 1rem;
+  &:focus {
+    outline-color: transparent;
+  }
   select {
     font-family: $font-regular-serif;
     font-size: 1rem;
@@ -27,6 +30,9 @@ $select-border-color:       #CED4DA;
     transition: background-color 0.3s ease;
     &:hover {
       background-color: darken($white-color, 4%);
+    }
+    &:focus {
+      outline-color: lighten($lightgray-color, 10%);
     }
     &__disabled {
       background-color: gray;

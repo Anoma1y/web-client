@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import FormSignin from './components/FormSignin';
+import TopHeader from 'containers/Auth/components/TopHeader';
+import FormFooter from 'containers/Auth/components/FormFooter';
 
 export default class Signin extends Component {
 
@@ -19,8 +21,7 @@ export default class Signin extends Component {
 
         <div className={'auth-top'}>
 
-          <span className={'auth-top_text'}>Dont have an account?</span>
-          <Link className={'auth-top_link'} to={'/auth/signup/'}>Sign Up</Link>
+          <TopHeader type={'signup'} />
 
         </div>
 
@@ -38,14 +39,7 @@ export default class Signin extends Component {
 
           <div className={'auth-form_footer'}>
 
-            <p className={'auth-footer_copyright'}>Copyright © 2018 Jago. All rights reserved.</p>
-
-            <div className={'auth-footer_info'}>
-
-              <span>Terms & Conditions</span>
-              <span>Cookie Policy</span>
-
-            </div>
+            <FormFooter />
 
           </div>
 

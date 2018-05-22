@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
+import Reset from './containers/Reset';
 import Notification from 'containers/Notification';
 import './style.scss';
 
@@ -32,6 +33,7 @@ const Auth = (props) => (
 
           <Route exact path={`${props.match.url}/signin`} component={Signin} />
           <Route exact path={`${props.match.url}/signup`} component={Signup} />
+          <Route exact path={`${props.match.url}/reset`} component={Reset} />
 
         </Switch>
 

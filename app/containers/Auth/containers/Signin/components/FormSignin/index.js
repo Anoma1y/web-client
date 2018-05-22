@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import {
@@ -36,16 +37,6 @@ export default class FormSignin extends Component {
   };
 
   /**
-   * Отключение текста ошибок при фокусировке формы
-   */
-  handleFocusForm = () => {
-    this.setState({
-      passwordError: '',
-      loginError: '',
-    });
-  };
-
-  /**
    * Метод для валидации форм
    * @returns {boolean}
    */
@@ -60,11 +51,19 @@ export default class FormSignin extends Component {
       this.setState({
         loginError: checkLogin.errorText
       });
+    } else {
+      this.setState({
+        loginError: '',
+      });
     }
 
     if (checkPassword.error) {
       this.setState({
         passwordError: checkPassword.errorText
+      });
+    } else {
+      this.setState({
+        passwordError: '',
       });
     }
 
@@ -104,10 +103,9 @@ export default class FormSignin extends Component {
             icon={'user-gray'}
             iconPosition={'left'}
             error={this.state.loginError}
-            errorPosition={'upper'}
+            errorPosition={'under'}
             onChange={this.handleChangeLogin}
             onBlur={this.handleValidateForm}
-            onFocus={this.handleFocusForm}
             value={this.props.Auth_Signin.login}
           />
         </div>
@@ -118,10 +116,9 @@ export default class FormSignin extends Component {
             icon={'lock-gray'}
             iconPosition={'left'}
             error={this.state.passwordError}
-            errorPosition={'upper'}
+            errorPosition={'under'}
             onChange={this.handleChangePassword}
             onBlur={this.handleValidateForm}
-            onFocus={this.handleFocusForm}
             value={this.props.Auth_Signin.password}
             className={'auth-form_input__password'}
           />
@@ -139,6 +136,9 @@ export default class FormSignin extends Component {
           >
             <span className={'auth-btn_text'}>Sign in</span>
           </Button>
+          <div className={'auth-form_reset-link'}>
+            <Link to={'/auth/reset/'}>Forgot password?</Link>
+          </div>
         </div>
       </Fragment>
     )

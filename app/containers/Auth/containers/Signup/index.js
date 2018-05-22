@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import FormOTP from './components/FormOTP';
 import FormSignup from './components/FormSignup';
+import TopHeader from 'containers/Auth/components/TopHeader';
+import FormFooter from 'containers/Auth/components/FormFooter';
 
 @connect(state => ({ Auth_Signup: state.Auth_Signup }))
 export default class Signup extends React.Component {
@@ -41,8 +43,7 @@ export default class Signup extends React.Component {
 
         <div className={'auth-top'}>
 
-          <span className={'auth-top_text'}>Already have an account?</span>
-          <Link className={'auth-top_link'} to={'/auth/signin/'}>Sign In</Link>
+          <TopHeader type={'signin'} />
 
         </div>
         <form className={'auth-form'} onSubmit={(e) => e.preventDefault()}>
@@ -59,14 +60,7 @@ export default class Signup extends React.Component {
 
           <div className={'auth-form_footer'}>
 
-            <p className={'auth-footer_copyright'}>Copyright © 2018 Jago. All rights reserved.</p>
-
-            <div className={'auth-footer_info'}>
-
-              <span>Terms & Conditions</span>
-              <span>Cookie Policy</span>
-
-            </div>
+            <FormFooter />
 
           </div>
 
