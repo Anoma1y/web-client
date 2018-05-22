@@ -23,22 +23,23 @@ export default class Notif extends Component {
       status,
       title,
     } = this.props;
-
     return (
       <div className={`${componentClassName}-container ${componentClassName}__${status}`}>
-        <div className={`${componentClassName}_icon`} />
-        <div className={`${componentClassName}-content`}>
-          <h3 className={`${componentClassName}-content_title`}>{title}</h3>
-          <span className={`${componentClassName}-content_message`}>{message}</span>
+        <div className={`${componentClassName}-item`}>
+          <div className={`${componentClassName}-item_icon`}>
+            <Icon name={status} size={28} />
+          </div>
+          <h3 className={`${componentClassName}-item_title`}>{title}</h3>
+          <span className={`${componentClassName}-item_message`}>{message}</span>
         </div>
         {actionClose &&
-          <span className={`${componentClassName}__action`}>
+          <div className={`${componentClassName}-container_close`}>
             <button onClick={this.handleActionClick}>
-              <Icon name={`${componentClassName}_close`} size={25} />
+              <Icon name={'cancel'} size={18} />
             </button>
-          </span>
+          </div>
         }
       </div>
-    )
+    );
   }
 }

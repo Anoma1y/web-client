@@ -48,15 +48,31 @@ export const signin = () => (dispatch, getState) => {
     dispatch(setIsLoading(false));
     dispatch(send({
       id: 232,
-      title: 'Error',
       status: 'error',
+      title: 'Error',
       message: 'Couldn\'t connect to the server. Check your network connection',
+      actionClose: true,
     }))
     dispatch(send({
       id: 545,
-      title: 'Attention',
       status: 'warning',
+      title: 'Attention',
       message: 'Check your network connection',
+      actionClose: true,
+    }))
+    dispatch(send({
+      id: 6541,
+      status: 'info',
+      title: 'Information',
+      message: 'Hello World',
+      actionClose: true,
+    }))
+    dispatch(send({
+      id: 331,
+      status: 'success',
+      title: 'Success',
+      message: 'Bye world',
+      actionClose: true,
     }))
   }, 1500)
 };

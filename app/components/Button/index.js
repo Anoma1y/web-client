@@ -10,6 +10,7 @@ export default (props) => {
     disabled = props.loading, // Задизейблить
     name, // Имя
     onClick, // Экшен онклик
+    onClickLoading,
     size = 'md', // Размер кнопки
     inline, // Все кнопки будут распологаться друг за другом
     fluid, // Кнопка на весь размер внутреннего блока
