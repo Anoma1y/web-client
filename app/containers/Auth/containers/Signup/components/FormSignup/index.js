@@ -88,8 +88,9 @@ export default class FormSignup extends Component {
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
-            icon={'user'}
-            iconPosition={'right'}
+            icon={'user-gray'}
+            iconPosition={'left'}
+            required
             error={this.state.loginError}
             errorPosition={'upper'}
             value={this.props.Auth_Signup.login}
@@ -101,17 +102,22 @@ export default class FormSignup extends Component {
         <div className={'auth-form_item'}>
           <SelectList
             options={countries}
+            icon={'location-gray'}
+            iconPosition={'left'}
+            iconSize={18}
+            placeholder={'Country'}
+            required
             onChange={this.handleChangeCountry}
           />
         </div>
 
         <div className={'auth-form_item auth-form_btn'}>
           <Button
-            color={'blue'}
+            color={'lightblue'}
             onClick={this.handleSignUp}
             loading={this.props.Auth_Signup.isLoading}
           >
-            <span className={'auth-btn_text'}>Submit</span>
+            <span className={'auth-btn_text'}>Sign Up</span>
           </Button>
         </div>
       </Fragment>

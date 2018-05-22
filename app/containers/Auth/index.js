@@ -12,15 +12,19 @@ const Auth = (props) => (
   <div className={'auth'}>
 
     <div className={'auth-aside'}>
-
-      <div className={'auth-container'}>
-
+      <div className={'auth_logo'}>
+        <a href="http://www.jago.com/">
+          <img src="/static/images/logo-white.png" alt="Jago Logo" />
+        </a>
       </div>
-
     </div>
 
     <div className={'auth-content'}>
-
+      <div className={'auth_logo__mobile'}>
+        <a href="http://www.jago.com/">
+          <img src="/static/images/logo-blue.png" alt="Jago Logo Mobile" />
+        </a>
+      </div>
       <div className={'auth-container'}>
 
         <Switch>

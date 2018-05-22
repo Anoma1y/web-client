@@ -30,6 +30,7 @@ const Input = (props) => {
     name, // имя
     value, // значение
     readOnly, // Только для чтения
+    required,
     id, // id
     type = 'text' // тип 'text' | 'email' | 'password'
   } = props;
@@ -68,6 +69,7 @@ const Input = (props) => {
         disabled={disabled}
         id={id}
         name={name}
+        required={required}
         onBlur={event => onBlur && onBlur(event)}
         onChange={event => onChange && onChange(event)}
         onClick={event => onClick && onClick(event)}

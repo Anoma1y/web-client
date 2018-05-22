@@ -8,13 +8,46 @@
   justify-content: space-between;
   &-aside {
     width: 40%;
-    background-color: #EFF3F5;
+    position: relative;
+    background: $white-color url('/static/images/left-part.png') no-repeat center center;
+    background-size: cover;
+    @media screen and (max-width: $break-lg) {
+      display: none;
+    }
+  }
+
+  &_logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    &__mobile {
+      width: 110px;
+      position: absolute;
+      top: 1.1rem;
+      left: 2rem;
+      @media screen and (min-width: $break-lg + 1) {
+        display: none;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
   }
 
   &-content {
     width: 60%;
-    background-color: $white-color;
+    background: $white-color url('/static/images/right-part.png') no-repeat top right;
+    background-size: 40%;
     position: relative;
+    @media screen and (max-width: $break-1337) {
+      background-size: 45%;
+    }
+    @media screen and (max-width: $break-lg) {
+      width: 100%;
+      background: none;
+    }
   }
 
   &-top {
@@ -22,9 +55,13 @@
     top: 2rem;
     right: 2rem;
     &_text {
-      font-family: $font-regular-serif;
+      font-family: $font-semibold-serif;
       font-size: 0.9rem;
       cursor: default;
+      color: $white-color;
+      @media screen and (max-width: $break-lg) {
+        color: $black-color;
+      }
     }
     &_link {
       padding: 0.625rem 1.2rem;
@@ -36,9 +73,12 @@
       font-weight: 600;
       text-transform: uppercase;
       text-decoration: none;
-      color: $black-color;
-      background-color: $white-color;
+      color: $white-color;
+      background-color: transparent;
       transition: background-color 0.2s ease, color 0.2s ease;
+      @media screen and (max-width: $break-lg) {
+        color: $black-color;
+      }
       &:hover {
         background-color: lighten($lightgray-color, 25%);
         color: lighten($black-color, 50%);
@@ -82,10 +122,13 @@
       }
     }
   }
-
   &-form {
     width: 50%;
-    margin: 0 auto;
+    margin-left: 15px;
+    margin-right: 15px;
+    @media screen and (max-width: $break-lg) {
+      margin: 0 auto;
+    }
     &_inline-btn {
       display: inline-block;
       margin-left: 10px;
@@ -122,11 +165,10 @@
       &:last-child {
         padding-bottom: 0;
       }
-    }
-    &_input {
-      &__password {
-        input {
-          padding-right: 5rem !important;
+      input {
+        padding-right: 5rem !important;
+        &::placeholder {
+          color: $lightgray-color;
         }
       }
     }
@@ -135,10 +177,13 @@
       width: 20px;
       height: 20px;
       top: calc(50% - 1rem);
-      right: 45px;
+      right: 2rem;
       transform: translateY(-50%);
       cursor: pointer;
       padding: 0;
+      svg {
+        fill: $lightgray-color;
+      }
       &:hover .auth-form_show-placeholder {
         display: block;
       }
@@ -151,9 +196,18 @@
       bottom: -35px;
       width: 110px;
       right: 0;
+
     }
     &_btn {
       margin-top: 1rem;
+      span {
+        text-transform: uppercase;
+        font-family: $font-semibold-serif;
+      }
+      .button {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
     }
   }
 }

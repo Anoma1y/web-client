@@ -101,8 +101,8 @@ export default class FormSignin extends Component {
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
-            icon={'user'}
-            iconPosition={'right'}
+            icon={'user-gray'}
+            iconPosition={'left'}
             error={this.state.loginError}
             errorPosition={'upper'}
             onChange={this.handleChangeLogin}
@@ -115,8 +115,8 @@ export default class FormSignin extends Component {
           <Input
             type={this.state.passwordInputType}
             placeholder={'Entering password'}
-            icon={'lock'}
-            iconPosition={'right'}
+            icon={'lock-gray'}
+            iconPosition={'left'}
             error={this.state.passwordError}
             errorPosition={'upper'}
             onChange={this.handleChangePassword}
@@ -133,11 +133,11 @@ export default class FormSignin extends Component {
         </div>
         <div className={'auth-form_item auth-form_btn'}>
           <Button
-            color={'blue'}
+            color={'lightblue'}
             onClick={this.handleSignIn}
             loading={this.props.Auth_Signin.isLoading}
           >
-            <span className={'auth-btn_text'}>Submit</span>
+            <span className={'auth-btn_text'}>Sign in</span>
           </Button>
         </div>
       </Fragment>

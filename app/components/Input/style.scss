@@ -36,12 +36,12 @@ $input: input;
 
     &__icon:not(&__icon-position_right) {
       .input_control {
-        padding-left: 2rem;
+        padding-left: 4rem;
       }
     }
     &__icon-position_left {
       .input_control {
-        padding-left: 2rem;
+        padding-left: 4rem;
       }
     }
     &__icon-position_right {
@@ -58,11 +58,11 @@ $input: input;
     transform: translate(50%, -50%);
     &__position {
       &_right {
-        right: 30px;
+        right: 2rem;
         left: auto;
       }
       &_left {
-        left: 2px;
+        left: 1rem;
         right: auto;
       }
     }
