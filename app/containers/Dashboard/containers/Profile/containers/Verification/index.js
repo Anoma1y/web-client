@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Column } from 'react-flexbox-grid';
+import { Grid } from '@material-ui/core';
 
 export default class Verification extends Component {
   componentDidMount() {
@@ -10,7 +10,7 @@ export default class Verification extends Component {
   }
   render() {
     return (
-      <Grid>
+      <Grid justify={'center'}>
         <div className={'profile'}>
           I am Verification
         </div>

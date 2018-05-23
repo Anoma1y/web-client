@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import { Grid, Row, Col } from 'react-flexbox-grid';
 import NumberFormat from 'react-number-format';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
 import DataTable from 'containers/Dashboard/components/DataTable';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
+import { TextField, Grid } from '@material-ui/core';
 import './style.scss';
 
 function NumberFormatCustom(props) {
@@ -45,35 +43,31 @@ class Main extends Component {
   };
   render() {
     return (
-      <Grid container justify={'center'}>
-        <div className={'dashboard'}>
-          <Grid item xs={12}>
-            <div className={'dashboard-container'}>
-              <Banners />
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="react-number-format"
-              value={this.state.numberformat}
-              onChange={this.handleChange('numberformat')}
-              id="formatted-numberformat-input"
-              InputProps={{
-                inputComponent: NumberFormatCustom,
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <div className={'dashboard-container'}>
-              <FilterSearch handleChangeDate={this.handleChangeDate} />
-            </div>
-          </Grid>
+      <Grid container justify={'center'} className={'dashboard'}>
+        <Grid item xs={12}>
           <div className={'dashboard-container'}>
-            <Grid item xs={12}>
-              <DataTable />
-            </Grid>
+            <Banners />
           </div>
-        </div>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="react-number-format"
+            value={this.state.numberformat}
+            onChange={this.handleChange('numberformat')}
+            id="formatted-numberformat-input"
+            InputProps={{
+              inputComponent: NumberFormatCustom,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <div className={'dashboard-container'}>
+            <FilterSearch handleChangeDate={this.handleChangeDate} />
+          </div>
+        </Grid>
+        <Grid item xs={12} className={'dashboard-container'}>
+          <DataTable />
+        </Grid>
       </Grid>
     );
   }
