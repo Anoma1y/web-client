@@ -6,10 +6,11 @@ import TextField from '@material-ui/core/TextField';
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <NumberFormat
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    thousandSeparator={true}
+    // hintText={label}
+    // floatingLabelText={label}
+    // errorText={touched && error}
+    thousandSeparator
+    decimalScale={2}
     customInput={TextField}
     prefix={'$'}
     {...input}

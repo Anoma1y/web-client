@@ -1,8 +1,5 @@
-import * as React from 'react';
-import {
-  Route,
-  Switch,
-} from 'react-router-dom';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import Reset from './containers/Reset';

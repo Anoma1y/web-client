@@ -53,9 +53,4 @@ export default class Auth {
       login
     });
   }
-
-  // TEST
-  getUser() {
-    return this.http.get('/profiles/my');
-  }
 }

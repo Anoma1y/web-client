@@ -1,3 +1,4 @@
+import { replace } from 'react-router-redux';
 import {
   CHANGE_LOGIN,
   CHANGE_PASSWORD,
@@ -5,14 +6,11 @@ import {
   SET_IS_LOADING,
   SET_ERROR,
 } from './types';
-import {
-  send
-} from 'containers/Notification/store/actions';
-import { replace } from 'react-router-redux';
+import { send } from 'containers/Notification/store/actions';
+import { reset } from '../../Reset/store/actions';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
-import { reset } from '../../Reset/store/actions';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
