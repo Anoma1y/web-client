@@ -8,6 +8,8 @@ import {
 import {
   send
 } from 'containers/Notification/store/actions';
+import { replace } from 'react-router-redux';
+import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
 
@@ -45,35 +47,82 @@ export const signin = () => (dispatch, getState) => {
     return;
   }
 
-  setTimeout(() => {
-    dispatch(setIsLoading(false));
-    dispatch(send({
-      id: uuid(),
-      status: 'error',
-      title: 'Error',
-      message: 'Couldn\'t connect to the server. Check your network connection',
-      actionClose: true,
-    }));
-    dispatch(send({
-      id: uuid(),
-      status: 'warning',
-      title: 'Attention',
-      message: 'Check your network connection',
-      actionClose: true,
-    }));
-    dispatch(send({
-      id: uuid(),
-      status: 'info',
-      title: 'Information',
-      message: 'Hello World',
-      actionClose: true,
-    }));
-    dispatch(send({
-      id: uuid(),
-      status: 'success',
-      title: 'Success',
-      message: 'Bye world',
-      actionClose: true,
-    }));
-  }, 1500);
+  api.auth.authorization(login, password)
+    .then((data) => {
+      dispatch(setIsLoading(false));
+
+      if (data.status !== 200) {
+        Storage.clear();
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Ошибка авторизации',
+          timeout: 3500
+        }));
+        return;
+      }
+
+      const { authorizationToken, members } = data.data;
+
+      Storage.set('session', authorizationToken);
+      Storage.set('members', members);
+      dispatch(replace('/dashboard/'));
+    })
+    .catch((error) => {
+      const { code } = error.response.data;
+
+      if (code === 'INVALID_LOGIN_OR_PASS') {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Неверный логин или пароль',
+          timeout: 3000
+        }));
+      } else {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Ошибка сервера',
+          timeout: 3500
+        }));
+      }
+      dispatch(changeLogin(''));
+      dispatch(changePassword(''));
+      dispatch(setIsLoading(false));
+    })
+
+  // setTimeout(() => {
+  //   dispatch(setIsLoading(false));
+  //   dispatch(send({
+  //     id: uuid(),
+  //     status: 'error',
+  //     title: 'Error',
+  //     message: 'Couldn\'t connect to the server. Check your network connection',
+  //     actionClose: true,
+  //   }));
+  //   dispatch(send({
+  //     id: uuid(),
+  //     status: 'warning',
+  //     title: 'Attention',
+  //     message: 'Check your network connection',
+  //     actionClose: true,
+  //   }));
+  //   dispatch(send({
+  //     id: uuid(),
+  //     status: 'info',
+  //     title: 'Information',
+  //     message: 'Hello World',
+  //     actionClose: true,
+  //   }));
+  //   dispatch(send({
+  //     id: uuid(),
+  //     status: 'success',
+  //     title: 'Success',
+  //     message: 'Bye world',
+  //     actionClose: true,
+  //   }));
+  // }, 1500);
 };

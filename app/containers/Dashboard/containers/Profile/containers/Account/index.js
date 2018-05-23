@@ -1,22 +1,22 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-//
+import NumberFormat from 'react-number-format';
+import TextField from '@material-ui/core/TextField';
+
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
+  <NumberFormat
     hintText={label}
     floatingLabelText={label}
     errorText={touched && error}
+    thousandSeparator={true}
+    customInput={TextField}
+    prefix={'$'}
     {...input}
     {...custom}
   />
 );
-
+//
 const Account = (props) => {
   return (
     <Grid>
@@ -29,14 +29,6 @@ const Account = (props) => {
               component={renderTextField}
               type="text"
               label="E-Mail"
-            />
-          </Col>
-          <Col lg={6}>
-            <Field
-              name="phone"
-              component={renderTextField}
-              type="text"
-              label="Your current number"
             />
           </Col>
         </Row>

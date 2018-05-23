@@ -25,7 +25,6 @@ export default class FormSignin extends Component {
 
   state = {
     loginError: '',
-    passwordError: '',
     passwordInputType: 'password'
   };
 
@@ -41,11 +40,10 @@ export default class FormSignin extends Component {
    * @returns {boolean}
    */
   validateForm = () => {
-    const { login, password } = this.props.Auth_Signin;
+    const { login } = this.props.Auth_Signin;
 
     const checkLogin = validateLogin(login);
-    const checkPassword = validatePassword(password);
-    const checkError = checkPassword.error || checkLogin.error;
+    const checkError = checkLogin.error;
 
     if (checkLogin.error) {
       this.setState({
@@ -54,16 +52,6 @@ export default class FormSignin extends Component {
     } else {
       this.setState({
         loginError: '',
-      });
-    }
-
-    if (checkPassword.error) {
-      this.setState({
-        passwordError: checkPassword.errorText
-      });
-    } else {
-      this.setState({
-        passwordError: '',
       });
     }
 
@@ -115,10 +103,7 @@ export default class FormSignin extends Component {
             placeholder={'Entering password'}
             icon={'lock-gray'}
             iconPosition={'left'}
-            error={this.state.passwordError}
-            errorPosition={'under'}
             onChange={this.handleChangePassword}
-            onBlur={this.handleValidateForm}
             value={this.props.Auth_Signin.password}
             className={'auth-form_input__password'}
           />

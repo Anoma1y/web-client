@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import FormOTP from './components/FormOTP';
 import FormSignup from './components/FormSignup';
 import TopHeader from 'containers/Auth/components/TopHeader';

@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+// import { Grid, Row, Col } from 'react-flexbox-grid';
+import NumberFormat from 'react-number-format';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
 import DataTable from 'containers/Dashboard/components/DataTable';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import './style.scss';
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      ref={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      prefix="$"
+    />
+  );
+}
 
 class Main extends Component {
 
@@ -11,30 +34,44 @@ class Main extends Component {
     console.log(date);
   };
 
+  state = {
+    numberformat: '1320',
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
   render() {
     return (
-      <Grid>
+      <Grid container justify={'center'}>
         <div className={'dashboard'}>
-          <Row>
-            <Col lg={12}>
-              <div className={'dashboard-container'}>
-                <Banners />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={12}>
-              <div className={'dashboard-container'}>
-                <FilterSearch handleChangeDate={this.handleChangeDate} />
-              </div>
-            </Col>
-          </Row>
+          <Grid item xs={12}>
+            <div className={'dashboard-container'}>
+              <Banners />
+            </div>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="react-number-format"
+              value={this.state.numberformat}
+              onChange={this.handleChange('numberformat')}
+              id="formatted-numberformat-input"
+              InputProps={{
+                inputComponent: NumberFormatCustom,
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <div className={'dashboard-container'}>
+              <FilterSearch handleChangeDate={this.handleChangeDate} />
+            </div>
+          </Grid>
           <div className={'dashboard-container'}>
-            <Row center={'xs'}>
-              <Col lg={12}>
-                <DataTable />
-              </Col>
-            </Row>
+            <Grid item xs={12}>
+              <DataTable />
+            </Grid>
           </div>
         </div>
       </Grid>

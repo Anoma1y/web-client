@@ -6,10 +6,11 @@ export default class Auth {
     this.http = http;
   }
 
-  registration(login, role) {
+  registration(login, role, country) {
     return this.http.post(config.REGISTRATION, {
       login,
-      role
+      role,
+      country: country.toUpperCase()
     });
   }
 
@@ -23,6 +24,13 @@ export default class Auth {
   registrationResendOTP(login) {
     return this.http.post(config.REGISTRATION_RESEND, {
       login
+    });
+  }
+
+  authorization(login, password) {
+    return this.http.post(config.AUTHORIZATION, {
+      login,
+      password
     });
   }
 }

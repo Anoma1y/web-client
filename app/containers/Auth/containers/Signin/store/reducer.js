@@ -8,8 +8,8 @@ import {
 
 // Auth_Signup
 const INITIAL_STATE = {
-  login: 'fasdfasdfas@mail.ru',
-  password: 'QWe23E##$34',
+  login: '',
+  password: '',
   isError: false,
   isPhone: false,
   isLoading: false,
