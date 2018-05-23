@@ -4,6 +4,8 @@ import {
   CHANGE_PASSWORD,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_BLOCKED_TIME,
+  SET_IS_BLOCKED,
   SET_ERROR,
 } from './types';
 import { send } from 'containers/Notification/store/actions';
@@ -11,6 +13,7 @@ import { reset } from '../../Reset/store/actions';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
+import moment from 'moment';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -30,6 +33,16 @@ export const setError = (error = false) => ({
 export const setIsPhone = (isPhone = false) => ({
   type: SET_IS_PHONE,
   payload: isPhone
+});
+
+export const setBlockedDate = (dateBlocked = false) => ({
+  type: SET_BLOCKED_TIME,
+  payload: dateBlocked
+});
+
+export const setIsBlocked = (isBlocked = false) => ({
+  type: SET_IS_BLOCKED,
+  payload: isBlocked
 });
 
 export const setIsLoading = (isLoading = false) => ({
@@ -72,28 +85,45 @@ export const signin = () => (dispatch, getState) => {
 
       Storage.set('session', authorizationToken);
       Storage.set('members', members);
+
       dispatch(reset());
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {
-      const { code } = error.response.data;
+      const { code, message } = error.response.data;
 
-      if (code === 'INVALID_LOGIN_OR_PASS') {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Неверный логин или пароль',
-          timeout: 3000
-        }));
-      } else {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка сервера',
-          timeout: 3500
-        }));
+      switch (code) {
+        case 'USER_BANNED':
+          const dateBanned = message.split(' ');
+          const dateBannedFormated = moment(dateBanned[dateBanned.length - 1]);
+
+          const time = setInterval(() => {
+            dispatch(setBlockedDate(moment().to(dateBannedFormated)));
+            if (dateBannedFormated < moment()) {
+              clearInterval(time);
+            }
+          }, 10000);
+
+          dispatch(setIsBlocked(true));
+          dispatch(setBlockedDate(moment().to(dateBannedFormated)));
+          break;
+        case 'INVALID_LOGIN_OR_PASS':
+          dispatch(send({
+            id: uuid(),
+            status: 'error',
+            title: 'Ошибка',
+            message: 'Неверный логин или пароль',
+            timeout: 3000
+          }));
+          break;
+        default:
+          dispatch(send({
+            id: uuid(),
+            status: 'error',
+            title: 'Ошибка',
+            message: 'Ошибка сервера',
+            timeout: 3500
+          }));
       }
 
       dispatch(changeLogin(''));

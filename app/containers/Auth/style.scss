@@ -167,6 +167,17 @@
         text-decoration: none;
       }
     }
+    &_time-blocked {
+      position: absolute;
+      bottom: -2rem;
+      span {
+        font-family: $font-regular-serif;
+        font-size: 0.9rem;
+        color: $notification-error;
+        cursor: default;
+        text-transform: none !important;
+      }
+    }
     &_item {
       padding-top: 1rem;
       padding-bottom: 1rem;

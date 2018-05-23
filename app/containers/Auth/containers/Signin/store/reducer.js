@@ -3,6 +3,8 @@ import {
   CHANGE_PASSWORD,
   SET_IS_LOADING,
   SET_IS_PHONE,
+  SET_IS_BLOCKED,
+  SET_BLOCKED_TIME,
   SET_ERROR,
 } from './types';
 
@@ -13,6 +15,8 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
+  isBlocked: false,
+  blockedTime: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,6 +29,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isPhone: action.payload };
     case SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case SET_IS_BLOCKED:
+      return { ...state, isBlocked: action.payload };
+    case SET_BLOCKED_TIME:
+      return { ...state, blockedTime: action.payload };
     case SET_ERROR:
       return { ...state, isError: action.payload };
     default:
