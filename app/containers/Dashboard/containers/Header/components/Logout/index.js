@@ -1,12 +1,14 @@
 import React from 'react';
 import Icon from 'components/Icon';
 import Text from 'components/Text';
+import { logout } from 'containers/Auth/containers/Signin/store/actions';
+import { connect } from 'react-redux';
 import './style.scss';
 
-export default () => {
+const Logout = (props) => {
 
   const handleLogout = () => {
-    alert('Logout')
+    props.logout();
   };
 
   return (
@@ -18,5 +20,9 @@ export default () => {
         <Icon name={'logout'} />
       </Text>
     </div>
-  )
-}
+  );
+};
+
+export default connect(null, {
+  logout
+})(Logout);

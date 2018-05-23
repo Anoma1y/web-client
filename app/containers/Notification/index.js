@@ -6,7 +6,7 @@ import './style.scss';
 
 /**
  * status - тип оповещения (warning - предупреждение, error - ошибка, success - успешно, info - информация
- * id - уникальный индекс (чтобы не плодились)
+ * id - уникальный индекс (чтобы не плодились), использовать import uuid from 'uuid/v4'
  * title - название
  * message - сообщение
  * actionClose - возможность закрыть оповещение (true/false)

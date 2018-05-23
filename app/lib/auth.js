@@ -148,7 +148,7 @@ export const validateOTP = (val, maxLength = 32) => {
   if (val.length === 0) {
     return {
       error: true,
-      errorText: 'Entering OTP'
+      errorText: ''
     };
   }
 

@@ -11,9 +11,26 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import { api } from 'lib/api';
+import Storage from 'lib/storage';
 import './style.scss';
+import { replace } from 'react-router-redux';
+import { connect } from 'react-redux';
 
+@connect(null, ({
+  replace
+}))
 class Dashboard extends Component {
+
+  componentDidMount() {
+    const authToken = Storage.get('session');
+    if (authToken) {
+      api.addHeader('Authorization', `TOKEN ${authToken.token}`);
+    } else {
+      api.removeHeader('Authorization');
+      this.props.replace('/auth/signin');
+    }
+  }
 
   render() {
     return (
@@ -30,6 +47,9 @@ class Dashboard extends Component {
           {/* MAIN SECTION - HEADER */}
           <div className={'header-wrapper'}>
             <Header />
+            <button onClick={() => {
+              api.auth.getUser().then((data) => console.log(data)).catch((err) => console.log(err))
+            }}> Get Profile </button>
           </div>
 
           {/* MAIN SECTION - CONTENT */}

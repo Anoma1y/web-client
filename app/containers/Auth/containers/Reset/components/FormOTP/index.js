@@ -7,16 +7,21 @@ import {
   blockedResendOTP,
   sendConfirm,
   changeOTP,
+  changeNewPassword,
   setError,
   reset
 } from '../../store/actions';
-import { validateOTP } from 'lib/auth';
+import {
+  validateOTP,
+  validatePassword
+} from 'lib/auth';
 
 @connect(state => ({ Auth_Reset: state.Auth_Reset }), {
   resendOTP,
   blockedResendOTP,
   sendConfirm,
   changeOTP,
+  changeNewPassword,
   setError,
   reset
 })
@@ -24,6 +29,7 @@ export default class FormOTP extends Component {
 
   state = {
     otpError: '',
+    passwordError: '',
     timer: 0
   };
 
@@ -39,6 +45,11 @@ export default class FormOTP extends Component {
   componentWillUnmount() {
     clearTimeout(this.timeOut);
   }
+
+  handleChangeNewUserPassword = (e) => {
+    const { value } = e.target;
+    this.props.changeNewPassword(value);
+  };
 
   /**
    * Метод для проверки ввода ОТП только цифр
@@ -78,19 +89,26 @@ export default class FormOTP extends Component {
    * @returns {boolean}
    */
   validateForm = () => {
-    const { OTP } = this.props.Auth_Reset;
+    const { OTP, newUserPassword } = this.props.Auth_Reset;
 
     const checkOTP = validateOTP(OTP);
-    const checkError = checkOTP.error;
+    const checkPassword = validatePassword(newUserPassword);
 
-    if (checkOTP.error) {
-      this.setState({
-        otpError: checkOTP.errorText
-      });
-    }
+    const checkError = checkOTP.error || checkPassword.error;
+    this.setState({
+      otpError: checkOTP.error ? checkOTP.errorText : '',
+      passwordError: checkPassword.error ? checkPassword.errorText : ''
+    });
 
     this.props.setError(checkError);
     return !checkError;
+  };
+
+  /**
+   * Метод для обработки ошибок после того, как пользователь уберет фокус с инпута
+   */
+  handlePasswordBlur = () => {
+    this.validateForm();
   };
 
   /**
@@ -105,6 +123,19 @@ export default class FormOTP extends Component {
   render() {
     return (
       <Fragment>
+        <div className={'auth-form_item'}>
+          <Input
+            type="text"
+            placeholder={'Entering new password'}
+            icon={'lock-gray'}
+            iconPosition={'left'}
+            error={this.state.passwordError}
+            errorPosition={'under'}
+            value={this.props.Auth_Reset.newUserPassword}
+            onChange={this.handleChangeNewUserPassword}
+            onBlur={this.handlePasswordBlur}
+          />
+        </div>
         <div className={'auth-form_item'}>
           <Input
             type="text"

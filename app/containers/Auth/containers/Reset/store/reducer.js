@@ -1,21 +1,23 @@
 import {
   CHANGE_LOGIN,
+  CHANGE_NEW_USER_PASSWORD,
+  CHANGE_OTP,
+  SET_ERROR,
   SET_IS_PHONE,
   SET_IS_LOADING,
-  CHANGE_OTP,
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
   RESET,
-  SET_ERROR
 } from './types';
 
 const INITIAL_STATE = {
   OTP: '',
-  login: '',
+  login: 'ueuknjg@gmail.com',
+  newUserPassword: '',
   isError: false,
   isPhone: false,
   isLoading: false,
-  otpIsSend: false,
+  otpIsSend: true,
   resendOTPIsBlocked: false,
 };
 
@@ -25,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, login: action.payload };
     case CHANGE_OTP:
       return { ...state, OTP: action.payload };
+    case CHANGE_NEW_USER_PASSWORD:
+      return { ...state, newUserPassword: action.payload };
     case SET_IS_PHONE:
       return { ...state, isPhone: action.payload };
     case SET_IS_LOADING:

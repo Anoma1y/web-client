@@ -18,6 +18,19 @@ class Api {
     this.auth = new AuthApiModule(this.http);
   }
 
+  addHeader(key, value) {
+    this.http.defaults.headers = {
+      ...this.http.defaults.headers,
+      [key]: value
+    };
+  }
+
+  removeHeader(key) {
+    if (key in this.http.defaults.headers) {
+      delete this.http.defaults.headers[key];
+    }
+  }
+
   registerBeforeInterceptor() {
     this.http.interceptors.request.use(
       // Do something before request is made

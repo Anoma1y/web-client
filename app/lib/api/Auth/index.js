@@ -33,4 +33,29 @@ export default class Auth {
       password
     });
   }
+
+  reset(login) {
+    return this.http.post(config.RESET, {
+      login
+    });
+  }
+
+  resetConfirm(login, otp, newUserPassword) {
+    return this.http.post(config.RESET_CONFIRM, {
+      login,
+      otp,
+      newUserPassword
+    });
+  }
+
+  resetResendOTP(login) {
+    return this.http.post(config.RESET_RESEND, {
+      login
+    });
+  }
+
+  // TEST
+  getUser() {
+    return this.http.get('/profiles/my');
+  }
 }

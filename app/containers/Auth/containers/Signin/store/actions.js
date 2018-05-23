@@ -12,6 +12,7 @@ import { replace } from 'react-router-redux';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
+import { reset } from '../../Reset/store/actions';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -37,6 +38,12 @@ export const setIsLoading = (isLoading = false) => ({
   type: SET_IS_LOADING,
   payload: isLoading
 });
+
+// TODO переместить в отдельный компонент + переделать логаут
+export const logout = () => (dispatch) => {
+  Storage.clear();
+  dispatch(replace('/auth/signin'));
+};
 
 export const signin = () => (dispatch, getState) => {
   const { login, password, isError } = getState().Auth_Signin;
@@ -67,6 +74,7 @@ export const signin = () => (dispatch, getState) => {
 
       Storage.set('session', authorizationToken);
       Storage.set('members', members);
+      dispatch(reset());
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {
@@ -92,37 +100,6 @@ export const signin = () => (dispatch, getState) => {
       dispatch(changeLogin(''));
       dispatch(changePassword(''));
       dispatch(setIsLoading(false));
-    })
+    });
 
-  // setTimeout(() => {
-  //   dispatch(setIsLoading(false));
-  //   dispatch(send({
-  //     id: uuid(),
-  //     status: 'error',
-  //     title: 'Error',
-  //     message: 'Couldn\'t connect to the server. Check your network connection',
-  //     actionClose: true,
-  //   }));
-  //   dispatch(send({
-  //     id: uuid(),
-  //     status: 'warning',
-  //     title: 'Attention',
-  //     message: 'Check your network connection',
-  //     actionClose: true,
-  //   }));
-  //   dispatch(send({
-  //     id: uuid(),
-  //     status: 'info',
-  //     title: 'Information',
-  //     message: 'Hello World',
-  //     actionClose: true,
-  //   }));
-  //   dispatch(send({
-  //     id: uuid(),
-  //     status: 'success',
-  //     title: 'Success',
-  //     message: 'Bye world',
-  //     actionClose: true,
-  //   }));
-  // }, 1500);
 };

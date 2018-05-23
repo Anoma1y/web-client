@@ -7,6 +7,7 @@ import {
   setError,
   setIsPhone,
   setIsLoading,
+  getOTP
 } from '../../store/actions';
 import {
   transformLoginType,
@@ -18,6 +19,7 @@ import {
   setError,
   setIsPhone,
   setIsLoading,
+  getOTP
 })
 export default class FormReset extends Component {
 
@@ -64,7 +66,7 @@ export default class FormReset extends Component {
 
   handleReset = () => {
     if (this.validateForm()) {
-      console.log(1);
+      this.props.getOTP();
     }
   };
 
