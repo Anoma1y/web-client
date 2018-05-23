@@ -49,23 +49,16 @@ export default class FormSignup extends Component {
    * @returns {boolean}
    */
   validateForm = () => {
-    const { login } = this.props.Auth_Signup;
+    const { login, country } = this.props.Auth_Signup;
     const checkLogin = validateLogin(login);
-    const checkError = checkLogin.error;
+    const checkError = checkLogin.error || country.length === 0;
 
-    if (checkLogin.error) {
-      this.setState({
-        loginError: checkLogin.errorText
-      });
-    } else {
-      this.setState({
-        loginError: '',
-      });
-    }
+    this.setState({
+      loginError: checkLogin.error ? checkLogin.errorText : ''
+    });
 
     this.props.setError(checkError);
     return !checkError;
-
   };
 
   /**

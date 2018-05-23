@@ -44,6 +44,7 @@ export default class FormOTP extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timeOut);
+    this.props.reset();
   }
 
   handleChangeNewUserPassword = (e) => {

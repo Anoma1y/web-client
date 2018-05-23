@@ -1,3 +1,4 @@
+import { replace } from 'react-router-redux';
 import {
   CHANGE_LOGIN,
   CHANGE_ROLE,
@@ -12,6 +13,9 @@ import {
 } from './types';
 import { api } from 'lib/api';
 import { checkIsPhone } from 'lib/auth';
+import { send } from '../../../../Notification/store/actions';
+import Storage from '../../../../../lib/storage';
+import uuid from 'uuid/v1';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -82,16 +86,35 @@ export const getOTP = () => (dispatch, getState) => {
     authLogin = login.replace(/\+/g, '');
     dispatch(setIsPhone(true));
   }
+
   api.auth.registration(authLogin, role, country)
     .then((data) => {
-      console.log(data)
+      if (data.status !== 200) return;
+
       dispatch(setOtpIsSend(true));
       dispatch(setIsLoading(false));
     })
     .catch((error) => {
-      // TODO Добавить вывод ошибки
+      const { code } = error.response.data;
+
       dispatch(setIsLoading(false));
-      console.log(error);
+      if (code === 'USER_ALREADY_EXISTS') {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Логин уже занят',
+          timeout: 3500
+        }));
+      } else {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Ошибка сервера',
+          timeout: 3500
+        }));
+      }
     });
 };
 
@@ -115,17 +138,35 @@ export const resendOTP = () => (dispatch, getState) => {
     dispatch(setIsPhone(true));
   }
 
+  dispatch(blockedResendOTP(true));
   dispatch(setIsLoading(true));
   api.auth.registrationResendOTP(authLogin)
     .then((data) => {
       console.log(data)
-      dispatch(blockedResendOTP(true));
       dispatch(setIsLoading(false));
     })
     .catch((error) => {
-      dispatch(blockedResendOTP(true));
+      const { code } = error.response.data;
+
       dispatch(setIsLoading(false));
-      console.log(error);
+      if (code === 'USER_NOT_FOUND') {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Error',
+          message: 'Пользователь не найден',
+          timeout: 3500
+        }));
+        dispatch(replace('/auth/signin'));
+      } else {
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Ошибка сервера',
+          timeout: 3500
+        }));
+      }
     });
 };
 
@@ -135,21 +176,51 @@ export const resendOTP = () => (dispatch, getState) => {
  */
 export const sendConfirm = () => (dispatch, getState) => {
   const { login, isError, OTP } = getState().Auth_Signup;
+  let authLogin = login;
 
   if (isError) {
     return;
   }
 
-  api.auth.registrationConfirm(login, OTP)
+  if (checkIsPhone(login)) {
+    authLogin = login.replace(/\+/g, '');
+    dispatch(setIsPhone(true));
+  }
+
+  api.auth.registrationConfirm(authLogin, OTP)
 
     .then((data) => {
-      console.log(data)
-      dispatch(changeOTP(''));
       dispatch(setIsLoading(false));
+
+      if (data.status !== 200) {
+        Storage.clear();
+        dispatch(send({
+          id: uuid(),
+          status: 'error',
+          title: 'Ошибка',
+          message: 'Ошибка авторизации',
+          timeout: 3500
+        }));
+        return;
+      }
+
+      const { authorizationToken, members } = data.data;
+
+      Storage.set('session', authorizationToken);
+      Storage.set('members', members);
+      dispatch(reset());
+      dispatch(replace('/dashboard/'));
+
     })
 
-    .catch((error) => {
+    .catch(() => {
       dispatch(setIsLoading(false));
-      console.log(error);
+      dispatch(send({
+        id: uuid(),
+        status: 'error',
+        title: 'Ошибка',
+        message: 'Ошибка сервера',
+        timeout: 3500
+      }));
     });
 };

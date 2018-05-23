@@ -97,6 +97,7 @@ export const signin = () => (dispatch, getState) => {
           timeout: 3500
         }));
       }
+
       dispatch(changeLogin(''));
       dispatch(changePassword(''));
       dispatch(setIsLoading(false));
