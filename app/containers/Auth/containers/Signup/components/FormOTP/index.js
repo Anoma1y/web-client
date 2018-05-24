@@ -33,13 +33,14 @@ export default class FormOTP extends Component {
    * После истечения 100000 мс, форма сбрасывает в начальное состояние
    */
   componentDidMount() {
-    this.timeOut = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.props.reset();
     }, 100000);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeOut);
+    clearTimeout(this.timeout);
+    clearInterval(this.resendTimeout);
     this.props.clearAll();
     this.props.reset();
   }
@@ -64,10 +65,10 @@ export default class FormOTP extends Component {
       timer: 30
     });
 
-    this.time = setInterval(() => {
+    this.resendTimeout = setInterval(() => {
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(false);
-        clearInterval(this.time);
+        clearInterval(this.resendTimeout);
       }
       this.setState({
         timer: this.state.timer - 1
