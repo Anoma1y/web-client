@@ -2,6 +2,7 @@ import axios from 'axios';
 import config from './config';
 import AuthApiModule from './Auth';
 import ProfileApiModule from './Profile';
+import CoinsApiModule from './Coins';
 
 class Api {
 
@@ -18,13 +19,17 @@ class Api {
 
     this.auth = new AuthApiModule(this.http);
     this.profile = new ProfileApiModule(this.http);
+    this.coins = new CoinsApiModule(this.http);
   }
 
   addHeader(key, value) {
-    this.http.defaults.headers = {
-      ...this.http.defaults.headers,
-      [key]: value
-    };
+    return new Promise((res) => {
+      this.http.defaults.headers = {
+        ...this.http.defaults.headers,
+        [key]: value
+      };
+      res();
+    });
   }
 
   removeHeader(key) {

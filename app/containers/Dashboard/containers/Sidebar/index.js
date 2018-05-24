@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Icon from 'components/Icon';
 import SidebarUser from './components/SidebarUser';
 import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
+import { initialWallet } from './store/actions';
 import './style.scss';
 
+@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+  initialWallet
+}))
 class Sidebar extends Component {
 
   state = {
@@ -19,7 +24,9 @@ class Sidebar extends Component {
    * - клик по любой другой области не совпадающей с сайдбаром
    */
   componentDidMount() {
+    this.props.initialWallet();
     this.updateDimensions();
+
     document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
   }
@@ -101,7 +108,9 @@ class Sidebar extends Component {
               </div>
 
               <div className={'sidebar_item sidebar-wallets'}>
-                <SidebarWallet />
+                {
+                  this.props.Dashboard_Sidebar.coins && <SidebarWallet />
+                }
               </div>
 
               <div className={'sidebar_item sidebar-cards'}>
