@@ -167,9 +167,10 @@
         text-decoration: none;
       }
     }
-    &_time-blocked {
+    &_error {
       position: absolute;
       bottom: -2rem;
+      left: 0;
       span {
         font-family: $font-regular-serif;
         font-size: 0.9rem;

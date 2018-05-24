@@ -10,6 +10,7 @@ import {
   setError,
   reset
 } from '../../store/actions';
+import { clearAll } from 'containers/Notification/store/actions';
 import { validateOTP } from 'lib/auth';
 
 @connect(state => ({ Auth_Signup: state.Auth_Signup }), {
@@ -18,6 +19,7 @@ import { validateOTP } from 'lib/auth';
   sendConfirm,
   changeOTP,
   setError,
+  clearAll,
   reset
 })
 export default class FormOTP extends Component {
@@ -38,6 +40,7 @@ export default class FormOTP extends Component {
 
   componentWillUnmount() {
     clearTimeout(this.timeOut);
+    this.props.clearAll();
     this.props.reset();
   }
 
@@ -104,6 +107,15 @@ export default class FormOTP extends Component {
   };
 
   render() {
+
+    const {
+      OTP,
+      otpIsBlock,
+      isLoading,
+      resendOTPIsBlocked,
+      errorMessage
+    } = this.props.Auth_Signup;
+
     return (
       <Fragment>
         <div className={'auth-form_item'}>
@@ -114,7 +126,7 @@ export default class FormOTP extends Component {
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}
-            value={this.props.Auth_Signup.OTP}
+            value={OTP}
             onChange={this.handleChangeOTP}
           />
         </div>
@@ -123,7 +135,8 @@ export default class FormOTP extends Component {
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
+              disabled={otpIsBlock}
+              loading={isLoading}
             >
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
@@ -131,12 +144,18 @@ export default class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
-              disabled={this.props.Auth_Signup.resendOTPIsBlocked}
+              disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={this.props.Auth_Signup.isLoading}
+              loading={isLoading}
             >
-              <span className={'auth-btn_text'}>{this.props.Auth_Signup.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
+              <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
+            {
+              errorMessage !== '' &&
+              <div className={'auth-form_error'}>
+                <span>{errorMessage}</span>
+              </div>
+            }
           </div>
         </div>
       </Fragment>

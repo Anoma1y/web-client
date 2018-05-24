@@ -1,5 +1,5 @@
 export default {
-  REGISTRATION: '/registration',
+  REGISTRATION: '/jago-registration',
   REGISTRATION_CONFIRM: '/registration/confirm',
   REGISTRATION_RESEND: '/registration/resend-otp',
 
@@ -11,3 +11,16 @@ export default {
   RESET_CONFIRM: '/password/recovery/confirm',
   RESET_RESEND: '/password/recovery/resend-otp',
 };
+
+// code
+//   :
+//   "CONFIRMATION_CODE_INVALID"
+// identifier
+//   :
+//   "E96UXM0T"
+// message
+//   :
+//   "Неверный код. У вас осталось 3 попытки."
+// status
+//   :
+//   "fail"

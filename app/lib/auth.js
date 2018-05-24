@@ -47,7 +47,6 @@ export const checkIsPhone = (val) => {
  */
 export const transformLoginType = (val) => {
   let login = val;
-
   const testVal = checkIsPhone(val);
   if (val.length !== 0) {
     if (testVal) {
@@ -58,7 +57,6 @@ export const transformLoginType = (val) => {
       login = val.replace(/\+/g, '');
     }
   }
-
   return login.trim();
 };
 

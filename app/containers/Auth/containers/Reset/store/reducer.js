@@ -6,19 +6,23 @@ import {
   SET_IS_PHONE,
   SET_IS_LOADING,
   SET_OTP_IS_SEND,
+  SET_ERROR_MESSAGE,
   SET_RESEND_OTP_BLOCKED,
+  SET_OTP_IS_BLOCK,
   RESET,
 } from './types';
 
 const INITIAL_STATE = {
   OTP: '',
-  login: 'ueuknjg@gmail.com',
+  login: '',
   newUserPassword: '',
   isError: false,
   isPhone: false,
   isLoading: false,
-  otpIsSend: true,
+  otpIsSend: false,
   resendOTPIsBlocked: false,
+  otpIsBlock: false,
+  errorMessage: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -37,8 +41,12 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isError: action.payload };
     case SET_OTP_IS_SEND:
       return { ...state, otpIsSend: action.payload };
+    case SET_ERROR_MESSAGE:
+      return { ...state, errorMessage: action.payload };
     case SET_RESEND_OTP_BLOCKED:
       return { ...state, resendOTPIsBlocked: action.payload };
+    case SET_OTP_IS_BLOCK:
+      return { ...state, otpIsBlock: action };
     case RESET:
       return { ...state, ...INITIAL_STATE };
     default:

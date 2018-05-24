@@ -27,8 +27,17 @@ export default class FormReset extends Component {
     loginError: ''
   };
 
+  /**
+   * Метод обработчик ввода логина
+   * При вводе проверяет тип логина (телефон или почта), а также валидируют вводимые символы
+   * Разрешены только английские буквы, цифры и "+"  "@"  "."
+   * @param e
+   */
   handleChangeLogin = (e) => {
     const { value } = e.target;
+
+    if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
+
     const login = transformLoginType(value);
     this.props.changeLogin(login);
   };
@@ -64,6 +73,9 @@ export default class FormReset extends Component {
 
   };
 
+  /**
+   * Отправка OTP
+   */
   handleReset = () => {
     if (this.validateForm()) {
       this.props.getOTP();
@@ -71,6 +83,13 @@ export default class FormReset extends Component {
   };
 
   render() {
+
+    const {
+      login,
+      isLoading,
+      errorMessage,
+    } = this.props.Auth_Reset;
+
     return (
       <Fragment>
         <div className={'auth-form_item'}>
@@ -83,17 +102,23 @@ export default class FormReset extends Component {
             errorPosition={'under'}
             onChange={this.handleChangeLogin}
             onBlur={this.handleValidateForm}
-            value={this.props.Auth_Reset.login}
+            value={login}
           />
         </div>
         <div className={'auth-form_item auth-form_btn auth-form_btn__indent_none'}>
           <Button
             color={'lightblue'}
             onClick={this.handleReset}
-            loading={this.props.Auth_Reset.isLoading}
+            loading={isLoading}
           >
             <span className={'auth-btn_text'}>Reset</span>
           </Button>
+          {
+            errorMessage !== '' &&
+            <div className={'auth-form_error'}>
+              <span>{errorMessage}</span>
+            </div>
+          }
         </div>
       </Fragment>
     )

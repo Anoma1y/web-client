@@ -12,11 +12,14 @@ import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
+import { send } from 'containers/Notification/store/actions';
 import moment from 'moment';
 import './style.scss';
+import uuid from 'uuid/v1';
 
 @connect(null, ({
-  replace
+  replace,
+  send
 }))
 class Dashboard extends Component {
 
@@ -25,7 +28,20 @@ class Dashboard extends Component {
 
     if (authToken && (moment() < moment(authToken.expiresAt))) {
       api.addHeader('Authorization', `TOKEN ${authToken.token}`);
+      api.profile.getProfile().then((data) => {
+        console.log(data)
+      }).catch((error) => {
+        console.log(error)
+      })
     } else {
+      this.props.send({
+        id: uuid(),
+        status: 'warning',
+        title: 'Предупреждение',
+        message: 'Время сессии истекло',
+        actionClose: true
+      });
+      Storage.clear();
       api.removeHeader('Authorization');
       this.props.replace('/auth/signin');
     }

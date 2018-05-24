@@ -10,7 +10,7 @@ export default class Auth {
     return this.http.post(config.REGISTRATION, {
       login,
       role,
-      country: country.toUpperCase()
+      country
     });
   }
 

@@ -7,5 +7,6 @@ export const SET_IS_LOADING = 'Auth_Signup/SET_IS_LOADING';
 export const SET_ERROR = 'Auth_Signup/SET_ERROR';
 export const SET_OTP_IS_SEND = 'Auth_Signup/SET_OTP_IS_SEND';
 export const SET_RESEND_OTP_BLOCKED = 'Auth_Signup/SET_RESEND_OTP_BLOCKED';
-
+export const SET_OTP_IS_BLOCK = 'Auth_Signup/SET_OTP_IS_BLOCK';
+export const SET_ERROR_MESSAGE = 'Auth_Signup/SET_ERROR_MESSAGE';
 export const RESET = 'Auth_Signup/RESET';

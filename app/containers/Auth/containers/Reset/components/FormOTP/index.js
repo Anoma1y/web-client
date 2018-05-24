@@ -34,12 +34,12 @@ export default class FormOTP extends Component {
   };
 
   /**
-   * После истечения 100000 мс, форма сбрасывает в начальное состояние
+   * После истечения 300000 мс (5 минут), форма сбрасывает в начальное состояние
    */
   componentDidMount() {
     this.timeOut = setTimeout(() => {
       this.props.reset();
-    }, 100000);
+    }, 300000);
   }
 
   componentWillUnmount() {
@@ -122,6 +122,16 @@ export default class FormOTP extends Component {
   };
 
   render() {
+
+    const {
+      newUserPassword,
+      OTP,
+      otpIsBlock,
+      isLoading,
+      resendOTPIsBlocked,
+      errorMessage
+    } = this.props.Auth_Reset;
+
     return (
       <Fragment>
         <div className={'auth-form_item'}>
@@ -132,7 +142,7 @@ export default class FormOTP extends Component {
             iconPosition={'left'}
             error={this.state.passwordError}
             errorPosition={'under'}
-            value={this.props.Auth_Reset.newUserPassword}
+            value={newUserPassword}
             onChange={this.handleChangeNewUserPassword}
             onBlur={this.handlePasswordBlur}
           />
@@ -145,7 +155,7 @@ export default class FormOTP extends Component {
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}
-            value={this.props.Auth_Reset.OTP}
+            value={OTP}
             onChange={this.handleChangeOTP}
           />
         </div>
@@ -154,7 +164,8 @@ export default class FormOTP extends Component {
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
-              loading={this.props.Auth_Reset.isLoading}
+              disabled={otpIsBlock}
+              loading={isLoading}
             >
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
@@ -162,12 +173,18 @@ export default class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
-              disabled={this.props.Auth_Reset.resendOTPIsBlocked}
+              disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={this.props.Auth_Reset.isLoading}
+              loading={isLoading}
             >
-              <span className={'auth-btn_text'}>{this.props.Auth_Reset.resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
+              <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
+            {
+              errorMessage !== '' &&
+              <div className={'auth-form_error'}>
+                <span>{errorMessage}</span>
+              </div>
+            }
           </div>
         </div>
       </Fragment>

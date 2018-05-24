@@ -28,11 +28,16 @@ export default class FormSignup extends Component {
   };
 
   /**
-   * Метод для обработки ввода логина и трансформация значения в подходящий формат (телефон или почта)
-   * @param e - эвент
+   * Метод обработчик ввода логина
+   * При вводе проверяет тип логина (телефон или почта), а также валидируют вводимые символы
+   * Разрешены только английские буквы, цифры и "+"  "@"  "."
+   * @param e
    */
   handleChangeLogin = (e) => {
     const { value } = e.target;
+
+    if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
+
     const login = transformLoginType(value);
     this.props.changeLogin(login);
   };
@@ -66,7 +71,8 @@ export default class FormSignup extends Component {
    * @param value - код страны
    */
   handleChangeCountry = ({ value }) => {
-    this.props.changeCountry(value);
+    const country = value.toUpperCase();
+    this.props.changeCountry(country);
   };
 
   /**
@@ -116,6 +122,12 @@ export default class FormSignup extends Component {
           >
             <span className={'auth-btn_text'}>Sign Up</span>
           </Button>
+          {
+            this.props.Auth_Signup.errorMessage !== '' &&
+            <div className={'auth-form_error'}>
+              <span>{this.props.Auth_Signup.errorMessage}</span>
+            </div>
+          }
         </div>
       </Fragment>
     );

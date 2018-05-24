@@ -7,7 +7,9 @@ import {
   SET_IS_PHONE,
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
+  SET_OTP_IS_BLOCK,
   SET_ERROR,
+  SET_ERROR_MESSAGE,
   RESET
 } from './types';
 
@@ -19,8 +21,10 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
-  otpIsSend: false, // TODO добавить сброс после перехода по ссылкам
+  otpIsSend: false,
+  otpIsBlock: false,
   resendOTPIsBlocked: false,
+  errorMessage: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -39,10 +43,14 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, isError: action.payload };
     case SET_OTP_IS_SEND:
       return { ...state, otpIsSend: action.payload };
+    case SET_OTP_IS_BLOCK:
+      return { ...state, otpIsBlock: action };
     case CHANGE_OTP:
       return { ...state, OTP: action.payload };
     case SET_RESEND_OTP_BLOCKED:
       return { ...state, resendOTPIsBlocked: action.payload };
+    case SET_ERROR_MESSAGE:
+      return { ...state, errorMessage: action.payload };
     case RESET:
       return { ...state, ...INITIAL_STATE };
     default:

@@ -6,15 +6,15 @@ import {
   SET_IS_PHONE,
   SET_IS_LOADING,
   SET_OTP_IS_SEND,
+  SET_ERROR_MESSAGE,
   SET_RESEND_OTP_BLOCKED,
+  SET_OTP_IS_BLOCK,
   RESET,
 } from './types';
-import { send } from 'containers/Notification/store/actions';
 import { replace } from 'react-router-redux';
 import { api } from 'lib/api';
 import { checkIsPhone } from 'lib/auth';
-import uuid from 'uuid/v1';
-import Storage from '../../../../../lib/storage';
+import Storage from 'lib/storage';
 
 export const changeLogin = (val) => ({
   type: CHANGE_LOGIN,
@@ -31,6 +31,11 @@ export const setError = (error = false) => ({
   payload: error
 });
 
+export const setErrorMessage = (message = '') => ({
+  type: SET_ERROR_MESSAGE,
+  payload: message
+});
+
 export const setIsPhone = (isPhone = false) => ({
   type: SET_IS_PHONE,
   payload: isPhone
@@ -39,6 +44,11 @@ export const setIsPhone = (isPhone = false) => ({
 export const setIsLoading = (isLoading = false) => ({
   type: SET_IS_LOADING,
   payload: isLoading
+});
+
+export const blockOTPsend = (isBlock = false) => ({
+  type: SET_OTP_IS_BLOCK,
+  payload: isBlock
 });
 
 export const setOtpIsSend = (isSend = false) => ({
@@ -70,11 +80,10 @@ export const getOTP = () => (dispatch, getState) => {
   const { login, isError } = getState().Auth_Reset;
   let authLogin = login;
 
-  if (isError) {
-    return;
-  }
+  if (isError) return;
 
   dispatch(setIsLoading(true));
+  dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
 
@@ -85,35 +94,28 @@ export const getOTP = () => (dispatch, getState) => {
 
   api.auth.reset(authLogin)
     .then((data) => {
-      if (data.status !== 200) return;
+
+      if (data.status !== 200) {
+        dispatch(setErrorMessage('Server error')); // ?
+        return;
+      }
 
       dispatch(setOtpIsSend(true));
       dispatch(setIsLoading(false));
 
     })
     .catch((error) => {
-      const { code } = error.response.data;
+      const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
       dispatch(changeLogin(''));
 
       if (code === 'LOGIN_CREDENTIAL_NOT_FOUND') {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Логин не существует',
-          timeout: 3000
-        }));
+        dispatch(setErrorMessage(message));
       } else {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка сервера',
-          timeout: 3500
-        }));
+        dispatch(setErrorMessage('Server error'));
       }
+
     });
 };
 
@@ -129,25 +131,21 @@ export const sendConfirm = () => (dispatch, getState) => {
     return;
   }
 
+  dispatch(setErrorMessage(''));
+  dispatch(setIsLoading(true));
+
   if (checkIsPhone(login)) {
     authLogin = login.replace(/\+/g, '');
     dispatch(setIsPhone(true));
   }
 
-  dispatch(setIsLoading(true));
   api.auth.resetConfirm(authLogin, OTP, newUserPassword)
     .then((data) => {
+
       dispatch(setIsLoading(false));
 
       if (data.status !== 200) {
         Storage.clear();
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка авторизации',
-          timeout: 3500
-        }));
         return;
       }
 
@@ -155,20 +153,32 @@ export const sendConfirm = () => (dispatch, getState) => {
 
       Storage.set('session', authorizationToken);
       Storage.set('members', members);
+
       dispatch(reset());
       dispatch(replace('/dashboard/'));
     })
-    .catch(() => {
+    .catch((error) => {
+
+      const { code, message } = error.response.data;
+
       dispatch(setIsLoading(false));
-      dispatch(send({
-        id: uuid(),
-        status: 'error',
-        title: 'Ошибка',
-        message: 'Ошибка сервера',
-        timeout: 3500
-      }));
+
+      switch (code) {
+        case 'LOGIN_CREDENTIAL_NOT_FOUND':
+          dispatch(setErrorMessage(message));
+          break;
+        case 'CONFIRMATION_CODE_INVALID':
+          dispatch(setErrorMessage(message));
+          break;
+        case 'USER_NOT_ACTIVE':
+          dispatch(blockOTPsend(true)); // TODO добавить таймер как в регистрации
+          dispatch(setErrorMessage('Аккаунт временно заблокирован'));
+          break;
+        default:
+          dispatch(setErrorMessage('Server error'));
+      }
     });
-}
+};
 
 /**
  * Экшен для повторной отправки ОТП
@@ -178,52 +188,41 @@ export const sendConfirm = () => (dispatch, getState) => {
 export const resendOTP = () => (dispatch, getState) => {
   const { login, resendOTPIsBlocked, isError, isPhone } = getState().Auth_Reset;
   let authLogin = login;
-  dispatch(changeOTP(''));
 
   if (resendOTPIsBlocked || isError) {
     return;
   }
+
+  dispatch(changeOTP(''));
+  dispatch(setIsLoading(true));
+  dispatch(blockedResendOTP(true));
+  dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
     authLogin = login.replace(/\+/g, '');
     dispatch(setIsPhone(true));
   }
 
-  dispatch(setIsLoading(true));
-  dispatch(blockedResendOTP(true));
-
   api.auth.resetResendOTP(authLogin)
     .then(() => {
-      dispatch(send({
-        id: uuid(),
-        status: 'success',
-        title: 'OTP',
-        message: `OTP отправлен Вам на ${isPhone ? 'телефон' : 'почту'}`,
-        timeout: 3500
-      }));
+      // TODO добавить какое нибудь оповещение
       dispatch(setIsLoading(false));
     })
     .catch((error) => {
-      const { code } = error.response.data;
+      const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
-      if (code === 'USER_NOT_FOUND') {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Error',
-          message: 'Пользователь не найден',
-          timeout: 3500
-        }));
-        dispatch(replace('/auth/signin'));
-      } else {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка сервера',
-          timeout: 3500
-        }));
+
+      switch (code) {
+        case 'CONFIRMATION_CODE_NOT_FOUND':
+          dispatch(setErrorMessage(message));
+          break;
+        case 'USER_NOT_FOUND':
+          dispatch(setErrorMessage(message));
+          dispatch(replace('/auth/signin'));
+          break;
+        default:
+          dispatch(setErrorMessage('Server error'));
       }
     });
 };

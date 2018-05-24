@@ -8,23 +8,28 @@ import {
   SET_IS_LOADING,
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
+  SET_OTP_IS_BLOCK,
+  SET_ERROR_MESSAGE,
   SET_ERROR,
   RESET
 } from './types';
 import { api } from 'lib/api';
 import { checkIsPhone } from 'lib/auth';
-import { send } from '../../../../Notification/store/actions';
-import Storage from '../../../../../lib/storage';
-import uuid from 'uuid/v1';
+import Storage from 'lib/storage';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
   payload: login
 });
 
-export const changeRole = (role) => ({
+export const changeRole = (role = 'individual') => ({
   type: CHANGE_ROLE,
   payload: role
+});
+
+export const setErrorMessage = (message = '') => ({
+  type: SET_ERROR_MESSAGE,
+  payload: message
 });
 
 export const setOtpIsSend = (isSend = false) => ({
@@ -40,6 +45,11 @@ export const changeOTP = (otp) => ({
 export const blockedResendOTP = (blocked = false) => ({
   type: SET_RESEND_OTP_BLOCKED,
   payload: blocked
+});
+
+export const blockOTPsend = (isBlock = false) => ({
+  type: SET_OTP_IS_BLOCK,
+  payload: isBlock
 });
 
 export const changeCountry = (country) => ({
@@ -67,7 +77,7 @@ export const reset = () => ({
 });
 
 /**
- * Экшен для отправки логина (и страны)? и рендер новой формы для ввода OTP
+ * Экшен для отправки логина и страны и рендер новой формы для ввода OTP
  * В зависимости что было отправлено (почта или телефон) придет код
  * @returns {function(*, *)}
  */
@@ -81,6 +91,7 @@ export const getOTP = () => (dispatch, getState) => {
   }
 
   dispatch(setIsLoading(true));
+  dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
     authLogin = login.replace(/\+/g, '');
@@ -89,31 +100,84 @@ export const getOTP = () => (dispatch, getState) => {
 
   api.auth.registration(authLogin, role, country)
     .then((data) => {
-      if (data.status !== 200) return;
+
+      if (data.status !== 200) {
+        dispatch(setErrorMessage('Server error')); // ?
+        return;
+      }
 
       dispatch(setOtpIsSend(true));
       dispatch(setIsLoading(false));
+
     })
     .catch((error) => {
-      const { code } = error.response.data;
+      const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
       if (code === 'USER_ALREADY_EXISTS') {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Логин уже занят',
-          timeout: 3500
-        }));
+        dispatch(setErrorMessage(message));
       } else {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка сервера',
-          timeout: 3500
-        }));
+        dispatch(setErrorMessage('Server error'));
+      }
+    });
+};
+
+/**
+ * Экшен для отправки ОТП
+ * @returns {function(*, *)}
+ */
+export const sendConfirm = () => (dispatch, getState) => {
+  const { login, isError, OTP } = getState().Auth_Signup;
+  let authLogin = login;
+
+  if (isError) {
+    return;
+  }
+
+  dispatch(setIsLoading(true));
+  dispatch(setErrorMessage(''));
+
+  if (checkIsPhone(login)) {
+    authLogin = login.replace(/\+/g, '');
+    dispatch(setIsPhone(true));
+  }
+
+  api.auth.registrationConfirm(authLogin, OTP)
+
+    .then((data) => {
+      dispatch(setIsLoading(false));
+
+      if (data.status !== 200) {
+        Storage.clear();
+        dispatch(setErrorMessage('Ошибка авторизации'));
+        return;
+      }
+
+      const { authorizationToken, members } = data.data;
+
+      Storage.set('session', authorizationToken);
+      Storage.set('members', members);
+
+      dispatch(reset());
+      dispatch(replace('/dashboard/'));
+
+    })
+  // USER_ALREADY_EXISTS
+    .catch((error) => {
+      const { code, message } = error.response.data;
+
+      dispatch(setIsLoading(false));
+      switch (code) {
+        case 'CONFIRMATION_CODE_INVALID':
+          dispatch(setErrorMessage(message));
+          break;
+        // todo в дальнешейм заменить на превышено кол-во попыток + время добавить
+        case 'UNKNOWN_ERROR':
+          dispatch(blockOTPsend(true));
+          dispatch(setErrorMessage('Превышено количество попыток'));
+          break;
+        default:
+          dispatch(setErrorMessage('Server error'));
       }
     });
 };
@@ -133,94 +197,28 @@ export const resendOTP = () => (dispatch, getState) => {
     return;
   }
 
+  dispatch(blockedResendOTP(true));
+  dispatch(setIsLoading(true));
+  dispatch(setErrorMessage(''));
+
   if (checkIsPhone(login)) {
     authLogin = login.replace(/\+/g, '');
     dispatch(setIsPhone(true));
   }
 
-  dispatch(blockedResendOTP(true));
-  dispatch(setIsLoading(true));
   api.auth.registrationResendOTP(authLogin)
     .then((data) => {
       console.log(data)
       dispatch(setIsLoading(false));
     })
     .catch((error) => {
-      const { code } = error.response.data;
+      const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
       if (code === 'USER_NOT_FOUND') {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Error',
-          message: 'Пользователь не найден',
-          timeout: 3500
-        }));
-        dispatch(replace('/auth/signin'));
+        dispatch(setErrorMessage(message));
       } else {
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка сервера',
-          timeout: 3500
-        }));
+        dispatch(setErrorMessage('Server error'));
       }
-    });
-};
-
-/**
- * Экшен для отправки ОТП
- * @returns {function(*, *)}
- */
-export const sendConfirm = () => (dispatch, getState) => {
-  const { login, isError, OTP } = getState().Auth_Signup;
-  let authLogin = login;
-
-  if (isError) {
-    return;
-  }
-
-  if (checkIsPhone(login)) {
-    authLogin = login.replace(/\+/g, '');
-    dispatch(setIsPhone(true));
-  }
-
-  api.auth.registrationConfirm(authLogin, OTP)
-
-    .then((data) => {
-      dispatch(setIsLoading(false));
-
-      if (data.status !== 200) {
-        Storage.clear();
-        dispatch(send({
-          id: uuid(),
-          status: 'error',
-          title: 'Ошибка',
-          message: 'Ошибка авторизации',
-          timeout: 3500
-        }));
-        return;
-      }
-
-      const { authorizationToken, members } = data.data;
-
-      Storage.set('session', authorizationToken);
-      Storage.set('members', members);
-      dispatch(reset());
-      dispatch(replace('/dashboard/'));
-
-    })
-
-    .catch(() => {
-      dispatch(setIsLoading(false));
-      dispatch(send({
-        id: uuid(),
-        status: 'error',
-        title: 'Ошибка',
-        message: 'Ошибка сервера',
-        timeout: 3500
-      }));
     });
 };

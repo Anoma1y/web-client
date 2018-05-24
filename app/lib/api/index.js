@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from './config';
 import AuthApiModule from './Auth';
+import ProfileApiModule from './Profile';
 
 class Api {
 
@@ -16,6 +17,7 @@ class Api {
     this.registerAfterInterceptor();
 
     this.auth = new AuthApiModule(this.http);
+    this.profile = new ProfileApiModule(this.http);
   }
 
   addHeader(key, value) {

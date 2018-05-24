@@ -6,7 +6,6 @@ import Input from 'components/Input';
 import {
   validateLogin,
   transformLoginType,
-  validatePassword
 } from 'lib/auth';
 import {
   changeLogin,
@@ -28,6 +27,9 @@ export default class FormSignin extends Component {
     passwordInputType: 'password'
   };
 
+  /**
+   * Метод тогл вкл/выкл показ пароля
+   */
   showPassword = () => {
     const { passwordInputType } = this.state;
     this.setState({
@@ -60,21 +62,40 @@ export default class FormSignin extends Component {
 
   };
 
+  /**
+   * Метод обработчик ввода логина
+   * При вводе проверяет тип логина (телефон или почта), а также валидируют вводимые символы
+   * Разрешены только английские буквы, цифры и "+"  "@"  "."
+   * @param e
+   */
   handleChangeLogin = (e) => {
     const { value } = e.target;
+
+    if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
+
     const login = transformLoginType(value);
     this.props.changeLogin(login);
   };
 
+  /**
+   * Метод для вызоыва валидации формы
+   */
   handleValidateForm = () => {
     this.validateForm();
   };
 
+  /**
+   * Метод обработчик пароля
+   * @param e
+   */
   handleChangePassword = (e) => {
     const { value } = e.target;
     this.props.changePassword(value);
   };
 
+  /**
+   * Метод для вызова метода валидации и при отсутсвии ошибок вызов экшена для входа
+   */
   handleSignIn = () => {
     if (this.validateForm()) {
       this.props.signin();
@@ -82,6 +103,15 @@ export default class FormSignin extends Component {
   };
 
   render() {
+
+    const {
+      login,
+      password,
+      isBlocked,
+      isLoading,
+      errorMessage
+    } = this.props.Auth_Signin;
+
     return (
       <Fragment>
         <div className={'auth-form_item'}>
@@ -94,7 +124,7 @@ export default class FormSignin extends Component {
             errorPosition={'under'}
             onChange={this.handleChangeLogin}
             onBlur={this.handleValidateForm}
-            value={this.props.Auth_Signin.login}
+            value={login}
           />
         </div>
         <div className={'auth-form_item'}>
@@ -104,7 +134,7 @@ export default class FormSignin extends Component {
             icon={'lock-gray'}
             iconPosition={'left'}
             onChange={this.handleChangePassword}
-            value={this.props.Auth_Signin.password}
+            value={password}
             className={'auth-form_input__password'}
           />
           <div className={'auth-form_show-password'} onClick={this.showPassword}>
@@ -117,16 +147,17 @@ export default class FormSignin extends Component {
           <Button
             color={'lightblue'}
             onClick={this.handleSignIn}
-            disabled={this.props.Auth_Signin.isBlocked}
-            loading={this.props.Auth_Signin.isLoading}
+            disabled={isBlocked}
+            loading={isLoading}
           >
             <span className={'auth-btn_text'}>Sign in</span>
           </Button>
-          <div className={'auth-form_time-blocked'}>
-            {
-              this.props.Auth_Signin.isBlocked && <span> Try again {this.props.Auth_Signin.blockedTime} </span>
-            }
-          </div>
+          {
+            errorMessage &&
+              <div className={'auth-form_error'}>
+                <span>{errorMessage}</span>
+              </div>
+          }
           <div className={'auth-form_reset-link'}>
             <Link to={'/auth/reset/'}>Forgot password?</Link>
           </div>
