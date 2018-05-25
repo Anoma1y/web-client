@@ -39,6 +39,10 @@ class Dashboard extends Component {
             ready: true
           });
         });
+    } else if (authToken === null ) {
+      Storage.clear();
+      api.removeHeader('Authorization');
+      this.props.replace('/auth/signin');
     } else {
       this.props.send({
         id: uuid(),

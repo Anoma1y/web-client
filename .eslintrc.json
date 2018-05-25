@@ -59,6 +59,7 @@
     "semi": ["warn", "always"],
     "no-control-regex": "off",
     "consistent-return": "off",
+    "no-case-declarations": "off",
     //Перенос скобок в объектах
     "object-curly-newline": "off",
     "no-confusing-arrow": ["error", { "allowParens": false }],

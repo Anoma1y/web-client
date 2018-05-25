@@ -4,27 +4,11 @@ import FormOTP from './components/FormOTP';
 import FormSignup from './components/FormSignup';
 import TopHeader from 'containers/Auth/components/TopHeader';
 import FormFooter from 'containers/Auth/components/FormFooter';
+import HeaderForm from '../../components/HeaderForm';
+import HeaderConfirm from '../../components/HeaderConfirm';
 
 @connect(state => ({ Auth_Signup: state.Auth_Signup }))
 export default class Signup extends Component {
-
-  renderSignupHeader = () => {
-    return (
-      <Fragment>
-        <h1>Register</h1>
-        <p>Enter your details below.</p>
-      </Fragment>
-    );
-  };
-
-  renderConfirmHeader = () => {
-    return (
-      <Fragment>
-        <h1>Confirm</h1>
-        <p>Please enter the One Time Password (OTP) sent to you {this.props.Auth_Signup.isPhone ? 'mobile number' : 'EMail'}. If you do not receive your OTP within 30 second, please click on the <span className={'auth-form_header__color_blue'}>Resend OTP</span> button and thi will be resent</p>
-      </Fragment>
-    );
-  };
 
   renderFormControl = () => {
     const { otpIsSend } = this.props.Auth_Signup;
@@ -32,8 +16,8 @@ export default class Signup extends Component {
   };
 
   renderHeader = () => {
-    const { otpIsSend } = this.props.Auth_Signup;
-    return otpIsSend ? this.renderConfirmHeader() : this.renderSignupHeader();
+    const { otpIsSend, isPhone } = this.props.Auth_Signup;
+    return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Register'} message={'Enter your details below.'} />;
   };
 
   render() {

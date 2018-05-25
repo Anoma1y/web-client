@@ -12,15 +12,3 @@ export default {
   RESET_RESEND: '/password/recovery/resend-otp',
 };
 
-// code
-//   :
-//   "CONFIRMATION_CODE_INVALID"
-// identifier
-//   :
-//   "E96UXM0T"
-// message
-//   :
-//   "Неверный код. У вас осталось 3 попытки."
-// status
-//   :
-//   "fail"

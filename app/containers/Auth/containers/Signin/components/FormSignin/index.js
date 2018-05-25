@@ -147,7 +147,7 @@ export default class FormSignin extends Component {
           <Button
             color={'lightblue'}
             onClick={this.handleSignIn}
-            disabled={isBlocked}
+            disabled={isLoading || isBlocked}
             loading={isLoading}
           >
             <span className={'auth-btn_text'}>Sign in</span>

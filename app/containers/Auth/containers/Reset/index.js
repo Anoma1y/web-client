@@ -4,27 +4,11 @@ import TopHeader from 'containers/Auth/components/TopHeader';
 import FormFooter from 'containers/Auth/components/FormFooter';
 import FormReset from './components/FormReset';
 import FormOTP from './components/FormOTP';
+import HeaderForm from '../../components/HeaderForm';
+import HeaderConfirm from '../../components/HeaderConfirm';
 
 @connect(state => ({ Auth_Reset: state.Auth_Reset }))
 export default class Reset extends Component {
-
-  renderResetHeader = () => {
-    return (
-      <React.Fragment>
-        <h1>Reset</h1>
-        <p>Enter the login for password recovery </p>
-      </React.Fragment>
-    );
-  };
-
-  renderConfirmHeader = () => {
-    return (
-      <React.Fragment>
-        <h1>Confirm</h1>
-          <p>Please enter the One Time Password (OTP) sent to you {this.props.Auth_Reset.isPhone ? 'mobile number' : 'EMail'}. If you do not receive your OTP within 30 second, please click on the <span className={'auth-form_header__color_blue'}>Resend OTP</span> button and thi will be resent</p>
-      </React.Fragment>
-    );
-  };
 
   renderFormControl = () => {
     const { otpIsSend } = this.props.Auth_Reset;
@@ -32,8 +16,8 @@ export default class Reset extends Component {
   };
 
   renderHeader = () => {
-    const { otpIsSend } = this.props.Auth_Reset;
-    return otpIsSend ? this.renderConfirmHeader() : this.renderResetHeader();
+    const { otpIsSend, isPhone } = this.props.Auth_Reset;
+    return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Reset'} message={'Enter the login for password recovery'} />;
   };
 
   render() {

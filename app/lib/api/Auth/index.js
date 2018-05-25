@@ -34,6 +34,19 @@ export default class Auth {
     });
   }
 
+  authorizationConfirm(login, otp) {
+    return this.http.post(config.AUTHORIZATION_CONFIRM, {
+      login,
+      otp
+    });
+  }
+
+  authorizationResendOTP(login) {
+    return this.http.post(config.AUTHORIZATION_RESEND, {
+      login
+    });
+  }
+
   reset(login) {
     return this.http.post(config.RESET, {
       login
