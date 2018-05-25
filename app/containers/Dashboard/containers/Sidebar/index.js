@@ -100,7 +100,9 @@ class Sidebar extends Component {
               </div>
 
               <div className={'sidebar_item sidebar-notification'}>
-                <SidebarNotification />
+                {
+                  this.props.Dashboard_Sidebar.notification && <SidebarNotification />
+                }
               </div>
 
               <div className={'sidebar_item sidebar-wallets'}>
