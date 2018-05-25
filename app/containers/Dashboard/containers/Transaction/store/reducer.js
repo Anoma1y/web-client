@@ -14,6 +14,11 @@ const INITIAL_STATE = {
   records: [
 
   ],
+  sort: {
+    date: 'asc',
+    status: 'asc',
+    type: 'asc'
+  },
 };
 
 export default (state = INITIAL_STATE, action) => {

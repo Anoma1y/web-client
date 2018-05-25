@@ -47,6 +47,7 @@ import {
   CHANGE_TOTAL_PAGES,
   CHANGE_TOTAL_RECORDS
 } from './types';
+import { api } from 'lib/api';
 
 export const setRecords = (records) => ({
   type: SET_RECORDS_LIST,
@@ -73,6 +74,21 @@ export const changeTotalRecords = (value) => ({
   payload: value,
 });
 
-export const pullTransactions = (filter, sort, pageNumber = 0, pageSize = 10) => (dispatch, getState) => {
-
-};
+export const pullTransactions = () => (dispatch, getState) => new Promise((resolve, reject) => {
+  const filter = {
+    dateFrom: '2010-05-25T12:55:38.307Z',
+    dateTo: '2018-05-25T12:55:38.307Z',
+  }
+  const { pageSize, pageNumber, sort } = getState().Dashboard_Transaction;
+  api.transactions.getTransactionsList(pageSize, pageNumber, sort, filter)
+    .then((data) => {
+      const { records, totalPages, totalRecords } = data.data;
+      dispatch(changeTotalPages(totalPages));
+      dispatch(changeTotalRecords(totalRecords));
+      dispatch(setRecords(records));
+      resolve()
+    })
+    .catch((error) => {
+      reject();
+    })
+});

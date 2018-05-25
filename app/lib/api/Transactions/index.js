@@ -6,7 +6,7 @@ export default class Transactions {
     this.http = http;
   }
 
-  getTransactionsList(filter, sort, pageNumber, pageSize) {
+  getTransactionsList(pageSize, pageNumber, sort, filter) {
     return this.http.post(config.GET_TRANSACTIONS_LIST, {
       filter,
       sort,

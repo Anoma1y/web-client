@@ -3,6 +3,7 @@ import {
   pullProfile,
   pullCards
 } from '../containers/Sidebar/store/actions';
+import { pullTransactions } from '../containers/Transaction/store/actions';
 
 /**
  * Первичная инициализация данных
@@ -11,5 +12,6 @@ import {
 export const initialData = () => (dispatch) => Promise.all([
   dispatch(pullCoins()),
   dispatch(pullProfile()),
-  dispatch(pullCards())
+  dispatch(pullCards()),
+  dispatch(pullTransactions())
 ]);

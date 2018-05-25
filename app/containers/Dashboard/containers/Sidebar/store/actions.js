@@ -29,7 +29,7 @@ export const setCards = (cards) => ({
 export const pullCoins = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getCoinsList()
     .then((data) => {
-      
+
       if (data.status !== 200) return;
 
       dispatch(setCoins(data.data.coins));
@@ -61,7 +61,7 @@ export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => 
 
       const { profile, profile: { contact } } = data.data;
 
-      if (!contact.emailVerified && !contact.phoneVerified) {
+      if (!(contact.emailVerified && contact.phoneVerified)) {
         dispatch(setNotification('Unverified account'));
       }
 
@@ -71,4 +71,5 @@ export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => 
     .catch((error) => {
       reject(error);
     });
+
 });
