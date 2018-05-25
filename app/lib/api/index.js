@@ -3,6 +3,8 @@ import config from './config';
 import AuthApiModule from './Auth';
 import ProfileApiModule from './Profile';
 import CoinsApiModule from './Coins';
+import CardsApiModule from './Cards';
+import TransactionsApiModule from './Transactions';
 
 class Api {
 
@@ -20,6 +22,8 @@ class Api {
     this.auth = new AuthApiModule(this.http);
     this.profile = new ProfileApiModule(this.http);
     this.coins = new CoinsApiModule(this.http);
+    this.cards = new CardsApiModule(this.http);
+    this.transactions = new TransactionsApiModule(this.http);
   }
 
   addHeader(key, value) {

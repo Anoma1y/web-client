@@ -20,9 +20,8 @@ const renderEuro = () => (
 );
 
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
-class SidebarWallet extends React.Component {
+export default class SidebarWallet extends React.Component {
   render() {
-
     return (
       <div className={'sidebar-wallets sidebar-divider'}>
         {
@@ -55,5 +54,3 @@ class SidebarWallet extends React.Component {
   }
 
 }
-
-export default SidebarWallet;

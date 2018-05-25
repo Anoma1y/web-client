@@ -23,35 +23,28 @@ export default class Reset extends Component {
   render() {
     return (
       <div className={'reset auth-inner'}>
-
         <div className={'auth-top'}>
 
           <TopHeader type={'signup'} />
 
         </div>
-
         <form className={'auth-form'} onSubmit={(e) => e.preventDefault()}>
-
           <div className={'auth-form_header'}>
 
             {this.renderHeader()}
 
           </div>
-
           <div className={'auth-form_content'}>
 
             {this.renderFormControl()}
 
           </div>
-
           <div className={'auth-form_footer'}>
 
             <FormFooter />
 
           </div>
-
         </form>
-
       </div>
     );
   }

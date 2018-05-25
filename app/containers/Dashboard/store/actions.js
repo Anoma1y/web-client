@@ -1,0 +1,15 @@
+import {
+  pullCoins,
+  pullProfile,
+  pullCards
+} from '../containers/Sidebar/store/actions';
+
+/**
+ * Первичная инициализация данных
+ * @returns {function(*, *): Promise<[]>}
+ */
+export const initialData = () => (dispatch) => Promise.all([
+  dispatch(pullCoins()),
+  dispatch(pullProfile()),
+  dispatch(pullCards())
+]);

@@ -11,15 +11,17 @@ import Wallet from './containers/Wallet';
 import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import { CircularProgress } from '@material-ui/core';
+import { send } from 'containers/Notification/store/actions';
+import { initialData } from './store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
-import { send } from 'containers/Notification/store/actions';
 import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
 @connect(null, ({
   replace,
+  initialData,
   send
 }))
 class Dashboard extends Component {
@@ -29,20 +31,34 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-
     const authToken = Storage.get('session');
 
-    if (authToken && (moment() < moment(authToken.expiresAt))) {
-      api.addHeader('Authorization', `TOKEN ${authToken.token}`)
-        .then(() => {
-          this.setState({
-            ready: true
+    // Если токена нету в локальном хранилище, то вызов ошибки
+    if (authToken === null) this.handleError();
+
+    const { token, expiresAt } = authToken;
+
+    // Если время жизни токена истек, то вызов ошибки
+    // Иначе вызов промисов для добавления заголовков и инициализации данных
+    if (authToken && (moment() < moment(expiresAt))) {
+      const tokenName = `TOKEN ${token}`;
+
+      api.addHeader('Authorization', tokenName).then(() => {
+        this.props.initialData()
+          .then(() => {
+            this.setState({ ready: true });
+          })
+          .catch(() => {
+            this.props.send({
+              id: uuid(),
+              status: 'error',
+              title: 'Ошибка',
+              message: 'Данные не были загружены',
+              actionClose: true
+            });
+            this.handleError();
           });
-        });
-    } else if (authToken === null ) {
-      Storage.clear();
-      api.removeHeader('Authorization');
-      this.props.replace('/auth/signin');
+      });
     } else {
       this.props.send({
         id: uuid(),
@@ -51,11 +67,15 @@ class Dashboard extends Component {
         message: 'Время сессии истекло',
         actionClose: true
       });
-      Storage.clear();
-      api.removeHeader('Authorization');
-      this.props.replace('/auth/signin');
+      this.handleError();
     }
   }
+
+  handleError = () => {
+    Storage.clear();
+    api.removeHeader('Authorization');
+    this.props.replace('/auth/signin');
+  };
 
   renderDashboard = () => (
     <div className={'page'}>
@@ -91,7 +111,7 @@ class Dashboard extends Component {
       </div>
 
     </div>
-  )
+  );
 
   render() {
     return (
@@ -102,7 +122,7 @@ class Dashboard extends Component {
         }
 
       </div>
-    )
+    );
   }
 }
 

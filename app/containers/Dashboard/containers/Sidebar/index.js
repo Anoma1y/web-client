@@ -6,12 +6,9 @@ import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
-import { initialWallet } from './store/actions';
 import './style.scss';
 
-@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
-  initialWallet
-}))
+@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 class Sidebar extends Component {
 
   state = {
@@ -24,7 +21,6 @@ class Sidebar extends Component {
    * - клик по любой другой области не совпадающей с сайдбаром
    */
   componentDidMount() {
-    this.props.initialWallet();
     this.updateDimensions();
 
     document.addEventListener('mousedown', this.handleClickOutside);
