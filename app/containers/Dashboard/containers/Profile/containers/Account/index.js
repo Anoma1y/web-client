@@ -1,43 +1,49 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-// import NumberFormat from 'react-number-format';
-import { Grid, Button, Select, InputLabel, TextField, FormControl, InputAdornment, FormLabel } from '@material-ui/core';
-import { Check } from '@material-ui/icons';
+import { Grid, Button, Select, InputLabel, TextField, FormControl, InputAdornment, FormLabel, MenuItem } from '@material-ui/core';
+import { Check, Close } from '@material-ui/icons';
+import countries from 'lib/countries';
 
-//
-// const renderMaterialField = ({ input, ...custom }) => (
-//   <TextField
-//     fullWidth
-//     {...input}
-//     {...custom}
-//   >
-//   </TextField>
-// )
-//
-// const renderTextField = ({ input, meta: { touched, error }, ...custom }) => (
-//   <NumberFormat
-//     thousandSeparator
-//     decimalScale={2}
-//     customInput={renderMaterialField}
-//     prefix={'$'}
-//     error
-//     {...input}
-//     {...custom}
-//   />
-// );
-const renderTextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => (
+const renderAuthField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
+    fullWidth
+    className={'profile-form_input'}
+    label={label}
+    InputProps={{
+      endAdornment: (
+        <InputAdornment position="end">
+          <Close color={'error'} />
+        </InputAdornment>
+      ),
+    }}
+    {...input}
+    {...custom}
+  />
+)
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField
+    fullWidth
     label={label}
     error={touched && error}
+    className={'profile-form_input'}
     {...input}
     {...custom}
   />
 );
+
+const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
+  <Select
+    error={touched && error}
+    {...input}
+    onChange={(event) => {
+      input.onChange(event.target.value)
+    }}
+    {...custom}
+  >
+    {children}
+  </Select>
+)
 
 @reduxForm({
   form: 'ProfileAccount',
@@ -54,19 +60,7 @@ export default class Account extends React.Component {
               <FormLabel component="legend" className={'profile-form_label'}>Email</FormLabel>
               <Grid container alignItems={'center'} className={'profile-form'} justify={'space-around'}>
                 <Grid item xs={8}>
-                  <TextField
-                    fullWidth
-                    className={'profile-form_input'}
-                    label={'E-Mail'}
-                    placeholder={'Your email address'}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Check color={'action'} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  <Field name={'email'} component={renderAuthField} label={'EMail'} placeholder={'EMail'} />
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth color={'primary'}>Edit email</Button>
@@ -79,19 +73,7 @@ export default class Account extends React.Component {
               <FormLabel component="legend" className={'profile-form_label'}>Phone</FormLabel>
               <Grid container alignItems={'center'} className={'profile-form'} justify={'space-around'}>
                 <Grid item xs={8}>
-                  <TextField
-                    fullWidth
-                    className={'profile-form_input'}
-                    label={'Phone'}
-                    placeholder={'Your phone number'}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Check color={'action'} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  <Field name={'phone'} component={renderAuthField} label={'Phone'} placeholder={'Phone'} />
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth color={'primary'} >Edit phone</Button>
@@ -103,26 +85,16 @@ export default class Account extends React.Component {
 
         <Grid container className={'profile-form_wrapper'}>
           <FormControl fullWidth>
-            <FormLabel component="legend" className={'profile-form_label'}>Post address</FormLabel>
+            <FormLabel component={'legend'} className={'profile-form_label'}>Post address</FormLabel>
 
             <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
 
               <Grid item xs={6}>
-                <TextField
-                  fullWidth
-                  className={'profile-form_input'}
-                  label={'Address'}
-                  placeholder={'Address'}
-                />
+                <Field name={'address'} component={renderTextField} label={'Address'} placeholder={'Address'} />
               </Grid>
 
               <Grid item xs={2}>
-                <TextField
-                  fullWidth
-                  className={'profile-form_input'}
-                  label={'ZIP/Postal code'}
-                  placeholder={'ZIP/Postal code'}
-                />
+                <Field name={'zip'} component={renderTextField} label={'ZIP/Postal code'} placeholder={'ZIP/Postal code'} />
               </Grid>
 
             </Grid>
@@ -130,26 +102,15 @@ export default class Account extends React.Component {
             <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
 
               <Grid item xs={4}>
-                <TextField
-                  fullWidth
-                  className={'profile-form_input'}
-                  label={'City'}
-                  placeholder={'City'}
-                />
+                <Field name={'city'} component={renderTextField} label={'City'} placeholder={'City'} />
               </Grid>
 
               <Grid item xs={4}>
                 <FormControl fullWidth>
                   <InputLabel>Country</InputLabel>
-                  <Select
-                    native
-
-                  >
-                    <option value={''} disabled hidden selected />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
-                  </Select>
+                  <Field name={'countries'} component={renderSelectField}>
+                    {countries.map((item) => <MenuItem key={item.key} value={item.value}>{item.label}</MenuItem>)}
+                  </Field>
                 </FormControl>
               </Grid>
 
