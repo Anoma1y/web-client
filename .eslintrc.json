@@ -90,7 +90,7 @@
     "quote-props": "off",
     "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"]}],
     "jsx-a11y/label-has-for": "off",
-
+    "camelcase": "off",
     /****Правила для import****/
 //    "import/no-unresolved": ["error", {"commonjs": true, "amd": true}],
     "import/no-unresolved": 0,

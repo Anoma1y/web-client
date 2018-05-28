@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Dropdown from 'components/Dropdown';
-import './style.scss';
 
 const menuItems = [
   { name: 'Pay', link: '/wallet/pay' },
@@ -23,25 +22,25 @@ const renderEuro = () => (
 export default class SidebarWallet extends React.Component {
   render() {
     return (
-      <div className={'sidebar-wallets sidebar-divider'}>
+      <div className={'sidebar-wallets'}>
         {
           this.props.Dashboard_Sidebar.coins.map((item) => {
             return (
-              <div className={'sidebar-wallet sidebar-container'} key={item.serial}>
-                <div className={'sidebar-wallet_icon sidebar-container_icon'}>
+              <div className={'wallet sidebar-container'} key={item.serial}>
+                <div className={'sidebar-container_icon'}>
                   {renderEuro()}
                 </div>
-                <div className={'sidebar-wallet_content sidebar-container_content'}>
+                <div className={'wallet-content sidebar-container_content'}>
                   <Text className={'wallet-amount'}>
                     <Text.Content className={'wallet-amount_name'}>
                       {item.name}
                     </Text.Content>
                     <Text.Sub className={'wallet-amount_value'}>
-                      <Amount value={item.amount} />
+                      <Amount value={item.amount || 1544575.11} />
                     </Text.Sub>
                   </Text>
                 </div>
-                <div className={'sidebar-wallet_btn sidebar-container_btn'}>
+                <div className={'wallet_btn sidebar-container_btn'}>
                   <Dropdown item={menuItems}>...</Dropdown>
                 </div>
               </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './style.scss';
 
 @connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 export default class SidebarNotification extends React.Component {

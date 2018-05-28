@@ -1,11 +1,12 @@
 import React from 'react';
+import DataTable from './components/DataTable';
 
-const Transaction = () => {
-  return (
-    <div>
-      Transaction
-    </div>
-  )
+export default class Transaction extends React.Component {
+  render() {
+    return (
+      <div className={'container'}>
+        <DataTable />
+      </div>
+    )
+  }
 };
-
-export default Transaction;

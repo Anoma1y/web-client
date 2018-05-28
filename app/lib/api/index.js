@@ -26,6 +26,12 @@ class Api {
     this.transactions = new TransactionsApiModule(this.http);
   }
 
+  /**
+   * Метод для добавления заголовка
+   * @param key - ключ
+   * @param value - значение
+   * @returns {Promise<any>} - для асинхронного выполнения выполняется обещание
+   */
   addHeader(key, value) {
     return new Promise((resolve) => {
 
@@ -38,6 +44,10 @@ class Api {
     });
   }
 
+  /**
+   * Удаление заголовка
+   * @param key - заголовок
+   */
   removeHeader(key) {
     if (key in this.http.defaults.headers) {
       delete this.http.defaults.headers[key];

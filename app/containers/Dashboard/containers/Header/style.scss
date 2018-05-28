@@ -5,22 +5,19 @@
     box-sizing: border-box;
   }
 
+  &-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   &-content {
-    height: 81px;
-    padding: 0 20px;
+    height: 80px;
   }
-
-  &-breadcrumb {
-    height: 39px;
-    padding: 0 20px;
-  }
-
   &-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid rgba(0,0,0,.1);
   }
   // Блок с логотипом
   &-logo {
@@ -39,17 +36,12 @@
   &-aside {
     color: #736F8C;
     font-family: $font-bold-serif;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: bold;
     &_logout {
       @media screen and (max-width: $break-lg - 1) {
         //display: none;
         visibility: hidden;
-      }
-    }
-    &_trigger {
-      @media screen and (min-width: $break-lg) {
-        display: none;
       }
     }
     &_button {
@@ -63,20 +55,21 @@
       order: 2;
     }
   }
+}
 
-  &-navigation {
-    width: 100%;
-    padding: 0 100px;
-    @media screen and (max-width: $break-lg - 1) {
-      order: 4;
-      padding: 0;
-      width: auto;
+.logout {
+  cursor: pointer;
+  font-family: $font-semibold-serif;
+  .text {
+    color: $gray-color;
+    display: flex;
+    align-items: center;
+    &_content {
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      color: lighten($gray-color, 10%);
     }
   }
-}
-.header-breadcrumbs-wrapper {
-  @media screen and (max-width: $break-420) {
-    display: flex;
-    justify-content: center;
-  }
+
 }

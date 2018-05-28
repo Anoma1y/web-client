@@ -1,6 +1,6 @@
 @import 'lib/style/vars.scss';
 
-$item-bgc:            #E4EAF4;
+$item-bgc:            #F1FAFF;
 
 .tabs {
   p {
@@ -14,9 +14,9 @@ $item-bgc:            #E4EAF4;
   &-menu {
     &_item {
       display: inline-block;
-      margin-left: 40px;
-      border-radius: 5px;
-      padding: 8px;
+      margin-left: 2.5rem;
+      border-radius: 3px;
+      padding: 0.5rem;
       background-color: transparent;
       transition: background-color 0.2s ease;
       &:first-child {
@@ -24,12 +24,15 @@ $item-bgc:            #E4EAF4;
       }
       &__active {
         background-color: $item-bgc;
+        p {
+          color: $lightblue-color;
+        }
       }
 
       &:hover {
         background-color: $item-bgc;
         p {
-          color: lighten($black-color, 30%);
+          color: $lightblue-color;
         }
       }
     }
@@ -43,25 +46,13 @@ $item-bgc:            #E4EAF4;
     &_item-link {
       display: inline-block;
       vertical-align: middle;
-      margin-left: 7px;
+      margin-left: 0.48rem;
       position: relative;
       cursor: pointer;
       p {
         font-family: $font-semibold-serif;
-        color: $black-color;
         text-decoration: none;
         transition: color 0.2s ease;
-      }
-      &:after {
-        position: absolute;
-        content: '';
-        display: block;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: lighten($black-color, 50%);
-
       }
     }
   }

@@ -29,12 +29,8 @@
   min-height: 100vh;
   transition: padding-left 0.2s ease;
 }
-.content-wrapper, .header-wrapper {
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
+
 .content-wrapper {
-  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   flex: 1 1 auto;
@@ -52,6 +48,14 @@
 
 .dashboard-container {
   padding: 1rem 1.25rem;
+  &__fluid {
+    padding: 0;
+  }
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 // Затемнение фона

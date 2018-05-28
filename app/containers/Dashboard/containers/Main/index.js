@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
-import DataTable from 'containers/Dashboard/components/DataTable';
+import Transaction from 'containers/Dashboard/containers/Transaction';
 import { Grid } from '@material-ui/core';
 import './style.scss';
 
@@ -21,7 +21,7 @@ class Main extends Component {
           </div>
         </Grid>
         <Grid item xs={12} className={'dashboard-container'}>
-          <DataTable />
+          <Transaction />
         </Grid>
       </Grid>
     );

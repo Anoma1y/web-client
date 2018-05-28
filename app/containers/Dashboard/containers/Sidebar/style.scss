@@ -1,6 +1,6 @@
 @import 'lib/style/vars.scss';
 
-$scroll-width:              17px;
+$scroll-width:              1.0625rem;
 $sidebar-width:             16.875rem;
 
 .sidebar {
@@ -17,11 +17,11 @@ $sidebar-width:             16.875rem;
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   z-index: 9999999;
   overflow: hidden;
   transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
 
-  // Fix для скрола
   .sidebar-wrapper {
     width: 100%;
     height: 100%;
@@ -31,6 +31,11 @@ $sidebar-width:             16.875rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  // todo нужен фикс скрола для мобилок
+  .sidebar-inner {
+    width: calc(100% + 17px);
   }
 
   @media screen and (max-width: $break-lg - 1) {
@@ -93,20 +98,6 @@ $sidebar-width:             16.875rem;
     width: $sidebar-width;
   }
 
-  &-divider {
-    position: relative;
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 50%;
-      transform: translateX(-50%);
-      height: 1px;
-      background-color: rgba(147,147,147,0.4);
-    }
-  }
   &-container {
     display: flex;
     align-items: center;
@@ -137,5 +128,202 @@ $sidebar-width:             16.875rem;
         outline: none;
       }
     }
+  }
+}
+
+.user-info {
+
+  background-color: $lightblue-color;
+  font-family: $font-regular-serif;
+  height: 80px;
+
+  &_avatar {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    width: 35px;
+    height: 35px;
+    background: darken($white-color, 5%);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: darken($white-color, 1%);
+    }
+
+    & .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+  }
+  &_name {
+    &__verification {
+      text-transform: uppercase !important;
+    }
+    & a {
+      color: $white-color;
+      transition: color 0.3s ease;
+      font-size: 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        color: darken($white-color, 10%);
+      }
+    }
+  }
+}
+
+
+.sidebar-wallets {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.wallet {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  height: 70px;
+  font-family: $font-regular;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+
+  &:hover {
+    background-color: darken($white-color, 5%);
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -1.1rem;
+    left: 50%;
+    width: 80%;
+    transform: translateX(-50%);
+    height: 1px;
+    background-color: rgba(147,147,147,0.3);
+  }
+
+  &-content {
+    font-family: $font-semibold;
+    text-align: left;
+  }
+
+  &_btn {
+    cursor: pointer;
+    font-size: 1.2em;
+    position: relative;
+  }
+
+  &-amount {
+
+    &_name {
+      font-size: 1rem;
+      font-weight: normal;
+      white-space: nowrap;
+      color: $darkpurple-color;
+    }
+
+    &_value {
+      font-size: 1.1rem;
+      letter-spacing: 0.8px;
+      .amount_major {
+        color: $darkpurple-color;
+        font-family: $font-semibold-serif;
+      }
+      .amount_minor {
+        color: darken($darkpurple-color, 20%);
+        font-family: $font-semibold;
+      }
+    }
+
+  }
+
+  &-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #F0FAFF;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    svg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.wallet-currency {
+      path {
+        fill: $lightblue-color;
+      }
+    }
+
+  }
+}
+
+.sideProduct-add {
+
+  margin: 2rem auto;
+
+  &_icon {
+    width: 25px;
+    height: 25px;
+    background-color: $green-color;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      height: 13px;
+    }
+  }
+  .button {
+
+    margin: 0 auto;
+    border-radius: 10px;
+    letter-spacing: -0.5px !important;
+
+    &:hover {
+      background-color: darken($white-color, 5%) !important;
+    }
+  }
+
+  .text {
+    font-family: $font-regular-serif;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: $darkpurple-color;
+  }
+
+}
+
+.sidebar-notice {
+
+  font-family: $font-regular-serif;
+  font-weight: bold;
+
+  height: 40px;
+  overflow: hidden;
+  background-color: $notification-error;
+  width: 100%;
+  white-space: nowrap;
+
+  &_icon {
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &_message {
+    color: $white-color;
+    font-size: 16px;
+    cursor: default;
   }
 }

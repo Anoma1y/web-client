@@ -1,5 +1,4 @@
 import React from 'react';
-import HeaderBreadcrumbs from './components/HeaderBreadcrumbs';
 import Logout from './components/Logout';
 import './style.scss';
 
@@ -35,11 +34,6 @@ export default () => {
           </div>
         </div>
 
-      </div>
-
-      {/* HEADER BREADCRUMBS */}
-      <div className={'header-container header-breadcrumb'}>
-        <HeaderBreadcrumbs />
       </div>
 
     </div>

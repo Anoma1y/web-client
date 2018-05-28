@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
-import './style.scss';
 
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 export default class SidebarUser extends React.Component {
@@ -33,7 +32,7 @@ export default class SidebarUser extends React.Component {
 
         <div className={'sidebar-container_icon'}>
           <div className={'user-info_avatar'}>
-            <Icon name={'user'} size={18} />
+            <Icon name={'user-blue'} size={18} />
           </div>
         </div>
 

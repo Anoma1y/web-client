@@ -1,9 +1,8 @@
 import React from 'react';
-import Icon from 'components/Icon';
+import { connect } from 'react-redux';
 import Text from 'components/Text';
 import { logout } from 'containers/Auth/containers/Signin/store/actions';
-import { connect } from 'react-redux';
-import './style.scss';
+import { ExitToApp as IconExitToApp } from '@material-ui/icons';
 
 const Logout = (props) => {
 
@@ -17,7 +16,7 @@ const Logout = (props) => {
         <Text.Content>
           Logout
         </Text.Content>
-        <Icon name={'logout'} />
+        <IconExitToApp />
       </Text>
     </div>
   );

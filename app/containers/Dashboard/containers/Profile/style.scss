@@ -1,0 +1,52 @@
+@import 'lib/style/vars.scss';
+
+.profile {
+  &-container {
+    margin-top: 2rem;
+  }
+  &-form {
+    padding: 2rem 0;
+    &_wrapper {
+      margin-bottom: 2rem;
+      &:first-child {
+        margin-top: 2rem;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &_input {
+
+    }
+    &_label {
+      color: $black-color !important;
+      font-family: $font-semibold-serif !important;
+      font-size: 1.2rem !important;
+    }
+  }
+}
+
+.profile-user-name {
+  padding: 2rem 0;
+  background: rgb(31,157,254);
+  background: -moz-linear-gradient(left, rgba(31,157,254,1) 0%, rgba(241,250,255,1) 100%, rgba(241,250,255,1) 100%);
+  background: -webkit-linear-gradient(left, rgba(31,157,254,1) 0%,rgba(241,250,255,1) 100%,rgba(241,250,255,1) 100%);
+  background: linear-gradient(to right, rgba(31,157,254,1) 0%,rgba(241,250,255,1) 100%,rgba(241,250,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1f9dfe', endColorstr='#f1faff',GradientType=1 );
+  &_text {
+    font-family: $font-semibold-serif;
+    color: $white-color;
+    .text_content {
+      margin-top: 0.6rem;
+    }
+    &__role {
+      font-size: 1rem;
+    }
+    &__login {
+      font-family: $font-thin-serif;
+      font-size: 2.375rem;
+      margin-top: 15px;
+    }
+  }
+
+}

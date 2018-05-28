@@ -1,4 +1,4 @@
-import { getCurrencySymbol } from './currency_code';
+import { getCurrencySymbol } from './currencyCode';
 import _ from 'lodash';
 
 export const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед копейками
@@ -25,9 +25,10 @@ export const createSplitter = (partSize) => {
 };
 
 /**
- * Разделение денежного значения на части (рубли, копейки)
- * @param Object amount { значение валюты? название (EUR)}.
- * @return Object { основная часть, остаточная часть, меньше или больше нуля, символ валюты }
+ *
+ * @param amount значение валюты  и название (EUR)
+ * @returns {{majorPart, minorPart: string, isNegative: boolean, currencySymbol: *|string}}
+ * { основная часть, остаточная часть, меньше или больше нуля, символ валюты }
  */
 export const formatAmount = (amount) => {
   const {

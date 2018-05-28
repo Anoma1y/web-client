@@ -10,7 +10,7 @@ export default class Verification extends Component {
   }
   render() {
     return (
-      <Grid justify={'center'}>
+      <Grid container justify={'center'}>
         <div className={'profile'}>
           I am Verification
         </div>
