@@ -4,7 +4,7 @@ import Icon from 'components/Icon';
 import SidebarUser from './components/SidebarUser';
 import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
-import SidebarCard from './components/SidebarCard';
+// import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
 import './style.scss';
 
@@ -112,7 +112,7 @@ class Sidebar extends Component {
               </div>
 
               <div className={'sidebar_item sidebar-cards'}>
-                <SidebarCard />
+                {/*<SidebarCard />*/}
               </div>
 
               <div className={'sidebar_item sidebar-product-add'}>

@@ -24,7 +24,7 @@ import uuid from 'uuid/v1';
   initialData,
   send
 }))
-class Dashboard extends Component {
+export default class Dashboard extends Component {
 
   state = {
     ready: false
@@ -34,44 +34,55 @@ class Dashboard extends Component {
     const authToken = Storage.get('session');
 
     // Если токена нету в локальном хранилище, то вызов ошибки
-    if (authToken === null) this.handleError();
+    if (authToken === null) this.handlerError();
 
-    const { token, expiresAt } = authToken;
+    const {
+      token, // Токен
+      expiresAt // Время смерти токена
+    } = authToken;
 
     // Если время жизни токена истек, то вызов ошибки
     // Иначе вызов промисов для добавления заголовков и инициализации данных
     if (authToken && (moment() < moment(expiresAt))) {
-      const tokenName = `TOKEN ${token}`;
-
-      api.addHeader('Authorization', tokenName).then(() => {
-        this.props.initialData()
-          .then(() => {
-            this.setState({ ready: true });
-          })
-          .catch(() => {
-            this.props.send({
-              id: uuid(),
-              status: 'error',
-              title: 'Ошибка',
-              message: 'Данные не были загружены',
-              actionClose: true
-            });
-            this.handleError();
-          });
-      });
+      this.handlerInit(token);
     } else {
-      this.props.send({
-        id: uuid(),
-        status: 'warning',
-        title: 'Предупреждение',
-        message: 'Время сессии истекло',
-        actionClose: true
-      });
-      this.handleError();
+      this.handlerNotification('warning', 'Предупреждение', 'Время сессии истекло')
     }
   }
 
-  handleError = () => {
+  /**
+   * Метод для добавления загловка Authorization с токеном
+   * При удачном выполнении переводит состояние ready в true
+   * При неудачном выполнении вызывает ошибку
+   * @param token - токен
+   */
+  handlerInit = (token) => {
+    const tokenName = `TOKEN ${token}`;
+    const { initialData } = this.props;
+
+    api.addHeader('Authorization', tokenName).then(() => {
+      initialData()
+        .then(() => this.setState({ ready: true }))
+        .catch(() => this.handlerNotification('error', 'Ошибка', 'Данные не были загружены'));
+    });
+  };
+
+  /**
+   * Метод для вывода оповещения и ошибки
+   * @param status - статус оповещения
+   * @param title - заголовок оповещения
+   * @param message - сообщение оповещения
+   */
+  handlerNotification = (status, title, message) => {
+    this.props.send({ id: uuid(), status, title, message, actionClose: true });
+    this.handlerError();
+  };
+
+  /**
+   * Метод для обработки ошибок
+   * Очистки локального хранилища, удаления заголовка и редирект на страницу авторизации
+   */
+  handlerError = () => {
     Storage.clear();
     api.removeHeader('Authorization');
     this.props.replace('/auth/signin');
@@ -125,5 +136,3 @@ class Dashboard extends Component {
     );
   }
 }
-
-export default Dashboard;

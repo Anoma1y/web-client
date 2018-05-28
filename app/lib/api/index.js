@@ -27,12 +27,14 @@ class Api {
   }
 
   addHeader(key, value) {
-    return new Promise((res) => {
+    return new Promise((resolve) => {
+
       this.http.defaults.headers = {
         ...this.http.defaults.headers,
         [key]: value
       };
-      res();
+      resolve();
+
     });
   }
 

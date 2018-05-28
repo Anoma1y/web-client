@@ -76,7 +76,7 @@ export const changeTotalRecords = (value) => ({
 
 export const pullTransactions = () => (dispatch, getState) => new Promise((resolve, reject) => {
   const filter = {
-    dateFrom: '2010-05-25T12:55:38.307Z',
+    dateFrom: '2000-05-25T12:55:38.307Z',
     dateTo: '2018-05-25T12:55:38.307Z',
   }
   const { pageSize, pageNumber, sort } = getState().Dashboard_Transaction;

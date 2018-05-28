@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
@@ -16,51 +17,37 @@ const renderVisa = () => (
   </div>
 );
 
-const SidebarCard = () => {
-  // TODO переделать под карты, добавить Dropdown меню для карт и кошельков
-  return (
-    <div className={'sidebar-wallets'}>
-
-      <div className={'sidebar-wallet sidebar-container'}>
-        <div className={'sidebar-wallet_icon sidebar-container_icon'}>
-          {renderMasterCard()}
-        </div>
-        <div className={'sidebar-wallet_content sidebar-container_content'}>
-          <Text className={'wallet-amount'}>
-            <Text.Content className={'wallet-amount_name'}>
-              7356*******4799
-            </Text.Content>
-            <Text.Sub className={'wallet-amount_value'}>
-              <Amount value={52354234.22} />
-            </Text.Sub>
-          </Text>
-        </div>
-        <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-          <span>...</span>
-        </div>
-      </div>
-
-      <div className={'sidebar-wallet sidebar-container'}>
-        <div className={'sidebar-wallet_icon sidebar-container_icon'}>
-          {renderVisa()}
-        </div>
-        <div className={'sidebar-wallet_content sidebar-container_content'}>
-          <Text className={'wallet-amount'}>
-            <Text.Content className={'wallet-amount_name'}>
-              1434*******2222
-            </Text.Content>
-            <Text.Sub className={'wallet-amount_value'}>
-              <Amount value={93.52} />
-            </Text.Sub>
-          </Text>
-        </div>
-        <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-          <span>...</span>
-        </div>
-      </div>
-
-    </div>
-  );
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }) )
+export default class SidebarCard extends React.Component {
+  render() {
+    return (
+      <div>1</div>
+      {/*<div className={'sidebar-wallets'}>*/}
+        {/*{*/}
+          {/*this.props.Dashboard_Sidebar.cards.map((item) => {*/}
+            {/*return (*/}
+              {/*<div className={'sidebar-wallet sidebar-container'}>*/}
+                {/*<div className={'sidebar-wallet_icon sidebar-container_icon'}>*/}
+                  {/*{renderMasterCard()}*/}
+                {/*</div>*/}
+                {/*<div className={'sidebar-wallet_content sidebar-container_content'}>*/}
+                  {/*<Text className={'wallet-amount'}>*/}
+                    {/*<Text.Content className={'wallet-amount_name'}>*/}
+                      {/*{`**** ${item.last4Digits}`}*/}
+                    {/*</Text.Content>*/}
+                    {/*<Text.Sub className={'wallet-amount_value'}>*/}
+                      {/*<Amount value={52354234.22} />*/}
+                    {/*</Text.Sub>*/}
+                  {/*</Text>*/}
+                {/*</div>*/}
+                {/*<div className={'sidebar-wallet_btn sidebar-container_btn'}>*/}
+                  {/*<span>...</span>*/}
+                {/*</div>*/}
+              {/*</div>*/}
+            {/*)*/}
+          {/*})*/}
+        {/*}*/}
+      {/*</div>*/}
+    );
+  }
 };
-
-export default SidebarCard;
