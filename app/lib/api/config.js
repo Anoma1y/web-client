@@ -1,7 +1,7 @@
 export default {
-  BASE_URL: 'https://jsonplaceholder.typicode.com',
+  BASE_URL: 'https://jago.sdk.finance/api/v1/',
   TIMEOUT: 10000,
   HEADERS: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 };

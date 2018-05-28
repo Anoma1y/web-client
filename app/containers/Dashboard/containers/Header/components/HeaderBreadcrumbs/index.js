@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Breadcrumb from 'components/Breadcrumb';
-import { Grid } from 'react-flexbox-grid'
+import { Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import {
   getPathInfo,

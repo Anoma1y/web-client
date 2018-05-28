@@ -4,16 +4,242 @@
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background: url('/static/images/default-bg-min.jpg');
-  &-header {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  &-aside {
+    width: 40%;
+    position: relative;
+    background: $white-color url('/static/images/left-part.png') no-repeat center center;
+    background-size: cover;
+    @media screen and (max-width: $break-lg) {
+      display: none;
+    }
+  }
+
+  &_logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 50px;
+    &__mobile {
+      width: 110px;
+      position: absolute;
+      top: 1.1rem;
+      left: 2rem;
+      @media screen and (min-width: $break-lg + 1) {
+        display: none;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+
+  &-content {
+    width: 60%;
+    background: $white-color url('/static/images/right-part.png') no-repeat top right;
+    background-size: 40%;
+    position: relative;
+    @media screen and (max-width: $break-1337) {
+      background-size: 45%;
+    }
+    @media screen and (max-width: $break-lg) {
+      width: 100%;
+      background: none;
+    }
+  }
+
+  &-top {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    &_text {
+      font-family: $font-semibold-serif;
+      font-size: 0.9rem;
+      cursor: default;
+      color: $white-color;
+      @media screen and (max-width: $break-lg) {
+        color: $black-color;
+      }
+    }
+    &_link {
+      padding: 0.625rem 1.2rem;
+      margin-left: 1.1rem;
+      border: 1px solid lighten($lightgray-color, 15%);
+      border-radius: 3rem;
+      font-family: $font-semibold-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: $white-color;
+      background-color: transparent;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      @media screen and (max-width: $break-lg) {
+        color: $black-color;
+      }
+      &:hover {
+        background-color: lighten($lightgray-color, 25%);
+        color: lighten($black-color, 50%);
+      }
+    }
+  }
+
+  &-container {
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    justify-content: space-around;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  &-additional {
-
+  &-footer {
+    &_copyright {
+      font-family: $font-regular-serif;
+      font-size: 0.8125rem;
+      margin: 0 0 0.4rem;
+      cursor: default;
+    }
+    &_info {
+      font-family: $font-regular-serif;
+      color: darken($lightgray-color, 5%);
+      span {
+        display: inline-block;
+        position: relative;
+        font-size: 0.8125rem;
+        &:after {
+          content: '|';
+          color: $gray-color;
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+        &:last-child {
+          &:after {
+            content: '';
+          }
+        }
+      }
+    }
   }
+  &-form {
+    width: 50%;
+    margin-left: 15px;
+    margin-right: 15px;
+    @media screen and (max-width: $break-lg) {
+      margin: 0 auto;
+    }
+    &_inline-btn {
+      display: inline-block;
+      margin-left: 10px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+    &_header {
+      font-family: $font-semibold-serif;
+      margin-bottom: 3rem;
+      cursor: default;
+      h1, p {
+        margin: 0;
+      }
+      h1 {
+        font-size: 1.56rem;
+        margin-bottom: 5px;
+      }
+      p {
+        font-size: 0.8rem;
+      }
+      &__color {
+        &_blue {
+          color: $green-color;
+        }
+      }
+    }
+    &_footer {
+      margin-top: 3rem;
+    }
+    &_reset-link {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      a {
+        color: $lightblue-color;
+        text-decoration: none;
+      }
+    }
+    &_error {
+      position: absolute;
+      bottom: -2rem;
+      left: 0;
+      span {
+        font-family: $font-regular-serif;
+        font-size: 0.9rem;
+        color: $notification-error;
+        cursor: default;
+        text-transform: none !important;
+      }
+    }
+    &_item {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      position: relative;
+      &:first-child {
+        padding-top: 0;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+      input {
+        padding-right: 5rem !important;
+        &::placeholder {
+          color: $lightgray-color;
+        }
+      }
+    }
+    &_show-password {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: calc(50% - 0.5rem);
+      right: 2rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+      padding: 0;
+      svg {
+        fill: $lightgray-color;
+      }
+      &:hover .auth-form_show-placeholder {
+        display: block;
+      }
+    }
+    &_show-placeholder {
+      display: none;
+      position: absolute;
+      font-family: $font-thin-serif;
+      color: $gray-color;
+      bottom: -35px;
+      width: 110px;
+      right: 0;
+
+    }
+    &_btn {
+      margin-top: 1rem;
+      span {
+        text-transform: uppercase;
+        font-family: $font-semibold-serif;
+      }
+      .button {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+      &__indent {
+        &_none {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}
+.signup, .reset {
+  width: 100%;
 }

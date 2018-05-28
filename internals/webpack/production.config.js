@@ -45,6 +45,7 @@ module.exports = require('./base.config')({
             'transform-flow-strip-types',
             'transform-react-remove-prop-types',
             'transform-react-constant-elements',
+            'transform-decorators-legacy',
             'transform-runtime',
         ]
     },

@@ -1,5 +1,6 @@
-$input: input;
+@import 'lib/style/vars.scss';
 
+$input: input;
 
 .input {
   margin-bottom: 1em;
@@ -30,18 +31,21 @@ $input: input;
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    &:focus {
+      outline-color: lighten($lightgray-color, 10%);
+    }
   }
   &_wrapper {
     position: relative;
 
     &__icon:not(&__icon-position_right) {
       .input_control {
-        padding-left: 2rem;
+        padding-left: 4rem;
       }
     }
     &__icon-position_left {
       .input_control {
-        padding-left: 2rem;
+        padding-left: 4rem;
       }
     }
     &__icon-position_right {
@@ -58,11 +62,11 @@ $input: input;
     transform: translate(50%, -50%);
     &__position {
       &_right {
-        right: 30px;
+        right: 2rem;
         left: auto;
       }
       &_left {
-        left: 2px;
+        left: 1rem;
         right: auto;
       }
     }
@@ -71,12 +75,16 @@ $input: input;
   &_error {
     &__under {
       display: block;
+      position: absolute;
       list-style: none;
-      color: #fb434a;
+      top: 100%;
+      left: 0.5rem;
+      right: 0.5rem;
+      color: $notification-error;
       padding: 0;
       margin: 5px 0 0 0;
-      font-size: 80%;
-      font-weight: 400;
+      font-family: $font-regular-serif;
+      font-size: 0.9rem;
     }
     &__upper {
       color: #fff;
@@ -84,11 +92,12 @@ $input: input;
       padding: 5px 8px;
       border-radius: 3px;
       position: absolute;
-      right: 0;
+      right: 1rem;
       bottom: 35px;
+      max-height: 40px;
       margin-bottom: 8px;
-      max-width: 230px;
-      font-size: 80%;
+      max-width: 420px;
+      font-size: 0.9rem;
       z-index: 1;
       &:after {
         width: 0;
@@ -107,4 +116,17 @@ $input: input;
   }
 
 
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px lighten($green-color, 40%) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }

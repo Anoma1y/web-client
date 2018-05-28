@@ -1,10 +1,12 @@
 import axios from 'axios';
 import config from './config';
-import ExampleApiModule from './Example';
+import AuthApiModule from './Auth';
+import ProfileApiModule from './Profile';
+import CoinsApiModule from './Coins';
+import CardsApiModule from './Cards';
+import TransactionsApiModule from './Transactions';
 
 class Api {
-  http: axios.Axios;
-  user: ExampleApiModule;
 
   constructor() {
     this.http = axios.create({
@@ -17,7 +19,29 @@ class Api {
     this.registerBeforeInterceptor();
     this.registerAfterInterceptor();
 
-    this.user = new ExampleApiModule(this.http);
+    this.auth = new AuthApiModule(this.http);
+    this.profile = new ProfileApiModule(this.http);
+    this.coins = new CoinsApiModule(this.http);
+    this.cards = new CardsApiModule(this.http);
+    this.transactions = new TransactionsApiModule(this.http);
+  }
+
+  addHeader(key, value) {
+    return new Promise((resolve) => {
+
+      this.http.defaults.headers = {
+        ...this.http.defaults.headers,
+        [key]: value
+      };
+      resolve();
+
+    });
+  }
+
+  removeHeader(key) {
+    if (key in this.http.defaults.headers) {
+      delete this.http.defaults.headers[key];
+    }
   }
 
   registerBeforeInterceptor() {
@@ -41,4 +65,4 @@ class Api {
   }
 }
 
-export const api: Api = new Api();
+export const api = new Api();

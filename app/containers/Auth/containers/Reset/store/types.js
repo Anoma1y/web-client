@@ -1,0 +1,11 @@
+export const CHANGE_OTP = 'Auth_Reset/CHANGE_OTP';
+export const CHANGE_LOGIN = 'Auth_Reset/CHANGE_LOGIN';
+export const CHANGE_NEW_USER_PASSWORD = 'Auth_Reset/CHANGE_NEW_USER_PASSWORD';
+export const SET_ERROR = 'Auth_Reset/SET_ERROR';
+export const SET_IS_PHONE = 'Auth_Reset/SET_IS_PHONE';
+export const SET_IS_LOADING = 'Auth_Reset/SET_IS_LOADING';
+export const SET_OTP_IS_SEND = 'Auth_Reset/SET_OTP_IS_SEND';
+export const SET_RESEND_OTP_BLOCKED = 'Auth_Reset/SET_RESEND_OTP_BLOCKED';
+export const SET_OTP_IS_BLOCK = 'Auth_Reset/SET_OTP_IS_BLOCK';
+export const SET_ERROR_MESSAGE = 'Auth_Reset/SET_ERROR_MESSAGE';
+export const RESET = 'Auth_Reset/RESET';

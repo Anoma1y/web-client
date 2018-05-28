@@ -1,50 +1,36 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-//
+import NumberFormat from 'react-number-format';
+import { Grid, TextField } from '@material-ui/core';
+
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
+  <NumberFormat
+    thousandSeparator
+    decimalScale={2}
+    customInput={TextField}
+    prefix={'$'}
     {...input}
     {...custom}
   />
 );
 
-const Account = (props) => {
+const Account = () => {
   return (
-    <Grid>
+    <Grid container justify={'center'}>
       <div className={'profile'}>
-
-        <Row>
-          <Col lg={6}>
-            <Field
-              name="email"
-              component={renderTextField}
-              type="text"
-              label="E-Mail"
-            />
-          </Col>
-          <Col lg={6}>
-            <Field
-              name="phone"
-              component={renderTextField}
-              type="text"
-              label="Your current number"
-            />
-          </Col>
-        </Row>
+        <Grid item xs={12}>
+          <Field
+            name="email"
+            component={renderTextField}
+            type="text"
+            label="E-Mail"
+          />
+        </Grid>
 
       </div>
     </Grid>
-  )
-}
+  );
+};
 
 export default reduxForm({
   form: 'ProfileAccount',

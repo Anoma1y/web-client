@@ -1,20 +1,86 @@
-$select-font-color:         #74708d;
-$select-font-family:        'Lato', sans-serif;
+@import 'lib/style/vars.scss';
+
+$select-font-color:         #495057;
 $select-font-bgc:           #ffffff;
-$select-border-color:       #D3D9E4;
+$select-border-color:       #CED4DA;
 
 .select {
-  font-family: $select-font-family;
-  font-weight: bold;
-  font-size: 1em;
-  background-color: $select-font-bgc;
-  color: $select-font-color;
-  border-radius: 4px;
-  border: 1px solid $select-border-color;
+  position: relative;
   height: 40px;
-  padding: 0 35px 0 14px;
-  &__disabled {
-    background-color: gray;
-    color: #fff;
+  width: 100%;
+  margin-bottom: 1rem;
+  &:focus {
+    outline-color: transparent;
+  }
+  select {
+    font-family: $font-regular-serif;
+    font-size: 1rem;
+    background-color: $white-color;
+    color: $select-font-color;
+    border-radius: 4px;
+    border: 1px solid $select-border-color;
+    height: 100%;
+    width: 100%;
+    padding-left: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: darken($white-color, 4%);
+    }
+    &:focus {
+      outline-color: lighten($lightgray-color, 10%);
+    }
+    &__disabled {
+      background-color: gray;
+      color: #fff;
+    }
+    &:required:invalid {
+      color: $lightgray-color;
+    }
+    option[value=""][disabled] {
+      display: none;
+    }
+    option {
+      color: $select-font-color;
+    }
+  }
+  &_icon {
+    position: absolute;
+    left: 5px;
+    right: auto;
+    top: 50%;
+    transform: translate(50%, -50%);
+    svg {
+      vertical-align: middle;
+    }
+    &__position {
+      &_right {
+        right: 2rem;
+        left: auto;
+      }
+      &_left {
+        left: 1rem;
+        right: auto;
+      }
+    }
+  }
+  &__icon:not(&__icon-position_right) {
+    select {
+      padding-left: 4rem;
+    }
+  }
+  &__icon-position_left {
+    select {
+      padding-left: 4rem;
+    }
+  }
+  &__icon-position_right {
+    select {
+      padding-right: 3.7rem;
+    }
   }
 }

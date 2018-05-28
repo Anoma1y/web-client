@@ -1,14 +1,15 @@
 import React from 'react';
-import { Row, Col } from 'react-flexbox-grid';
 import Image from 'components/Image';
+import { Grid } from '@material-ui/core';
 import './style.scss';
 
 export default () => {
 
   return (
     <div className={'dashboard-banners'}>
-      <Row center={'xs'}>
-        <Col xs={12} sm={6} md={6} lg={6}>
+
+      <Grid container justify={'center'}>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
           <div className={'dashboard-banner'}>
             <div className={'dashboard-banner_item dashboard-banner_load-account'}>
               <Image src="/static/images/banner1-544.png" alt="" fluid />
@@ -25,9 +26,9 @@ export default () => {
               </div>
             </div>
           </div>
-        </Col>
+        </Grid>
 
-        <Col xs={12} sm={6} md={6} lg={6}>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
           <div className={'dashboard-banner'}>
             <div className={'dashboard-banner_item dashboard-banner_mobile'}>
               <Image src="/static/images/banner2-544.png" alt="" fluid />
@@ -41,9 +42,8 @@ export default () => {
               </div>
             </div>
           </div>
-        </Col>
-
-      </Row>
+        </Grid>
+      </Grid>
     </div>
   )
 };

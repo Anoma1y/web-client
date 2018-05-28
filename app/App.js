@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
-import ButtonClickState from 'containers/ButtonClickState';
-import ButtonClickRedux from 'containers/ButtonClickRedux';
-import ButtonClickReduxThunk from 'containers/ButtonClickReduxThunk';
+import React, { Component, Fragment } from 'react';
 import Dashboard from 'containers/Dashboard';
+import Auth from 'containers/Auth';
 import { Route, Switch } from 'react-router-dom';
+import Notification from 'containers/Notification';
 import 'lib/style/base.scss';
 import './style.scss';
 
-class App extends Component {
+export default class App extends Component {
+
   render() {
     return (
-      <Switch>
-        <Route exact path={'/'} component={ButtonClickState} />
-        <Route path={'/dashboard'} component={Dashboard} />
-        <Route exact path={'/redux'} component={ButtonClickRedux} />
-        <Route exact path={'/reduxthunk'} component={ButtonClickReduxThunk} />
-      </Switch>
+      <Fragment>
+        <Notification />
+        <Switch>
+          <Route path={'/dashboard'} component={Dashboard} />
+          <Route path={'/auth'} component={Auth} />
+        </Switch>
+      </Fragment>
     );
   }
 }
-
-export default App;
-

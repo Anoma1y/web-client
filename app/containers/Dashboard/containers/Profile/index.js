@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+
+import { Grid } from '@material-ui/core';
 import UserInfo from './components/UserInfo';
 import Tab from 'components/Tab';
 import Account from './containers/Account';
@@ -23,43 +24,28 @@ export default class Profile extends Component {
   };
 
   render() {
-
     const { activeIndex } = this.state;
     return (
-      <Grid>
-        <div className={'profile'}>
+      <Grid container justify={'center'} className={'profile'}>
+        <Grid item xs={12}>
+          <div className={'dashboard-container'}>
 
-          <Row>
+            <UserInfo />
 
-            <Col lg={12}>
+          </div>
+        </Grid>
 
-              <div className={'dashboard-container'}>
-                <UserInfo />
-              </div>
+        <Grid item xs={12}>
+          <div className={'dashboard-container'}>
 
-            </Col>
+            <Tab
+              panes={panes}
+              onTabChange={this.handleChangeTab}
+              activeIndex={activeIndex}
+            />
 
-          </Row>
-
-          <Row>
-
-            <Col lg={12}>
-
-              <div className={'dashboard-container'}>
-
-                <Tab
-                  panes={panes}
-                  onTabChange={this.handleChangeTab}
-                  activeIndex={activeIndex}
-                />
-
-              </div>
-
-            </Col>
-
-          </Row>
-
-        </div>
+          </div>
+        </Grid>
       </Grid>
     )
   }
