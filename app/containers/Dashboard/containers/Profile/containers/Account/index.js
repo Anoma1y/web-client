@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Grid, Button, Select, InputLabel, TextField, FormControl, InputAdornment, FormLabel, MenuItem } from '@material-ui/core';
+import { Grid, Button, Select, InputLabel, TextField, FormControl, InputAdornment, FormLabel, MenuItem, NativeSelect } from '@material-ui/core';
 import { Check, Close } from '@material-ui/icons';
 import countries from 'lib/countries';
+import _ from 'lodash';
 
 const renderAuthField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
@@ -32,23 +34,24 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
   />
 );
 
-const renderSelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
+const renderSelectField = ({ input, meta: { touched, error }, children }) => (
   <Select
+    native
     error={touched && error}
     {...input}
     onChange={(event) => {
-      input.onChange(event.target.value)
+      input.onChange(event.target.value);
     }}
-    {...custom}
   >
     {children}
   </Select>
 )
 
-@reduxForm({
-  form: 'ProfileAccount',
-})
+// todo заменить на стейт текущего контейнера
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, initialValues: state.Dashboard_Sidebar.profile }))
+@reduxForm({ form: 'ProfileAccount' })
 export default class Account extends React.Component {
+
   render() {
     return (
       <Grid container className={'profile'}>
@@ -60,7 +63,7 @@ export default class Account extends React.Component {
               <FormLabel component="legend" className={'profile-form_label'}>Email</FormLabel>
               <Grid container alignItems={'center'} className={'profile-form'} justify={'space-around'}>
                 <Grid item xs={8}>
-                  <Field name={'email'} component={renderAuthField} label={'EMail'} placeholder={'EMail'} />
+                  <Field name={'contact.email'} component={renderAuthField} label={'EMail'} placeholder={'EMail'} />
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth color={'primary'}>Edit email</Button>
@@ -73,7 +76,7 @@ export default class Account extends React.Component {
               <FormLabel component="legend" className={'profile-form_label'}>Phone</FormLabel>
               <Grid container alignItems={'center'} className={'profile-form'} justify={'space-around'}>
                 <Grid item xs={8}>
-                  <Field name={'phone'} component={renderAuthField} label={'Phone'} placeholder={'Phone'} />
+                  <Field name={'contact.phoneNumber'} component={renderAuthField} label={'Phone'} placeholder={'Phone'} />
                 </Grid>
                 <Grid item xs={3}>
                   <Button fullWidth color={'primary'} >Edit phone</Button>
@@ -90,11 +93,11 @@ export default class Account extends React.Component {
             <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
 
               <Grid item xs={6}>
-                <Field name={'address'} component={renderTextField} label={'Address'} placeholder={'Address'} />
+                <Field name={'address.street'} component={renderTextField} label={'Address'} placeholder={'Address'} />
               </Grid>
 
               <Grid item xs={2}>
-                <Field name={'zip'} component={renderTextField} label={'ZIP/Postal code'} placeholder={'ZIP/Postal code'} />
+                <Field name={'address.zip'} component={renderTextField} label={'ZIP/Postal code'} placeholder={'ZIP/Postal code'} />
               </Grid>
 
             </Grid>
@@ -102,14 +105,14 @@ export default class Account extends React.Component {
             <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
 
               <Grid item xs={4}>
-                <Field name={'city'} component={renderTextField} label={'City'} placeholder={'City'} />
+                <Field name={'address.city'} component={renderTextField} label={'City'} placeholder={'City'} />
               </Grid>
 
               <Grid item xs={4}>
                 <FormControl fullWidth>
                   <InputLabel>Country</InputLabel>
-                  <Field name={'countries'} component={renderSelectField}>
-                    {countries.map((item) => <MenuItem key={item.key} value={item.value}>{item.label}</MenuItem>)}
+                  <Field name={'address.country'} component={renderSelectField}>
+                    {countries.map((item) => <option key={item.key} value={item.value}>{item.label}</option>)}
                   </Field>
                 </FormControl>
               </Grid>
