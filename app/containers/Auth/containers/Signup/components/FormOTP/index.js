@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import { Https as HttpsIcon } from '@material-ui/icons';
 import {
   resendOTP,
   blockedResendOTP,
@@ -123,7 +124,7 @@ export default class FormOTP extends Component {
           <Input
             type="text"
             placeholder={'Entering OTP'}
-            icon={'payment-outbox'}
+            icon={<HttpsIcon color={'action'}/>}
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}

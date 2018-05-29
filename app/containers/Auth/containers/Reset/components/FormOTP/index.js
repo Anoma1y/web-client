@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import {
+  Lock as LockIcon,
+  Https as HttpsIcon
+} from '@material-ui/icons';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import {
@@ -139,7 +143,7 @@ export default class FormOTP extends Component {
           <Input
             type="text"
             placeholder={'Entering new password'}
-            icon={'lock-gray'}
+            icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.passwordError}
             errorPosition={'under'}
@@ -152,7 +156,7 @@ export default class FormOTP extends Component {
           <Input
             type="text"
             placeholder={'Entering OTP'}
-            icon={'payment-outbox'}
+            icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}

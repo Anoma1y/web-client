@@ -13,7 +13,7 @@ export default class Tab extends Component {
   renderItems() {
     const { panes, activeIndex } = this.props
     return (
-      <div className={'tab-inner'}>
+      <div className={'tabs-inner'}>
         {panes[activeIndex].render()}
       </div>
     )

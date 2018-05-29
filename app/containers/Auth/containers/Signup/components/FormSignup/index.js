@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import {
+  Place as PlaceIcon,
+  Person as PersonIcon
+} from '@material-ui/icons';
 import SelectList from 'components/SelectList';
 import {
   changeLogin,
@@ -91,7 +95,7 @@ export default class FormSignup extends Component {
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
-            icon={'user-gray'}
+            icon={<PersonIcon color={'action'} />}
             iconPosition={'left'}
             required
             error={this.state.loginError}
@@ -105,7 +109,7 @@ export default class FormSignup extends Component {
         <div className={'auth-form_item'}>
           <SelectList
             options={countries}
-            icon={'location-gray'}
+            icon={<PlaceIcon color={'action'} />}
             iconPosition={'left'}
             iconSize={18}
             placeholder={'Country'}

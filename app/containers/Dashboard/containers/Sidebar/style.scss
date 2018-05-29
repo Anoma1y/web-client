@@ -1,8 +1,5 @@
 @import 'lib/style/vars.scss';
 
-$scroll-width:              1.0625rem;
-$sidebar-width:             16.875rem;
-
 .sidebar {
 
   &, *, *:before, *:after {
@@ -10,7 +7,7 @@ $sidebar-width:             16.875rem;
   }
 
   background: $white-color;
-  box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
+  box-shadow: 4px 0 29px -5px rgba(0,0,0,0.07);
   width: $sidebar-width;
   height: 100%;
   max-height: 100%;
@@ -152,11 +149,14 @@ $sidebar-width:             16.875rem;
       background: darken($white-color, 1%);
     }
 
-    & .icon {
+    & svg {
       position: absolute;
       top: 50%;
-      left: 50%;
+      left: calc(50% + 1px);
       transform: translate(-50%, -50%);
+      path {
+        fill: $lightblue-color;
+      }
     }
 
   }

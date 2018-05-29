@@ -3,14 +3,16 @@
 $item-bgc:            #F1FAFF;
 
 .tabs {
-  p {
+  &-p {
     margin: 0;
   }
 
   &-item {
     margin: 1.5rem 0;
   }
-
+  &-inner {
+    position: relative;
+  }
   &-menu {
     &_item {
       display: inline-block;
@@ -24,7 +26,7 @@ $item-bgc:            #F1FAFF;
       }
       &__active {
         background-color: $item-bgc;
-        p {
+        > p {
           color: $lightblue-color;
         }
       }
@@ -36,6 +38,7 @@ $item-bgc:            #F1FAFF;
         }
       }
     }
+
     &_item-icon {
       display: inline-block;
       vertical-align: middle;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Icon from 'components/Icon';
+import { KeyboardArrowLeft as KeyboardArrowLeftIcon } from '@material-ui/icons';
 import SidebarUser from './components/SidebarUser';
 import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
@@ -122,22 +122,17 @@ class Sidebar extends Component {
             </div>
 
             <div className={'sidebar-inner'}>
-
               <button className={'sidebar-close'} onClick={this.handleSidebarClose}>
-
                 <div className={'sidebar-close_icon'}>
-                  <Icon name={'arrow-left'} />
+                  <KeyboardArrowLeftIcon />
                 </div>
-
                 <div className={'sidebar-close_text'}>
                   Close menu
                 </div>
-
               </button>
-
             </div>
-          </div>
 
+          </div>
         </div>
         <div className={'sidebar-mobile'}>
 

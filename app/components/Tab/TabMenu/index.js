@@ -23,7 +23,7 @@ export default (props) => {
         {icon}
       </div>
       <div className={`${classBlockName}-link`}>
-        <p>{children}</p>
+        <p className={'tabs-p'}>{children}</p>
       </div>
     </div>
   )

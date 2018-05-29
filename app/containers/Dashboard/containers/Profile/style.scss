@@ -24,10 +24,19 @@
       font-size: 1.2rem !important;
     }
   }
+  &_icon {
+    &__verified {
+      color: $green-color;
+    }
+    &_unverified {
+      color: $red-color;
+    }
+  }
 }
 
 .profile-user-name {
-  padding: 2rem 0;
+  height: 7.5rem;
+  line-height: 7.5rem;
   background: rgb(31,157,254);
   background: -moz-linear-gradient(left, rgba(31,157,254,1) 0%, rgba(241,250,255,1) 100%, rgba(241,250,255,1) 100%);
   background: -webkit-linear-gradient(left, rgba(31,157,254,1) 0%,rgba(241,250,255,1) 100%,rgba(241,250,255,1) 100%);
@@ -36,6 +45,7 @@
   &_text {
     font-family: $font-semibold-serif;
     color: $white-color;
+    cursor: default;
     .text_content {
       margin-top: 0.6rem;
     }

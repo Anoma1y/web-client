@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Grid, CircularProgress } from '@material-ui/core';
 import UserInfo from './components/UserInfo';
 import Tab from 'components/Tab';
 import Account from './containers/Account';
 import Verification from './containers/Verification';
 import { PersonOutline, Fingerprint } from '@material-ui/icons';
+import { pullProfile } from './store/actions';
 import './style.scss';
 
 const panes = [
@@ -12,10 +14,23 @@ const panes = [
   { icon: <Fingerprint />, menuItem: 'Verification', render: () => <Verification /> },
 ];
 
+@connect(null, ({
+  pullProfile
+}))
 export default class Profile extends Component {
 
   state = {
+    ready: false,
     activeIndex: 0
+  };
+
+  componentDidMount() {
+    this.props.pullProfile()
+      .then(() => {
+        this.setState({
+          ready: true
+        });
+      })
   }
 
   handleChangeTab = ({ activeIndex }) => {
@@ -24,8 +39,20 @@ export default class Profile extends Component {
     })
   };
 
+  renderContent = (activeIndex) => (
+    <div className={'profile-container'}>
+
+      <Tab
+        panes={panes}
+        onTabChange={this.handleChangeTab}
+        activeIndex={activeIndex}
+      />
+
+    </div>
+  )
+
   render() {
-    const { activeIndex } = this.state;
+    const { activeIndex, ready } = this.state;
     return (
       <Grid container justify={'center'} className={'profile'}>
         <Grid item xs={12}>
@@ -35,18 +62,11 @@ export default class Profile extends Component {
 
           </div>
         </Grid>
-
         <Grid item xs={12}>
           <div className={'dashboard-container container'}>
-            <div className={'profile-container'}>
 
-              <Tab
-                panes={panes}
-                onTabChange={this.handleChangeTab}
-                activeIndex={activeIndex}
-              />
+            {ready ? this.renderContent(activeIndex) : <CircularProgress size={70} className={'dashboard_loading'} />}
 
-            </div>
           </div>
         </Grid>
       </Grid>

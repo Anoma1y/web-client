@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { Person as PersonIcon } from '@material-ui/icons';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import {
@@ -96,7 +97,7 @@ export default class FormReset extends Component {
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
-            icon={'user-gray'}
+            icon={<PersonIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.loginError}
             errorPosition={'under'}
