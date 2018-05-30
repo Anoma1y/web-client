@@ -61,7 +61,7 @@ export default class ImageUpload extends Component {
       isLoading: false
     });
 
-    this.lazyUploadImage(file, 'webcam_on');
+    this.lazyUploadImage(file);
   }
 
   /**
@@ -189,15 +189,15 @@ export default class ImageUpload extends Component {
       : <img src={this.state.imagePreview} alt={alt} className={isWebcam ? '' : 'imgUpload_img'} />;
   };
 
-  lazyUploadImage = _.debounce((file, isUp) => {
-    this.uploadImage(file, isUp);
+  lazyUploadImage = _.debounce((file) => {
+    this.uploadImage(file);
   }, 2000);
 
-  uploadImage = (file, isUp) => {
+  uploadImage = (file) => {
     const formData = new FormData();
     formData.append('file', file);
     this.setState({ isLoading: false });
-    this.props.onFileSelected(formData, isUp);
+    this.props.onFileSelected(formData);
   };
 
   handleImageChange = (event) => {
@@ -221,7 +221,7 @@ export default class ImageUpload extends Component {
             fileUploadError: ''
           });
         };
-        this.lazyUploadImage(file, 'file_on');
+        this.lazyUploadImage(file);
         reader.readAsDataURL(file);
       } else {
         this.setState({ fileUploadError: 'Больше 5 МБ', isLoading: false });
