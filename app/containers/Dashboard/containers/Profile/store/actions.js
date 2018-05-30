@@ -16,20 +16,26 @@ export const setProfile = (value) => ({
 
 export const changeOTP = (contactType, value) => ({
   type: CHANGE_OTP,
-  contactType,
-  payload: value
-})
+  payload: {
+    contactType,
+    value
+  }
+});
 
-export const setOTPisSend = (contactType, otp = false) => ({
+export const setOTPisSend = (contactType, otpIsSend = false) => ({
   type: SET_OTP_IS_SEND,
-  contactType,
-  payload: otp
+  payload: {
+    contactType,
+    otpIsSend
+  }
 });
 
 export const blockedResendOTP = (contactType, blocked = false) => ({
   type: SET_OTP_IS_BLOCKED,
-  contactType,
-  payload: blocked
+  payload: {
+    contactType,
+    blocked
+  }
 });
 
 export const reset = () => ({
@@ -55,7 +61,7 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
 
 // todo добавить экшен для обновления данных в сайдбаре и т.п.
 export const updateUserAddress = () => (dispatch, getState) => {
-  const { address } = getState().form.ProfileAccount.values;
+  const { address } = getState().form.ProfileVerification.values;
   api.profile.updateUserAddress(address)
     .then((data) => {
       if (data.status !== 200) return;

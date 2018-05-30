@@ -19,6 +19,13 @@
   top: 5rem;
   left: calc(50% - #{$loading-size});
 }
+
+.image_loading {
+  position: absolute;
+  top: calc(50% - #{$loading-size / 2});
+  left: calc(50% - #{$loading-size / 2});
+}
+
 .page-main {
   width: 100%;
   padding-left: 270px;

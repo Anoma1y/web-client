@@ -5,6 +5,7 @@ import ProfileApiModule from './Profile';
 import CoinsApiModule from './Coins';
 import CardsApiModule from './Cards';
 import TransactionsApiModule from './Transactions';
+import MediaApiModule from './Media';
 
 class Api {
 
@@ -24,6 +25,7 @@ class Api {
     this.coins = new CoinsApiModule(this.http);
     this.cards = new CardsApiModule(this.http);
     this.transactions = new TransactionsApiModule(this.http);
+    this.media = new MediaApiModule(this.http);
   }
 
   /**

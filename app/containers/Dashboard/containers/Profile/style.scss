@@ -18,6 +18,35 @@
     &_input {
 
     }
+    &_separate-text {
+      font-family: $font-semibold-serif;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    &_upload {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    &_upload-control-panel {
+      position: absolute;
+      top: -1.2rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      span {
+        font-size: 1rem;
+        font-family: $font-semibold-serif;
+      }
+    }
+    &_upload-text {
+      font-family: $font-semibold-serif;
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      color: $gray-color;
+      cursor: default;
+    }
     &_label {
       color: $black-color !important;
       font-family: $font-semibold-serif !important;
@@ -32,6 +61,7 @@
       color: $red-color;
     }
   }
+
 }
 
 .profile-user-name {
@@ -57,6 +87,120 @@
       font-size: 2.375rem;
       margin-top: 15px;
     }
+  }
+}
+
+.webcam {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &-wrap {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.4rem;
+    overflow: hidden;
+  }
+  &_control {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+  }
+  &_preview {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &_btn {
+    float: right;
+  }
+}
+
+.imgUpload {
+  display: block;
+  clear: both;
+  width: 100%;
+  height: 12.5rem;
+  position: relative;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+
+  &_label {
+    float: left;
+    clear: both;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background: $white-color;
+    border: dashed 2px $lightblue-color;
+    border-radius: 0.4rem;
+    transition: all 0.4s ease;
+    user-select: none;
+    overflow: hidden;
+    cursor: pointer;
+    &:hover {
+      background-color: lighten($lightblue-color, 43%);
+    }
+    &.hover {
+      border: 3px solid red;
+      box-shadow: inset 0 0 0 6px #eee;
+
+      #start {
+        i.fa {
+          transform: scale(0.8);
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+  &-wrap {
+    float: left;
+    clear: both;
+    width: 100%;
+    &_icon {
+      svg {
+        font-size: 2.5rem;
+      }
+      svg path {
+        fill: $lightblue-color;
+      }
+    }
+    &_text {
+      padding-top: 0.8rem;
+      padding-bottom: calc(0.8rem + 0.3rem);
+      font-size: 1.5rem;
+      font-family: $font-semibold-serif;
+      color: #3A4351;
+    }
+  }
+  &_btn {
+    font-family: $font-semibold-serif !important;
+    font-size: 1rem !important;
+    background-color: #F1FAFF !important;
+  }
+  &_img {
+    display: block;
+    //position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 180px;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
+    &__hidden {
+      display: none;
+    }
+  }
+
+  &_input {
+    display: none;
   }
 
 }

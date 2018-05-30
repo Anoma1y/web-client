@@ -5,13 +5,19 @@ import UserInfo from './components/UserInfo';
 import Tab from 'components/Tab';
 import Account from './containers/Account';
 import Verification from './containers/Verification';
-import { PersonOutline, Fingerprint } from '@material-ui/icons';
+import Security from './containers/Security';
+import {
+  PersonOutline as PersonOutlineIcon,
+  Fingerprint as FingerprintIcon,
+  Security as SecurityIcon
+} from '@material-ui/icons';
 import { pullProfile } from './store/actions';
 import './style.scss';
 
 const panes = [
-  { icon: <PersonOutline />, menuItem: 'Account', render: () => <Account /> },
-  { icon: <Fingerprint />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
+  { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
 ];
 
 @connect(null, ({
