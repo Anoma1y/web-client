@@ -6,6 +6,7 @@ import {
 } from '@material-ui/icons';
 import Webcam from 'react-webcam';
 import { dataURLtoFile } from 'lib/utils';
+import { api } from 'lib/api';
 import _ from 'lodash';
 
 const FILE_SIZE = 5;
@@ -59,14 +60,22 @@ export default class ImageUpload extends Component {
       webcamIsVisible: false,
     });
 
-    this.convertingImageToFile(file);
+    const formData = this.convertingImageToFile(file);
+
+    this.uploadImage(formData);
   };
 
   convertingImageToFile = (file) => {
     const formData = new FormData();
     formData.append('file', file);
+    return formData;
+  };
 
-    this.props.onFileSelected(formData);
+  uploadImage = (formData) => {
+    // todo добавить лоадинг и тп
+    api.media.uploadMediaFile(formData).then((data) => {
+      this.props.onFileSelected(data)
+    }).catch((err) => console.log(err))
   };
 
   handleImageChange = (event) => {
@@ -81,7 +90,8 @@ export default class ImageUpload extends Component {
 
     if (FILE_FORMATS.includes(file.type)) {
       if ((file.size / 1024 / 1024) <= FILE_SIZE) {
-        this.convertingImageToFile(file);
+        const formData = this.convertingImageToFile(file);
+        this.uploadImage(formData);
         reader.readAsDataURL(file);
       } else {
         this.setState({ fileUploadError: 'Больше 5 МБ' });
