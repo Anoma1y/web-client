@@ -132,35 +132,31 @@ export default class ImageUpload extends Component {
    * @returns {*}
    */
   renderWebcamLabel = () => (
-    <label className={'imgUpload_label'}>
-      <div className={'imgUpload-wrap'}>
-        <div className={'imgUpload-wrap_icon'}>
-          <PhotoCameraIcon />
-        </div>
-        <div className={'imgUpload-wrap_text'}>
-          Make a photo
-        </div>
-        <Button className={'imgUpload_btn'} onClick={this.openWebcam}>
-          Click here
-        </Button>
+    <div className={'imgUpload-wrap'}>
+      <div className={'imgUpload-wrap_icon'}>
+        <PhotoCameraIcon />
       </div>
-    </label>
+      <div className={'imgUpload-wrap_text'}>
+        Make a photo
+      </div>
+      <Button className={'imgUpload_btn'} onClick={this.openWebcam}>
+        Click here
+      </Button>
+    </div>
   );
 
   renderUploadImageLabel = () => (
-    <label htmlFor={this.props.id} className={'imgUpload_label'}>
-      <div className={'imgUpload-wrap'}>
-        <div className={'imgUpload-wrap_icon'}>
-          <CloudUploadIcon />
-        </div>
-        <div className={'imgUpload-wrap_text'}>
-          Drag and drop file or
-        </div>
-        <Button className={'imgUpload_btn'}>
-          Browse file
-        </Button>
+    <div className={'imgUpload-wrap'}>
+      <div className={'imgUpload-wrap_icon'}>
+        <CloudUploadIcon />
       </div>
-    </label>
+      <div className={'imgUpload-wrap_text'}>
+        Drag and drop file or
+      </div>
+      <Button className={'imgUpload_btn'}>
+        Browse file
+      </Button>
+    </div>
   )
 
   /**
@@ -179,7 +175,8 @@ export default class ImageUpload extends Component {
       />
       {this.state.imagePreview
         ? this.renderImg('Document preview')
-        : this.renderUploadImageLabel()}
+        : this.renderUploadImageLabel()
+      }
     </Fragment>
   );
 
@@ -197,6 +194,7 @@ export default class ImageUpload extends Component {
     const formData = new FormData();
     formData.append('file', file);
     this.setState({ isLoading: false });
+    console.log(file)
     this.props.onFileSelected(formData);
   };
 
