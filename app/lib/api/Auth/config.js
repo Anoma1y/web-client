@@ -1,5 +1,5 @@
 export default {
-  REGISTRATION: '/jago-registration',
+  REGISTRATION: '/registration',
   REGISTRATION_CONFIRM: '/registration/confirm',
   REGISTRATION_RESEND: '/registration/resend-otp',
 
