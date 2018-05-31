@@ -55,6 +55,8 @@ export const uploadPersonFile = (fileUpload, type = 'other') => (dispatch) => {
       dispatch(addPersonFile({ file, type }));
     })
     .catch((err) => {
+      dispatch(setPersonPhotoIsLoading(false));
+      // todo добавить оповещение о том, что слишком большой размер
       console.log(err);
     });
 };
@@ -71,6 +73,8 @@ export const uploadIdentityFile = (fileUpload, type = 'passport') => (dispatch) 
       dispatch(addEntityDocumentFile({ file, type }));
     })
     .catch((err) => {
+      dispatch(setEntityDocumentIsLoading(false));
+      // todo добавить оповещение о том, что слишком большой размер
       console.log(err);
     });
 };

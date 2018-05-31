@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ImageUpload from 'containers/Dashboard/containers/Profile/components/ImageUpload';
-import { FormLabel, FormControl, Grid } from '@material-ui/core';
+import { FormLabel, FormControl, Grid, Button } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import {
   uploadIdentityFile,
@@ -53,8 +53,7 @@ export default class PhotoIdentity extends Component {
             </Grid>
 
           </Grid>
-          {
-            entityDocument &&
+          {entityDocument &&
               <Grid container spacing={40} className={'profile-form image-preview'} justify={'flex-start'} >
                 {
                   entityDocument.map((item) => {
@@ -71,6 +70,19 @@ export default class PhotoIdentity extends Component {
               </Grid>
           }
         </Grid>
+
+        <Grid container justify={'flex-start'}>
+          <Grid item xs={10}>
+            <Button
+              color={'primary'}
+              variant={'raised'}
+              size={'large'}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+
       </FormControl>
     )
   }

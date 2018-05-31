@@ -2,8 +2,8 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Grid, Button, FormControl, FormLabel } from '@material-ui/core';
-import { updateUserContactRequest } from '../../store/actions';
-import FormOTP from './components/FormOTP';
+import { updateUserContactRequest } from './store/actions';
+import FormOTP from './components/FormOTP/';
 import FieldTextAuth from '../../components/FieldTextAuth';
 
 /**
@@ -31,6 +31,7 @@ const validate = (values) => {
 
 @connect((state) => ({
   Dashboard_Profile: state.Dashboard_Profile,
+  Profile_Account: state.Profile_Account,
   initialValues: {
     contact: state.Dashboard_Profile.profile.contact
   }
@@ -84,7 +85,7 @@ export default class Account extends Component {
   };
 
   renderForm = () => {
-    const { otpIsSend } = this.props.Dashboard_Profile;
+    const { otpIsSend } = this.props.Profile_Account;
     return (
       <Grid container className={'profile'}>
 

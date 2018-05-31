@@ -98,7 +98,7 @@ export default class ImageUpload extends Component {
   renderWebcam = () => {
     const { webcamIsVisible } = this.state;
     return (
-      <div className={`webcam`}>
+      <div className={'webcam'}>
         {webcamIsVisible ? this.renderWebcamMain() : this.renderWebcamLabel()}
       </div>
     );
@@ -141,22 +141,23 @@ export default class ImageUpload extends Component {
    * @returns {*}
    */
   renderWebcamLabel = () => {
-    const { disabled } = this.props;
-    return this.props.isLoading
-      ? <CircularProgress className={'image_loading'} />
-      :
-        <div className={`imgUpload-wrap ${disabled ? 'imgUpload-wrap__disabled' : ''}`}>
-          <div className={'imgUpload-wrap_icon'}>
-            <PhotoCameraIcon />
-          </div>
-          <div className={'imgUpload-wrap_text'}>
-            Make a photo
-          </div>
-          <Button color={'primary'} className={'imgUpload_btn'} disabled={disabled} onClick={this.openWebcam}>
-            Click here
-          </Button>
-        </div>
-  }
+    const { disabled, isLoading } = this.props;
+    return isLoading ? <CircularProgress className={'image_loading'} /> : this.renderWebcamWrapper(disabled);
+  };
+
+  renderWebcamWrapper = (disabled) => (
+    <div className={`imgUpload-wrap ${disabled ? 'imgUpload-wrap__disabled' : ''}`}>
+      <div className={'imgUpload-wrap_icon'}>
+        <PhotoCameraIcon />
+      </div>
+      <div className={'imgUpload-wrap_text'}>
+        Make a photo
+      </div>
+      <Button color={'primary'} className={'imgUpload_btn'} disabled={disabled} onClick={this.openWebcam}>
+        Click here
+      </Button>
+    </div>
+  )
 
   renderUploadImageLabel = (disabled) => (
     <div className={`imgUpload-wrap ${disabled ? 'imgUpload-wrap__disabled' : ''}`}>
@@ -195,14 +196,14 @@ export default class ImageUpload extends Component {
   );
 
   render() {
-
+    // todo добавить вывод ошибки о большом размере и неверном типе!
     const {
       webcam = false,
       disabled = false
     } = this.props;
     return (
-      <div className={`imgUpload`}>
-        {webcam ? this.renderWebcam(disabled) : this.renderUploadImage(disabled)}
+      <div className={'imgUpload'}>
+        {webcam ? this.renderWebcam() : this.renderUploadImage(disabled)}
       </div>
     );
   }

@@ -7,10 +7,10 @@ import {
   blockedResendOTP,
   changeOTP,
   reset
-} from 'containers/Dashboard/containers/Profile/store/actions';
+} from '../../store/actions';
 import { clearAll } from 'containers/Notification/store/actions';
 
-@connect((state) => ({ Dashboard_Profile: state.Dashboard_Profile }), ({
+@connect((state) => ({ Profile_Account: state.Profile_Account }), ({
   updateUserContactConfirm,
   updateUserContactResendOTP,
   blockedResendOTP,
@@ -105,13 +105,13 @@ export default class FormOTP extends Component {
           <Grid item xs={3}>
             <Button
               fullWidth
-              disabled={this.props.Dashboard_Profile.resendOTPIsBlocked[type]}
+              disabled={this.props.Profile_Account.resendOTPIsBlocked[type]}
               color={'secondary'}
               className={'profile-form_btn'}
               variant={'raised'}
               onClick={() => this.handleSubmitContactOTPResend(type)}
             >
-              {this.props.Dashboard_Profile.resendOTPIsBlocked[type] ? `${this.state.timer} seconds` : 'Resend OTP'}
+              {this.props.Profile_Account.resendOTPIsBlocked[type] ? `${this.state.timer} seconds` : 'Resend OTP'}
             </Button>
           </Grid>
         </Grid>

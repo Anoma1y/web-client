@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormControl, FormLabel, Grid } from '@material-ui/core';
+import { FormControl, FormLabel, Grid, Button } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import ImageUpload from 'containers/Dashboard/containers/Profile/components/ImageUpload';
 
@@ -15,27 +15,37 @@ import {
 }))
 export default class PhotoDocument extends Component {
 
+  /**
+   * Метод для вызова экшена загрузки файлов на сервер
+   * @param file - файл в формате FormData()
+   */
   handleImageChange = (file) => {
     this.props.uploadPersonFile(file);
   };
 
+  /**
+   * Метод для вызова экшена удаления определенного файла по id
+   * @param fileId - id файла, полученный с сервера
+   */
   handleImageRemove = (fileId) => {
     this.props.removePersonFile(fileId);
   };
 
   render() {
     const { personalPhoto, personalPhotoIsLoading } = this.props.Profile_Verification;
+
     return (
       <FormControl fullWidth>
 
         <FormLabel component={'legend'} className={'profile-form_label'}>Your photo</FormLabel>
+
         <Grid container style={{ marginTop: 40, marginBottom: 40 }}>
           <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
             <Grid item xs={4} className={'profile-form_upload'}>
 
               <ImageUpload
                 onFileSelected={this.handleImageChange}
-                disabled={personalPhoto.file || personalPhotoIsLoading}
+                disabled={Object.keys(personalPhoto).length !== 0 || personalPhotoIsLoading}
                 isLoading={personalPhotoIsLoading}
               />
 
@@ -50,7 +60,7 @@ export default class PhotoDocument extends Component {
               <ImageUpload
                 webcam
                 onFileSelected={this.handleImageChange}
-                disabled={personalPhoto.file}
+                disabled={Object.keys(personalPhoto).length !== 0 || personalPhotoIsLoading}
                 isLoading={personalPhotoIsLoading}
               />
 
@@ -71,7 +81,19 @@ export default class PhotoDocument extends Component {
           }
 
         </Grid>
+
+        <Grid container justify={'flex-start'}>
+          <Grid item xs={10}>
+            <Button
+              color={'primary'}
+              variant={'raised'}
+              size={'large'}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </FormControl>
-    )
+    );
   }
 }
