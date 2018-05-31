@@ -22,6 +22,7 @@ export default class ImageUpload extends Component {
   state = {
     fileUploadError: '',
     webcamIsVisible: false,
+    isLoading: false
   };
 
   setWebcamRef = (webcam) => {
@@ -73,7 +74,9 @@ export default class ImageUpload extends Component {
 
   uploadImage = (formData) => {
     // todo добавить лоадинг и тп
+    this.setState({ isLoading: true });
     api.media.uploadMediaFile(formData).then((data) => {
+      this.setState({ isLoading: false });
       this.props.onFileSelected(data)
     }).catch((err) => console.log(err))
   };
@@ -151,8 +154,8 @@ export default class ImageUpload extends Component {
    * @returns {*}
    */
   renderWebcamLabel = () => {
-    const { disabled, isLoading } = this.props;
-    return isLoading ? <CircularProgress className={'image_loading'} /> : this.renderWebcamWrapper(disabled);
+    const { disabled } = this.props;
+    return this.state.isLoading ? <CircularProgress className={'image_loading'} /> : this.renderWebcamWrapper(disabled);
   };
 
   renderWebcamWrapper = (disabled) => (
@@ -198,7 +201,7 @@ export default class ImageUpload extends Component {
         accept={'image/jpeg,image/jpg,image/png'}
         onChange={this.handleImageChange}
       />
-      {this.props.isLoading
+      {this.state.isLoading
         ? <CircularProgress className={'image_loading'} />
         : this.renderUploadImageLabel(disabled)
       }
