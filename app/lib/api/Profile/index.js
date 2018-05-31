@@ -10,6 +10,10 @@ export default class Profile {
     return this.http.get(config.PROFILE_INFO);
   }
 
+  getSessionList() {
+    return this.http.get(config.PROFILE_SESSION);
+  }
+
   /**
    *
    * @param address - объект { country, zipCode, city, street, houseNumber } - всё опционально, хотя бы 1
@@ -38,5 +42,20 @@ export default class Profile {
     return this.http.post(config.PROFILE_CONTACT_RESEND, {
       login
     });
+  }
+
+  getAllDocumentsType() {
+    return this.http.post(config.GET_ALL_DOCUMENTS_TYPE);
+  }
+
+  submitDocumentsUpload(fileId, type) {
+    return this.http.post(config.SUBMIT_UPLOAD_DOCUNENT, {
+      fileId,
+      type
+    });
+  }
+
+  getProfileDocuments() {
+    return this.http.get(config.GET_PROFILE_DOCUMENTS);
   }
 }

@@ -8,15 +8,19 @@ import Webcam from 'react-webcam';
 import { dataURLtoFile } from 'lib/utils';
 import _ from 'lodash';
 
+const FILE_SIZE = 5;
+const FILE_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
+
+/**
+ * webcam - boolean (true - изображения с вебки)
+ * onFileSelected - обзяательный пропс, колбэк возвращающий file
+ * disabled - дизейбл
+ */
 export default class ImageUpload extends Component {
 
   state = {
     fileUploadError: '',
-    imagePreview: '',
-    isLoading: false,
-    imageIsSet: false,
     webcamIsVisible: false,
-    webcamImageIsSet: false,
   };
 
   setWebcamRef = (webcam) => {
@@ -29,8 +33,6 @@ export default class ImageUpload extends Component {
   openWebcam = () => {
     this.setState({
       webcamIsVisible: true,
-      imagePreview: '',
-      imageIsSet: false
     });
   }
 
@@ -40,9 +42,6 @@ export default class ImageUpload extends Component {
   closeWebcam = () => {
     this.setState({
       webcamIsVisible: false,
-      imagePreview: '',
-      webcamImageIsSet: false,
-      imageIsSet: false
     });
   }
 
@@ -51,71 +50,59 @@ export default class ImageUpload extends Component {
    */
   makePhoto = () => {
     const imageSrc = this.webcam.getScreenshot();
+
     if (!imageSrc) return;
+
     const file = dataURLtoFile(imageSrc, `file_${String(_.random(10, 999999))}.png`);
 
     this.setState({
-      imagePreview: imageSrc,
-      webcamImageIsSet: true,
-      imageIsSet: true,
-      isLoading: false
+      webcamIsVisible: false,
     });
 
-    this.lazyUploadImage(file);
-  }
-
-  /**
-   * Метод для повторной фотки с вебкамеры
-   */
-  resetWebcam = () => {
-    this.setState({
-      imagePreview: '',
-      webcamImageIsSet: false,
-      imageIsSet: false
-    });
-  }
-
-  renderWebcam = () => {
-    return (
-      <div className={'webcam'}>
-        {this.state.webcamIsVisible ? this.renderWebcamMain() : this.renderWebcamLabel()}
-      </div>
-    );
+    this.convertingImageToFile(file);
   };
 
-  /**
-   * Рендер превьюшки фотографии с вебкамеры
-   * @returns {*}
-   */
-  renderWebcamPreview = () => (
-    <Fragment>
-      <div className={'webcam_preview'}>
-        {this.renderImg('Webcam preview', true)}
-      </div>
-      <div className={'webcam_control'}>
-        <Button className={'webcam_btn__close'} onClick={this.closeWebcam} color={'secondary'} variant={'raised'}>Close</Button>
-        <Button className={'webcam_btn'} onClick={this.resetWebcam} color={'primary'} variant={'raised'}>Reset</Button>
-      </div>
-    </Fragment>
-  )
+  convertingImageToFile = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.props.onFileSelected(formData);
+  };
+
+  handleImageChange = (event) => {
+    event.preventDefault();
+
+    if (!event.target.files.length) {
+      return;
+    }
+
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    if (FILE_FORMATS.includes(file.type)) {
+      if ((file.size / 1024 / 1024) <= FILE_SIZE) {
+        this.convertingImageToFile(file);
+        reader.readAsDataURL(file);
+      } else {
+        this.setState({ fileUploadError: 'Больше 5 МБ' });
+      }
+    } else {
+      this.setState({ fileUploadError: 'Неверный формат' });
+    }
+  };
 
   /**
    * Рендер вебкамеры
    * @returns {*}
    */
-  renderWebcamPhoto = () => (
-    <Fragment>
-      <Webcam
-        ref={this.setWebcamRef}
-        audio={false}
-        screenshotFormat={'image/png'}
-      />
-      <div className={'webcam_control'}>
-        <Button className={'webcam_btn__close'} onClick={this.closeWebcam} color={'secondary'} variant={'raised'}>Close</Button>
-        <Button className={'webcam_btn'} onClick={this.makePhoto} color={'primary'} variant={'raised'}>Photo</Button>
+  renderWebcam = () => {
+    const { webcamIsVisible } = this.state;
+    return (
+      <div className={`webcam`}>
+        {webcamIsVisible ? this.renderWebcamMain() : this.renderWebcamLabel()}
       </div>
-    </Fragment>
-  )
+    );
+  };
 
   /**
    * Рендер основного блока с вебкамеры и проверку на "фотография сделана"
@@ -123,7 +110,29 @@ export default class ImageUpload extends Component {
    */
   renderWebcamMain = () => (
     <div className={'webcam-wrap'}>
-      {this.state.webcamImageIsSet ? this.renderWebcamPreview() : this.renderWebcamPhoto()}
+      <Webcam
+        ref={this.setWebcamRef}
+        audio={false}
+        screenshotFormat={'image/png'}
+      />
+      <div className={'webcam_control'}>
+        <Button
+          className={'webcam_btn__close'}
+          onClick={this.closeWebcam}
+          color={'secondary'}
+          variant={'raised'}
+        >
+          Close
+        </Button>
+        <Button
+          className={'webcam_btn'}
+          onClick={this.makePhoto}
+          color={'primary'}
+          variant={'raised'}
+        >
+          Photo
+        </Button>
+      </div>
     </div>
   );
 
@@ -131,22 +140,26 @@ export default class ImageUpload extends Component {
    * Рендер загрузчика изображений с вебкармеры
    * @returns {*}
    */
-  renderWebcamLabel = () => (
-    <div className={'imgUpload-wrap'}>
-      <div className={'imgUpload-wrap_icon'}>
-        <PhotoCameraIcon />
-      </div>
-      <div className={'imgUpload-wrap_text'}>
-        Make a photo
-      </div>
-      <Button className={'imgUpload_btn'} onClick={this.openWebcam}>
-        Click here
-      </Button>
-    </div>
-  );
+  renderWebcamLabel = () => {
+    const { disabled } = this.props;
+    return this.props.isLoading
+      ? <CircularProgress className={'image_loading'} />
+      :
+        <div className={`imgUpload-wrap ${disabled ? 'imgUpload-wrap__disabled' : ''}`}>
+          <div className={'imgUpload-wrap_icon'}>
+            <PhotoCameraIcon />
+          </div>
+          <div className={'imgUpload-wrap_text'}>
+            Make a photo
+          </div>
+          <Button color={'primary'} className={'imgUpload_btn'} disabled={disabled} onClick={this.openWebcam}>
+            Click here
+          </Button>
+        </div>
+  }
 
-  renderUploadImageLabel = () => (
-    <div className={'imgUpload-wrap'}>
+  renderUploadImageLabel = (disabled) => (
+    <div className={`imgUpload-wrap ${disabled ? 'imgUpload-wrap__disabled' : ''}`}>
       <div className={'imgUpload-wrap_icon'}>
         <CloudUploadIcon />
       </div>
@@ -163,81 +176,33 @@ export default class ImageUpload extends Component {
    * Рендер загрузчика изображений
    * @returns {*}
    */
-  renderUploadImage = () => (
+  renderUploadImage = (disabled) => (
     <Fragment>
       <input
         type={'file'}
-        id={this.props.id}
         name={'fileUpload'}
-        className={'imgUpload_input'}
+        disabled={disabled}
+        className={`imgUpload_input ${disabled ? 'imgUpload_input__disabled' : ''}`}
+        multiple={this.props.isMultiply}
         accept={'image/jpeg,image/jpg,image/png'}
         onChange={this.handleImageChange}
       />
-      {this.state.imagePreview
-        ? this.renderImg('Document preview')
-        : this.renderUploadImageLabel()
+      {this.props.isLoading
+        ? <CircularProgress className={'image_loading'} />
+        : this.renderUploadImageLabel(disabled)
       }
     </Fragment>
   );
-
-  renderImg = (alt, isWebcam = false) => {
-    return this.state.isLoading
-      ? <CircularProgress className={'image_loading'} />
-      : <img src={this.state.imagePreview} alt={alt} className={isWebcam ? '' : 'imgUpload_img'} />;
-  };
-
-  lazyUploadImage = _.debounce((file) => {
-    this.uploadImage(file);
-  }, 2000);
-
-  uploadImage = (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    this.setState({ isLoading: false });
-    console.log(file)
-    this.props.onFileSelected(formData);
-  };
-
-  handleImageChange = (event) => {
-    event.preventDefault();
-
-    if (!event.target.files.length) {
-      this.setState({ imagePreview: null });
-      return;
-    }
-
-    this.setState({ isLoading: true });
-
-    const reader = new FileReader();
-    const file = event.target.files[0];
-
-    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-      if ((file.size / 1024 / 1024) <= 5) {
-        reader.onloadend = () => {
-          this.setState({
-            imagePreview: reader.result,
-            fileUploadError: ''
-          });
-        };
-        this.lazyUploadImage(file);
-        reader.readAsDataURL(file);
-      } else {
-        this.setState({ fileUploadError: 'Больше 5 МБ', isLoading: false });
-      }
-    } else {
-      this.setState({ fileUploadError: 'Неверный формат', isLoading: false });
-    }
-  };
 
   render() {
 
     const {
       webcam = false,
+      disabled = false
     } = this.props;
-
     return (
-      <div className={'imgUpload'}>
-        {webcam ? this.renderWebcam() : this.renderUploadImage()}
+      <div className={`imgUpload`}>
+        {webcam ? this.renderWebcam(disabled) : this.renderUploadImage(disabled)}
       </div>
     );
   }

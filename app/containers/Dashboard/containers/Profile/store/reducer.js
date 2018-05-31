@@ -8,9 +8,7 @@ import {
 
 const INITIAL_STATE = {
   profile: {},
-  isLoading: {
-
-  },
+  isLoading: {},
   otp: {
     phoneNumber: '',
     email: ''
