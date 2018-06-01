@@ -33,20 +33,44 @@ export default class VerificationForm extends Component {
           <FormLabel component={'legend'} className={'profile-form_label'}>Basic identification</FormLabel>
 
           <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
-            <Grid item xs={5}>
+            <Grid item xs={3}>
 
               <Field name={'person.namePlain.first'} component={FieldText} label={'Name'} placeholder={'Name'} />
 
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={3}>
 
-              <Field name={'person.namePlain.last'} component={FieldText} label={'Surname'} placeholder={'Surname'} />
+              <Field name={'person.namePlain.last'} component={FieldText} label={'Last name'} placeholder={'Last name'} />
+
+            </Grid>
+            <Grid item xs={3}>
+
+              <Field name={'person.namePlain.middle'} component={FieldText} label={'Middle name'} placeholder={'Middle name'} />
+
+            </Grid>
+
+          </Grid>
+
+          <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
+            <Grid item xs={3}>
+
+              <Field name={'person.nameIntl.first'} component={FieldText} label={'Transliteration Name'} placeholder={'Transliteration Name'} />
+
+            </Grid>
+            <Grid item xs={3}>
+
+              <Field name={'person.nameIntl.last'} component={FieldText} label={'Transliteration Last name'} placeholder={'Transliteration Last name'} />
+
+            </Grid>
+            <Grid item xs={3}>
+
+              <Field name={'person.nameIntl.middle'} component={FieldText} label={'Transliteration Middle name'} placeholder={'Transliteration Middle name'} />
 
             </Grid>
           </Grid>
 
           <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
-            <Grid item xs={6}>
+            <Grid item xs={5}>
 
               <Field name={'address.street'} component={FieldText} label={'Street'} placeholder={'Street'} />
 
@@ -64,7 +88,7 @@ export default class VerificationForm extends Component {
           </Grid>
 
           <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
-            <Grid item xs={6}>
+            <Grid item xs={5}>
 
               <Field name={'address.city'} component={FieldText} label={'City'} placeholder={'City'} />
 
@@ -83,7 +107,7 @@ export default class VerificationForm extends Component {
 
         </FormControl>
         <Grid container justify={'flex-start'}>
-          <Grid item xs={10}>
+          <Grid item xs={9}>
             <Button
               color={'primary'}
               variant={'raised'}

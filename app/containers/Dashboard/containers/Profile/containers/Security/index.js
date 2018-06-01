@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import FieldText from '../../components/FieldText';
-import { Grid, FormLabel, FormControl, Table, TableBody, TableCell, TableHead, TableRow, Divider, Button } from '@material-ui/core';
+import { Grid, FormLabel, FormControl, Table, TableBody, TableCell, TableHead, TableRow, Divider, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import { pullSession } from './store/actions';
 
 @connect((state) => ({ Profile_Security: state.Profile_Security }), ({
@@ -70,6 +70,55 @@ export default class Security extends Component {
 
           <FormControl fullWidth>
             <FormLabel component={'legend'} className={'profile-form_label'}>Notification</FormLabel>
+
+            <Grid container spacing={24}>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <FormLabel component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value=""
+                        color={'primary'}
+                      />
+                    }
+                    label={' Send email'}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value=""
+                        color={'primary'}
+                      />
+                    }
+                    label={' Send SMS-code'}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={6}>
+                <FormControl fullWidth>
+                  <FormLabel component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value=""
+                        color={'primary'}
+                      />
+                    }
+                    label={' Send email'}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value=""
+                        color={'primary'}
+                      />
+                    }
+                    label={' Send SMS-code'}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
 
           </FormControl>
 
