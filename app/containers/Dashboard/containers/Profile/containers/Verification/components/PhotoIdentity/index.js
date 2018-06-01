@@ -8,10 +8,18 @@ import {
   removeEntityDocumentFile
 } from '../../store/actions';
 
-@connect((state) => ({ Profile_Verification: state.Profile_Verification }), ({
-  uploadIdentityFile,
-  removeEntityDocumentFile
-}))
+const FILE_COUNT = 2;
+
+@connect(
+  (state) => ({
+    Profile_Verification: state.Profile_Verification,
+    Dashboard_Profile: state.Dashboard_Profile
+  }),
+  ({
+    uploadIdentityFile,
+    removeEntityDocumentFile
+  })
+)
 export default class PhotoIdentity extends Component {
 
   handleImageChange = (file) => {
@@ -34,7 +42,7 @@ export default class PhotoIdentity extends Component {
 
               <ImageUpload
                 onFileSelected={this.handleImageChange}
-                disabled={entityDocumentIsLoading || entityDocument.length >= 2}
+                disabled={entityDocumentIsLoading || entityDocument.length >= FILE_COUNT}
                 isLoading={entityDocumentIsLoading}
                 isMultiply
               />
@@ -54,8 +62,8 @@ export default class PhotoIdentity extends Component {
 
           </Grid>
           {entityDocument &&
-              <Grid container spacing={40} className={'profile-form image-preview'} justify={'flex-start'} >
-                {
+          <Grid container spacing={40} className={'profile-form image-preview'} justify={'flex-start'} >
+            {
                   entityDocument.map((item) => {
                     return (
                       <Grid item xs={2} key={item.file.id} className={'image-preview_item'}>
@@ -64,10 +72,10 @@ export default class PhotoIdentity extends Component {
                         </button>
                         <img className={'image-preview_img'} src={item.file.url} alt={item.file.name} />
                       </Grid>
-                    )
+                    );
                   })
                 }
-              </Grid>
+          </Grid>
           }
         </Grid>
 
@@ -84,6 +92,6 @@ export default class PhotoIdentity extends Component {
         </Grid>
 
       </FormControl>
-    )
+    );
   }
 }

@@ -6,7 +6,6 @@ import {
 } from '@material-ui/icons';
 import Webcam from 'react-webcam';
 import { dataURLtoFile } from 'lib/utils';
-import { api } from 'lib/api';
 import _ from 'lodash';
 
 const FILE_SIZE = 5;
@@ -20,9 +19,8 @@ const FILE_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
 export default class ImageUpload extends Component {
 
   state = {
-    fileUploadError: '',
+    fileUploadError: null,
     webcamIsVisible: false,
-    isLoading: false
   };
 
   setWebcamRef = (webcam) => {
@@ -63,22 +61,13 @@ export default class ImageUpload extends Component {
 
     const formData = this.convertingImageToFile(file);
 
-    this.uploadImage(formData);
+    this.props.onFileSelected(formData);
   };
 
   convertingImageToFile = (file) => {
     const formData = new FormData();
     formData.append('file', file);
     return formData;
-  };
-
-  uploadImage = (formData) => {
-    // todo добавить лоадинг и тп
-    this.setState({ isLoading: true });
-    api.media.uploadMediaFile(formData).then((data) => {
-      this.setState({ isLoading: false });
-      this.props.onFileSelected(data)
-    }).catch((err) => console.log(err))
   };
 
   handleImageChange = (event) => {
@@ -88,13 +77,15 @@ export default class ImageUpload extends Component {
       return;
     }
 
+    this.setState({ fileUploadError: null });
+
     const reader = new FileReader();
     const file = event.target.files[0];
 
     if (FILE_FORMATS.includes(file.type)) {
       if ((file.size / 1024 / 1024) <= FILE_SIZE) {
         const formData = this.convertingImageToFile(file);
-        this.uploadImage(formData);
+        this.props.onFileSelected(formData);
         reader.readAsDataURL(file);
       } else {
         this.setState({ fileUploadError: 'Больше 5 МБ' });
@@ -154,8 +145,8 @@ export default class ImageUpload extends Component {
    * @returns {*}
    */
   renderWebcamLabel = () => {
-    const { disabled } = this.props;
-    return this.state.isLoading ? <CircularProgress className={'image_loading'} /> : this.renderWebcamWrapper(disabled);
+    const { disabled, isLoading } = this.props;
+    return isLoading ? <CircularProgress className={'image_loading'} /> : this.renderWebcamWrapper(disabled);
   };
 
   renderWebcamWrapper = (disabled) => (
@@ -201,7 +192,7 @@ export default class ImageUpload extends Component {
         accept={'image/jpeg,image/jpg,image/png'}
         onChange={this.handleImageChange}
       />
-      {this.state.isLoading
+      {this.props.isLoading
         ? <CircularProgress className={'image_loading'} />
         : this.renderUploadImageLabel(disabled)
       }
@@ -214,9 +205,11 @@ export default class ImageUpload extends Component {
       webcam = false,
       disabled = false
     } = this.props;
+    const { fileUploadError } = this.state;
     return (
       <div className={'imgUpload'}>
         {webcam ? this.renderWebcam() : this.renderUploadImage(disabled)}
+        {fileUploadError && <span className={'imgUpload_error'}>{this.state.fileUploadError}</span>}
       </div>
     );
   }

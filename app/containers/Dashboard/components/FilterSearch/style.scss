@@ -20,16 +20,24 @@
     left: 50%;
     transform: translate(-50%, -50%);
     height: 50px;
-    background-color: #E4EAF4;
+    background-color: $lightblue-color;
     border-radius: 6px;
-    color: #A2B2BF;
     font-size: 1.1rem;
     font-family: $font-semibold;
+  }
+  .input_icon {
+    top: calc(50% + 0.1rem);
   }
   &-search {
     display: inline-block;
     width: 70%;
     height: 42px;
+    &_icon {
+      font-size: 2rem !important;
+      path {
+        fill: $lightgray-color;
+      }
+    }
   }
   &_input {
     width: 100%;

@@ -17,6 +17,7 @@ import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import moment from 'moment';
 import { checkIsPhone } from 'lib/auth';
+import { clearAll } from 'containers/Notification/store/actions';
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -113,6 +114,7 @@ export const signin = () => (dispatch, getState) => {
           Storage.set('members', members);
 
           dispatch(reset());
+          dispatch(clearAll());
           dispatch(replace('/dashboard/'));
           break;
         case 'OTP_SENT':
@@ -190,6 +192,7 @@ export const sendConfirm = () => (dispatch, getState) => {
       Storage.set('members', members);
 
       dispatch(reset());
+      dispatch(clearAll());
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {

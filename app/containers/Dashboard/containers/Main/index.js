@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 import Banners from './components/Banners';
 import Transaction from 'containers/Dashboard/containers/Transaction';
 import { Grid } from '@material-ui/core';
@@ -13,11 +12,6 @@ class Main extends Component {
         <Grid item xs={12}>
           <div className={'dashboard-container'}>
             <Banners />
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div className={'dashboard-container'}>
-            <FilterSearch handleChangeDate={this.handleChangeDate} />
           </div>
         </Grid>
         <Grid item xs={12} className={'dashboard-container'}>

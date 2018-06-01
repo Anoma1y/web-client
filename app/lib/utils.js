@@ -4,6 +4,11 @@
  */
 export const genHash = (string) => string.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a; }, 0);
 
+/**
+ * Функция для вывода всех значений объекта и вложенных в данный объект объектов
+ * @param object - объект для вычисления
+ * @returns {Array}
+ */
 export const getValuesDeep = (object) => {
   const arr = [];
   const getVal = (obj) => {
@@ -19,6 +24,11 @@ export const getValuesDeep = (object) => {
   return arr;
 };
 
+/**
+ * Функция для получения имени пользователя
+ * @param profile - объект profile, получаемый после авторизации
+ * @returns {*}
+ */
 export const getUserName = (profile) => {
 
   if (profile.person) {
@@ -47,6 +57,12 @@ const roles = {
 
 export const getUserRole = (role) => roles[role] || 'Individual user';
 
+/**
+ * Функция для преобразования base64 в формат file
+ * @param base64 - код base64
+ * @param filename - название файла
+ * @returns {File}
+ */
 export const dataURLtoFile = (base64, filename) => {
   const arr = base64.split(',');
   const mime = arr[0].match(/:(.*?);/)[1];

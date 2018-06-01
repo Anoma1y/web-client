@@ -5,18 +5,20 @@ import {
   REMOVE_ENTITY_DOCUMENT_FILE,
   SET_PERSON_PHOTO_IS_LOADING,
   SET_ENTITY_DOCUMENT_IS_LOADING,
-  RESET,
 } from './types';
 
 const INITIAL_STATE = {
   personalPhoto: {},
   personalPhotoIsLoading: false,
   entityDocument: [],
-  entityDocumentIsLoading: false
+  entityDocumentIsLoading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    /**
+     * Обработчики, связанные со всеми медиафайлами
+     */
     case ADD_PERSON_PHOTO:
       return { ...state, personalPhoto: action.payload };
     case REMOVE_PERSON_PHOTO:

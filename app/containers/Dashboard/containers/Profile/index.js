@@ -11,17 +11,23 @@ import {
   Fingerprint as FingerprintIcon,
   Security as SecurityIcon
 } from '@material-ui/icons';
-import { pullProfile } from './store/actions';
+import {
+  pullProfile,
+  pullDocuments,
+  pullDocumentTypeList,
+} from './store/actions';
 import './style.scss';
 
 const panes = [
-  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
   { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
   { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
 ];
 
 @connect(null, ({
-  pullProfile
+  pullProfile,
+  pullDocuments,
+  pullDocumentTypeList
 }))
 export default class Profile extends Component {
 
@@ -31,18 +37,21 @@ export default class Profile extends Component {
   };
 
   componentDidMount() {
-    this.props.pullProfile()
-      .then(() => {
-        this.setState({
-          ready: true
-        });
-      })
+    Promise.all([
+      this.props.pullProfile(),
+      this.props.pullDocumentTypeList(),
+      this.props.pullDocuments()
+    ]).then(() => {
+      this.setState({
+        ready: true
+      });
+    });
   }
 
   handleChangeTab = ({ activeIndex }) => {
     this.setState({
       activeIndex
-    })
+    });
   };
 
   renderContent = (activeIndex) => (
@@ -76,7 +85,7 @@ export default class Profile extends Component {
           </div>
         </Grid>
       </Grid>
-    )
+    );
   }
 
 }

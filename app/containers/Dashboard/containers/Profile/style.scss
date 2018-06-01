@@ -125,7 +125,14 @@
     height: 100%;
     object-fit: fill;
   }
-
+  &_error {
+    position: absolute;
+    color: $notification-error;
+    font-family: $font-regular-serif;
+    font-size: 0.9rem;
+    top: calc(100% + 0.9rem);
+    left: 1rem;
+  }
   &-wrap {
     width: 100%;
     height: 100%;

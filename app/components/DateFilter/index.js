@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Icon from 'components/Icon';
 import Text from 'components/Text';
+import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@material-ui/icons';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import _ from 'lodash';
@@ -238,7 +238,7 @@ class DateFilter extends Component {
                       : current.label
                 }
               </Text.Content>
-              <Icon name={'arrow-down'} size={30} />
+              <KeyboardArrowDownIcon className={'date-filter_icon'} />
             </Text>
           </button>
         </div>

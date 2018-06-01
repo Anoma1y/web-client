@@ -50,7 +50,7 @@ $input: input;
     }
     &__icon-position_right {
       .input_control {
-        padding-right: 3.7rem;
+        padding-right: 4rem;
       }
     }
   }
@@ -62,7 +62,7 @@ $input: input;
     transform: translate(50%, -50%);
     &__position {
       &_right {
-        right: 1rem;
+        right: 2rem;
         left: auto;
       }
       &_left {
