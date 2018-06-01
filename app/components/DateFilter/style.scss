@@ -7,18 +7,48 @@
   top: 110%;
   left: 10px;
   background-color: darken($white-color, 1%);
-  border: 1px solid lighten($lightgray-color, 17%);
+  box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
+  transition: background-color 0.5s linear;
   &_item {
-    border-bottom: 1px solid lighten($lightgray-color, 17%);
+    border-bottom: 1px solid darken($white-color, 1%);
     padding-top: 6px;
     z-index: 9999;
     padding-bottom: 6px;
+    label {
+      display: block;
+      font-family: $font-regular-serif;
+      font-size: 1.2rem;
+      color: $black-color;
+      padding-left: 20px;
+      padding-right: 70px;
+      cursor: pointer;
+      transition: background-color 0.1s ease;
+    }
     &:last-child {
       border: none
     }
     &:hover {
-      background-color: darken($white-color, 5%);
+      background-color:darken($white-color, 5%);
+    }
+  }
+  .date-range_trigger {
+    width: 100%;
+    display: block;
+    background: none;
+    border: none;
+    font-family: $font-regular-serif;
+    font-size: 1.2rem;
+    text-align: left;
+    color: $black-color;
+    padding: 10px 70px 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background-color:darken($white-color, 5%);
     }
   }
 }
@@ -57,32 +87,9 @@
   input[type='radio'] {
     display: none;
   }
-  label {
-    display: block;
-    font-family: $font-regular-serif;
-    font-size: 1.2rem;
-    color: $lightgray-color;
-    padding-left: 20px;
-    padding-right: 70px;
-    cursor: pointer;
-    transition: background-color 0.1s ease;
 
-  }
 }
-.date-range_trigger {
-  display: block;
-  background: none;
-  border: none;
-  font-family: $font-regular-serif;
-  font-size: 1.2rem;
-  color: $lightgray-color;
-  padding: 10px 70px 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.1s ease;
-  &:focus {
-    outline: none;
-  }
-}
+
 
 .date-range {
 
@@ -94,23 +101,8 @@
     align-items: center;
   }
   &_button {
-    width: 90%;
-    margin-top: 5px;
-    padding: 5px;
-    background: $lightgray-color;
-    color: $white-color;
-    border-radius: 2px;
-    font-family:$font-regular-serif;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.1s ease;
-    &:hover {
-      background-color: lighten($lightgray-color, 5%);
-    }
-    &:focus {
-      outline: none;
-    }
+    margin-top: 1rem !important;
+    font-family:$font-regular-serif !important;
   }
   &_item {
     width: 40%;
@@ -119,15 +111,16 @@
   &_divider {
     width: 5px;
     height: 1px;
-    background-color: #333;
+    background-color: $black-color;
   }
   &_label {
     position: absolute;
     top: -18px;
     left: 0;
+    cursor: default;
     font-family: $font-regular-serif;
     font-size: 0.85rem;
-    color: $gray-color;
+    color: $black-color;
   }
 }
 
@@ -135,11 +128,11 @@
   width: 100%;
   padding: 5px;
   font-family: $font-regular-serif;
-  color: $gray-color;
+  color: $black-color;
   font-size: 0.9rem;
   letter-spacing: 1px;
   text-align: center;
-  border: 1px solid $lightgray-color;
+  border: 1px solid $gray-color;
 }
 
 .date-datepicker-v1 {
@@ -156,7 +149,7 @@
   }
   .react-datepicker__current-month {
     //color: $blue-color;
-    color: $gray-color;
+    color: $black-color;
   }
   .react-datepicker__header {
     background-color: #E4E9F3;

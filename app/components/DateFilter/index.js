@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Text from 'components/Text';
 import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import _ from 'lodash';
@@ -323,9 +324,9 @@ class DateFilter extends Component {
                   </div>
 
                   <div className={'range-container'}>
-                    <button className={'date-range_button'} onClick={this.handleRangeClick}>
+                    <Button className={'date-range_button'} onClick={this.handleRangeClick} color={'primary'} variant={'raised'}>
                       Submit
-                    </button>
+                    </Button>
                   </div>
 
                 </div>
