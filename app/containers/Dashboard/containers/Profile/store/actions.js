@@ -31,6 +31,9 @@ export const reset = () => ({
   type: RESET
 });
 
+/**
+ * Экшен для получения списка всех доступных типов документов
+ */
 export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getAllDocumentsType()
     .then((data) => {
@@ -47,6 +50,10 @@ export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, re
     });
 });
 
+/**
+ * Экшен для получения списка уже загруженных документов пользователя
+ * И заполнения массива уже загруженных типов документов
+ */
 export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfileDocuments()
     .then((data) => {
@@ -64,6 +71,9 @@ export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) =
     });
 });
 
+/**
+ * Экшен для получения списка информации о пользователе
+ */
 export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfile()
     .then((data) => {
@@ -78,3 +88,12 @@ export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => 
       reject(error);
     });
 });
+
+/**
+ * Экшен для вызова паралленьных экшенов инициализации данных
+ */
+export const initialData = () => (dispatch) => Promise.all([
+  dispatch(pullDocuments()),
+  dispatch(pullDocumentTypeList()),
+  dispatch(pullProfile())
+]);

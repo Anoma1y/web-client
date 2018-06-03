@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, CircularProgress } from '@material-ui/core';
+import {
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 import UserInfo from './components/UserInfo';
 import Tab from 'components/Tab';
 import Account from './containers/Account';
@@ -12,22 +15,30 @@ import {
   Security as SecurityIcon
 } from '@material-ui/icons';
 import {
-  pullProfile,
-  pullDocuments,
-  pullDocumentTypeList,
+  initialData
 } from './store/actions';
 import './style.scss';
 
 const panes = [
-  { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
-  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
-  { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
+  {
+    icon: <FingerprintIcon />,
+    menuItem: 'Verification',
+    render: () => <Verification />
+  },
+  {
+    icon: <PersonOutlineIcon />,
+    menuItem: 'Account',
+    render: () => <Account />
+  },
+  {
+    icon: <SecurityIcon />,
+    menuItem: 'Security',
+    render: () => <Security />
+  },
 ];
 
 @connect(null, ({
-  pullProfile,
-  pullDocuments,
-  pullDocumentTypeList
+  initialData
 }))
 export default class Profile extends Component {
 
@@ -37,34 +48,24 @@ export default class Profile extends Component {
   };
 
   componentDidMount() {
-    Promise.all([
-      this.props.pullProfile(),
-      this.props.pullDocumentTypeList(),
-      this.props.pullDocuments()
-    ]).then(() => {
-      this.setState({
-        ready: true
-      });
+    this.props.initialData().then(() => {
+      this.setState({ ready: true });
     });
   }
 
-  handleChangeTab = ({ activeIndex }) => {
-    this.setState({
-      activeIndex
-    });
-  };
+  handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
   renderContent = (activeIndex) => (
     <div className={'profile-container'}>
-
       <Tab
         panes={panes}
         onTabChange={this.handleChangeTab}
         activeIndex={activeIndex}
       />
-
     </div>
-  )
+  );
+
+  renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
   render() {
     const { activeIndex, ready } = this.state;
@@ -72,16 +73,16 @@ export default class Profile extends Component {
       <Grid container justify={'center'} className={'profile'}>
         <Grid item xs={12}>
           <div className={'dashboard-container dashboard-container__fluid'}>
-
             <UserInfo />
-
           </div>
         </Grid>
         <Grid item xs={12}>
           <div className={'dashboard-container container'}>
-
-            {ready ? this.renderContent(activeIndex) : <CircularProgress size={70} className={'dashboard_loading'} />}
-
+            {
+              ready
+              ? this.renderContent(activeIndex)
+              : this.renderLoader(70)
+            }
           </div>
         </Grid>
       </Grid>

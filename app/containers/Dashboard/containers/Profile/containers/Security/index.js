@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import FieldText from '../../components/FieldText';
 import { Grid, FormLabel, FormControl, Table, TableBody, TableCell, TableHead, TableRow, Divider, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import FieldCheckox from '../../components/FieldCheckbox';
 import { pullSession } from './store/actions';
 
-@connect((state) => ({ Profile_Security: state.Profile_Security }), ({
-  pullSession
-}))
+@connect((state) => ({
+  Profile_Security: state.Profile_Security,
+  initialValues: {
+    security: state.Dashboard_Profile.profile.security,
+  }
+}), ({
+    pullSession
+  }))
 @reduxForm({
   form: 'ProfileSecurity',
   enableReinitialize: true
@@ -29,18 +35,18 @@ export default class Security extends Component {
             <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
               <Grid item xs={4}>
 
-                <Field name={'user.password.current'} component={FieldText} label={'Current password'} placeholder={'Current password'} />
+                <Field name={'user.password.current'} component={FieldText} label={'Current password'} type={'password'} placeholder={'Current password'} />
 
               </Grid>
               <Grid item xs={3}>
 
-                <Field name={'user.password.new'} component={FieldText} label={'New password'} placeholder={'New password'} />
+                <Field name={'user.password.new'} component={FieldText} label={'New password'} type={'password'} placeholder={'New password'} />
 
               </Grid>
 
               <Grid item xs={3}>
 
-                <Field name={'user.password.new_repeat'} component={FieldText} label={'Repeat new password'} placeholder={'Repeat new password'} />
+                <Field name={'user.password.new_repeat'} component={FieldText} label={'Repeat new password'} type={'password'} placeholder={'Repeat new password'} />
 
               </Grid>
 
@@ -74,48 +80,16 @@ export default class Security extends Component {
             <Grid container spacing={24}>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <FormLabel component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value=""
-                        color={'primary'}
-                      />
-                    }
-                    label={' Send email'}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value=""
-                        color={'primary'}
-                      />
-                    }
-                    label={' Send SMS-code'}
-                  />
+                  <FormLabel disabled component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
+                    <Field name={'transactionNotification.email'} component={FieldCheckox} label={'Send Email'} />
+                    <Field name={'transactionNotification.phone'} component={FieldCheckox} label={'Send SMS-code'} />
                 </FormControl>
               </Grid>
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <FormLabel component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value=""
-                        color={'primary'}
-                      />
-                    }
-                    label={' Send email'}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value=""
-                        color={'primary'}
-                      />
-                    }
-                    label={' Send SMS-code'}
-                  />
+                  <FormLabel disabled component={'legend'} className={'profile-form_label__inner'}>After authorization</FormLabel>
+                  <Field name={'authorizationNotification.email'} component={FieldCheckox} label={'Send Email'} />
+                  <Field name={'authorizationNotification.phone'} component={FieldCheckox} label={'Send SMS-code'} />
                 </FormControl>
               </Grid>
             </Grid>

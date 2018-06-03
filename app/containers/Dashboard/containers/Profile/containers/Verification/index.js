@@ -1,5 +1,8 @@
 import React from 'react';
-import { Grid, Divider } from '@material-ui/core';
+import {
+  Grid,
+  Divider
+} from '@material-ui/core';
 import VerificationForm from './components/VerificationForm';
 import PhotoDocument from './components/PhotoDocument';
 import PhotoIdentity from './components/PhotoIdentity';

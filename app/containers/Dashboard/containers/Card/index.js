@@ -24,7 +24,7 @@ class Card extends React.Component {
     return (
       <Grid container justify={'center'} className={'card'}>
         <Grid item xs={12}>
-          <div className={'dashboard-container'}>
+          <div className={'dashboard-container dashboard-container__fluid'}>
             <CardInfo />
           </div>
         </Grid>

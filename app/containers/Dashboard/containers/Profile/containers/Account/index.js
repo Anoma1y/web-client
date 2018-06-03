@@ -1,7 +1,15 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
-import { Grid, Button, FormControl, FormLabel } from '@material-ui/core';
+import {
+  Field,
+  reduxForm
+} from 'redux-form';
+import {
+  Grid,
+  Button,
+  FormControl,
+  FormLabel
+} from '@material-ui/core';
 import { updateUserContactRequest } from './store/actions';
 import FormOTP from './components/FormOTP/';
 import FieldTextAuth from '../../components/FieldTextAuth';
@@ -76,7 +84,14 @@ export default class Account extends Component {
           {
             !isVerified &&
               <Grid item xs={3}>
-                <Button fullWidth color={'primary'} className={'profile-form_btn'} onClick={() => this.handleSubmitContactMain(type)}>{'Confirm'}</Button>
+                <Button
+                  fullWidth
+                  color={'primary'}
+                  className={'profile-form_btn'}
+                  onClick={() => this.handleSubmitContactMain(type)}
+                >
+                  Confirm
+                </Button>
               </Grid>
           }
         </Grid>
@@ -88,23 +103,28 @@ export default class Account extends Component {
     const { otpIsSend } = this.props.Profile_Account;
     return (
       <Grid container className={'profile'}>
-
         <Grid container className={'profile-form_wrapper'}>
-
           <Grid item xs={6}>
             <FormControl fullWidth>
-              { otpIsSend.email ? <FormOTP type={'email'} /> : this.renderContactMainForm('email') }
+              {
+                otpIsSend.email
+                ? <FormOTP type={'email'} />
+                : this.renderContactMainForm('email')
+
+              }
             </FormControl>
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth>
-              { otpIsSend.phoneNumber ? <FormOTP type={'phoneNumber'} /> : this.renderContactMainForm('phoneNumber') }
+              {
+                otpIsSend.phoneNumber
+                ? <FormOTP type={'phoneNumber'} />
+                : this.renderContactMainForm('phoneNumber')
+              }
             </FormControl>
           </Grid>
         </Grid>
-
-
       </Grid>
     );
   }
