@@ -24,23 +24,23 @@ export default class DataTable extends Component {
   };
 
   componentDidMount() {
-    // document.addEventListener('scroll', this.handleScroll);
+    document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    // document.removeEventListener('scroll', this.handleScroll);
+    document.removeEventListener('scroll', this.handleScroll);
   }
 
   setTableRef = (node) => {
     this.tableRef = node;
   };
 
-  debounceData = _.debounce(() => {
-    console.log('Append new data');
+  debounceData = _.debounce((text) => {
+    console.log(text);
     this.setState({
       isLoading: false
     })
-  }, 1500);
+  }, 500);
 
   // TODO fix flow type
   handleScroll = () => {
@@ -51,7 +51,7 @@ export default class DataTable extends Component {
     const windowBottom = windowHeight + window.pageYOffset;
 
     if (windowBottom > docHeight - 100) {
-      this.debounceData();
+      this.debounceData('Append new data');
       setTimeout(() => {
         this.setState({
           isLoading: true

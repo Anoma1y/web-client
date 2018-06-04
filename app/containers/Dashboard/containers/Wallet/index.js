@@ -11,14 +11,6 @@ import Tab from 'components/Tab';
 import { Grid, CircularProgress } from '@material-ui/core';
 import './style.scss';
 
-// const items = [
-//   { name: 'Transactions', link: '/dashboard/wallet/transactions', icon: 'category-fines' },
-//   { name: 'Payments', link: '/dashboard/wallet/payments', icon: 'payment-outbox' },
-//   { name: 'Withdraw', link: '/dashboard/wallet/withdraw', icon: 'sent_m' },
-//   { name: 'Exchange', link: '/dashboard/wallet/exchange', icon: 'transfer-internal' },
-//   { name: 'Balance & limits', link: '/dashboard/wallet/balance', icon: 'filter' },
-// ];
-
 const panes = [
   { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
   { icon: <SendIcon />, menuItem: 'Payments', render: () => <Transaction /> },

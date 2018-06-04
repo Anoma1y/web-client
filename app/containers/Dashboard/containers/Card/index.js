@@ -1,33 +1,68 @@
 import React from 'react';
 import CardInfo from './components/CardInfo';
 import Transaction from 'containers/Dashboard/containers/Transaction';
-import ControlPanel from 'containers/Dashboard/components/ControlPanel';
-import { Grid } from '@material-ui/core';
+import {
+  Reorder as ReorderIcon,
+  Settings as SettingsIcon
+} from '@material-ui/icons';
+import Icon from 'components/Icon';
+import Tab from 'components/Tab';
+import { Grid, CircularProgress } from '@material-ui/core';
 import './style.scss';
 
-const items = [
-  { name: 'Transactions', link: '/dashboard/card/transactions', icon: 'category-fines' },
-  { name: 'Top-up', link: '/dashboard/card/topup', icon: 'transfer-in' },
-  { name: 'Balance & limits', link: '/dashboard/card/balance', icon: 'filter' },
-  { name: 'Settings', link: '/dashboard/card/settings', icon: 'settings' },
+const panes = [
+  { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
+  { icon: <Icon name={'transfer-in'} />, menuItem: 'Top-up', render: () => <Transaction /> },
+  { icon: <Icon name={'sent_m'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
+  { icon: <SettingsIcon />, menuItem: 'Settings', render: () => <Transaction /> },
 ];
 
-export default () => (
-  <Grid container justify={'center'} className={'card'}>
-    <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
+export default class Card extends React.Component {
 
-      <CardInfo />
+  state = {
+    ready: false,
+    activeIndex: 0
+  };
 
-    </Grid>
-    <Grid item xs={12} className={'dashboard-container container'}>
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ ready: true });
+    }, 1500)
+  }
 
-      <ControlPanel items={items} />
+  handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
-    </Grid>
-    <Grid item xs={12} className={'dashboard-container'}>
+  renderContent = (activeIndex) => (
+    <div className={'profile-container'}>
+      <Tab
+        panes={panes}
+        onTabChange={this.handleChangeTab}
+        activeIndex={activeIndex}
+      />
+    </div>
+  );
 
-      <Transaction />
+  renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
-    </Grid>
-  </Grid>
-)
+  render() {
+    const { ready, activeIndex } = this.state;
+    return (
+      <Grid container justify={'center'} className={'wallet'}>
+        <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
+
+          <CardInfo />
+
+        </Grid>
+        <Grid item xs={12}>
+          <div className={'dashboard-container container'}>
+            {
+              ready
+                ? this.renderContent(activeIndex)
+                : this.renderLoader(70)
+            }
+          </div>
+        </Grid>
+      </Grid>
+    )
+  }
+}
