@@ -21,6 +21,7 @@ export const setChangePasswordIsLoading = (isLoading = false) => ({
 /**
  * Экшен для экшена смены пароля
  * @param notif - тип сообщения об операции
+ * @param msg - сообщение об ошибки (Кастомная)
  * @returns {function(*)}
  */
 const resetChangePassword = (notif, msg) => (dispatch) => {
@@ -41,6 +42,11 @@ const resetChangePassword = (notif, msg) => (dispatch) => {
   }
 };
 
+/**
+ * Экшен для изменения пароля
+ * Если ошибки в форме, то блокируется ввод
+ * @returns {function(*=, *)}
+ */
 export const changePassword = () => (dispatch, getState) => {
 
   const {
@@ -72,12 +78,8 @@ export const changePassword = () => (dispatch, getState) => {
       Storage.set('members', members);
 
       api.addHeader('Authorization', tokenName)
-        .then(() => {
-          dispatch(resetChangePassword('success'));
-        })
-        .catch(() => {
-          dispatch(resetChangePassword('error'));
-        })
+        .then(() => dispatch(resetChangePassword('success')))
+        .catch(() => dispatch(resetChangePassword('error')));
     })
     .catch((error) => {
       const { code, message } = error.response.data;
