@@ -18,6 +18,29 @@ export const setChangePasswordIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+/**
+ * Экшен для экшена смены пароля
+ * @param notif - тип сообщения об операции
+ * @returns {function(*)}
+ */
+const resetChangePassword = (notif, msg) => (dispatch) => {
+  dispatch(ReduxFormReset('SecurityChangePassword'));
+  dispatch(setChangePasswordIsLoading(false));
+  switch (notif) {
+    case 'success':
+      dispatch(send({ id: uuid(), status: 'success', title: 'Change password', message: 'Password was changed', timeout: 3000 }));
+      break;
+    case 'error':
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+      break;
+    case 'error-response':
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: msg, timeout: 3000 }));
+      break;
+    default:
+      dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Hello, it\'s me, warning', timeout: 3000 }));
+  }
+};
+
 export const changePassword = () => (dispatch, getState) => {
 
   const {
@@ -32,17 +55,13 @@ export const changePassword = () => (dispatch, getState) => {
     return;
   }
 
-
   dispatch(setChangePasswordIsLoading(true));
 
   api.profile.changeUserPassword(current, newPassword)
     .then((data) => {
 
-      dispatch(setChangePasswordIsLoading(false));
-
       if (data.status !== 200) {
-        dispatch(ReduxFormReset('SecurityChangePassword'));
-        dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+        dispatch(resetChangePassword('error'));
         return;
       }
 
@@ -54,20 +73,23 @@ export const changePassword = () => (dispatch, getState) => {
 
       api.addHeader('Authorization', tokenName)
         .then(() => {
-          dispatch(setChangePasswordIsLoading(false));
-          dispatch(ReduxFormReset('SecurityChangePassword'));
-          dispatch(send({ id: uuid(), status: 'success', title: 'Change password', message: 'Password was changed', timeout: 3000 }));
+          dispatch(resetChangePassword('success'));
         })
-        .catch((err) => {
-          console.log(err)
-          // todo добавить ошибку
+        .catch(() => {
+          dispatch(resetChangePassword('error'));
         })
     })
-    .catch(() => {
+    .catch((error) => {
+      const { code, message } = error.response.data;
 
-      dispatch(setChangePasswordIsLoading(false));
-      dispatch(ReduxFormReset('SecurityChangePassword'));
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+      switch (code) {
+        case 'INVALID_CURRENT_PASSWORD':
+          dispatch(resetChangePassword('error-response', message));
+          break;
+        default:
+          dispatch(resetChangePassword('error'));
+          break;
+      }
 
     });
 };
