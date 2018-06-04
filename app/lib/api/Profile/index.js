@@ -31,7 +31,7 @@ export default class Profile {
     });
   }
 
-  updateContacConfirm(login, otp) {
+  updateContactConfirm(login, otp) {
     return this.http.post(config.PROFILE_CONTACT_CONFIRM, {
       login,
       otp

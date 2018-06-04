@@ -20,9 +20,9 @@ import {
 import './style.scss';
 
 const panes = [
-  { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
-  { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
   { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
+  { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
 ];
 
 @connect(null, ({
@@ -68,8 +68,8 @@ export default class Profile extends Component {
           <div className={'dashboard-container container'}>
             {
               ready
-              ? this.renderContent(activeIndex)
-              : this.renderLoader(70)
+                ? this.renderContent(activeIndex)
+                : this.renderLoader(70)
             }
           </div>
         </Grid>
