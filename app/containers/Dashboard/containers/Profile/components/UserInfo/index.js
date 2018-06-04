@@ -11,7 +11,7 @@ const UserInfo = (props) => {
   const { profile } = props.Dashboard_Profile;
   const { role } = Storage.get('members')[0];
   return (
-    <div className={'profile-user-name'}>
+    <div className={'dashboard_info profile-user-name'}>
       <div className={'profile-user-name_content container'}>
         <Text className={'profile-user-name_text'}>
           <Text.Sub>

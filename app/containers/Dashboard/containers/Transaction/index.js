@@ -4,16 +4,22 @@ import DataTable from './components/DataTable';
 import FilterSearch from 'containers/Dashboard/components/FilterSearch';
 
 export default class Transaction extends React.Component {
+  componentDidMount() {
+    console.log('Transactions will be mounted')
+  }
+  componentWillUnmount() {
+    console.log('Transactions will be unmounted')
+  }
   render() {
     return (
-      <Grid className={'dashboard-container container'}>
+      <Grid container className={'transactions'}>
         <Grid item xs={12}>
 
           <FilterSearch handleChangeDate={() => {}} />
 
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} className={'dashboard-container'}>
 
           <DataTable />
 

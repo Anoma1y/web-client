@@ -1,16 +1,15 @@
 import React from 'react';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
-import './style.scss';
 
 export default () => {
   return (
-    <div className={'card-info'}>
-      <div className={'container'}>
+    <div className={'dashboard_info'}>
+      <div className={'card-info container'}>
         <div className={'card-content'}>
           <Text className={'card-content_text'}>
             <Text.Content>
-              Available on Master Card **** 0307
+                Available on Master Card **** 0307
             </Text.Content>
             <Text.Sub>
               <Amount className={'card-content_amount'} value={23450.50} />

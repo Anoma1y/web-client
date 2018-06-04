@@ -24,11 +24,11 @@ export default class DataTable extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener('scroll', this.handleScroll);
+    // document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll);
+    // document.removeEventListener('scroll', this.handleScroll);
   }
 
   setTableRef = (node) => {

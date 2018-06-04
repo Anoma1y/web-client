@@ -10,12 +10,14 @@ class Main extends Component {
     return (
       <Grid container justify={'center'} className={'dashboard'}>
         <Grid item xs={12}>
-          <div className={'dashboard-container'}>
+          <div className={'dashboard-container container'}>
             <Banners />
           </div>
         </Grid>
-        <Grid item xs={12} className={'dashboard-container'}>
-          <Transaction />
+        <Grid item xs={12}>
+          <div className={'dashboard-container container'}>
+            <Transaction />
+          </div>
         </Grid>
       </Grid>
     );

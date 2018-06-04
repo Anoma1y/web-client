@@ -16,13 +16,6 @@ $item-bgc:            #E4EAF4;
     &__active {
       background-color: $item-bgc;
     }
-
-    &:hover {
-      background-color: $item-bgc;
-      a {
-        color: lighten($black-color, 30%);
-      }
-    }
   }
 
   &_item-icon {

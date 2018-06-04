@@ -1,0 +1,40 @@
+@import 'lib/style/vars.scss';
+
+.wallet-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.wallet-content {
+  &_text {
+    .text_content {
+      padding: 10px 0;
+      color: $white-color;
+      font-size: 1rem;
+    }
+  }
+  &_amount {
+    font-family: $font-bold-serif;
+    font-size: 2.2rem !important;
+    letter-spacing: 2px;
+    color: $white-color;
+    .amount_minor {
+      opacity: 0.7;
+    }
+  }
+}
+.wallet-image {
+  position: relative;
+  &_title {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: $white-color;
+    font-family: $font-bold-serif;
+    font-size: 1.1rem;
+  }
+}
