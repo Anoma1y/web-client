@@ -12,10 +12,12 @@
 
   &-content {
     height: 80px;
-    &:after {
-      content: '';
-      width: 80px;
-      display: block;
+    @media screen and (max-width: $break-lg - 1) {
+      &:after {
+        content: '';
+        width: 80px;
+        display: block;
+      }
     }
   }
   &-container {

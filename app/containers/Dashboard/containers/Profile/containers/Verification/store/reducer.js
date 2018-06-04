@@ -14,28 +14,33 @@ const INITIAL_STATE = {
   entityDocumentIsLoading: false,
 };
 
-export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    /**
-     * Обработчики, связанные со всеми медиафайлами
-     */
-    case ADD_PERSON_PHOTO:
-      return { ...state, personalPhoto: action.payload };
-    case REMOVE_PERSON_PHOTO:
-      return { ...state, personalPhoto: {} };
-    case ADD_ENTITY_DOCUMENT_FILE:
-      return {
-        ...state, entityDocument: [...state.entityDocument, action.payload]
-      };
-    case REMOVE_ENTITY_DOCUMENT_FILE:
-      return {
-        ...state, entityDocument: state.entityDocument.filter((file) => file.file.id !== action.payload)
-      };
-    case SET_PERSON_PHOTO_IS_LOADING:
-      return { ...state, personalPhotoIsLoading: action.payload };
-    case SET_ENTITY_DOCUMENT_IS_LOADING:
-      return { ...state, entityDocumentIsLoading: action.payload };
-    default:
-      return state;
-  }
-};
+const HANDLERS = {
+  [ADD_PERSON_PHOTO]: (state, { payload }) => ({
+    ...state,
+    personalPhoto: payload
+  }),
+  [REMOVE_PERSON_PHOTO]: (state) => ({
+    ...state,
+    personalPhoto: {}
+  }),
+  [ADD_ENTITY_DOCUMENT_FILE]: (state, { payload }) => ({
+    ...state,
+    entityDocument: [...state.entityDocument, payload]
+  }),
+  [REMOVE_ENTITY_DOCUMENT_FILE]: (state, { payload }) => ({
+    ...state,
+    entityDocument: state.entityDocument.filter((file) => file.file.id !== payload)
+  }),
+  [SET_PERSON_PHOTO_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    personalPhotoIsLoading: payload
+  }),
+  [SET_ENTITY_DOCUMENT_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    entityDocumentIsLoading: payload
+  }),
+}
+
+export default (state = INITIAL_STATE, action) => (
+  action.type in HANDLERS ? HANDLERS[action.type](state, action) : state
+);

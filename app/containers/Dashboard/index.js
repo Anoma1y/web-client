@@ -124,12 +124,15 @@ export default class Dashboard extends Component {
     </div>
   );
 
+  renderLoader = () => <CircularProgress size={70} className={'page_loading'} />
+
   render() {
     return (
       <div className={'page'}>
         {
-          this.state.ready ? this.renderDashboard()
-            : <CircularProgress size={70} className={'page_loading'} />
+          this.state.ready
+            ? this.renderDashboard()
+            : this.renderLoader()
         }
       </div>
     );
