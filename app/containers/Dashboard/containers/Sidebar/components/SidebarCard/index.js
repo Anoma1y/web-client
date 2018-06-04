@@ -2,6 +2,12 @@ import React from 'react';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
+import Dropdown from 'components/Dropdown';
+
+const menuItems = [
+  { name: 'Pay', link: '/wallet/pay' },
+  { name: 'Rename', link: '/wallet/rename' },
+];
 
 const renderMasterCard = () => (
   <div className={'wallet-icon wallet-card'}>
@@ -34,7 +40,7 @@ export default class SidebarCard extends React.Component {
             </Text>
           </div>
           <div className={'wallet_btn sidebar-container_btn'}>
-            <span>...</span>
+            <Dropdown item={menuItems}>...</Dropdown>
           </div>
         </div>
       </div>

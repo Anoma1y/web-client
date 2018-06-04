@@ -8,7 +8,7 @@ export const setSessionList = (session = []) => ({
   payload: session,
 });
 
-export const pullSession = () => (dispatch) => {
+export const pullSession = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getSessionList()
     .then((data) => {
       if (data.status !== 200) return;
@@ -20,8 +20,9 @@ export const pullSession = () => (dispatch) => {
       }
 
       dispatch(setSessionList(loginHistory));
+      resolve();
     })
-    .catch((err) => {
-      console.log(err);
-    })
-}
+    .catch(() => {
+      reject();
+    });
+});

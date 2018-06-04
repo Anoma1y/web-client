@@ -20,21 +20,9 @@ import {
 import './style.scss';
 
 const panes = [
-  {
-    icon: <FingerprintIcon />,
-    menuItem: 'Verification',
-    render: () => <Verification />
-  },
-  {
-    icon: <PersonOutlineIcon />,
-    menuItem: 'Account',
-    render: () => <Account />
-  },
-  {
-    icon: <SecurityIcon />,
-    menuItem: 'Security',
-    render: () => <Security />
-  },
+  { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
+  { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
 ];
 
 @connect(null, ({

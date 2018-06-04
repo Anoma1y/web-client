@@ -4,12 +4,13 @@ import { TextField, FormHelperText } from '@material-ui/core';
  * Рендер формы для адреса
  * @param input - инпут
  * @param label - надпись
+ * @param helperText - хх
  * @param touched - хз
  * @param error - текст ошибки
  * @param custom - плейсхолдер и т.п.
  * @returns {*}
  */
-export default ({ input, label, meta: { touched, error }, ...custom }) => (
+export default ({ input, label, helperText, meta: { touched, error }, ...custom }) => (
   <Fragment>
     <TextField
       fullWidth
@@ -19,6 +20,6 @@ export default ({ input, label, meta: { touched, error }, ...custom }) => (
       {...input}
       {...custom}
     />
-    <FormHelperText error={error && touched}>{error}</FormHelperText>
+    <FormHelperText error={error && touched}>{error || helperText}</FormHelperText>
   </Fragment>
 );
