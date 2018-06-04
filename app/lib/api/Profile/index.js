@@ -44,6 +44,13 @@ export default class Profile {
     });
   }
 
+  changeUserPassword(currentUserPassword, newUserPassword) {
+    return this.http.patch(config.CHANGE_USER_PASSWORD, {
+      currentUserPassword,
+      newUserPassword
+    });
+  }
+
   getAllDocumentsType() {
     return this.http.post(config.GET_ALL_DOCUMENTS_TYPE);
   }

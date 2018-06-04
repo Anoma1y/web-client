@@ -31,11 +31,6 @@ export default class Dashboard extends Component {
   };
 
   componentDidMount() {
-    // this.props.send({ id: uuid(), status: 'error', title: 'Ошибка', message: 'Произошла ошибка при отправке данных на сервер', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'success', title: 'Успешно', message: 'Очень длинный текст об успешном оповещении', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'warning', title: 'Предупреждение', message: 'Предупреждение', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'info', title: 'Информация', message: 'Добрый день', actionClose: true });
-
     const authToken = Storage.get('session');
 
     // Если токена нету в локальном хранилище, то вызов ошибки

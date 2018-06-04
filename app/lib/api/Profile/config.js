@@ -11,6 +11,7 @@ export default {
   GET_PROFILE_DOCUMENTS: '/profile-documents',
   SUBMIT_UPLOAD_DOCUNENT: '/profile-documents',
 
+  CHANGE_USER_PASSWORD: '/profiles/my/password',
   PROFILE_SESSION: '/profiles/my/loginhistory',
   // PROFILE_SESSION_LIMITED: '/profiles/my/loginhistory/limit{p}{quantity}'
 };

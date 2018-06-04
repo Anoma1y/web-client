@@ -15,7 +15,7 @@ export default ({ input, label, helperText, meta: { touched, error }, ...custom 
     <TextField
       fullWidth
       label={label}
-      error={touched && error}
+      error={error && touched}
       className={'profile-form_input'}
       {...input}
       {...custom}

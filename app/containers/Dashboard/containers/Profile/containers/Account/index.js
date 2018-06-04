@@ -110,7 +110,6 @@ export default class Account extends Component {
                 otpIsSend.email
                 ? <FormOTP type={'email'} />
                 : this.renderContactMainForm('email')
-
               }
             </FormControl>
           </Grid>
