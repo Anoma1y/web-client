@@ -1,2 +1,3 @@
 export const SET_SESSION_LIST = 'Profile_Security/SET_SESSION_LIST';
 export const SET_CHANGE_PASSWORD_IS_LOADING = 'Profile_Security/SET_CHANGE_PASSWORD_IS_LOADING';
+export const SET_NOTIFICATION_IS_LOADING = 'Profile_Security/SET_NOTIFICATION_IS_LOADING';

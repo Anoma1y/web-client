@@ -1,11 +1,13 @@
 import {
   SET_SESSION_LIST,
-  SET_CHANGE_PASSWORD_IS_LOADING
+  SET_CHANGE_PASSWORD_IS_LOADING,
+  SET_NOTIFICATION_IS_LOADING
 } from './types';
 
 const INITIAL_STATE = {
   session: [],
-  passwordIsLoading: false
+  passwordIsLoading: false,
+  notificationIsLoading: false
 };
 
 const HANDLERS = {
@@ -16,6 +18,10 @@ const HANDLERS = {
   [SET_CHANGE_PASSWORD_IS_LOADING]: (state, { payload }) => ({
     ...state,
     passwordIsLoading: payload
+  }),
+  [SET_NOTIFICATION_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    notificationIsLoading: payload
   })
 };
 

@@ -61,7 +61,7 @@ export default class Session extends Component {
         <TableRow>
           <TableCell>Тип доступа</TableCell>
           <TableCell>Время</TableCell>
-          <TableCell>Страна (IP-адрес)</TableCell>
+          <TableCell>IP-адрес (Страна)</TableCell>
         </TableRow>
       </TableHead>
       <TableBody className={'session-history_body'}>

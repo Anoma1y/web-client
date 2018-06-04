@@ -1,10 +1,12 @@
 import {
   SET_SESSION_LIST,
   SET_CHANGE_PASSWORD_IS_LOADING,
+  SET_NOTIFICATION_IS_LOADING
 } from './types';
 import { api } from 'lib/api';
 import { send } from 'containers/Notification/store/actions';
 import { reset as ReduxFormReset } from 'redux-form';
+import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
 import Storage from 'lib/storage';
 import uuid from 'uuid/v1';
 
@@ -17,6 +19,33 @@ export const setChangePasswordIsLoading = (isLoading = false) => ({
   type: SET_CHANGE_PASSWORD_IS_LOADING,
   payload: isLoading
 });
+
+export const setNotificationIsLoading = (isLoading = false) => ({
+  type: SET_NOTIFICATION_IS_LOADING,
+  payload: isLoading
+});
+
+export const changeNotificationSend = () => (dispatch, getState) => {
+  const { security } = getState().form.SecurityNotification.values;
+  dispatch(setNotificationIsLoading(true));
+  api.profile.changeUserNotification(security)
+    .then((data) => {
+
+      if (data.status !== 200) {
+        return;
+      }
+
+      const { profile } = data.data;
+
+      dispatch(pullProfile(profile));
+      dispatch(setNotificationIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Change notification', message: 'Notification was changed', timeout: 3000 }));
+    })
+    .catch(() => {
+      dispatch(setNotificationIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+    })
+};
 
 /**
  * Экшен для экшена смены пароля

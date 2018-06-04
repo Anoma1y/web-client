@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Grid, FormLabel, FormControl, Button } from '@material-ui/core';
+import { Grid, FormLabel, FormControl, Button, CircularProgress } from '@material-ui/core';
+import { changeNotificationSend } from '../../store/actions';
 import FieldSwitch from '../../../../components/FieldSwitch';
 
 @connect((state) => ({
@@ -9,13 +10,21 @@ import FieldSwitch from '../../../../components/FieldSwitch';
   initialValues: {
     security: state.Dashboard_Profile.profile.security,
   }
-}))
+}), ({
+    changeNotificationSend
+  }))
 @reduxForm({
-  form: 'ProfileSecurity',
+  form: 'SecurityNotification',
   enableReinitialize: true
 })
 export default class NotificationForm extends Component {
+
+  handleClick = () => {
+    this.props.changeNotificationSend();
+  };
+
   render() {
+    const { notificationIsLoading } = this.props.Profile_Security;
     return (
       <Fragment>
         <FormControl fullWidth>
@@ -25,29 +34,37 @@ export default class NotificationForm extends Component {
             <Grid item xs={5}>
               <FormControl fullWidth>
                 <FormLabel disabled component={'legend'} className={'profile-form_label__inner'}>When performing transaction</FormLabel>
-                <Field name={'transactionNotification.email'} component={FieldSwitch} label={'Send Email'} />
-                <Field name={'transactionNotification.phone'} component={FieldSwitch} label={'Send SMS-code'} />
+                <Field name={'security.transactionNotification.email'} component={FieldSwitch} label={'Send Email'} />
+                <Field name={'security.transactionNotification.phone'} component={FieldSwitch} label={'Send SMS-code'} />
               </FormControl>
             </Grid>
             <Grid item xs={5}>
               <FormControl fullWidth>
                 <FormLabel disabled component={'legend'} className={'profile-form_label__inner'}>After authorization</FormLabel>
-                <Field name={'authorizationNotification.email'} component={FieldSwitch} label={'Send Email'} />
-                <Field name={'authorizationNotification.phone'} component={FieldSwitch} label={'Send SMS-code'} />
+                <Field name={'security.authorizationNotification.email'} component={FieldSwitch} label={'Send Email'} />
+                <Field name={'security.authorizationNotification.phone'} component={FieldSwitch} label={'Send SMS-code'} />
               </FormControl>
             </Grid>
           </Grid>
 
         </FormControl>
         <Grid container justify={'flex-start'}>
-          <Grid item xs={10}>
-            <Button
-              color={'primary'}
-              variant={'raised'}
-              size={'large'}
-            >
-              Submit
-            </Button>
+          <Grid item xs={2}>
+            <div className={'mui-btn'}>
+              <Button
+                fullWidth
+                color={'primary'}
+                variant={'raised'}
+                size={'large'}
+                disabled={notificationIsLoading}
+                onClick={this.handleClick}
+              >
+                Submit
+              </Button>
+              {
+                notificationIsLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
+              }
+            </div>
           </Grid>
         </Grid>
       </Fragment>

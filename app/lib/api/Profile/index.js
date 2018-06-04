@@ -51,6 +51,12 @@ export default class Profile {
     });
   }
 
+  changeUserNotification(security) {
+    return this.http.patch(config.CHANGE_NOTIFICATION_SEND, {
+      security
+    });
+  }
+
   getAllDocumentsType() {
     return this.http.post(config.GET_ALL_DOCUMENTS_TYPE);
   }
