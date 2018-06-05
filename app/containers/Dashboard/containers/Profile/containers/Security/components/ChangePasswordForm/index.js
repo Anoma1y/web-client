@@ -96,6 +96,7 @@ export default class ChangePasswordForm extends Component {
                 type={'password'}
                 placeholder={'Current password'}
                 normalize={normalizePassword}
+                autoComplete={'off'}
               />
 
             </Grid>
@@ -108,6 +109,7 @@ export default class ChangePasswordForm extends Component {
                 type={'password'}
                 placeholder={'New password'}
                 normalize={normalizePassword}
+                autoComplete={'off'}
               />
 
             </Grid>
@@ -121,6 +123,7 @@ export default class ChangePasswordForm extends Component {
                 type={'password'}
                 placeholder={'Repeat new password'}
                 normalize={normalizePassword}
+                autoComplete={'off'}
               />
 
             </Grid>

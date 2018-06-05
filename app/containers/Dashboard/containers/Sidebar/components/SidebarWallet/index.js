@@ -21,17 +21,20 @@ const renderEuro = () => (
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 export default class SidebarWallet extends React.Component {
   render() {
+    const { active } = this.props.Dashboard_Sidebar;
+
     return (
       <div className={'sidebar-wallets'}>
         {
           this.props.Dashboard_Sidebar.coins.map((item) => {
+            const isActive = active.id === item.serial && active.type === 'wallet';
             return (
-              <div className={'sidebar-wallet sidebar-container'} key={item.serial}>
+              <div className={`sidebar-wallet sidebar-container ${isActive ? 'sidebar-wallet__active' : ''}`} key={item.serial}>
                 <div className={'sidebar-container_icon'}>
                   {renderEuro()}
                 </div>
                 <div className={'sidebar-wallet-content sidebar-container_content'}>
-                  <Link to={'/dashboard/wallet'}>
+                  <Link to={`/dashboard/wallet/${item.serial}`}>
                     <Text className={'sidebar-wallet-amount'}>
                       <Text.Content className={'sidebar-wallet-amount_name'}>
                         {item.name}

@@ -111,15 +111,18 @@
 
   &-mobile {
     position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
+    top: 1.2rem;
+    left: 1.5rem;
     z-index: 999999;
     @media screen and (min-width: $break-lg) {
       display: none;
     }
     &_button {
       cursor: pointer;
-      border: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid lighten($lightblue-color, 10%);
+      border-radius: 50%;
       background: none;
       &:focus {
         outline: none;
@@ -181,19 +184,19 @@
 
 .sidebar-wallets {
   width: 100%;
-  padding: 10px 0;
+  padding: 0.7rem 0;
 }
 
 .sidebar-wallet {
   position: relative;
   width: 100%;
   text-align: center;
-  height: 70px;
+  height: 5rem;
   font-family: $font-regular;
   cursor: pointer;
   transition: background-color 0.4s ease;
 
-  &:hover {
+  &:hover:not(&__active) {
     background-color: darken($white-color, 5%);
   }
 
@@ -207,6 +210,33 @@
     transform: translateX(-50%);
     height: 1px;
     background-color: rgba(147,147,147,0.3);
+  }
+
+  &__active {
+    background-color: #1A3F73;
+    .sidebar-wallet {
+      &-amount {
+        &_name {
+          color: $white-color;
+        }
+        &_value {
+          color: $white-color;
+        }
+        .amount_major {
+          color: $white-color;
+        }
+        .amount_minor {
+          color: $white-color;
+          opacity: 0.8;
+        }
+      }
+    }
+    .sidebar-wallet_btn {
+      color: $white-color;
+    }
+    &:hover {
+      background-color: lighten(#1A3F73, 5%);
+    }
   }
 
   &-content {

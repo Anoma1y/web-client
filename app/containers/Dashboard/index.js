@@ -19,6 +19,7 @@ import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
+// todo иногда вызывается баг с токеном = null
 @connect(null, ({
   replace,
   initialData,
@@ -109,7 +110,7 @@ export default class Dashboard extends Component {
           <Switch>
             <Route exact path={`${this.props.match.url}`} component={Main} />
             <Route exact path={`${this.props.match.url}/card`} component={Card} />
-            <Route exact path={`${this.props.match.url}/wallet`} component={Wallet} />
+            <Route exact path={`${this.props.match.url}/wallet/:id`} component={Wallet} />
             <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
             <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
           </Switch>

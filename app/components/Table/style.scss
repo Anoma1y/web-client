@@ -17,8 +17,9 @@ $table:               table;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 1em;
-  color: $gray-color;
+  color: $black-color;
   font-family: $font-regular-serif;
+  cursor: default;
 
   &:first-child {
     margin-top: 0;
@@ -114,7 +115,7 @@ $table:               table;
   }
 
   & td {
-    padding: 1em 0.7em;
+    padding: 1.5rem 0.7em;
     text-align: inherit;
   }
 

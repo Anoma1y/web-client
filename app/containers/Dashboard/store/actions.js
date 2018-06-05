@@ -1,13 +1,11 @@
 import {
   pullCoins,
   pullProfile,
-  // pullCards
+  pullIssuers,
 } from '../containers/Sidebar/store/actions';
-// import { pullTransactions } from '../containers/Transaction/store/actions';
 import Storage from 'lib/storage';
 
-// pullTransactions
-const individual = [pullCoins, pullProfile];
+const individual = [pullCoins, pullProfile, pullIssuers];
 const merchant = [pullCoins, pullProfile];
 const administrator = [pullProfile];
 

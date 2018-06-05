@@ -10,4 +10,8 @@ export default class Coins {
     return this.http.get(config.GET_COINS_LIST);
   }
 
+  getIssuersList() {
+    return this.http.get(config.GET_ISSUERS_LIST)
+  }
+
 }

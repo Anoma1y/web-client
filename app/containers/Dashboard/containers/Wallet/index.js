@@ -1,14 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Reorder as ReorderIcon,
   CompareArrows as CompareArrowsIcon,
   Send as SendIcon
 } from '@material-ui/icons';
+import {
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 import Icon from 'components/Icon';
 import WalletInfo from './components/WalletInfo';
 import Transaction from 'containers/Dashboard/containers/Transaction';
 import Tab from 'components/Tab';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import './style.scss';
 
 const panes = [
@@ -19,6 +24,9 @@ const panes = [
   { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
 ];
 
+@connect(null, ({
+  setActive
+}))
 export default class Wallet extends React.Component {
 
   state = {
@@ -27,9 +35,15 @@ export default class Wallet extends React.Component {
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ ready: true });
-    }, 1500)
+    this.props.setActive({
+      type: 'wallet',
+      id: this.props.match.params.id
+    });
+    this.setState({ ready: true });
+  }
+
+  componentWillUnmount() {
+    this.props.setActive({ type: null, id: null });
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });

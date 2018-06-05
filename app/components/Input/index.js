@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import InputRedux from './InputRedux';
 import './style.scss';
 
 // todo добавить проверку на иконку (нода)
@@ -120,7 +119,5 @@ const Input = (props) => {
     </div>
   );
 };
-
-Input.Redux = InputRedux;
 
 export default Input;

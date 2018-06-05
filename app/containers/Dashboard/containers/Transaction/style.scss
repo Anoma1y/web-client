@@ -1,0 +1,40 @@
+@import "lib/style/vars.scss";
+
+.data-table {
+  &_loader {
+    height: 40px;
+    position: relative;
+  }
+}
+.transactions-table {
+  &_item {
+
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: #F1FAFF;
+    }
+  }
+  &_head {
+    td {
+      color: $blue-color;
+      font-family: $font-semibold-serif;
+      font-size: 0.9rem;
+    }
+  }
+  &_content {
+    font-family: $font-semibold-serif !important;
+    td {
+      font-size: 1rem !important;
+      padding-top: 1.3rem !important;
+      padding-bottom: 1.3rem !important;
+      color: #333333;
+    }
+  }
+  &_amount {
+    font-family: $font-regular-serif;
+    .amount_operation__color_minus {
+      color: $black-color;
+    }
+  }
+}

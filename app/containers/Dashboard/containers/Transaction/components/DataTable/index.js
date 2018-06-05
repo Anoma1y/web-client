@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Table from 'components/Table';
+import { Table, TableBody, TableCell, TableRow } from '@material-ui/core';
 import Amount from 'components/Amount';
 import Loader from 'components/Loader';
 import _ from 'lodash';
-import './style.scss';
 
 const transactions = [
   { id: '1', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
@@ -69,37 +68,44 @@ export default class DataTable extends Component {
     const keys = Object.keys(group);
     return keys.map((item) => {
       return (
-        <Table.Body key={item}>
-          <Table.Row date>
-            <Table.Cell colSpan={16}>
+        <TableBody key={item} className={'transactions-table_item'}>
+          <TableRow className={'transactions-table_head'}>
+            <TableCell colSpan={16}>
               {item}
-            </Table.Cell>
-          </Table.Row>
+            </TableCell>
+          </TableRow>
           { group[item].map((data) => {
             return (
-              <Table.Row key={`${data.id}`}>
-                <Table.Cell width={4}>{data.category} </Table.Cell>
-                <Table.Cell width={4}>{data.from}</Table.Cell>
-                <Table.Cell width={4}>{data.to}</Table.Cell>
-                <Table.Cell width={4}><Amount operation={data.operation} value={data.amount} /></Table.Cell>
-              </Table.Row>
+              <TableRow key={`${data.id}`} className={'transactions-table_content'}>
+                <TableCell >{data.category} </TableCell>
+                <TableCell >{data.from}</TableCell>
+                <TableCell >{data.to}</TableCell>
+                <TableCell numeric className={'transactions-table_amount'}>
+                  <Amount operation={data.operation} value={data.amount} />
+                </TableCell>
+              </TableRow>
             );
           }) }
-        </Table.Body>
-
+        </TableBody>
       );
     });
   };
 
+  renderTable = () => (
+    <Table className={'transactions-table'}>
+      {this.renderRow()}
+    </Table>
+  )
+  renderLoader = () => (
+    <div className={'data-table_loader'}>
+      <Loader active={this.state.isLoading} transparent />
+    </div>
+  )
   render() {
     return (
       <div className={'data-table'} ref={this.setTableRef}>
-        <Table>
-          {this.renderRow()}
-        </Table>
-        <div className={'data-table_loader'}>
-          <Loader active={this.state.isLoading} transparent />
-        </div>
+        {this.renderTable()}
+        {this.renderLoader()}
       </div>
     );
   }

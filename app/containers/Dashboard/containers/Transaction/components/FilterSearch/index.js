@@ -1,5 +1,5 @@
 import * as React from 'react';
-import DateFilter from 'components/DateFilter';
+import DateFilter from '../DateFilter';
 import { Search as SearchIcon } from '@material-ui/icons';
 import Input from 'components/Input';
 import './style.scss';
