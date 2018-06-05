@@ -13,7 +13,7 @@ import {
 import { getValuesDeep } from 'lib/utils';
 import FieldText from '../../../../components/FieldText';
 import {
-  updatePersonInfo
+  updatePersonInfo,
 } from '../../store/actions';
 
 const validate = (values) => {
@@ -25,7 +25,7 @@ const validate = (values) => {
       },
       nameIntl: {
         first: '',
-        second: ''
+        second: '',
       }
     }
   };
@@ -58,7 +58,7 @@ const validate = (values) => {
     person: state.Dashboard_Profile.profile.person,
   }
 }), ({
-    updatePersonInfo
+    updatePersonInfo,
   }))
 @reduxForm({
   form: 'VerificationPersonInfo',
@@ -125,7 +125,7 @@ export default class FormPersonInfo extends Component {
                component={FieldText}
                label={'Middle name'}
                placeholder={'Middle name'}
-               />
+              />
             </Grid>
           </Grid>
         </Grid>

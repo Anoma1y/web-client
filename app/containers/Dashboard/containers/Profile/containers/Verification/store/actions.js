@@ -11,6 +11,7 @@ import { api } from 'lib/api';
 import { changeUsedType } from '../../../store/actions';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
+import { pullProfile as pullProfileSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
 
@@ -141,13 +142,28 @@ export const updatePersonInfo = () => (dispatch, getState) => {
   } = getState().form.VerificationPersonInfo;
 
   if (syncErrors) return;
-  api.profile.updatePersonInfo(person)
+
+  const personObject = {
+    ...person,
+    namePlain: {
+      ...person.namePlain,
+      middle: person.namePlain.middle === '' ? null : person.namePlain.middle
+    },
+    nameIntl: {
+      ...person.nameIntl,
+      middle: person.nameIntl.middle === '' ? null : person.nameIntl.middle
+    }
+
+  }
+
+  api.profile.updatePersonInfo(personObject)
     .then((data) => {
       if (data.status !== 200) return;
 
       const { profile } = data.data;
 
       dispatch(pullProfile(profile));
+      dispatch(pullProfileSidebar(profile));
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person info has been changed', timeout: 4000 }));
     })
     .catch((err) => {
