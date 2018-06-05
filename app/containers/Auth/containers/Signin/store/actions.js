@@ -13,6 +13,7 @@ import {
   SET_ERROR,
   RESET
 } from './types';
+import { RESET_ALL } from 'store/reducers';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
 import moment from 'moment';
@@ -81,6 +82,7 @@ export const reset = () => ({
 // TODO переместить в отдельный компонент + переделать логаут
 export const logout = () => (dispatch) => {
   Storage.clear();
+  dispatch({ type: RESET_ALL });
   dispatch(replace('/auth/signin'));
 };
 

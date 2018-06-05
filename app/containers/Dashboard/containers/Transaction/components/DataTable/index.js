@@ -28,6 +28,7 @@ export default class DataTable extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
+    clearTimeout(this.timeOut);
   }
 
   setTableRef = (node) => {
@@ -50,8 +51,8 @@ export default class DataTable extends Component {
     const windowBottom = windowHeight + window.pageYOffset;
 
     if (windowBottom > docHeight - 100) {
-      this.debounceData('Append new data');
-      setTimeout(() => {
+      // this.debounceData('Append new data');
+      this.timeOut = setTimeout(() => {
         this.setState({
           isLoading: true
         });

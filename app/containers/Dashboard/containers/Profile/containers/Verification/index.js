@@ -3,16 +3,20 @@ import {
   Grid,
   Divider
 } from '@material-ui/core';
-import VerificationForm from './components/VerificationForm';
+import FormPersonInfo from './components/FormPersonInfo';
+import FormUserAddress from './components/FormUserAddress';
 import PhotoDocument from './components/PhotoDocument';
 import PhotoIdentity from './components/PhotoIdentity';
 
 export default () => (
   <Grid container className={'profile'}>
     <Grid container className={'profile-form_wrapper'}>
-
-      <VerificationForm />
-
+      <div className={'dashboard-container'}>
+        <FormPersonInfo />
+      </div>
+      <div className={'dashboard-container'}>
+        <FormUserAddress />
+      </div>
     </Grid>
 
     <Grid container>

@@ -89,7 +89,6 @@ class Sidebar extends Component {
   render() {
 
     const { sidebarIsOpen } = this.state;
-
     return (
       <React.Fragment>
         <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
@@ -110,7 +109,7 @@ class Sidebar extends Component {
 
               <div className={'sidebar_item sidebar-wallets'}>
                 {
-                  this.props.Dashboard_Sidebar.coins && <SidebarWallet />
+                  this.props.Dashboard_Sidebar.coins.length !== 0 && <SidebarWallet />
                 }
               </div>
 

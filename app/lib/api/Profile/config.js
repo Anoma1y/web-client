@@ -2,6 +2,7 @@ export default {
   PROFILE_INFO: '/profiles/my',
 
   PROFILE_UPDATE_USER_ADDRESS: '/profiles/my/address',
+  PROFILE_UPDATE_PERSON_INFO: '/profiles/my/person',
 
   PROFILE_CONTACT_REQUEST: '/profiles/my/contact',
   PROFILE_CONTACT_CONFIRM: '/profiles/my/contact/confirm',

@@ -9,7 +9,10 @@ import {
 } from './types';
 import { api } from 'lib/api';
 import { changeUsedType } from '../../../store/actions';
+import { send } from 'containers/Notification/store/actions';
+import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
 import _ from 'lodash';
+import uuid from 'uuid/v1';
 
 export const addEntityDocumentFile = (file) => ({
   type: ADD_ENTITY_DOCUMENT_FILE,
@@ -111,10 +114,8 @@ export const uploadPersonFile = (fileUpload) => (dispatch) => {
 };
 
 // todo добавить экшен для обновления данных в сайдбаре и т.п.
-export const updateBasicIdentification = () => (dispatch, getState) => {
-  // const { address } = getState().form.ProfileVerification.values;
-  console.log(getState());
-  // todo добавить фио
+export const updateUserAddress = () => (dispatch, getState) => {
+  console.log(getState().form)
   // api.profile.updateUserAddress(address)
   //   .then((data) => {
   //     if (data.status !== 200) return;
@@ -128,4 +129,30 @@ export const updateBasicIdentification = () => (dispatch, getState) => {
   //     dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
   //   })
 };
+
+/**
+ * Экшен для обновления фио пользователя и др (в будущем (возможно (скорее всего (нет))
+ * @returns {function(*, *)}
+ */
+export const updatePersonInfo = () => (dispatch, getState) => {
+  const {
+    syncErrors,
+    values: { person }
+  } = getState().form.VerificationPersonInfo;
+
+  if (syncErrors) return;
+  api.profile.updatePersonInfo(person)
+    .then((data) => {
+      if (data.status !== 200) return;
+
+      const { profile } = data.data;
+
+      dispatch(pullProfile(profile));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person info has been changed', timeout: 4000 }));
+    })
+    .catch((err) => {
+      console.log(err)
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+    })
+}
 

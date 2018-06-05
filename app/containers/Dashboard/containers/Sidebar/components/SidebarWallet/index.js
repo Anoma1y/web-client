@@ -24,7 +24,10 @@ export default class SidebarWallet extends React.Component {
     const { active } = this.props.Dashboard_Sidebar;
 
     return (
-      <div className={'sidebar-wallets'}>
+      <div className={'sidebar-wallets_wrapper'}>
+        <div className={'sidebar_title'}>
+          Wallets
+        </div>
         {
           this.props.Dashboard_Sidebar.coins.map((item) => {
             const isActive = active.id === item.serial && active.type === 'wallet';

@@ -25,6 +25,12 @@ export default class Profile {
     });
   }
 
+  updatePersonInfo(person) {
+    return this.http.patch(config.PROFILE_UPDATE_PERSON_INFO, {
+      person
+    })
+  }
+
   updateContactRequest(login) {
     return this.http.post(config.PROFILE_CONTACT_REQUEST, {
       login

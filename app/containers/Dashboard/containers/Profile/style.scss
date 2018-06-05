@@ -5,7 +5,10 @@
     margin-top: 2rem;
   }
   &-form {
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+    &_control {
+      margin-bottom: 2rem !important;
+    }
     &_wrapper {
       margin-bottom: 2rem;
       margin-top: 2rem;
@@ -15,6 +18,10 @@
     &_inner {
       margin-top: 1rem !important;
       margin-bottom: 1rem !important;
+    }
+    &__inner {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
     }
     &_input {
 
@@ -52,6 +59,9 @@
       color: $black-color !important;
       font-family: $font-semibold-serif !important;
       font-size: 1.2rem !important;
+      &__inner {
+        padding-bottom: 1rem !important;
+      }
     }
   }
   &_icon {

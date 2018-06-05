@@ -26,7 +26,9 @@ export default class SidebarCard extends React.Component {
   render() {
     return (
       <div className={'sidebar-wallets_wrapper'}>
-
+        <div className={'sidebar_title'}>
+          Cards
+        </div>
         <div className={'sidebar-wallet sidebar-container'}>
           <div className={'sidebar-container_icon'}>
             {renderMasterCard()}
