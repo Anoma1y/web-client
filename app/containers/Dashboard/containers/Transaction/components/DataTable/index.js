@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import { Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { connect } from 'react-redux';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  CircularProgress
+} from '@material-ui/core';
 import Amount from 'components/Amount';
-import Loader from 'components/Loader';
+import moment from 'moment';
+import {
+  appendTransactions,
+  setAppendIsLoading
+} from '../../store/actions';
 import _ from 'lodash';
 
-const transactions = [
-  { id: '1', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
-  { id: '2', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
-  { id: '3', date: '11.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
-  { id: '4', date: '05.05.2018', category: 'Payment, hosting', from: '**** 4578', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
-  { id: '5', date: '05.05.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
-  { id: '6', date: '25.04.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'plus' },
-  { id: '7', date: '24.04.2018', category: 'Payment, hosting', from: '**** 4578', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
-  { id: '8', date: '24.04.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
-  { id: '9', date: '15.04.2018', category: 'Payment, hosting', from: 'My EURO wallet', to: 'Amazon', amount: '57978785.11', operation: 'minus' },
-];
-
+@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ appendTransactions }))
 export default class DataTable extends Component {
 
   state = {
-    isLoading: false
+    isLoading: false,
   };
 
   componentDidMount() {
@@ -31,18 +31,10 @@ export default class DataTable extends Component {
     clearTimeout(this.timeOut);
   }
 
-  setTableRef = (node) => {
-    this.tableRef = node;
-  };
+  debounceAppend = _.debounce(() => {
+    this.props.appendTransactions();
+  }, 800);
 
-  debounceData = _.debounce((text) => {
-    console.log(text);
-    this.setState({
-      isLoading: false
-    })
-  }, 500);
-
-  // TODO fix flow type
   handleScroll = () => {
     const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement;
     const { body } = document;
@@ -50,22 +42,33 @@ export default class DataTable extends Component {
     const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
     const windowBottom = windowHeight + window.pageYOffset;
 
+    if (this.props.Dashboard_Transaction.appendIsLoading) return;
+
     if (windowBottom > docHeight - 100) {
-      // this.debounceData('Append new data');
-      this.timeOut = setTimeout(() => {
-        this.setState({
-          isLoading: true
-        });
-      }, 300);
-    } else {
-      this.setState({
-        isLoading: false
-      });
+      this.debounceAppend();
     }
   };
 
+  getType = (type) => {
+    switch (type) {
+      case 'client_transaction_issue':
+        return 'Client transaction issue';
+      case 'client_transaction_transfer':
+        return 'Client transaction transfer';
+      default:
+        return 'Transfer';
+    }
+  }
+
   renderRow = () => {
-    const group = _.groupBy(transactions, 'date');
+    const { records } = this.props;
+    const transactions = records.map((it) => {
+      return {
+        ...it,
+        groupDate: moment(it.createdAt).format('DD-MM-YYYY')
+      };
+    });
+    const group = _.groupBy(transactions, 'groupDate');
     const keys = Object.keys(group);
     return keys.map((item) => {
       return (
@@ -78,11 +81,20 @@ export default class DataTable extends Component {
           { group[item].map((data) => {
             return (
               <TableRow key={`${data.id}`} className={'transactions-table_content'}>
-                <TableCell >{data.category} </TableCell>
-                <TableCell >{data.from}</TableCell>
-                <TableCell >{data.to}</TableCell>
+                <TableCell>
+                  {this.getType(data.type)}
+                  </TableCell>
+                <TableCell>
+                  {`${data.from.serial} (${data.from.organizationName})`}
+                  </TableCell>
+                <TableCell>
+                  {`${data.to.serial} (${data.to.organizationName})`}
+                </TableCell>
                 <TableCell numeric className={'transactions-table_amount'}>
-                  <Amount operation={data.operation} value={data.amount} />
+                  <Amount
+                    operation={'plus'}
+                    value={data.amount}
+                  />
                 </TableCell>
               </TableRow>
             );
@@ -99,12 +111,15 @@ export default class DataTable extends Component {
   )
   renderLoader = () => (
     <div className={'data-table_loader'}>
-      <Loader active={this.state.isLoading} transparent />
+      {
+        this.props.Dashboard_Transaction.appendIsLoading && <CircularProgress size={24} className={'table_loading'} />
+      }
     </div>
   )
   render() {
+    this.renderRow()
     return (
-      <div className={'data-table'} ref={this.setTableRef}>
+      <div className={'data-table'}>
         {this.renderTable()}
         {this.renderLoader()}
       </div>

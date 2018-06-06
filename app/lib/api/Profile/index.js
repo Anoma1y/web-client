@@ -14,6 +14,10 @@ export default class Profile {
     return this.http.get(config.PROFILE_SESSION);
   }
 
+  getLimitedSessionList(limit = 5) {
+    return this.http.get(`${config.PROFILE_SESSION_LIMITED}/${limit}`);
+  };
+
   /**
    *
    * @param address - объект { country, zipCode, city, street, houseNumber } - всё опционально, хотя бы 1

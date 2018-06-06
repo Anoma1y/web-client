@@ -125,16 +125,16 @@ export const changePassword = () => (dispatch, getState) => {
     });
 };
 
+/**
+ * Экшен для получения списка сессий в ограниченном количестве
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullSession = () => (dispatch) => new Promise((resolve, reject) => {
-  api.profile.getSessionList()
+  api.profile.getLimitedSessionList(10)
     .then((data) => {
       if (data.status !== 200) return;
 
       const { loginHistory } = data.data;
-
-      if (loginHistory.length > 10) {
-        loginHistory.length = 10;
-      }
 
       dispatch(setSessionList(loginHistory));
       resolve();

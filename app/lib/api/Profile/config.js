@@ -15,5 +15,5 @@ export default {
   CHANGE_USER_PASSWORD: '/profiles/my/password',
   CHANGE_NOTIFICATION_SEND: '/profiles/my/security-settings',
   PROFILE_SESSION: '/profiles/my/loginhistory',
-  // PROFILE_SESSION_LIMITED: '/profiles/my/loginhistory/limit{p}{quantity}'
+  PROFILE_SESSION_LIMITED: '/profiles/my/loginhistory/limit'
 };

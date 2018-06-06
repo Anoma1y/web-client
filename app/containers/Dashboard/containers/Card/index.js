@@ -25,9 +25,7 @@ export default class Card extends React.Component {
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({ ready: true });
-    }, 1500)
+    this.setState({ ready: true });
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });

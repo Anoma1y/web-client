@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import Text from 'components/Text';
-import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
-import DatePicker from 'react-datepicker';
+import {
+  KeyboardArrowDown as KeyboardArrowDownIcon
+} from '@material-ui/icons';
 import moment from 'moment';
-import _ from 'lodash';
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+  getDays
+} from 'lib/date';
+import _ from 'lodash';
 import './style.scss';
 
 const selectItems = [
@@ -35,6 +40,8 @@ class DateFilter extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
+    const { dateStart, dateEnd } = getDays('date-month');
+    this.props.handleChangeDate({ dateStart, dateEnd });
   }
 
   componentWillUnmount() {
@@ -43,80 +50,6 @@ class DateFilter extends Component {
 
   setWrapperRef = (node) => {
     this.wrapperRef = node;
-  };
-
-  /**
-   * Метод для получения первого дня месяца
-   * @param start - количество месяцев от текущего времени
-   * @returns {moment.Moment} дата начала месяца (DD/MM/YYYY)
-   */
-  getFirstDay = (start) => moment().subtract(start, 'months').startOf('month');
-
-  /**
-   * Метод для получения последнего дня месяца
-   * @param end - количество месяцев от текущего времени
-   * @returns {moment.Moment} дата конца месяца (DD/MM/YYYY)
-   */
-  getLastDay = (end) => moment().subtract(end, 'months').endOf('month');
-
-  /**
-   * Метод для получения начальной и конечной даты по ID
-   * @param val - ID периода
-   * @returns {{dateStart: moment.Moment, dateEnd: moment.Moment}} - начальная и конечная дата
-   */
-  getDays = (val) => {
-    let dateStart;
-    let dateEnd;
-    switch (val) {
-      case 'date-week': {
-        dateStart = moment().subtract(1, 'weeks').startOf('day');
-        dateEnd = moment().endOf('day');
-        break;
-      }
-      case 'date-month': {
-        dateStart = moment().subtract(1, 'months').startOf('day');
-        dateEnd = moment().endOf('day');
-        break;
-      }
-      case 'date-month-1': {
-        dateStart = this.getFirstDay(0);
-        dateEnd = this.getLastDay(0);
-        break;
-      }
-      case 'date-month-2': {
-        dateStart = this.getFirstDay(1);
-        dateEnd = this.getLastDay(1);
-        break;
-      }
-      case 'date-month-3': {
-        dateStart = this.getFirstDay(2);
-        dateEnd = this.getLastDay(2);
-        break;
-      }
-      case 'date-3month': {
-        dateStart = this.getFirstDay(2);
-        dateEnd = this.getLastDay(0);
-        break;
-      }
-      case 'date-year': {
-        dateStart = this.getFirstDay(12);
-        dateEnd = this.getLastDay(0);
-        break;
-      }
-      case 'date-all': {
-        dateStart = moment(1318781876);
-        dateEnd = moment().endOf('day');
-        break;
-      }
-      default: {
-        dateStart = moment();
-        dateEnd = moment();
-      }
-    }
-    return {
-      dateStart,
-      dateEnd
-    };
   };
 
   /**
@@ -158,7 +91,7 @@ class DateFilter extends Component {
   handleChange = (event) => {
 
     const { value } = event.target;
-    const { dateStart, dateEnd } = this.getDays(value);
+    const { dateStart, dateEnd } = getDays(value);
     const { label, id } = _.filter(selectItems, { id: value })[0];
     this.setState({
       value,
@@ -201,7 +134,6 @@ class DateFilter extends Component {
       dateStart,
       dateEnd
     } = this.state;
-    console.log()
     this.setState({
       isOpen: false,
       isRange: false,

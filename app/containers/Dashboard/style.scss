@@ -85,6 +85,12 @@
   left: calc(50% - #{$loading-size});
 }
 
+.table_loading {
+  position: absolute;
+  top: 1rem;
+  left: calc(50% - #{$loading-size});
+}
+
 /**
 Стили для лоадера посреди экрана (по горизонтали)
  */

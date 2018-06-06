@@ -3,6 +3,7 @@ import {
   pullProfile,
   pullIssuers,
 } from '../containers/Sidebar/store/actions';
+// import { pullTransactions } from 'containers/Dashboard/containers/Transaction/store/actions';
 import Storage from 'lib/storage';
 
 const individual = [pullCoins, pullProfile, pullIssuers];
