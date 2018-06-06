@@ -9,7 +9,8 @@ import {
   FormLabel,
   Grid,
   InputLabel,
-  Button
+  Button,
+  CircularProgress
 } from '@material-ui/core';
 import FieldSelect from '../../../../components/FieldSelect';
 import FieldText from '../../../../components/FieldText';
@@ -34,7 +35,7 @@ export default class FormUserAddress extends Component {
 
   handleSubmitPostAddress = () => this.props.updateUserAddress();
 
-  renderUserAddress = () => (
+  renderUserAddress = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
       <FormLabel component={'legend'} className={'profile-form_label'}>User address</FormLabel>
       <Grid container justify={'flex-start'}>
@@ -91,21 +92,28 @@ export default class FormUserAddress extends Component {
           </Grid>
         </Grid>
         <Grid item xs={2}>
-          <Button
-            fullWidth
-            color={'primary'}
-            variant={'raised'}
-            size={'large'}
-            onClick={this.handleSubmitPostAddress}
-          >
-            Submit
-          </Button>
+          <div className={'mui-btn'}>
+            <Button
+              fullWidth
+              color={'primary'}
+              variant={'raised'}
+              size={'large'}
+              disabled={isLoading}
+              onClick={this.handleSubmitPostAddress}
+            >
+              Submit
+            </Button>
+            {
+              isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
+            }
+          </div>
         </Grid>
       </Grid>
     </FormControl>
   );
 
   render() {
-    return this.renderUserAddress();
+    const { updateUserAddressIsLoading } = this.props.Profile_Verification;
+    return this.renderUserAddress(updateUserAddressIsLoading);
   }
 }

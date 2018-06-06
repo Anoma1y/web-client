@@ -5,6 +5,8 @@ import {
   REMOVE_ENTITY_DOCUMENT_FILE,
   SET_PERSON_PHOTO_IS_LOADING,
   SET_ENTITY_DOCUMENT_IS_LOADING,
+  SET_UPDATE_PERSON_INFO_IS_LOADING,
+  SET_UPDATE_USER_ADDRESS_IS_LOADING,
 } from './types';
 
 const INITIAL_STATE = {
@@ -12,6 +14,8 @@ const INITIAL_STATE = {
   personalPhotoIsLoading: false,
   entityDocument: [],
   entityDocumentIsLoading: false,
+  updatePersonInfoIsLoading: false,
+  updateUserAddressIsLoading: false,
 };
 
 const HANDLERS = {
@@ -38,6 +42,14 @@ const HANDLERS = {
   [SET_ENTITY_DOCUMENT_IS_LOADING]: (state, { payload }) => ({
     ...state,
     entityDocumentIsLoading: payload
+  }),
+  [SET_UPDATE_PERSON_INFO_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    updatePersonInfoIsLoading: payload
+  }),
+  [SET_UPDATE_USER_ADDRESS_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    updateUserAddressIsLoading: payload
   }),
 }
 

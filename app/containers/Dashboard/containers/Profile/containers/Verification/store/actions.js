@@ -5,6 +5,8 @@ import {
   REMOVE_ENTITY_DOCUMENT_FILE,
   SET_PERSON_PHOTO_IS_LOADING,
   SET_ENTITY_DOCUMENT_IS_LOADING,
+  SET_UPDATE_PERSON_INFO_IS_LOADING,
+  SET_UPDATE_USER_ADDRESS_IS_LOADING,
   RESET
 } from './types';
 import { api } from 'lib/api';
@@ -37,13 +39,23 @@ export const removeEntityDocumentFile = (id) => (dispatch, getState) => {
   dispatch(removeEntityFile(id));
 };
 
-export const setPersonPhotoIsLoading = (isLoading) => ({
+export const setPersonPhotoIsLoading = (isLoading = false) => ({
   type: SET_PERSON_PHOTO_IS_LOADING,
   payload: isLoading,
 });
 
-export const setEntityDocumentIsLoading = (isLoading) => ({
+export const setEntityDocumentIsLoading = (isLoading = false) => ({
   type: SET_ENTITY_DOCUMENT_IS_LOADING,
+  payload: isLoading,
+});
+
+export const setUpdateUserAddressIsLoading = (isLoading = false) => ({
+  type: SET_UPDATE_USER_ADDRESS_IS_LOADING,
+  payload: isLoading,
+});
+
+export const setUpdatePersonInfoIsLoading = (isLoading = false) => ({
+  type: SET_UPDATE_PERSON_INFO_IS_LOADING,
   payload: isLoading,
 });
 
@@ -114,25 +126,45 @@ export const uploadPersonFile = (fileUpload) => (dispatch) => {
     });
 };
 
-// todo добавить экшен для обновления данных в сайдбаре и т.п.
 export const updateUserAddress = () => (dispatch, getState) => {
-  console.log(getState().form)
-  // api.profile.updateUserAddress(address)
-  //   .then((data) => {
-  //     if (data.status !== 200) return;
-  //
-  //     const { profile } = data.data;
-  //
-  //     dispatch(setProfile(profile));
-  //     dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Post address has been changed', timeout: 4000 }));
-  //   })
-  //   .catch(() => {
-  //     dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
-  //   })
+
+  const {
+    syncErrors,
+    values: { address }
+  } = getState().form.VerificationUserAddress;
+
+  if (syncErrors) return;
+
+  dispatch(setUpdateUserAddressIsLoading(true));
+
+  api.profile.updateUserAddress(address)
+    .then((data) => {
+      if (data.status !== 200) return;
+
+      const { profile } = data.data;
+
+      /**
+       * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
+       */
+      Promise.all([dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))])
+        .then(() => {
+          dispatch(setUpdateUserAddressIsLoading(false));
+          dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'User address has been changed', timeout: 4000 }));
+        })
+        .catch(() => {
+          dispatch(setUpdateUserAddressIsLoading(false));
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+          throw new Error();
+        });
+    })
+    .catch(() => {
+      dispatch(setUpdateUserAddressIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+    })
 };
 
 /**
- * Экшен для обновления фио пользователя и др (в будущем (возможно (скорее всего (нет))
+ * Экшен для обновления фио пользователя и днюху (в будущем (возможно (скорее всего (нет))
  * @returns {function(*, *)}
  */
 export const updatePersonInfo = () => (dispatch, getState) => {
@@ -153,22 +185,35 @@ export const updatePersonInfo = () => (dispatch, getState) => {
       ...person.nameIntl,
       middle: person.nameIntl.middle === '' ? null : person.nameIntl.middle
     }
+  };
 
-  }
+  dispatch(setUpdatePersonInfoIsLoading(true));
 
   api.profile.updatePersonInfo(personObject)
     .then((data) => {
+
       if (data.status !== 200) return;
 
       const { profile } = data.data;
 
-      dispatch(pullProfile(profile));
-      dispatch(pullProfileSidebar(profile));
-      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person info has been changed', timeout: 4000 }));
+      /**
+       * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
+       */
+      Promise.all([dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))])
+        .then(() => {
+          dispatch(setUpdatePersonInfoIsLoading(false));
+          dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person info has been changed', timeout: 4000 }));
+        })
+        .catch(() => {
+          dispatch(setUpdatePersonInfoIsLoading(false));
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+          throw new Error();
+        });
+
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
+      dispatch(setUpdatePersonInfoIsLoading(false));
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
-    })
-}
+    });
+};
 
