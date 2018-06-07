@@ -208,13 +208,8 @@
   background-color: darken($white-color, 3%);
   &:hover:not(&__active) {
     background-color: darken($white-color, 6%);
-    .sidebar-wallet_edit {
-      opacity: 1;
-    }
   }
   &_edit {
-    opacity: 0;
-    transition: opacity 0.2s linear;
     &-input {
       width: 150px;
     }
@@ -249,21 +244,8 @@
       }
     }
   }
-  //
-  //&:after {
-  //  content: '';
-  //  display: block;
-  //  position: absolute;
-  //  bottom: -1.1rem;
-  //  left: 50%;
-  //  width: 80%;
-  //  transform: translateX(-50%);
-  //  height: 1px;
-  //  background-color: rgba(147,147,147,0.3);
-  //}
 
   &__active {
-    //background-color: #1A3F73;
     &:after {
       content: '';
       position: absolute;
@@ -272,29 +254,6 @@
       top: 0;
       bottom: 0;
     }
-    //.sidebar-wallet {
-    //  &-amount {
-    //    &_name {
-    //      color: $white-color;
-    //    }
-    //    &_value {
-    //      color: $white-color;
-    //    }
-    //    .amount_major {
-    //      color: $white-color;
-    //    }
-    //    .amount_minor {
-    //      color: $white-color;
-    //      opacity: 0.8;
-    //    }
-    //  }
-    //}
-    //.sidebar-wallet_btn {
-    //  color: $white-color;
-    //}
-    //&:hover {
-    //  background-color: lighten(#1A3F73, 5%);
-    //}
   }
 
   &-content {
@@ -317,6 +276,12 @@
         white-space: nowrap;
         color: $darkpurple-color;
         text-decoration: none;
+      }
+      input {
+        font-family: $font-regular;
+        font-size: 1rem;
+        padding-top: 0;
+        padding-bottom: 0;
       }
     }
 
