@@ -46,14 +46,12 @@ import {
   CHANGE_PAGE_SIZE,
   CHANGE_TOTAL_PAGES,
   CHANGE_TOTAL_RECORDS,
-  CHANGE_FILTER_DATE,
   SET_APPEND_IS_LOADING,
   APPEND_RECORDS_LIST,
   SET_BLOCKED_APPEND,
   RESET
 } from './types';
 import { api } from 'lib/api';
-import { getDays } from 'lib/date';
 import moment from 'moment';
 
 export const setRecords = (records) => ({
@@ -78,7 +76,7 @@ export const changePageSize = (value) => ({
 
 export const reset = () => ({
   type: RESET
-})
+});
 
 export const changeTotalPages = (value) => ({
   type: CHANGE_TOTAL_PAGES,
@@ -100,13 +98,55 @@ export const setAppendIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+const sort = {
+  date: 'desc',
+  status: null,
+  type: null
+};
+
+const types = [
+  'client_transaction_transfer',
+  'client_create_prepaid',
+  'client_charge_prepaid',
+  'merchant_payment',
+  'merchant_invoice',
+  'gate_charge',
+  'gate_redeem',
+  'gate_purchase',
+  'gate_card_refund',
+  'gate_card_verification',
+  'exchange_transaction',
+  'cash_desk_redeem',
+  'cash_desk_charge',
+  'payroll_charge',
+  'contract_transit',
+  'merchant_cashback',
+  'deposit_topup',
+  'deposit_profit_payment',
+  'deposit_payout',
+  'deposit_capitalization',
+  'deposit_accruing',
+  'credit_issue',
+  'credit_payment',
+  'bank_topup',
+  'bank_redeem'
+];
+
+const statuses = [
+  'limited',
+  'pending',
+  'declined',
+  'processed',
+  'rejected',
+  'error'
+];
+
 export const appendTransactions = () => (dispatch, getState) => new Promise((resolve, reject) => {
   const {
     pageSize,
     pageNumber,
     blockedAppend,
     appendIsLoading,
-    sort,
     filter
   } = getState().Dashboard_Transaction;
 
@@ -118,11 +158,15 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
   if (appendIsLoading) return;
 
   const nextPage = pageNumber + 1;
+  const currentFilter = {
+    ...filter,
+    types,
+    statuses
+  }
   dispatch(setAppendIsLoading(true));
-
   dispatch(changePageNumber(nextPage));
 
-  api.transactions.getTransactionsList(pageSize, nextPage, sort, filter)
+  api.transactions.getTransactionsList(pageSize, nextPage, sort, currentFilter)
     .then((data) => {
       const { records } = data.data;
       if (records.length === 0) {
@@ -140,20 +184,23 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
     });
 })
 
+// todo нужен фикс для аккаунтов, отличных от обычного пользователя
+// не все транзакции содержат поля from и to
 export const pullTransactions = (date) => (dispatch, getState) => new Promise((resolve, reject) => {
   const {
     pageSize,
-    pageNumber,
-    sort,
     filter
   } = getState().Dashboard_Transaction;
 
   const currentFilter = {
     ...filter,
+    types,
+    statuses,
     dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
     dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
   };
-
+  const pageNumber = 0;
+  dispatch(changePageNumber(pageNumber));
   api.transactions.getTransactionsList(pageSize, pageNumber, sort, currentFilter)
     .then((data) => {
       const { records, totalPages, totalRecords } = data.data;

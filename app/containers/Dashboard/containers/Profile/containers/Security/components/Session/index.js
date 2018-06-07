@@ -100,8 +100,14 @@ export default class Session extends Component {
   );
 
   render() {
-    return this.state.ready
-      ? this.renderMain()
-      : <CircularProgress size={30} className={'dashboard_loading'} />;
+    return (
+      <div className={'profile-session'}>
+        {
+          this.state.ready
+            ? this.renderMain()
+            : <CircularProgress size={30} className={'dashboard_loading'} />
+        }
+      </div>
+    )
   }
 }

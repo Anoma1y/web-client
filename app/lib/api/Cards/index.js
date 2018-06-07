@@ -10,4 +10,8 @@ export default class Cards {
     return this.http.get(config.GET_CARDS_LIST);
   }
 
+  getThirdPartyCards() {
+    return this.http.get(config.GET_THIRD_PARTY_CARDS);
+  }
+
 }

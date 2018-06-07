@@ -1,18 +1,21 @@
 import React from 'react';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
-import Text from 'components/Text';
+import { Link } from 'react-router-dom';
+import { Add as AddIcon } from '@material-ui/icons';
 
 const ProductAdd = () => {
 
   return (
     <div className={'sideProduct-add'}>
-      <Button outline >
+
+      <Link to={'/dashboard/add_product'} className={'sideProduct-add_link'}>
         <div className={'sideProduct-add_icon'}>
-          <Icon name={'add_white'} size={13} color={'green'} />
+          <AddIcon />
         </div>
-        <Text color={'gray'}>Add new product</Text>
-      </Button>
+        <div className={'sideProduct-add_text'}>
+          Add new product
+        </div>
+      </Link>
+
     </div>
   );
 };

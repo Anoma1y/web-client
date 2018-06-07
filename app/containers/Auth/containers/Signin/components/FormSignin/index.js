@@ -76,7 +76,7 @@ export default class FormSignin extends Component {
   handleChangeLogin = (e) => {
     const { value } = e.target;
 
-    if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
+    // if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
 
     const login = transformLoginType(value);
     this.props.changeLogin(login);

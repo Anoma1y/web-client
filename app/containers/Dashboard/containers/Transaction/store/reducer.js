@@ -13,7 +13,7 @@ import {
 
 const INITIAL_STATE = {
   pageNumber: 0,
-  pageSize: 6,
+  pageSize: 10,
   totalRecords: 0,
   totalPages: 0,
   blockedAppend: false,
@@ -23,12 +23,7 @@ const INITIAL_STATE = {
   },
   records: [
 
-  ],
-  sort: {
-    date: 'asc',
-    status: 'asc',
-    type: 'asc'
-  },
+  ]
 };
 
 const HANDLERS = {

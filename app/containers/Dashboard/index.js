@@ -3,6 +3,7 @@ import { replace } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Main from './containers/Main';
+import AddProduct from './containers/AddProduct';
 import Transaction from './containers/Transaction';
 import Sidebar from './containers/Sidebar';
 import Header from './containers/Header';
@@ -31,6 +32,7 @@ export default class Dashboard extends Component {
     ready: false
   };
 
+  // todo нужен фикс пустого значения сесии
   componentDidMount() {
     const authToken = Storage.get('session');
 
@@ -113,6 +115,7 @@ export default class Dashboard extends Component {
             <Route exact path={`${this.props.match.url}/wallet/:id`} component={Wallet} />
             <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
             <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
+            <Route exact path={`${this.props.match.url}/add_product`} component={AddProduct} />
           </Switch>
         </div>
 

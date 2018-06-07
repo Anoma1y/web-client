@@ -114,7 +114,10 @@ class Sidebar extends Component {
               </div>
 
               <div className={'sidebar_item sidebar-wallets'}>
-                <SidebarCard />
+                {
+                  (this.props.Dashboard_Sidebar.cards.length !== 0 || this.props.Dashboard_Sidebar.thirdPartyCards.length !== 0) && <SidebarCard />
+                }
+
               </div>
 
               <div className={'sidebar_item sidebar-product-add'}>

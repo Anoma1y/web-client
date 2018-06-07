@@ -1,12 +1,17 @@
 import {
   SET_PROFILE,
   SET_COINS,
+  SET_COIN,
   SET_CARDS,
+  SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  SET_ISSUERS
+  SET_ISSUERS,
+  CHANGE_EDIT_NAME,
 } from './types';
+import { send } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
+import uuid from 'uuid/v1';
 
 export const setProfile = (value) => ({
   type: SET_PROFILE,
@@ -16,6 +21,14 @@ export const setProfile = (value) => ({
 export const setCoins = (coins) => ({
   type: SET_COINS,
   payload: coins
+});
+
+export const setCoin = (coin, index) => ({
+  type: SET_COIN,
+  payload: {
+    coin,
+    index
+  },
 });
 
 export const setNotification = (value) => ({
@@ -28,6 +41,11 @@ export const setCards = (cards) => ({
   payload: cards
 });
 
+export const setThirdPartyCards = (tCards) => ({
+  type: SET_THIRD_PARTY_CARDS,
+  payload: tCards,
+});
+
 export const setIssuers = (issuers) => ({
   type: SET_ISSUERS,
   payload: issuers,
@@ -38,12 +56,48 @@ export const setActive = (active = { type: null, id: null }) => ({
   payload: active,
 });
 
+export const changeEditName = (value) => ({
+  type: CHANGE_EDIT_NAME,
+  payload: value,
+});
+
+export const applyEditName = (index) => (dispatch, getState) => {
+  const { editName, coins } = getState().Dashboard_Sidebar;
+  const coin = coins[index];
+
+  if (editName.length < 2 || coin.name === editName) return;
+
+  api.coins.editName(coin.serial, editName)
+    .then((data) => {
+      if (data.status !== 200) return;
+
+      const { coin } = data.data;
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Имя кошелька изменено', timeout: 4000 }));
+      dispatch(setCoin(coin, index));
+
+    })
+    .catch(() => dispatch(send({ id: uuid(), status: 'errod', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 })))
+};
+
 export const pullCoins = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getCoinsList()
     .then((data) => {
       if (data.status !== 200) reject();
 
       dispatch(setCoins(data.data.coins));
+      resolve();
+    })
+    .catch((error) => {
+      reject(error);
+    });
+});
+
+export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, reject) => {
+  api.cards.getThirdPartyCards()
+    .then((data) => {
+      if (data.status !== 200) reject();
+
+      dispatch(setThirdPartyCards(data.data.cards));
       resolve();
     })
     .catch((error) => {

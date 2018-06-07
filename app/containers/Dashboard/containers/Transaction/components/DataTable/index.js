@@ -82,6 +82,9 @@ export default class DataTable extends Component {
             return (
               <TableRow key={`${data.id}`} className={'transactions-table_content'}>
                 <TableCell>
+                  {moment(data.createdAt).format('HH:mm DD/MM/YYYY')}
+                </TableCell>
+                <TableCell>
                   {this.getType(data.type)}
                   </TableCell>
                 <TableCell>
