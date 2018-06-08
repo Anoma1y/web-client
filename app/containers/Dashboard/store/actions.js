@@ -5,14 +5,10 @@ import {
   pullThirdPartyCards,
   pullCards
 } from '../containers/Sidebar/store/actions';
-// import { pullTransactions } from 'containers/Dashboard/containers/Transaction/store/actions';
 import Storage from 'lib/storage';
 
 const individual = [pullCoins, pullProfile, pullIssuers, pullThirdPartyCards, pullCards];
-// const individual = [];
-
 const merchant = [pullCoins, pullProfile];
-
 const administrator = [pullProfile];
 
 /**

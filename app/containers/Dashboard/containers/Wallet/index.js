@@ -14,6 +14,7 @@ import WalletInfo from './components/WalletInfo';
 import Transaction from 'containers/Dashboard/containers/Transaction';
 import Tab from 'components/Tab';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
+import { pullCoin } from './store/actions';
 import './style.scss';
 
 const panes = [
@@ -24,8 +25,9 @@ const panes = [
   { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
 ];
 
-@connect(null, ({
-  setActive
+@connect((state) => ({ Dashboard_Wallet: state.Dashboard_Wallet }), ({
+  setActive,
+  pullCoin
 }))
 export default class Wallet extends React.Component {
 
@@ -35,11 +37,15 @@ export default class Wallet extends React.Component {
   };
 
   componentDidMount() {
-    this.props.setActive({
-      type: 'wallet',
-      id: this.props.match.params.id
-    });
-    this.setState({ ready: true });
+    const { id } = this.props.match.params;
+    this.props.pullCoin(id)
+      .then(() => {
+        this.props.setActive({
+          type: 'wallet',
+          id
+        });
+        this.setState({ ready: true });
+      });
   }
 
   componentWillUnmount() {
@@ -66,7 +72,7 @@ export default class Wallet extends React.Component {
       <Grid container justify={'center'} className={'wallet'}>
         <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
 
-          <WalletInfo />
+          <WalletInfo data={this.props.Dashboard_Wallet.coin} />
 
         </Grid>
         <Grid item xs={12}>

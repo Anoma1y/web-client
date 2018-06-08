@@ -8,6 +8,7 @@ import {
   SET_ACTIVE,
   SET_ISSUERS,
   CHANGE_EDIT_NAME,
+  EDIT_NAME_IS_LOADING
 } from './types';
 import { send } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
@@ -61,12 +62,26 @@ export const changeEditName = (value) => ({
   payload: value,
 });
 
+export const setEditNameIsLoading = (isLoading = false) => ({
+  type: EDIT_NAME_IS_LOADING,
+  payload: isLoading,
+});
+
+/**
+ * Экшен для изменении имени кошелька
+ * @param index - индекс массива coins, в котором распологается кошелек
+ * @returns {function(*, *)}
+ */
 export const applyEditName = (index) => (dispatch, getState) => {
   const { editName, coins } = getState().Dashboard_Sidebar;
   const coin = coins[index];
 
+  /**
+   * Минимальная длина имени кошелька - 2 символа и старое имя не должно равняться новому
+   */
   if (editName.length < 2 || coin.name === editName) return;
 
+  dispatch(setEditNameIsLoading(true));
   api.coins.editName(coin.serial, editName)
     .then((data) => {
       if (data.status !== 200) return;
@@ -74,11 +89,18 @@ export const applyEditName = (index) => (dispatch, getState) => {
       const { coin } = data.data;
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Имя кошелька изменено', timeout: 4000 }));
       dispatch(setCoin(coin, index));
-
+      dispatch(setEditNameIsLoading(false));
     })
-    .catch(() => dispatch(send({ id: uuid(), status: 'errod', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 })))
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'errod', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
+      dispatch(setEditNameIsLoading(false));
+    });
 };
 
+/**
+ * Экшен для получения списка всех доступных кошельков
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullCoins = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getCoinsList()
     .then((data) => {
@@ -92,6 +114,10 @@ export const pullCoins = () => (dispatch) => new Promise((resolve, reject) => {
     });
 });
 
+/**
+ * Экшен для получения списка всех карточек (со статусами)
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, reject) => {
   api.cards.getThirdPartyCards()
     .then((data) => {
@@ -105,6 +131,10 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
     });
 });
 
+/**
+ * Экшен для получения списка всех доступных карточек
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullCards = () => (dispatch) => new Promise((resolve, reject) => {
   api.cards.getCardsList()
     .then((data) => {
@@ -118,6 +148,10 @@ export const pullCards = () => (dispatch) => new Promise((resolve, reject) => {
     });
 });
 
+/**
+ * Экшен для получения списка доступных валют
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullIssuers = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getIssuersList()
     .then((data) => {
@@ -128,17 +162,24 @@ export const pullIssuers = () => (dispatch) => new Promise((resolve, reject) => 
     })
     .catch((error) => {
       reject(error);
-    })
-})
+    });
+});
 
+/**
+ * Экшен для получения всех данных о профайле пользователя
+ * @returns {function(*=): Promise<any>}
+ */
 export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfile()
     .then((data) => {
+
       if (data.status !== 200) reject();
 
       const {
         profile,
-        profile: { contact }
+        profile: {
+          contact
+        }
       } = data.data;
 
       if (!(contact.emailVerified && contact.phoneVerified)) {

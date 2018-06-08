@@ -25,7 +25,6 @@ class Sidebar extends Component {
    */
   componentDidMount() {
     this.updateDimensions();
-
     document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
   }

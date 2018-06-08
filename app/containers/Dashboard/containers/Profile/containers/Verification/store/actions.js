@@ -184,7 +184,8 @@ export const updatePersonInfo = () => (dispatch, getState) => {
     nameIntl: {
       ...person.nameIntl,
       middle: person.nameIntl.middle === '' ? null : person.nameIntl.middle
-    }
+    },
+    description: ''
   };
 
   dispatch(setUpdatePersonInfoIsLoading(true));

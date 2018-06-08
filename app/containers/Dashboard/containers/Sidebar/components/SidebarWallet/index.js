@@ -51,12 +51,15 @@ export default class SidebarWallet extends React.Component {
    * @param index - индекс массива которым является текущий кошелек
    */
   handleApplyEdit = (index) => {
+    if (this.props.Dashboard_Sidebar.editNameIsLoading) return;
+
     this.setState({
       editName: {
         index,
         isEdit: false
       }
     });
+
     this.props.applyEditName(index);
   };
 
@@ -94,8 +97,8 @@ export default class SidebarWallet extends React.Component {
       >
         {
           (this.state.editName.index === index && this.state.editName.isEdit)
-            ? <SaveIcon />
-            : <EditIcon />
+            ? <SaveIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
+            : <EditIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
         }
       </button>
       {
@@ -123,7 +126,6 @@ export default class SidebarWallet extends React.Component {
                   {renderEuro()}
                 </div>
                 <div className={'sidebar-wallet-content sidebar-container_content'}>
-
                   <Text className={'sidebar-wallet-amount'}>
                     <Text.Content className={'sidebar-wallet-amount_name'}>
                       {
@@ -136,7 +138,10 @@ export default class SidebarWallet extends React.Component {
                         }
                     </Text.Content>
                     <Text.Sub className={'sidebar-wallet-amount_value'}>
-                      <Amount value={item.amount} />
+                      <Amount
+                        value={item.amount}
+                        currency={'EUR'}
+                      />
                     </Text.Sub>
                   </Text>
                 </div>

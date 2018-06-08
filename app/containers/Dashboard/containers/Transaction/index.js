@@ -12,6 +12,10 @@ import {
 } from 'containers/Dashboard/containers/Transaction/store/actions';
 import './style.scss';
 
+// todo проблема с временем (не соответствует поясу и isoString)
+// не всегда работает рендж фильтр даты
+// куча мелких багов
+// баг с одинаковыми key
 @connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({
   pullTransactions,
   reset
@@ -23,7 +27,7 @@ export default class Transaction extends React.Component {
     errorText: null
   };
 
-  componentWillMount() {
+  componentWillUnmount() {
     this.props.reset();
   }
 

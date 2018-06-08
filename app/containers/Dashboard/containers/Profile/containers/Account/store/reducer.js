@@ -36,7 +36,7 @@ const HANDLERS = {
   }),
   [SET_OTP_IS_BLOCKED]: (state, { payload }) => ({
     ...state,
-    resendOTPIsBlocked: { ...state.resendOTPIsBlocked, [payload.contactType]: payload.otp }
+    resendOTPIsBlocked: { ...state.resendOTPIsBlocked, [payload.contactType]: payload.blocked }
   }),
   [SET_OTP_IS_LOADING]: (state, { payload }) => ({
     ...state,

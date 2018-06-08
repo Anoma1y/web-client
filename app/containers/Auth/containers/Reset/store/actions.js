@@ -171,7 +171,7 @@ export const sendConfirm = () => (dispatch, getState) => {
           dispatch(setErrorMessage(message));
           break;
         case 'USER_NOT_ACTIVE':
-          dispatch(blockOTPsend(true)); // TODO добавить таймер как в регистрации
+          dispatch(blockOTPsend(true));
           dispatch(setErrorMessage('Аккаунт временно заблокирован'));
           break;
         default:
@@ -186,7 +186,7 @@ export const sendConfirm = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const resendOTP = () => (dispatch, getState) => {
-  const { login, resendOTPIsBlocked, isError, isPhone } = getState().Auth_Reset;
+  const { login, resendOTPIsBlocked, isError } = getState().Auth_Reset;
   let authLogin = login;
 
   if (resendOTPIsBlocked || isError) {

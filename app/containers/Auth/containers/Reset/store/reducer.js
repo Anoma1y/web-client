@@ -25,31 +25,53 @@ const INITIAL_STATE = {
   errorMessage: ''
 };
 
-export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case CHANGE_LOGIN:
-      return { ...state, login: action.payload };
-    case CHANGE_OTP:
-      return { ...state, OTP: action.payload };
-    case CHANGE_NEW_USER_PASSWORD:
-      return { ...state, newUserPassword: action.payload };
-    case SET_IS_PHONE:
-      return { ...state, isPhone: action.payload };
-    case SET_IS_LOADING:
-      return { ...state, isLoading: action.payload };
-    case SET_ERROR:
-      return { ...state, isError: action.payload };
-    case SET_OTP_IS_SEND:
-      return { ...state, otpIsSend: action.payload };
-    case SET_ERROR_MESSAGE:
-      return { ...state, errorMessage: action.payload };
-    case SET_RESEND_OTP_BLOCKED:
-      return { ...state, resendOTPIsBlocked: action.payload };
-    case SET_OTP_IS_BLOCK:
-      return { ...state, otpIsBlock: action };
-    case RESET:
-      return { ...state, ...INITIAL_STATE };
-    default:
-      return state;
-  }
+const HANDLERS = {
+  [CHANGE_LOGIN]: (state, { payload }) => ({
+    ...state,
+    login: payload
+  }),
+  [CHANGE_OTP]: (state, { payload }) => ({
+    ...state,
+    OTP: payload
+  }),
+  [CHANGE_NEW_USER_PASSWORD]: (state, { payload }) => ({
+    ...state,
+    newUserPassword: payload
+  }),
+  [SET_IS_PHONE]: (state, { payload }) => ({
+    ...state,
+    isPhone: payload
+  }),
+  [SET_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    isLoading: payload
+  }),
+  [SET_ERROR]: (state, { payload }) => ({
+    ...state,
+    isError: payload
+  }),
+  [SET_OTP_IS_SEND]: (state, { payload }) => ({
+    ...state,
+    otpIsSend: payload
+  }),
+  [SET_ERROR_MESSAGE]: (state, { payload }) => ({
+    ...state,
+    errorMessage: payload
+  }),
+  [SET_RESEND_OTP_BLOCKED]: (state, { payload }) => ({
+    ...state,
+    resendOTPIsBlocked: payload
+  }),
+  [SET_OTP_IS_BLOCK]: (state, { payload }) => ({
+    ...state,
+    otpIsBlock: payload
+  }),
+  [RESET]: (state ) => ({
+    ...state,
+    ...INITIAL_STATE
+  }),
 }
+
+export default (state = INITIAL_STATE, action) => (
+  action.type in HANDLERS ? HANDLERS[action.type](state, action) : state
+);

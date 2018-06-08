@@ -205,14 +205,18 @@
   font-family: $font-regular;
   cursor: default;
   transition: background-color 0.4s ease;
-  background-color: darken($white-color, 3%);
+  background-color: darken($white-color, 2%);
+
   &:hover:not(&__active) {
-    background-color: darken($white-color, 6%);
+    background-color: darken($white-color, 5%);
   }
+
   &_edit {
+
     &-input {
       width: 150px;
     }
+
     &-btn {
       border: none;
       background: none;
@@ -221,12 +225,14 @@
         outline: none;
       }
     }
+
     svg {
       font-size: 1.2rem;
       path {
         transition: fill 0.3s ease;
       }
     }
+
     &__rename {
       path {
         fill: $green-color;
@@ -235,12 +241,19 @@
         fill: lighten($green-color, 7%);
       }
     }
+
     &__delete {
       path {
         fill: $red-color;
       }
       &:hover path {
         fill: lighten($red-color, 7%);
+      }
+    }
+
+    &__disabled {
+      svg path {
+        fill: $lightgray-color !important;
       }
     }
   }

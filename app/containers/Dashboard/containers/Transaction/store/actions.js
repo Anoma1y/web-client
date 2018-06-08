@@ -162,7 +162,8 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
     ...filter,
     types,
     statuses
-  }
+  };
+
   dispatch(setAppendIsLoading(true));
   dispatch(changePageNumber(nextPage));
 
@@ -199,7 +200,9 @@ export const pullTransactions = (date) => (dispatch, getState) => new Promise((r
     dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
     dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
   };
+
   const pageNumber = 0;
+
   dispatch(changePageNumber(pageNumber));
   api.transactions.getTransactionsList(pageSize, pageNumber, sort, currentFilter)
     .then((data) => {

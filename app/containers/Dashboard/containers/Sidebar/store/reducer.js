@@ -7,7 +7,8 @@ import {
   SET_NOTIFICATION,
   SET_ACTIVE,
   SET_ISSUERS,
-  CHANGE_EDIT_NAME
+  CHANGE_EDIT_NAME,
+  EDIT_NAME_IS_LOADING
 } from './types';
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ const INITIAL_STATE = {
   issuers: [],
   notification: '',
   editName: '',
+  editNameIsLoading: false,
   active: {
     type: null,
     id: null
@@ -61,6 +63,10 @@ const HANDLERS = {
   [CHANGE_EDIT_NAME]: (state, { payload }) => ({
     ...state,
     editName: payload
+  }),
+  [EDIT_NAME_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    editNameIsLoading: payload
   }),
 };
 

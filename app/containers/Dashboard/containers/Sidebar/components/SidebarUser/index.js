@@ -20,10 +20,12 @@ export default class SidebarUser extends React.Component {
         </div>
 
         <div className={'user-info_name sidebar-container_content'}>
-          <Link to={'/dashboard/profile'}>{getUserName(profile)}</Link>
+          <Link to={'/dashboard/profile'}>
+            {getUserName(profile)}
+          </Link>
         </div>
 
       </div>
-    )
+    );
   }
 }
