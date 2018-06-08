@@ -3,10 +3,10 @@ import {
   SET_CHANGE_PASSWORD_IS_LOADING,
   SET_NOTIFICATION_IS_LOADING
 } from './types';
-import { api } from 'lib/api';
-import { send } from 'containers/Notification/store/actions';
 import { reset as ReduxFormReset } from 'redux-form';
+import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
+import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import uuid from 'uuid/v1';
 
@@ -25,15 +25,18 @@ export const setNotificationIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+/**
+ * Экшен для изменения типов оповещений
+ * @returns {function(*, *)}
+ */
 export const changeNotificationSend = () => (dispatch, getState) => {
   const { security } = getState().form.SecurityNotification.values;
+
   dispatch(setNotificationIsLoading(true));
   api.profile.changeUserNotification(security)
     .then((data) => {
 
-      if (data.status !== 200) {
-        return;
-      }
+      if (data.status !== 200) return;
 
       const { profile } = data.data;
 

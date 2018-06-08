@@ -14,9 +14,7 @@ import {
   Fingerprint as FingerprintIcon,
   Security as SecurityIcon
 } from '@material-ui/icons';
-import {
-  initialData
-} from './store/actions';
+import { initialData } from './store/actions';
 import './style.scss';
 
 const panes = [
@@ -25,9 +23,7 @@ const panes = [
   { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
 ];
 
-@connect(null, ({
-  initialData
-}))
+@connect(null, ({ initialData }))
 export default class Profile extends Component {
 
   state = {
@@ -36,13 +32,20 @@ export default class Profile extends Component {
   };
 
   componentDidMount() {
-    this.props.initialData().then(() => {
-      this.setState({ ready: true });
-    });
+    this.props.initialData().then(() => this.setState({ ready: true }));
   }
 
+  /**
+   * Метод для переключения вкладок
+   * @param activeIndex - индекс вкладки активной
+   */
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
+  /**
+   * Рендер вкладок
+   * @param activeIndex - индекс вкладки активной
+   * @returns {*}
+   */
   renderContent = (activeIndex) => (
     <div className={'profile-container'}>
       <Tab
@@ -76,5 +79,4 @@ export default class Profile extends Component {
       </Grid>
     );
   }
-
 }

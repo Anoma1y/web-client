@@ -1,8 +1,11 @@
-import React  from 'react';
+import React from 'react';
+import {
+  Grid,
+  Divider
+} from '@material-ui/core';
 import ChangePasswordForm from './components/ChangePasswordForm';
 import NotificationForm from './components/NotificationForm';
 import Session from './components/Session';
-import { Grid, Divider } from '@material-ui/core';
 
 export default () => (
   <Grid container className={'profile'}>

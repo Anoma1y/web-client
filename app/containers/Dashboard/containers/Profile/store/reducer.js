@@ -3,7 +3,7 @@ import {
   SET_DOCUMENTS,
   SET_DOCUMENT_TYPES,
   CHANGE_USED_TYPES,
-  RESET,
+  RESET
 } from './types';
 
 const INITIAL_STATE = {
@@ -12,18 +12,30 @@ const INITIAL_STATE = {
   documentTypes: [],
 };
 
-export default (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      return { ...state, profile: action.payload };
-    case SET_DOCUMENTS:
-      return { ...state, documents: action.payload };
-    case SET_DOCUMENT_TYPES:
-      return { ...state, documentTypes: action.payload };
-    case CHANGE_USED_TYPES:
-      return { ...state, usedTypes: action.payload };
-    default:
-      return state;
-  }
+const HANDLERS = {
+  [SET_PROFILE]: (state, { payload }) => ({
+    ...state,
+    profile: payload
+  }),
+  [SET_DOCUMENTS]: (state, { payload }) => ({
+    ...state,
+    documents: payload
+  }),
+  [SET_DOCUMENT_TYPES]: (state, { payload }) => ({
+    ...state,
+    documentTypes: payload
+  }),
+  [CHANGE_USED_TYPES]: (state, { payload }) => ({
+    ...state,
+    usedTypes: payload
+  }),
+  [RESET]: (state) => ({
+    ...state,
+    ...INITIAL_STATE
+  }),
 }
-// [action.payload.type]: null
+
+export default (state = INITIAL_STATE, action) => (
+  action.type in HANDLERS ? HANDLERS[action.type](state, action) : state
+);
+
