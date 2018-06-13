@@ -8,7 +8,6 @@ import {
 
 const INITIAL_STATE = {
   profile: {},
-  documents: [],
   documentTypes: [],
 };
 
@@ -16,10 +15,6 @@ const HANDLERS = {
   [SET_PROFILE]: (state, { payload }) => ({
     ...state,
     profile: payload
-  }),
-  [SET_DOCUMENTS]: (state, { payload }) => ({
-    ...state,
-    documents: payload
   }),
   [SET_DOCUMENT_TYPES]: (state, { payload }) => ({
     ...state,

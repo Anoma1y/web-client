@@ -12,7 +12,7 @@ import {
 import { api } from 'lib/api';
 import { changeUsedType } from '../../../store/actions';
 import { send } from 'containers/Notification/store/actions';
-import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
+import { pullProfile, setDocuments } from 'containers/Dashboard/containers/Profile/store/actions';
 import { pullProfile as pullProfileSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
@@ -74,12 +74,37 @@ export const reset = () => ({
 });
 
 /**
+ * Экшен для получения списка загруженных файлов
+ * @returns {function(*=): Promise<any>}
+ */
+export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) => {
+  api.profile.getProfileDocuments()
+    .then((data) => {
+
+      let entityDocumentFile = [];
+
+      data.data.documents.forEach((item) => {
+        if (item.type === 'photo') {
+          dispatch(addPersonFile(item));
+        } else if (item.type.match(/passport_v/)) {
+          entityDocumentFile.push(item);
+        }
+      });
+
+      dispatch(addEntityDocumentFile(entityDocumentFile));
+      resolve();
+    })
+    .catch((err) => reject(err));
+})
+
+/**
  * Экшен для загрузки файла для верификации пользователя по персональным данным (пасспорт, инн и тп)
  * @param fileUpload - загружаемый файл в формате FormData
  * @returns {function(*)}
  */
 export const uploadIdentityFile = (fileUpload) => (dispatch, getState) => {
   const { documentTypes, usedTypes } = getState().Dashboard_Profile;
+  const { entityDocument } = getState().Profile_Verification;
 
   dispatch(setEntityDocumentIsLoading(true));
   api.media.uploadMediaFile(fileUpload)
@@ -87,25 +112,45 @@ export const uploadIdentityFile = (fileUpload) => (dispatch, getState) => {
       if (data.status !== 200) return;
 
       const { file } = data.data;
-
-      const type = _.difference(documentTypes, usedTypes);
+      const type = _.difference(documentTypes, usedTypes); // добавление уже используемыех типов в массив
       const currentType = type[0];
+
       dispatch(changeUsedType([...usedTypes, currentType]));
       dispatch(setEntityDocumentIsLoading(false));
-      dispatch(addEntityDocumentFile({
-        file,
-        type: currentType
-      }));
+      dispatch(addEntityDocumentFile([...entityDocument, { file, type: currentType }]));
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(setEntityDocumentIsLoading(false));
     });
 };
 
 /**
+ * Экшен для подтверждения загрузки документов
+ * @param index - индекс в массиве
+ * @returns {function(*, *)}
+ */
+export const submitEntityDocumentFile = (index) => (dispatch, getState) => {
+  const { entityDocument } = getState().Profile_Verification;
+
+  dispatch(setEntityDocumentIsLoading(true));
+  api.profile.submitDocumentsUpload(entityDocument[index].file.id, entityDocument[index].type)
+    .then((data) => {
+
+      const newEntityDocumentFile = [...entityDocument];
+      newEntityDocumentFile[index] = data.data.document;
+
+      dispatch(addEntityDocumentFile(newEntityDocumentFile));
+      dispatch(setEntityDocumentIsLoading(false));
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+      dispatch(setEntityDocumentIsLoading(false));
+    })
+};
+
+/**
  * Экшен для загрузки файла - фотография пользователя
  * @param fileUpload - загружаемый файл в формате FormData
- * @param type - тип документа из запроса
  * @returns {function(*)}
  */
 export const uploadPersonFile = (fileUpload) => (dispatch) => {
@@ -117,15 +162,41 @@ export const uploadPersonFile = (fileUpload) => (dispatch) => {
       const { file } = data.data;
 
       dispatch(setPersonPhotoIsLoading(false));
-      dispatch(addPersonFile({ file, type: 'other' }));
+      dispatch(addPersonFile({ file, type: 'photo' }));
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(setPersonPhotoIsLoading(false));
-      // todo добавить оповещение о том, что слишком большой размер
-      console.log(err);
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }))
     });
 };
 
+/**
+ * Экшен для подтверждения загрузки фотографии пользователя
+ * @returns {function(*, *)}
+ */
+export const submitPersonFile = () => (dispatch, getState) => {
+  const { personalPhoto } = getState().Profile_Verification;
+
+  dispatch(setPersonPhotoIsLoading(true));
+  api.profile.submitDocumentsUpload(personalPhoto.file.id, personalPhoto.type)
+    .then((data) => {
+      if (data.status !== 200) return;
+
+      const { document } = data.data;
+
+      dispatch(addPersonFile(document));
+      dispatch(setPersonPhotoIsLoading(false));
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }))
+      dispatch(setPersonPhotoIsLoading(false));
+    })
+};
+
+/**
+ * Экшен для обновления почтового адреса
+ * @returns {function(*=, *)}
+ */
 export const updateUserAddress = () => (dispatch, getState) => {
 
   const {
@@ -146,7 +217,10 @@ export const updateUserAddress = () => (dispatch, getState) => {
       /**
        * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
        */
-      Promise.all([dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))])
+      Promise.all([
+        dispatch(pullProfile(profile)),
+        dispatch(pullProfileSidebar(profile))
+      ])
         .then(() => {
           dispatch(setUpdateUserAddressIsLoading(false));
           dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'User address has been changed', timeout: 4000 }));
@@ -182,8 +256,8 @@ export const updatePersonInfo = () => (dispatch, getState) => {
       middle: person.namePlain.middle === '' ? null : person.namePlain.middle
     },
     nameIntl: {
-      ...person.nameIntl,
-      middle: person.nameIntl.middle === '' ? null : person.nameIntl.middle
+      ...person.namePlain,
+      middle: person.namePlain.middle === '' ? null : person.namePlain.middle
     },
     description: ''
   };
@@ -200,7 +274,9 @@ export const updatePersonInfo = () => (dispatch, getState) => {
       /**
        * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
        */
-      Promise.all([dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))])
+      Promise.all([
+        dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))
+      ])
         .then(() => {
           dispatch(setUpdatePersonInfoIsLoading(false));
           dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person info has been changed', timeout: 4000 }));

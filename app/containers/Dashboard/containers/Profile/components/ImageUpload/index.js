@@ -81,12 +81,12 @@ export default class ImageUpload extends Component {
 
     const reader = new FileReader();
     const file = event.target.files[0];
-
     if (FILE_FORMATS.includes(file.type)) {
       if ((file.size / 1024 / 1024) <= FILE_SIZE) {
         const formData = this.convertingImageToFile(file);
         this.props.onFileSelected(formData);
         reader.readAsDataURL(file);
+
       } else {
         this.setState({ fileUploadError: 'Больше 5 МБ' });
       }
@@ -191,6 +191,9 @@ export default class ImageUpload extends Component {
         multiple={this.props.isMultiply}
         accept={'image/jpeg,image/jpg,image/png'}
         onChange={this.handleImageChange}
+        onClick={(event) => {
+          event.target.value = null;
+        }}
       />
       {this.props.isLoading
         ? <CircularProgress className={'image_loading'} />

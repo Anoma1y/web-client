@@ -17,16 +17,21 @@ import {
   updatePersonInfo,
 } from '../../store/actions';
 
+// todo пофиксить позже, нужен ли символы какие либо в транслите + пробелы (trim())
+const normalizeLatin = value => {
+
+  if (!/[^a-zA-Z\s]/.test(value)) {
+    return value;
+  }
+
+};
+
 const validate = (values) => {
   const errors = {
     person: {
       namePlain: {
         first: '',
         second: ''
-      },
-      nameIntl: {
-        first: '',
-        second: '',
       }
     }
   };
@@ -36,18 +41,6 @@ const validate = (values) => {
   }
   if (!values.person.namePlain.last) {
     errors.person.namePlain.last = 'Required';
-  }
-
-  if (!values.person.nameIntl.first) {
-    errors.person.nameIntl.first = 'Required';
-  } else if (!/[a-zA-Z]/.test(values.person.nameIntl.first)) {
-    errors.person.nameIntl.first = 'Only english';
-  }
-
-  if (!values.person.nameIntl.last) {
-    errors.person.nameIntl.last = 'Required';
-  } else if (!/[a-zA-Z]/.test(values.person.nameIntl.last)) {
-    errors.person.nameIntl.last = 'Only english';
   }
 
   return getValuesDeep(errors).every((item) => item === '') ? {} : errors;
@@ -82,6 +75,7 @@ export default class FormPersonInfo extends Component {
                 component={FieldText}
                 label={'Name'}
                 placeholder={'Name'}
+                normalize={normalizeLatin}
               />
             </Grid>
             <Grid item xs={3}>
@@ -90,6 +84,7 @@ export default class FormPersonInfo extends Component {
                 component={FieldText}
                 label={'Last name'}
                 placeholder={'Last name'}
+                normalize={normalizeLatin}
               />
             </Grid>
             <Grid item xs={3}>
@@ -98,34 +93,7 @@ export default class FormPersonInfo extends Component {
                 component={FieldText}
                 label={'Middle name'}
                 placeholder={'Middle name'}
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} className={'profile-form'} >
-          <Grid container spacing={40}>
-            <Grid item xs={3}>
-              <Field
-               name={'person.nameIntl.first'}
-               component={FieldText}
-               label={'Name'}
-               placeholder={'Name'}
-               />
-            </Grid>
-            <Grid item xs={3}>
-              <Field
-               name={'person.nameIntl.last'}
-               component={FieldText}
-               label={'Last name'}
-               placeholder={'Last name'}
-               />
-            </Grid>
-            <Grid item xs={3}>
-              <Field
-               name={'person.nameIntl.middle'}
-               component={FieldText}
-               label={'Middle name'}
-               placeholder={'Middle name'}
+                normalize={normalizeLatin}
               />
             </Grid>
           </Grid>

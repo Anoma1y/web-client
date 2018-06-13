@@ -1,6 +1,5 @@
 import {
   SET_PROFILE,
-  SET_DOCUMENTS,
   SET_DOCUMENT_TYPES,
   CHANGE_USED_TYPES,
   RESET
@@ -9,11 +8,6 @@ import { api } from 'lib/api';
 
 export const setProfile = (value) => ({
   type: SET_PROFILE,
-  payload: value,
-});
-
-export const setDocuments = (value) => ({
-  type: SET_DOCUMENTS,
   payload: value,
 });
 
@@ -40,7 +34,9 @@ export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, re
       if (data.status !== 200) return;
 
       const { documentTypes } = data.data;
-      const types = documentTypes.map((item) => item.type);
+      const types = documentTypes.filter((item) => {
+        if (item.optional === false) return item;
+      }).map((item) => item.type);
 
       dispatch(setDocumentTypes(types));
       resolve();
@@ -54,7 +50,7 @@ export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, re
  * Экшен для получения списка уже загруженных документов пользователя
  * И заполнения массива уже загруженных типов документов
  */
-export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) => {
+export const pullDocumentsType = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfileDocuments()
     .then((data) => {
       if (data.status !== 200) return;
@@ -63,7 +59,6 @@ export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) =
       const usedTypes = documents.map((item) => item.type);
 
       dispatch(changeUsedType(usedTypes)); // todo test action, need smth do
-      dispatch(setDocuments(documents));
       resolve();
     })
     .catch((error) => {
@@ -93,7 +88,7 @@ export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => 
  * Экшен для вызова паралленьных экшенов инициализации данных
  */
 export const initialData = () => (dispatch) => Promise.all([
-  dispatch(pullDocuments()),
+  dispatch(pullDocumentsType()),
   dispatch(pullDocumentTypeList()),
   dispatch(pullProfile())
 ]);

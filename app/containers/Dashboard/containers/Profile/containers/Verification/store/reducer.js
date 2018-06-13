@@ -11,7 +11,8 @@ import {
 
 const INITIAL_STATE = {
   personalPhoto: {},
-  personalPhotoIsLoading: false,
+  personalPhotoReady: false,
+  documentIsReady: false,
   entityDocument: [],
   entityDocumentIsLoading: false,
   updatePersonInfoIsLoading: false,
@@ -29,7 +30,7 @@ const HANDLERS = {
   }),
   [ADD_ENTITY_DOCUMENT_FILE]: (state, { payload }) => ({
     ...state,
-    entityDocument: [...state.entityDocument, payload]
+    entityDocument: payload
   }),
   [REMOVE_ENTITY_DOCUMENT_FILE]: (state, { payload }) => ({
     ...state,
