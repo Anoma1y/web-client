@@ -125,11 +125,9 @@ export const getOTP = () => (dispatch, getState) => {
  */
 export const sendConfirm = () => (dispatch, getState) => {
   const { login, newUserPassword, OTP, isError } = getState().Auth_Reset;
-  let authLogin = login;
+  let authLogin = login.toLowerCase();
 
-  if (isError) {
-    return;
-  }
+  if (isError) return;
 
   dispatch(setErrorMessage(''));
   dispatch(setIsLoading(true));

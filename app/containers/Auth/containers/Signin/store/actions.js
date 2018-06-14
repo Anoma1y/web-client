@@ -88,15 +88,19 @@ export const logout = () => (dispatch) => {
 
 export const signin = () => (dispatch, getState) => {
   const { login, password, isError } = getState().Auth_Signin;
+  let authLogin = login.toLowerCase();
 
   dispatch(setIsLoading(true));
   dispatch(setErrorMessage(''));
 
-  if (isError) {
-    return;
+  if (isError) return;
+
+  if (checkIsPhone(login)) {
+    authLogin = login.replace(/\+/g, '');
+    dispatch(setIsPhone(true));
   }
 
-  api.auth.authorization(login, password)
+  api.auth.authorization(authLogin, password)
     .then((data) => {
       const { action } = data.data;
 

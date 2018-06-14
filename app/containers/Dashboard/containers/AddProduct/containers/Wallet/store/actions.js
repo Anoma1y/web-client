@@ -1,6 +1,6 @@
 import {
-  CHANGE_CURRENCY,
   CHANGE_NAME,
+  CHANGE_CURRENCY,
   SET_IS_LOADING,
   SET_IS_ERROR,
   SET_ISSUERS,
@@ -33,6 +33,11 @@ export const setIsError = (isError = false) => ({
   payload: isError,
 });
 
+/**
+ * Экшен для изменения текущей валюты и добавления стандартного имени Wallet %CURRENCY%
+ * @param value - id эмитента
+ * @returns {function(*, *)}
+ */
 export const changeCurrency = (value) => (dispatch, getState) => {
   const { issuers } = getState().AddProduct_Wallet;
   const selectedIssuer = _.find(issuers, (o) => o.id === value);
@@ -40,7 +45,7 @@ export const changeCurrency = (value) => (dispatch, getState) => {
 
   dispatch(changeCurrencyName(value));
   dispatch(changeName(walletName));
-}
+};
 
 export const setIsLoading = (isLoading = false) => ({
   type: SET_IS_LOADING,
@@ -127,6 +132,5 @@ export const createWallet = () => (dispatch, getState) => {
           dispatch(setIsLoading(false));
 
         });
-    })
-
-}
+    });
+};

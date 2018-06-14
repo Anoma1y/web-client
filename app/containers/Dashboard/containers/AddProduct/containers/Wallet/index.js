@@ -28,7 +28,7 @@ export default class Wallet extends Component {
   state = {
     ready: false,
     errorText: null
-  }
+  };
 
   componentDidMount() {
     this.props.pullIssuers()
@@ -154,7 +154,7 @@ export default class Wallet extends Component {
    */
   renderError = () => (
     <div>Error</div>
-  )
+  );
 
   render() {
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Reorder as ReorderIcon,
@@ -10,9 +10,9 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import Icon from 'components/Icon';
+import Tab from 'components/Tab';
 import WalletInfo from './components/WalletInfo';
 import Transaction from 'containers/Dashboard/containers/Transaction';
-import Tab from 'components/Tab';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import { pullCoin } from './store/actions';
 import './style.scss';
@@ -29,7 +29,7 @@ const panes = [
   setActive,
   pullCoin
 }))
-export default class Wallet extends React.Component {
+export default class Wallet extends Component {
 
   state = {
     ready: false,
