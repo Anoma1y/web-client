@@ -74,7 +74,6 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
       const message = `${action === 'EMAIL_SENT' ? 'Email' : 'Sms code'} was sent`;
       dispatch(setOTPisSend(type, true));
       dispatch(send({ id: uuid(), status: 'info', title: 'Information', message, timeout: 3000 }));
-
     })
     .catch((error) => {
       const { code, message } = error.response.data;
@@ -91,12 +90,16 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
       dispatch(setOTPisSend(type, false));
       dispatch(setOTPisLoading(false));
-
     });
 
 };
 
 // todo не всегда оптравляется логин (телефон? почта??)
+/**
+ * Экшен для подтверждения логина (телефона/почты)
+ * @param type - тип подтверждаемого типа телефон/почта
+ * @returns {function(*, *)}
+ */
 export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   const {
     Profile_Account: {
@@ -110,8 +113,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       }
     }
   } = getState();
-
-  let login = contact[type];
+  let login = contact[type].toLowerCase();
 
   if (type === 'phoneNumber') {
     login = login.replace(/\+/g, '');
@@ -148,6 +150,11 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
 
 };
 
+/**
+ * Повторная отправка OTP кода
+ * @param type - тип подтверждаемого типа телефон/почта
+ * @returns {function(*, *)}
+ */
 export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
 
   const {
@@ -163,7 +170,7 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
     }
   } = getState();
 
-  let login = contact[type];
+  let login = contact[type].toLowerCase();
 
   if (resendOTPIsBlocked[type]) {
     return;

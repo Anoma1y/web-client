@@ -105,7 +105,7 @@ export default class Session extends Component {
         {
           this.state.ready
             ? this.renderMain()
-            : <CircularProgress size={30} className={'dashboard_loading'} />
+            : <CircularProgress size={30} className={'table_loading'} />
         }
       </div>
     )

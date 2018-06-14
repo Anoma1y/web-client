@@ -97,7 +97,9 @@ export const createWallet = () => (dispatch, getState) => {
       if (data.status !== 200) return;
 
       // Для каждого кошелька можно только 1 валюту(?)
-      if (_.some(data.data.coins, { currency: { id: currency } })) {
+      const currencyIsUsed = _.some(data.data.coins, { currency: { id: currency } });
+
+      if (currencyIsUsed) {
         dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Кошелек для указаной валюты уже существует', timeout: 4000 }));
         dispatch(setIsLoading(false));
         return;
