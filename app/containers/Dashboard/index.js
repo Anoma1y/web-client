@@ -3,6 +3,7 @@ import { replace } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import Main from './containers/Main';
+import AddProduct from './containers/AddProduct';
 import Transaction from './containers/Transaction';
 import Sidebar from './containers/Sidebar';
 import Header from './containers/Header';
@@ -19,6 +20,7 @@ import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
+// todo иногда вызывается баг с токеном = null
 @connect(null, ({
   replace,
   initialData,
@@ -30,6 +32,7 @@ export default class Dashboard extends Component {
     ready: false
   };
 
+  // todo нужен фикс пустого значения сесии
   componentDidMount() {
     const authToken = Storage.get('session');
 
@@ -109,9 +112,10 @@ export default class Dashboard extends Component {
           <Switch>
             <Route exact path={`${this.props.match.url}`} component={Main} />
             <Route exact path={`${this.props.match.url}/card`} component={Card} />
-            <Route exact path={`${this.props.match.url}/wallet`} component={Wallet} />
+            <Route exact path={`${this.props.match.url}/wallet/:id`} component={Wallet} />
             <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
             <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
+            <Route path={`${this.props.match.url}/add`} component={AddProduct} />
           </Switch>
         </div>
 
@@ -124,14 +128,16 @@ export default class Dashboard extends Component {
     </div>
   );
 
+  renderLoader = () => <CircularProgress size={70} className={'page_loading'} />
+
   render() {
     return (
       <div className={'page'}>
         {
-          this.state.ready ? this.renderDashboard()
-            : <CircularProgress size={70} className={'page_loading'} />
+          this.state.ready
+            ? this.renderDashboard()
+            : this.renderLoader()
         }
-
       </div>
     );
   }

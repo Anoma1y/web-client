@@ -53,8 +53,8 @@ export default class SelectList extends Component {
     return (
       <div className={classes}>
         {icon &&
-          <div className={`${classBlockName}_icon ${String(icon) && `${classBlockName}_icon__position_${iconPosition}`}`}>
-            <Icon name={String(icon)} size={iconSize} />
+          <div className={`${classBlockName}_icon ${icon && `${classBlockName}_icon__position_${iconPosition}`}`}>
+            {icon}
           </div>
         }
         <select

@@ -1,0 +1,31 @@
+@import "lib/style/vars.scss";
+
+.not-found {
+  text-align: center;
+
+  &_title {
+    margin-bottom: 0;
+    line-height: 1;
+    font-size: 8.2rem;
+    font-family: $font-bold-serif;
+    color: $lightblue-color;
+  }
+
+  &_text {
+    font-size: 2rem;
+    color: $blue-color;
+    margin-bottom: 1.2rem;
+    font-family: $font-regular-serif;
+  }
+
+  &_link {
+    font-size: 1rem;
+    text-decoration: underline;
+    font-family: $font-regular-serif;
+    color: $blue-color;
+  }
+}
+
+
+
+

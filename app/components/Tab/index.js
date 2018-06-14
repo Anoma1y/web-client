@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TabMenu from './TabMenu';
 import './style.scss';
 
-export default class Tab extends Component<Props> {
+export default class Tab extends Component {
 
   handleTabClick = (activeIndex, event) => {
     this.props.onTabChange({
@@ -13,7 +13,7 @@ export default class Tab extends Component<Props> {
   renderItems() {
     const { panes, activeIndex } = this.props
     return (
-      <div className={'tab-inner'}>
+      <div className={'tabs-inner'}>
         {panes[activeIndex].render()}
       </div>
     )

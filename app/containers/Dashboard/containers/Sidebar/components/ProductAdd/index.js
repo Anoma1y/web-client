@@ -1,21 +1,14 @@
 import React from 'react';
-import Button from 'components/Button';
-import Icon from 'components/Icon';
-import Text from 'components/Text';
-import './style.scss';
+import { Link } from 'react-router-dom';
 
-const ProductAdd = () => {
-
+export default (props) => {
   return (
-    <div className={'sidebar-add'}>
-      <Button outline >
-        <div className={'sidebar-add_icon'}>
-          <Icon name={'add_white'} size={13} color={'green'} />
+    <div className={'sideProduct-add'}>
+      <Link to={`/dashboard/add/${props.link}`} className={'sideProduct-add_link'}>
+        <div className={'sideProduct-add_text'}>
+          {props.name}
         </div>
-        <Text color={'gray'}>Add new product</Text>
-      </Button>
+      </Link>
     </div>
-  )
-}
-
-export default ProductAdd;
+  );
+};

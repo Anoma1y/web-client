@@ -5,30 +5,35 @@
     box-sizing: border-box;
   }
 
+  &-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   &-content {
-    height: 81px;
-    padding: 0 20px;
+    height: 80px;
+    @media screen and (max-width: $break-lg - 1) {
+      &:after {
+        content: '';
+        width: 80px;
+        display: block;
+      }
+    }
   }
-
-  &-breadcrumb {
-    height: 39px;
-    padding: 0 20px;
-  }
-
   &-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    border-bottom: 1px solid rgba(0,0,0,.1);
   }
   // Блок с логотипом
   &-logo {
     cursor: pointer;
     @media screen and (max-width: $break-lg - 1) {
-      order: 3;
+      order: 2;
     }
     @media screen and (max-width: $break-sm) {
+      margin-top: 0.5rem;
       svg {
         width: 80px;
       }
@@ -39,19 +44,9 @@
   &-aside {
     color: #736F8C;
     font-family: $font-bold-serif;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: bold;
-    &_logout {
-      @media screen and (max-width: $break-lg - 1) {
-        //display: none;
-        visibility: hidden;
-      }
-    }
-    &_trigger {
-      @media screen and (min-width: $break-lg) {
-        display: none;
-      }
-    }
+
     &_button {
       border: none;
       background: none;
@@ -60,23 +55,25 @@
       }
     }
     @media screen and (max-width: $break-lg) {
-      order: 2;
-    }
-  }
-
-  &-navigation {
-    width: 100%;
-    padding: 0 100px;
-    @media screen and (max-width: $break-lg - 1) {
-      order: 4;
-      padding: 0;
-      width: auto;
+      margin-top: 0.6rem;
+      order: 3;
     }
   }
 }
-.header-breadcrumbs-wrapper {
-  @media screen and (max-width: $break-420) {
+
+.logout {
+  cursor: pointer;
+  font-family: $font-semibold-serif;
+  .text {
+    color: $gray-color;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    &_content {
+      margin-right: 0.5rem;
+    }
+    &:hover {
+      color: lighten($gray-color, 10%);
+    }
   }
+
 }

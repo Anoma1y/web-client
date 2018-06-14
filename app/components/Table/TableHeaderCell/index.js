@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { CLASS_NAME } from '../index';
-import { getColumnCount } from '../../../lib/css_helpers';
+import { getColumnCount } from 'lib/cssHelpers';
 
 export default (props) => {
 

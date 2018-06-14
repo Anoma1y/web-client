@@ -5,6 +5,7 @@ import ProfileApiModule from './Profile';
 import CoinsApiModule from './Coins';
 import CardsApiModule from './Cards';
 import TransactionsApiModule from './Transactions';
+import MediaApiModule from './Media';
 
 class Api {
 
@@ -24,8 +25,15 @@ class Api {
     this.coins = new CoinsApiModule(this.http);
     this.cards = new CardsApiModule(this.http);
     this.transactions = new TransactionsApiModule(this.http);
+    this.media = new MediaApiModule(this.http);
   }
 
+  /**
+   * Метод для добавления заголовка
+   * @param key - ключ
+   * @param value - значение
+   * @returns {Promise<any>} - для асинхронного выполнения выполняется обещание
+   */
   addHeader(key, value) {
     return new Promise((resolve) => {
 
@@ -38,6 +46,10 @@ class Api {
     });
   }
 
+  /**
+   * Удаление заголовка
+   * @param key - заголовок
+   */
   removeHeader(key) {
     if (key in this.http.defaults.headers) {
       delete this.http.defaults.headers[key];

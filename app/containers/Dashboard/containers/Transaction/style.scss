@@ -1,0 +1,47 @@
+@import "lib/style/vars.scss";
+
+.data-table {
+  &_loader {
+    height: 40px;
+    position: relative;
+  }
+}
+.transactions {
+  position: relative;
+}
+.transactions-table {
+  &_head {
+    td {
+      color: $blue-color;
+      font-family: $font-semibold-serif;
+      font-size: 0.95rem;
+    }
+  }
+  &_content {
+    cursor: default;
+    font-family: $font-regular !important;
+    &:nth-child(odd) {
+      background-color: lighten($lightblue-color, 44%);
+    }
+    td {
+      font-size: 0.9rem !important;
+      padding-top: 1.4rem !important;
+      padding-bottom: 1.4rem !important;
+      color: #333333;
+    }
+  }
+  &_amount {
+    font-family: $font-regular-serif;
+    .amount {
+      &_major {
+        color: #1ac422;
+      }
+      &_minor {
+        opacity: 0.8;
+      }
+    }
+    .amount_operation__color_minus {
+      color: $black-color;
+    }
+  }
+}

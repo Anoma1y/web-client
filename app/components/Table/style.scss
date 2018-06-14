@@ -17,8 +17,9 @@ $table:               table;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 1em;
-  color: $gray-color;
+  color: $black-color;
   font-family: $font-regular-serif;
+  cursor: default;
 
   &:first-child {
     margin-top: 0;
@@ -105,13 +106,23 @@ $table:               table;
     border-top: none;
   }
 
+  & tbody {
+    margin-top: 10px !important;
+  }
+
   & tbody + tbody tr:first-child td {
     border-top: 1px solid rgba(34, 36, 38, 0.1);
   }
 
   & td {
-    padding: 1em 0.7em;
+    padding: 1.5rem 0.7em;
     text-align: inherit;
+  }
+
+  & tr {
+    &:nth-child(2n) {
+      background-color: #f0faff;
+    }
   }
 
   @media only screen and (max-width: $break-sm) {

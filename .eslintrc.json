@@ -42,12 +42,21 @@
         "caughtErrors": "none"
       }
     ],
+    // Запрет сравнения с -0
+    "no-compare-neg-zero": "error",
     // http://eslint.org/docs/rules/no-shadow
     "no-shadow": "off",
     // http://eslint.org/docs/rules/prefer-const
     "prefer-const": "warn",
     //Проверка на наличии console.log в коде, allow - разрешить использовать следующие методы консоли
-    "no-console": ["warn", { "allow": ["log", "warn", "error"] }],
+    "no-console": "warn", //["warn", { "allow": ["log", "warn", "error"] }],
+    "no-debugger": "warn",
+    //Запрет на повторение аргументов
+    "no-dupe-args": "error",
+    "no-delete-var": "off",
+    //Запрет на повторение ключей в объекте
+    "no-dupe-keys": "error",
+    "no-duplicate-case": "error",
     //Проверка отсутсвия пробела =>{
     "arrow-spacing": "error",
     //Проверка оборачивания аргументов стрелочных функций в скобки, если аргумент 1
@@ -65,8 +74,13 @@
     "no-confusing-arrow": ["error", { "allowParens": false }],
     //https://eslint.org/docs/rules/no-constant-condition
     "no-constant-condition": "error",
+    "no-fallthrough": "error",
     //Проверка label меток для циклов
     "no-labels": "error",
+    //Запрет создания дубликатов переменных
+    "no-redeclare": "error",
+    //Преобразование number в string 1 + 07...
+    "no-octal": "error",
     //Предупреждение о наличии в коде alert, confirm, prompt
     "no-alert": "warn",
     //Проверка наличия eval()
@@ -75,6 +89,8 @@
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
     //Проверка пустых функций
     "no-empty-function": "warn",
+    "no-empty": "error",
+    "no-else-return": "warn",
     //Вызов фукнции объявленной переменной в месте до её объявления
     "func-style": "warn",
     //Проверка parseInt
@@ -90,7 +106,7 @@
     "quote-props": "off",
     "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"]}],
     "jsx-a11y/label-has-for": "off",
-
+    "camelcase": "off",
     /****Правила для import****/
 //    "import/no-unresolved": ["error", {"commonjs": true, "amd": true}],
     "import/no-unresolved": 0,

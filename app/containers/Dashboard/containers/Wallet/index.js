@@ -1,105 +1,90 @@
-import React, { Component } from 'react';
-import Table from 'components/Table';
-import Amount from 'components/Amount';
+import React from 'react';
+import { connect } from 'react-redux';
+import {
+  Reorder as ReorderIcon,
+  CompareArrows as CompareArrowsIcon,
+  Send as SendIcon
+} from '@material-ui/icons';
+import {
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
+import Icon from 'components/Icon';
 import WalletInfo from './components/WalletInfo';
-import FilterSearch from 'containers/Dashboard/components/FilterSearch';
-import ControlPanel from 'containers/Dashboard/components/ControlPanel';
-import { Grid } from '@material-ui/core';
+import Transaction from 'containers/Dashboard/containers/Transaction';
+import Tab from 'components/Tab';
+import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
+import { pullCoin } from './store/actions';
 import './style.scss';
 
-const items = [
-  { name: 'Transactions', link: '/dashboard/wallet/transactions', icon: 'category-fines' },
-  { name: 'Payments', link: '/dashboard/wallet/payments', icon: 'payment-outbox' },
-  { name: 'Withdraw', link: '/dashboard/wallet/withdraw', icon: 'sent_m' },
-  { name: 'Exchange', link: '/dashboard/wallet/exchange', icon: 'transfer-internal' },
-  { name: 'Balance & limits', link: '/dashboard/wallet/balance', icon: 'filter' },
+const panes = [
+  { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
+  { icon: <SendIcon />, menuItem: 'Payments', render: () => <Transaction /> },
+  { icon: <Icon name={'sent_m'} />, menuItem: 'Withdraw', render: () => <Transaction /> },
+  { icon: <CompareArrowsIcon />, menuItem: 'Exchange', render: () => <Transaction /> },
+  { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
 ];
 
-class Wallet extends Component {
+@connect((state) => ({ Dashboard_Wallet: state.Dashboard_Wallet }), ({
+  setActive,
+  pullCoin
+}))
+export default class Wallet extends React.Component {
 
-  handleChange = (date) => {
-    console.log(date);
+  state = {
+    ready: false,
+    activeIndex: 0
   };
 
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    this.props.pullCoin(id)
+      .then(() => {
+        this.props.setActive({
+          type: 'wallet',
+          id
+        });
+        this.setState({ ready: true });
+      });
+  }
+
+  componentWillUnmount() {
+    this.props.setActive({ type: null, id: null });
+  }
+
+  handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
+
+  renderContent = (activeIndex) => (
+    <div className={'profile-container'}>
+      <Tab
+        panes={panes}
+        onTabChange={this.handleChangeTab}
+        activeIndex={activeIndex}
+      />
+    </div>
+  );
+
+  renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
+
   render() {
+    const { ready, activeIndex } = this.state;
     return (
       <Grid container justify={'center'} className={'wallet'}>
-          <Grid item xs={12}>
-            <div className={'dashboard-container'}>
+        <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
 
-              <WalletInfo />
+          <WalletInfo data={this.props.Dashboard_Wallet.coin} />
 
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <div className={'dashboard-container'}>
-
-              <ControlPanel items={items} />
-
-            </div>
-          </Grid>
-          <Grid item xs={12}>
-            <div className={'dashboard-container'}>
-
-              <FilterSearch handleChangeDate={this.handleChange} />
-
-            </div>
-          </Grid>
-          <Grid item xs={12} className={'dashboard-container'}>
-            <Table>
-              <Table.Body>
-                <Table.Row date>
-                  <Table.Cell colSpan={16}>
-                    Today, 25.05.2018
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Payment, hosting </Table.Cell>
-                  <Table.Cell width={4}>My EURO wallet</Table.Cell>
-                  <Table.Cell width={4}>Amazon</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'minus'} value={5453453.43} /></Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Refill </Table.Cell>
-                  <Table.Cell width={4}>7356*******0000</Table.Cell>
-                  <Table.Cell width={4}>Pay Pal</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'minus'} value={34.43} /></Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Refill </Table.Cell>
-                  <Table.Cell width={4}>7356*******0000</Table.Cell>
-                  <Table.Cell width={4}>Pay Pal</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'plus'} value={123333.43} /></Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Withdrawal </Table.Cell>
-                  <Table.Cell width={4}>My EURO wallet</Table.Cell>
-                  <Table.Cell width={4}>Bank of Great America</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'plus'} value={777.43} /></Table.Cell>
-                </Table.Row>
-                <Table.Row date>
-                  <Table.Cell colSpan={16}>
-                    Yesterday, 24.05.2018
-                  </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Refill </Table.Cell>
-                  <Table.Cell width={4}>7356*******0000</Table.Cell>
-                  <Table.Cell width={4}>Pay Pal</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'minus'} value={789789789.43} /></Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell width={4}>Refill </Table.Cell>
-                  <Table.Cell width={4}>7356*******0000</Table.Cell>
-                  <Table.Cell width={4}>Pay Pal</Table.Cell>
-                  <Table.Cell width={4}><Amount operation={'minus'} value={54353.43} /></Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
-          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <div className={'dashboard-container container'}>
+            {
+              ready
+                ? this.renderContent(activeIndex)
+                : this.renderLoader(70)
+            }
+          </div>
+        </Grid>
       </Grid>
-    );
+    )
   }
 }
-
-export default Wallet;

@@ -1,16 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
-import InputRedux from './InputRedux';
-import Icon from 'components/Icon';
 import './style.scss';
 
+// todo добавить проверку на иконку (нода)
 const Input = (props) => {
 
   const {
     className,
-    icon = '', // Имя иконки
-    iconColor = 'gray', // 'blue' | 'darkGray' | 'eggplant' | 'gray' | 'green' | 'lightGray' | 'maroon' | 'midnight' | 'navy' | 'olive' | 'orange' | 'orchid' | 'pine' | 'purple' | 'red' | 'watermelon' | 'white',
-    iconSize = 16, // Размер иконки (не трогать!)
+    icon, // Компонент иконки
     iconPosition = 'right', // 'left' | 'right' | '', Позиция иконки
     size = '', // Размер инпута
     label, // Подпись
@@ -52,8 +49,8 @@ const Input = (props) => {
 
   const renderIcon = () => {
     return (
-      <div className={`${classBlockName}_icon ${String(icon) && `${classBlockName}_icon__position_${iconPosition}`}`}>
-        <Icon name={String(icon)} size={iconSize} color={iconColor} />
+      <div className={`${classBlockName}_icon ${icon && `${classBlockName}_icon__position_${iconPosition}`}`}>
+        {icon}
       </div>
     )
   };
@@ -122,7 +119,5 @@ const Input = (props) => {
     </div>
   );
 };
-
-Input.Redux = InputRedux;
 
 export default Input;

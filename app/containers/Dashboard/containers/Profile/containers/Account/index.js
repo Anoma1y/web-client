@@ -1,37 +1,53 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import NumberFormat from 'react-number-format';
-import { Grid, TextField } from '@material-ui/core';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  Grid,
+  FormControl,
+} from '@material-ui/core';
+import FormOTP from './components/FormOTP/';
+import FormMain from './components/FormMain';
 
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <NumberFormat
-    thousandSeparator
-    decimalScale={2}
-    customInput={TextField}
-    prefix={'$'}
-    {...input}
-    {...custom}
-  />
-);
+@connect((state) => ({
+  Profile_Account: state.Profile_Account,
+}))
+export default class Account extends Component {
 
-const Account = () => {
-  return (
-    <Grid container justify={'center'}>
-      <div className={'profile'}>
-        <Grid item xs={12}>
-          <Field
-            name="email"
-            component={renderTextField}
-            type="text"
-            label="E-Mail"
-          />
+
+  /**
+   * Рендер основной формы
+   * @returns {*}
+   */
+  renderForm = () => {
+    const { otpIsSend } = this.props.Profile_Account;
+    return (
+      <Grid container className={'profile'}>
+        <Grid container className={'profile-form_wrapper'}>
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              {
+                otpIsSend.email
+                ? <FormOTP type={'email'} />
+                : <FormMain type={'email'} />
+              }
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={6}>
+            <FormControl fullWidth>
+              {
+                otpIsSend.phoneNumber
+                ? <FormOTP type={'phoneNumber'} />
+                : <FormMain type={'phoneNumber'} />
+              }
+            </FormControl>
+          </Grid>
         </Grid>
+      </Grid>
+    );
+  }
 
-      </div>
-    </Grid>
-  );
-};
+  render() {
+    return this.renderForm();
+  }
+}
 
-export default reduxForm({
-  form: 'ProfileAccount',
-})(Account);

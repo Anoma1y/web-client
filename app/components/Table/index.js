@@ -7,7 +7,7 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 import TableHeaderCell from './TableHeaderCell';
 import './style.scss';
-import { getColumnCount } from 'lib/css_helpers';
+import { getColumnCount } from 'lib/cssHelpers';
 
 export const CLASS_NAME = 'table';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { childrenCheck } from 'lib/children_utils';
+import { childrenCheck } from 'lib/childrenUtils';
 import './style.scss';
 
 export default (props) => {

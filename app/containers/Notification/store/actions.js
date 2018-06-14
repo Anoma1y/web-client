@@ -18,6 +18,7 @@ export const clearAll = () => ({
   type: CLEAR_ALL_NOTIFICATION
 });
 
+// todo добавить закрытие после смены локации
 export const send = (notification) => {
   const payload = Object.assign({}, notification);
   if (!payload.id) {

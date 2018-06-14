@@ -1,0 +1,332 @@
+@import 'lib/style/vars.scss';
+
+.profile {
+  &-container {
+    margin-top: 2rem;
+  }
+  &-form {
+    padding: 1.5rem 0;
+    &_control {
+      margin-bottom: 2rem !important;
+    }
+    &_wrapper {
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    &_inner {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    &__inner {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    &_input {
+
+    }
+    &_separate-text {
+      font-family: $font-semibold-serif;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    &_upload {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    &_upload-control-panel {
+      position: absolute;
+      top: -1.2rem;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      span {
+        font-size: 1rem;
+        font-family: $font-semibold-serif;
+      }
+    }
+    &_upload-text {
+      font-family: $font-semibold-serif;
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+      color: $gray-color;
+      cursor: default;
+    }
+    &_label {
+      color: $black-color !important;
+      font-family: $font-semibold-serif !important;
+      font-size: 1.2rem !important;
+      &__inner {
+        padding-bottom: 1rem !important;
+      }
+    }
+  }
+  &_icon {
+    &__verified {
+      color: $green-color;
+    }
+    &_unverified {
+      color: $red-color;
+    }
+  }
+
+}
+
+.profile-user-name {
+  &_text {
+    font-family: $font-semibold-serif;
+    color: $white-color;
+    cursor: default;
+    .text_content {
+      margin-top: 0.6rem;
+    }
+    &__role {
+      font-size: 1rem;
+    }
+    &__login {
+      font-family: $font-thin-serif;
+      font-size: 2.375rem;
+      margin-top: 15px;
+    }
+  }
+}
+
+.webcam {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &-wrap {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.4rem;
+    overflow: hidden;
+  }
+  &_control {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: calc(100% - 2rem);
+  }
+  &_preview {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &_btn {
+    float: right;
+  }
+}
+
+.imgUpload {
+  display: block;
+  clear: both;
+  width: 100%;
+  height: 12.5rem;
+  position: relative;
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  &_error {
+    position: absolute;
+    color: $notification-error;
+    font-family: $font-regular-serif;
+    font-size: 0.9rem;
+    top: calc(100% + 0.9rem);
+    left: 1rem;
+  }
+  &-wrap {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 1.5rem 1.5rem 2rem;
+    border: dashed 2px $lightblue-color;
+    border-radius: 0.4rem;
+    &__disabled {
+      border-color: $lightgray-color;
+      opacity: 0.5;
+      .imgUpload-wrap_text {
+        color: $lightgray-color;
+      }
+      svg path {
+        fill: $lightgray-color !important;
+      }
+      .imgUpload_btn {
+        color: $lightgray-color !important;
+      }
+    }
+    &_icon {
+      svg {
+        font-size: 2.5rem;
+      }
+      svg path {
+        fill: $lightblue-color;
+      }
+    }
+    &_text {
+      padding-top: 0.8rem;
+      padding-bottom: calc(0.8rem + 0.3rem);
+      font-size: 1.5rem;
+      font-family: $font-semibold-serif;
+      color: #3A4351;
+      z-index: 100;
+    }
+  }
+  &_btn {
+    font-family: $font-semibold-serif !important;
+    font-size: 1rem !important;
+    background-color: #F1FAFF !important;
+  }
+  &_img {
+    display: block;
+    position: absolute;
+    width: auto;
+    height: auto;
+    max-width: 230px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &__hidden {
+      display: none;
+    }
+  }
+
+  &_input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    outline: none;
+    opacity: 0;
+    text-align: center;
+    background: $white-color;
+    transition: all 0.4s ease;
+    user-select: none;
+    z-index: 9999;
+    &:not(&__disabled) {
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: lighten($lightblue-color, 43%);
+    }
+    &.hover {
+      border: 3px solid red;
+      box-shadow: inset 0 0 0 6px #eee;
+    }
+  }
+
+}
+
+.profile-session {
+  position: relative;
+}
+
+.session-history {
+  cursor: default;
+  &_header {
+    th {
+      font-family: $font-regular-serif;
+      font-size: 0.7rem;
+      text-align: center;
+      color: $gray-color;
+    }
+  }
+  &_body {
+    td {
+      font-family: $font-regular-serif;
+      font-size: 0.8rem;
+      text-align: center;
+      color: $black-color !important;
+    }
+  }
+  & tbody tr {
+    &:nth-child(even) {
+      background-color: #f1faff;
+    }
+  }
+  &_item {
+    &__type {
+      text-align: left !important;
+    }
+  }
+}
+
+.profile-notification {
+  span {
+    font-family: $font-regular;
+  }
+}
+
+.image-preview {
+  //padding-left: 2rem;
+  &_item {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border: 1px dashed $lightblue-color;
+    margin: 0 1rem !important;
+    display: flex;
+    align-items: center;
+    background-color: $white-color;
+    justify-content: center;
+    transition: background-color 0.3s linear;
+    &__uploaded {
+      border: 1px dashed $lightgray-color;
+      img {
+        opacity: 0.9;
+      }
+    }
+    &:hover {
+      background-color: lighten($black-color, 95%);
+      & .image-preview_close{
+        opacity: 1;
+      }
+    }
+  }
+
+  &_img {
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &_close {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.3s linear;
+    &:focus {
+      outline: none;
+    }
+    &:hover svg path {
+      fill: $red-color;
+    }
+  }
+  &_icon {
+    path {
+      fill: $lightblue-color;
+    }
+  }
+  &_submit {
+    position: absolute !important;
+    bottom: -3rem;
+    left: 0;
+  }
+}

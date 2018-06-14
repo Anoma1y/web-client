@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import Icon from 'components/Icon';
 
 export default (props) => {
 
@@ -8,6 +7,7 @@ export default (props) => {
     activeIndex,
     children,
     onClick,
+    icon // Компонент иконки
   } = props;
 
   const classBlockName = 'tabs-menu_item';
@@ -20,10 +20,10 @@ export default (props) => {
   return (
     <div className={classes} onClick={onClick}>
       <div className={`${classBlockName}-icon`}>
-        <Icon name={props.icon} size={16} />
+        {icon}
       </div>
       <div className={`${classBlockName}-link`}>
-        <p>{children}</p>
+        <p className={'tabs-p'}>{children}</p>
       </div>
     </div>
   )

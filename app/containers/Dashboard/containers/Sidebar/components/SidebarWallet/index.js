@@ -1,56 +1,158 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  EuroSymbol as EuroSymbolIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Save as SaveIcon
+} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+import { TextField } from '@material-ui/core';
+import {
+  changeEditName,
+  applyEditName
+} from '../../store/actions'
 import Text from 'components/Text';
 import Amount from 'components/Amount';
-import Dropdown from 'components/Dropdown';
-import './style.scss';
-
-const menuItems = [
-  { name: 'Pay', link: '/wallet/pay' },
-  { name: 'Rename', link: '/wallet/rename' },
-  { name: 'Delete', link: '/wallet/delete' }
-];
 
 const renderEuro = () => (
-  <div className={'wallet-icon wallet-currency'}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M15 18.5c-2.51 0-4.68-1.42-5.76-3.5H15v-2H8.58c-.05-.33-.08-.66-.08-1s.03-.67.08-1H15V9H9.24C10.32 6.92 12.5 5.5 15 5.5c1.61 0 3.09.59 4.23 1.57L21 5.3C19.41 3.87 17.3 3 15 3c-3.92 0-7.24 2.51-8.48 6H3v2h3.06c-.04.33-.06.66-.06 1 0 .34.02.67.06 1H3v2h3.52c1.24 3.49 4.56 6 8.48 6 2.31 0 4.41-.87 6-2.3l-1.78-1.77c-1.13.98-2.6 1.57-4.22 1.57z" />
-    </svg>
+  <div className={'sidebar-wallet-icon wallet-currency'}>
+    <EuroSymbolIcon />
   </div>
 );
 
-@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
+@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+  changeEditName,
+  applyEditName
+}))
 export default class SidebarWallet extends React.Component {
-  render() {
-    return (
-      <div className={'sidebar-wallets sidebar-divider'}>
+
+  state = {
+    editName: {
+      index: 0,
+      isEdit: false
+    }
+  }
+
+  /**
+   * Метод для изменения ввода имени кошелька
+   * @param event
+   */
+  handleEditChange = (event) => {
+    const { value } = event.target;
+
+    if (value.length > 22 || /[^a-zA-Z\s\d_]/.test(value)) return;
+
+    this.props.changeEditName(value);
+  };
+
+  /**
+   * Метод для изменения измени кошелька на новый
+   * @param index - индекс массива которым является текущий кошелек
+   */
+  handleApplyEdit = (index) => {
+    if (this.props.Dashboard_Sidebar.editNameIsLoading) return;
+
+    this.setState({
+      editName: {
+        index,
+        isEdit: false
+      }
+    });
+
+    this.props.applyEditName(index);
+  };
+
+  /**
+   * Метод для открытия панели редактирования имени кошелька
+   * @param index - индекс массива которым является текущий кошелек
+   */
+  handleEditOpen = (index) => {
+    this.setState({
+      editName: {
+        index,
+        isEdit: true
+      }
+    });
+  }
+
+  renderEditName = (index) => (
+    <TextField
+      type={'text'}
+      className={'sidebar-wallet_edit-input'}
+      value={this.props.Dashboard_Sidebar.editName || this.props.Dashboard_Sidebar.coins[index].name}
+      onChange={(event) => this.handleEditChange(event, index)}
+    />
+  );
+
+  renderEditControl = (index, amount) => (
+    <div className={'sidebar-wallet_edit'}>
+      <button
+        className={'sidebar-wallet_edit-btn sidebar-wallet_edit__rename'}
+        onClick={
+          (this.state.editName.index === index && this.state.editName.isEdit)
+            ? () => this.handleApplyEdit(index)
+            : () => this.handleEditOpen(index)
+        }
+      >
         {
-          this.props.Dashboard_Sidebar.coins.map((item) => {
+          (this.state.editName.index === index && this.state.editName.isEdit)
+            ? <SaveIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
+            : <EditIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
+        }
+      </button>
+      {
+        amount === 0 &&
+        <button className={'sidebar-wallet_edit-btn sidebar-wallet_edit__delete'}>
+          <DeleteIcon />
+        </button>
+      }
+    </div>
+  )
+
+  render() {
+    const { active } = this.props.Dashboard_Sidebar;
+    return (
+      <div className={'sidebar-wallets_wrapper'}>
+        <div className={'sidebar_title'}>
+          Wallets
+        </div>
+        {
+          this.props.Dashboard_Sidebar.coins.map((item, index) => {
+            const isActive = active.id === item.serial && active.type === 'wallet';
             return (
-              <div className={'sidebar-wallet sidebar-container'} key={item.serial}>
-                <div className={'sidebar-wallet_icon sidebar-container_icon'}>
+              <div className={`sidebar-wallet sidebar-container ${isActive ? 'sidebar-wallet__active' : ''}`} key={item.serial}>
+                <div className={'sidebar-container_icon'}>
                   {renderEuro()}
                 </div>
-                <div className={'sidebar-wallet_content sidebar-container_content'}>
-                  <Text className={'wallet-amount'}>
-                    <Text.Content className={'wallet-amount_name'}>
-                      {item.name}
+                <div className={'sidebar-wallet-content sidebar-container_content'}>
+                  <Text className={'sidebar-wallet-amount'}>
+                    <Text.Content className={'sidebar-wallet-amount_name'}>
+                      {
+                          this.state.editName.isEdit
+                            ? this.renderEditName(index)
+                            :
+                            <Link to={`/dashboard/wallet/${item.serial}`}>
+                              {item.name}
+                            </Link>
+                        }
                     </Text.Content>
-                    <Text.Sub className={'wallet-amount_value'}>
-                      <Amount value={item.amount} />
+                    <Text.Sub className={'sidebar-wallet-amount_value'}>
+                      <Amount
+                        value={item.amount}
+                        currency={'EUR'}
+                      />
                     </Text.Sub>
                   </Text>
                 </div>
                 <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-                  <Dropdown item={menuItems}>...</Dropdown>
+                  {this.renderEditControl(index, item.amount)}
                 </div>
               </div>
-            )
+            );
           })
         }
-
       </div>
-    )
+    );
   }
-
 }

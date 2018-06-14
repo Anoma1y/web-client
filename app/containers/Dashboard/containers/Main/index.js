@@ -1,31 +1,23 @@
-import React, { Component } from 'react';
-import FilterSearch from 'containers/Dashboard/components/FilterSearch';
+import React from 'react';
 import Banners from './components/Banners';
-import DataTable from 'containers/Dashboard/components/DataTable';
+import Transaction from 'containers/Dashboard/containers/Transaction';
 import { Grid } from '@material-ui/core';
 import './style.scss';
 
-class Main extends Component {
+export default () => (
+  <Grid container justify={'center'} className={'dashboard'}>
 
-  render() {
-    return (
-      <Grid container justify={'center'} className={'dashboard'}>
-        <Grid item xs={12}>
-          <div className={'dashboard-container'}>
-            <Banners />
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <div className={'dashboard-container'}>
-            <FilterSearch handleChangeDate={this.handleChangeDate} />
-          </div>
-        </Grid>
-        <Grid item xs={12} className={'dashboard-container'}>
-          <DataTable />
-        </Grid>
-      </Grid>
-    );
-  }
-}
+    <Grid item xs={12}>
+      <div className={'dashboard-container container'}>
+        <Banners />
+      </div>
+    </Grid>
 
-export default Main;
+    <Grid item xs={12}>
+      <div className={'dashboard-container container'}>
+        <Transaction />
+      </div>
+    </Grid>
+
+  </Grid>
+)

@@ -1,8 +1,5 @@
 @import 'lib/style/vars.scss';
 
-$scroll-width:              17px;
-$sidebar-width:             16.875rem;
-
 .sidebar {
 
   &, *, *:before, *:after {
@@ -10,18 +7,28 @@ $sidebar-width:             16.875rem;
   }
 
   background: $white-color;
-  box-shadow: 4px 0 29px 0 rgba(0,0,0,0.07);
+  box-shadow: 4px 0 29px -5px rgba(0,0,0,0.07);
   width: $sidebar-width;
   height: 100%;
   max-height: 100%;
   position: fixed;
   top: 0;
   left: 0;
+  bottom: 0;
   z-index: 9999999;
   overflow: hidden;
   transition: left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940);
 
-  // Fix для скрола
+  &_title {
+    font-family: $font-regular-serif;
+    color: $gray-color;
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    position: relative;
+  }
+
   .sidebar-wrapper {
     width: 100%;
     height: 100%;
@@ -31,6 +38,11 @@ $sidebar-width:             16.875rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  // todo нужен фикс скрола для мобилок
+  .sidebar-inner {
+    width: calc(100% + 17px);
   }
 
   @media screen and (max-width: $break-lg - 1) {
@@ -93,20 +105,6 @@ $sidebar-width:             16.875rem;
     width: $sidebar-width;
   }
 
-  &-divider {
-    position: relative;
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 50%;
-      transform: translateX(-50%);
-      height: 1px;
-      background-color: rgba(147,147,147,0.4);
-    }
-  }
   &-container {
     display: flex;
     align-items: center;
@@ -123,15 +121,18 @@ $sidebar-width:             16.875rem;
 
   &-mobile {
     position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
+    top: 1.2rem;
+    left: 1.5rem;
     z-index: 999999;
     @media screen and (min-width: $break-lg) {
       display: none;
     }
     &_button {
       cursor: pointer;
-      border: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid lighten($lightblue-color, 10%);
+      border-radius: 50%;
       background: none;
       &:focus {
         outline: none;
@@ -139,3 +140,270 @@ $sidebar-width:             16.875rem;
     }
   }
 }
+
+.user-info {
+
+  background-color: $lightblue-color;
+  font-family: $font-regular-serif;
+  height: 80px;
+
+  &_avatar {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    width: 35px;
+    height: 35px;
+    background: darken($white-color, 5%);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: darken($white-color, 1%);
+    }
+
+    & svg {
+      position: absolute;
+      top: 50%;
+      left: calc(50% + 1px);
+      transform: translate(-50%, -50%);
+      path {
+        fill: $lightblue-color;
+      }
+    }
+
+  }
+  &_name {
+    &__verification {
+      text-transform: uppercase !important;
+    }
+    & a {
+      color: $white-color;
+      transition: color 0.3s ease;
+      font-size: 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        color: darken($white-color, 10%);
+      }
+    }
+  }
+}
+
+
+.sidebar-wallets {
+  width: 100%;
+  padding: 1.2rem 0;
+}
+
+.sidebar-wallet {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  height: 5rem;
+  font-family: $font-regular;
+  cursor: default;
+  transition: background-color 0.4s ease;
+  background-color: darken($white-color, 2%);
+
+  &:hover:not(&__active) {
+    background-color: darken($white-color, 5%);
+  }
+
+  &_edit {
+
+    &-input {
+      width: 150px;
+    }
+
+    &-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+    }
+
+    svg {
+      font-size: 1.2rem;
+      path {
+        transition: fill 0.3s ease;
+      }
+    }
+
+    &__rename {
+      path {
+        fill: $green-color;
+      }
+      &:hover path {
+        fill: lighten($green-color, 7%);
+      }
+    }
+
+    &__delete {
+      path {
+        fill: $red-color;
+      }
+      &:hover path {
+        fill: lighten($red-color, 7%);
+      }
+    }
+
+    &__disabled {
+      svg path {
+        fill: $lightgray-color !important;
+      }
+    }
+  }
+
+  &__active {
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: $lightblue-color;
+      width: 0.5rem;
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  &-content {
+    font-family: $font-semibold;
+    text-align: left;
+  }
+
+  &_btn {
+    cursor: pointer;
+    font-size: 1.2em;
+    position: relative;
+  }
+
+  &-amount {
+
+    &_name {
+      a {
+        font-size: 1rem;
+        font-weight: normal;
+        white-space: nowrap;
+        color: $darkpurple-color;
+        text-decoration: none;
+      }
+      input {
+        font-family: $font-regular;
+        font-size: 1rem;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &_value {
+      font-size: 1.1rem;
+      letter-spacing: 0.8px;
+      .amount_major {
+        color: $darkpurple-color;
+        font-family: $font-semibold-serif;
+      }
+      .amount_minor {
+        color: darken($darkpurple-color, 20%);
+        font-family: $font-semibold;
+      }
+    }
+
+  }
+
+  &-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #F0FAFF;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    svg {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &.wallet-currency {
+      path {
+        fill: $lightblue-color;
+      }
+    }
+
+  }
+}
+
+.sideProduct-add {
+
+  &_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 0;
+    border: 1px solid lighten($lightblue-color, 30%);
+    width: 80%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin: 0 auto;
+    background-color: $white-color;
+    transition: background-color 0.3s linear;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background-color: lighten($lightblue-color, 44%);
+    }
+  }
+  &_icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.3rem;
+    background-color: $green-color;
+    border-radius: 50%;
+    border: 1px solid $green-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 3px 0px rgba(0,0,0,0.1);
+    path {
+      fill: $white-color;
+    }
+  }
+  &_text {
+    font-family: $font-regular;
+    font-size: 1rem;
+    //margin-left: 0.3rem;
+    color: $lightblue-color;
+  }
+}
+
+.sidebar-notice {
+
+  font-family: $font-regular-serif;
+  font-weight: bold;
+
+  height: 40px;
+  overflow: hidden;
+  background-color: $notification-error;
+  width: 100%;
+  white-space: nowrap;
+
+  &_icon {
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  &_message {
+    color: $white-color;
+    font-size: 16px;
+    cursor: default;
+  }
+}
+
+
