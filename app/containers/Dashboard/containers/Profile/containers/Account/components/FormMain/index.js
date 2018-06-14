@@ -27,11 +27,13 @@ const validate = (values) => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.contact.email)) {
     errors.contact.email = 'Invalid email address';
   }
+
   if (!values.contact.phoneNumber) {
     errors.contact.phoneNumber = 'Required';
   } else if (!/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/i.test(values.contact.phoneNumber)) {
     errors.contact.phoneNumber = 'Invalid phone number';
   }
+
   return errors;
 };
 
@@ -58,6 +60,7 @@ export default class FormMain extends Component {
     const { type } = this.props;
     const label = type === 'email' ? 'Email' : 'Phone';
     const isVerified = type === 'email' ? contact.emailVerified : contact.phoneVerified;
+
     return (
       <Fragment>
         <FormLabel component="legend" className={'profile-form_label'}>{label}</FormLabel>

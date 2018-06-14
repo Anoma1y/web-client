@@ -7,6 +7,7 @@ import { reset as ReduxFormReset } from 'redux-form';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
 import { api } from 'lib/api';
+import Config from 'lib/config';
 import Storage from 'lib/storage';
 import uuid from 'uuid/v1';
 
@@ -133,7 +134,7 @@ export const changePassword = () => (dispatch, getState) => {
  * @returns {function(*=): Promise<any>}
  */
 export const pullSession = () => (dispatch) => new Promise((resolve, reject) => {
-  api.profile.getLimitedSessionList(10)
+  api.profile.getLimitedSessionList(Config.SESSION_ENTRIES_COUNT)
     .then((data) => {
       if (data.status !== 200) return;
 

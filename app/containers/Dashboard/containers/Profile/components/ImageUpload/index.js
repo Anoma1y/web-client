@@ -7,9 +7,7 @@ import {
 import Webcam from 'react-webcam';
 import { dataURLtoFile } from 'lib/utils';
 import _ from 'lodash';
-
-const FILE_SIZE = 5;
-const FILE_FORMATS = ['image/jpeg', 'image/jpg', 'image/png'];
+import CONFIG from 'lib/config';
 
 /**
  * webcam - boolean (true - изображения с вебки)
@@ -81,18 +79,22 @@ export default class ImageUpload extends Component {
 
     const reader = new FileReader();
     const file = event.target.files[0];
-    if (FILE_FORMATS.includes(file.type)) {
-      if ((file.size / 1024 / 1024) <= FILE_SIZE) {
+
+    if (CONFIG.UPLOAD_FILE_FORMATS.includes(file.type)) {
+      if ((file.size / 1024 / 1024) <= CONFIG.UPLOAD_FILE_SIZE) {
         const formData = this.convertingImageToFile(file);
+
         this.props.onFileSelected(formData);
         reader.readAsDataURL(file);
 
       } else {
         this.setState({ fileUploadError: 'Больше 5 МБ' });
       }
+
     } else {
       this.setState({ fileUploadError: 'Неверный формат' });
     }
+
   };
 
   /**

@@ -23,7 +23,7 @@ export const pullCoin = (id) => (dispatch) => new Promise((resolve, reject) => {
       resolve();
     })
     .catch((err) => {
-      reject(err)
-    })
+      reject(err);
+    });
 
 });

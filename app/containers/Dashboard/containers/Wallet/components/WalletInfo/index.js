@@ -3,6 +3,9 @@ import Text from 'components/Text';
 import Amount from 'components/Amount';
 
 export default (props) => {
+
+  const { data } = props;
+
   return (
     <div className={'dashboard_info'}>
       <div className={'wallet-info container'}>
@@ -12,16 +15,19 @@ export default (props) => {
               Available on My Euro wallet
             </Text.Content>
             <Text.Sub>
-              {
-                props.data.amount && props.data.issuer.currency
-                  ?
-                    <Amount
-                      className={'wallet-content_amount'}
-                      value={props.data.amount}
-                      props={props.data.issuer.currency}
-                    />
-                  : 0
-              }
+              <Amount
+                className={'wallet-content_amount'}
+                value={
+                  data && data.amount
+                    ? data.amount
+                    : 0
+                }
+                currency={
+                  data && data.issuer && data.issuer.currency
+                    ? data.issuer.currency
+                    : 'EUR'
+                }
+              />
             </Text.Sub>
           </Text>
         </div>

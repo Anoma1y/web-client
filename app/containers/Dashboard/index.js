@@ -115,7 +115,7 @@ export default class Dashboard extends Component {
             <Route exact path={`${this.props.match.url}/wallet/:id`} component={Wallet} />
             <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
             <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />
-            <Route exact path={`${this.props.match.url}/add_product`} component={AddProduct} />
+            <Route path={`${this.props.match.url}/add`} component={AddProduct} />
           </Switch>
         </div>
 

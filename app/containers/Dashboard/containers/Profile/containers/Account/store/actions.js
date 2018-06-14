@@ -96,7 +96,7 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
 };
 
-// todo нужен тест, не всегда оптравляется логин (телефон? почта??)
+// todo не всегда оптравляется логин (телефон? почта??)
 export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   const {
     Profile_Account: {

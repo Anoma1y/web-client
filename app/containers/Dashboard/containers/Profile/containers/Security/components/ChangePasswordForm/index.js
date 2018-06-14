@@ -59,28 +59,28 @@ const validate = (values) => {
   if (!values.newPassword_repeat) {
     errors.newPassword_repeat = 'Required';
   } else if (values.newPassword_repeat !== values.newPassword) {
-    errors.newPassword_repeat = 'Passwords do not match'
+    errors.newPassword_repeat = 'Passwords do not match';
   }
+
   return errors;
 };
 
-@connect((state) => ({
-  Profile_Security: state.Profile_Security
-}), ({
-    changePassword
-  }))
+@connect((state) => ({ Profile_Security: state.Profile_Security }), ({ changePassword }))
 @reduxForm({
   form: 'SecurityChangePassword',
   validate
 })
 export default class ChangePasswordForm extends Component {
 
-  handleClick = () => {
-    this.props.changePassword();
-  };
+  /**
+   * Метод для вызова экшена изменения пароля
+   * @returns {(function(*=, *))|*}
+   */
+  handleClickSubmit = () => this.props.changePassword();
 
   render() {
     const { passwordIsLoading } = this.props.Profile_Security;
+
     return (
       <Fragment>
         <FormControl fullWidth>
@@ -140,7 +140,7 @@ export default class ChangePasswordForm extends Component {
                 variant={'raised'}
                 size={'large'}
                 disabled={passwordIsLoading}
-                onClick={this.handleClick}
+                onClick={this.handleClickSubmit}
               >
                 Change password
               </Button>
@@ -154,4 +154,3 @@ export default class ChangePasswordForm extends Component {
     )
   }
 }
-// passwordIsLoading

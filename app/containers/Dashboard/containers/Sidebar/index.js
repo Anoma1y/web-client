@@ -12,7 +12,7 @@ import ProductAdd from './components/ProductAdd';
 import './style.scss';
 
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
-class Sidebar extends Component {
+export default class Sidebar extends Component {
 
   state = {
     sidebarIsOpen: false
@@ -35,7 +35,7 @@ class Sidebar extends Component {
   }
 
   /**
-   * Функция обработчки клика по области (не сайдбара)
+   * Метод обработчки клика по области (не сайдбара)
    * Переводит стейт в состояние false
    * @param event
    */
@@ -48,7 +48,7 @@ class Sidebar extends Component {
   };
 
   /**
-   * Функция обработчки ресайза, если рабочая область больше 1200 пикселей (3ий основной брейкпоинт)
+   * Метод обработчки ресайза, если рабочая область больше 1200 пикселей (3ий основной брейкпоинт)
    * то переводит стейт в состояние false
    */
   updateDimensions = () => {
@@ -60,7 +60,7 @@ class Sidebar extends Component {
   };
 
   /**
-   * Функция обработчки клика по батону вызова сайдбара
+   * Метод обработчки клика по батону вызова сайдбара
     */
   handleSidebarOpen = () => {
     this.setState({
@@ -69,7 +69,7 @@ class Sidebar extends Component {
   };
 
   /**
-   * Функция обработчки клика по батону закрытия сайдбара
+   * Метод обработчки клика по батону закрытия сайдбара
    */
   handleSidebarClose = () => {
     this.setState({
@@ -86,8 +86,8 @@ class Sidebar extends Component {
   };
 
   render() {
-
     const { sidebarIsOpen } = this.state;
+
     return (
       <React.Fragment>
         <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
@@ -97,7 +97,9 @@ class Sidebar extends Component {
             <div className={'sidebar-inner'}>
 
               <div className={'sidebar_item sidebar-user'}>
+
                 <SidebarUser />
+
               </div>
 
               <div className={'sidebar_item sidebar-notification'}>
@@ -112,6 +114,15 @@ class Sidebar extends Component {
                 }
               </div>
 
+              <div className={'sidebar_item sidebar-product-add'}>
+
+                <ProductAdd
+                  name={'Add wallet'}
+                  link={'wallet'}
+                />
+
+              </div>
+
               <div className={'sidebar_item sidebar-wallets'}>
                 {
                   (this.props.Dashboard_Sidebar.cards.length !== 0 || this.props.Dashboard_Sidebar.thirdPartyCards.length !== 0) && <SidebarCard />
@@ -120,7 +131,12 @@ class Sidebar extends Component {
               </div>
 
               <div className={'sidebar_item sidebar-product-add'}>
-                <ProductAdd />
+
+                <ProductAdd
+                  name={'Add card'}
+                  link={'card'}
+                />
+
               </div>
 
             </div>
@@ -128,7 +144,9 @@ class Sidebar extends Component {
             <div className={'sidebar-inner'}>
               <button className={'sidebar-close'} onClick={this.handleSidebarClose}>
                 <div className={'sidebar-close_icon'}>
+
                   <KeyboardArrowLeftIcon />
+
                 </div>
                 <div className={'sidebar-close_text'}>
                   Close menu
@@ -150,5 +168,3 @@ class Sidebar extends Component {
     );
   }
 }
-
-export default Sidebar;
