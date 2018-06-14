@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormControl, FormLabel, Grid, Button } from '@material-ui/core';
+import {
+  Grid,
+  FormControl,
+  FormLabel,
+  Button
+} from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
 import ImageUpload from 'containers/Dashboard/containers/Profile/components/ImageUpload';
 
@@ -57,39 +62,63 @@ export default class PhotoDocument extends Component {
         </Grid>
 
       </Grid>
-    )
-  }
+    );
+  };
 
+  /**
+   * Рендер прьевюшки фотографии, если изображения уже загружена, то запрещено её удалить
+   * @returns {*}
+   */
   renderPreview = () => {
-    const { personalPhoto, personalPhotoIsLoading } = this.props.Profile_Verification;
+    const { personalPhoto } = this.props.Profile_Verification;
 
     return (
       <Grid container spacing={40} className={'profile-form image-preview'} justify={'flex-start'} >
         <Grid item xs={3} className={`image-preview_item ${personalPhoto.status ? 'image-preview_item__uploaded' : ''}`}>
           {
-            !personalPhoto.status &&
-            <button className={'image-preview_close'} onClick={() => this.handleImageRemove(personalPhoto.file.id)}>
-              <CloseIcon className={'image-preview_icon'} />
-            </button>
+            !personalPhoto.status && this.renderButtonRemove(personalPhoto.file.id)
           }
           <img className={'image-preview_img'} src={personalPhoto.file.url} alt={personalPhoto.file.name} />
           {
-            !personalPhoto.status &&
-            <Button
-              className={'image-preview_submit'}
-              color={'primary'}
-              variant={'raised'}
-              size={'large'}
-              disabled={personalPhotoIsLoading}
-              onClick={this.handleSubmitFile}
-            >
-              Submit
-            </Button>
+            !personalPhoto.status && this.renderButtonSubmit()
+
           }
         </Grid>
       </Grid>
-    )
-  }
+    );
+  };
+
+  /**
+   * Рендер кнопки удаления изображения
+   * @param id - file.id изображения
+   * @returns {*}
+   */
+  renderButtonRemove = (id) => (
+    <button className={'image-preview_close'} onClick={() => this.handleImageRemove(id)}>
+      <CloseIcon className={'image-preview_icon'} />
+    </button>
+  );
+
+  /**
+   * Рендер кнопки подтверждения загрузки изображения на сервер
+   * @returns {*}
+   */
+  renderButtonSubmit = () => {
+    const { personalPhotoIsLoading } = this.props.Profile_Verification;
+
+    return (
+      <Button
+        className={'image-preview_submit'}
+        color={'primary'}
+        variant={'raised'}
+        size={'large'}
+        disabled={personalPhotoIsLoading}
+        onClick={this.handleSubmitFile}
+      >
+        Submit
+      </Button>
+    );
+  };
 
   render() {
     const { personalPhoto } = this.props.Profile_Verification;
@@ -101,9 +130,13 @@ export default class PhotoDocument extends Component {
 
         <Grid container style={{ marginTop: 40, marginBottom: 40 }}>
 
-          {!personalPhoto.status && this.renderUploadForm()}
+          {
+            !personalPhoto.status && this.renderUploadForm()
+          }
 
-          {personalPhoto.file && this.renderPreview()}
+          {
+            personalPhoto.file && this.renderPreview()
+          }
 
         </Grid>
 

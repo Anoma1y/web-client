@@ -12,7 +12,7 @@ import {
 import { api } from 'lib/api';
 import { changeUsedType } from '../../../store/actions';
 import { send } from 'containers/Notification/store/actions';
-import { pullProfile, setDocuments } from 'containers/Dashboard/containers/Profile/store/actions';
+import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
 import { pullProfile as pullProfileSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
@@ -27,10 +27,19 @@ export const removeEntityFile = (id) => ({
   payload: id,
 });
 
+/**
+ * Экшен для удаления документов
+ * @param id - file.id документа, который нужно удалить из списка загружаемых на сервер
+ * @returns {function(*, *)}
+ */
 export const removeEntityDocumentFile = (id) => (dispatch, getState) => {
   const {
-    Profile_Verification: { entityDocument },
-    Dashboard_Profile: { usedTypes }
+    Profile_Verification: {
+      entityDocument
+    },
+    Dashboard_Profile: {
+      usedTypes
+    }
   } = getState();
   const type = _.find(entityDocument, (o) => o.file.id === id);
   const newusedTypes = usedTypes.filter((item) => item !== type.type);
@@ -81,9 +90,12 @@ export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) =
   api.profile.getProfileDocuments()
     .then((data) => {
 
-      let entityDocumentFile = [];
+      if (data.data.status !== 200) return;
 
-      data.data.documents.forEach((item) => {
+      const entityDocumentFile = [];
+      const { documents } = data.data;
+
+      documents.forEach((item) => {
         if (item.type === 'photo') {
           dispatch(addPersonFile(item));
         } else if (item.type.match(/passport_v/)) {
@@ -112,7 +124,10 @@ export const uploadIdentityFile = (fileUpload) => (dispatch, getState) => {
       if (data.status !== 200) return;
 
       const { file } = data.data;
-      const type = _.difference(documentTypes, usedTypes); // добавление уже используемыех типов в массив
+      /**
+       * добавление уже используемыех типов в массив, чтобы типы не повторялись
+       */
+      const type = _.difference(documentTypes, usedTypes);
       const currentType = type[0];
 
       dispatch(changeUsedType([...usedTypes, currentType]));
@@ -120,6 +135,7 @@ export const uploadIdentityFile = (fileUpload) => (dispatch, getState) => {
       dispatch(addEntityDocumentFile([...entityDocument, { file, type: currentType }]));
     })
     .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
       dispatch(setEntityDocumentIsLoading(false));
     });
 };
@@ -136,11 +152,15 @@ export const submitEntityDocumentFile = (index) => (dispatch, getState) => {
   api.profile.submitDocumentsUpload(entityDocument[index].file.id, entityDocument[index].type)
     .then((data) => {
 
+      /**
+       * подтверженный документ содержит поле status, которе позволяет отличить новое изображение от уже загруженного на сервер
+       */
       const newEntityDocumentFile = [...entityDocument];
       newEntityDocumentFile[index] = data.data.document;
 
       dispatch(addEntityDocumentFile(newEntityDocumentFile));
       dispatch(setEntityDocumentIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'User document has been uploaded', timeout: 4000 }));
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
@@ -186,10 +206,11 @@ export const submitPersonFile = () => (dispatch, getState) => {
 
       dispatch(addPersonFile(document));
       dispatch(setPersonPhotoIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Photo has been uploaded', timeout: 4000 }));
     })
     .catch(() => {
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }))
       dispatch(setPersonPhotoIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }))
     })
 };
 
@@ -201,7 +222,9 @@ export const updateUserAddress = () => (dispatch, getState) => {
 
   const {
     syncErrors,
-    values: { address }
+    values: {
+      address
+    }
   } = getState().form.VerificationUserAddress;
 
   if (syncErrors) return;
@@ -244,11 +267,17 @@ export const updateUserAddress = () => (dispatch, getState) => {
 export const updatePersonInfo = () => (dispatch, getState) => {
   const {
     syncErrors,
-    values: { person }
+    values: {
+      person
+    }
   } = getState().form.VerificationPersonInfo;
 
   if (syncErrors) return;
 
+  /**
+   * Поля nameIntl заполяются на основе полей namePlain ()
+   * @type {{namePlain: {middle: null}, nameIntl: {middle: *}, description: string}}
+   */
   const personObject = {
     ...person,
     namePlain: {
@@ -275,7 +304,8 @@ export const updatePersonInfo = () => (dispatch, getState) => {
        * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
        */
       Promise.all([
-        dispatch(pullProfile(profile)), dispatch(pullProfileSidebar(profile))
+        dispatch(pullProfile(profile)),
+        dispatch(pullProfileSidebar(profile))
       ])
         .then(() => {
           dispatch(setUpdatePersonInfoIsLoading(false));
