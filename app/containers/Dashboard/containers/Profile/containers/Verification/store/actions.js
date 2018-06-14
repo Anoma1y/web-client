@@ -90,7 +90,7 @@ export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) =
   api.profile.getProfileDocuments()
     .then((data) => {
 
-      if (data.data.status !== 200) return;
+      if (data.status !== 200) return;
 
       const entityDocumentFile = [];
       const { documents } = data.data;

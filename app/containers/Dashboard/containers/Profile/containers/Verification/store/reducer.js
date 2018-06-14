@@ -11,8 +11,6 @@ import {
 
 const INITIAL_STATE = {
   personalPhoto: {},
-  personalPhotoReady: false,
-  documentIsReady: false,
   entityDocument: [],
   entityDocumentIsLoading: false,
   updatePersonInfoIsLoading: false,
