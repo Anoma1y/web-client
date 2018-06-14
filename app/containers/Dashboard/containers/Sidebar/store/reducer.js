@@ -6,7 +6,6 @@ import {
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  SET_ISSUERS,
   CHANGE_EDIT_NAME,
   EDIT_NAME_IS_LOADING
 } from './types';
@@ -16,7 +15,6 @@ const INITIAL_STATE = {
   coins: [],
   cards: [],
   thirdPartyCards: [],
-  issuers: [],
   notification: '',
   editName: '',
   editNameIsLoading: false,
@@ -30,10 +28,6 @@ const HANDLERS = {
   [SET_PROFILE]: (state, { payload }) => ({
     ...state,
     profile: payload
-  }),
-  [SET_ISSUERS]: (state, { payload }) => ({
-    ...state,
-    issuers: payload
   }),
   [SET_COINS]: (state, { payload }) => ({
     ...state,

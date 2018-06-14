@@ -281,6 +281,9 @@
     transition: background-color 0.3s linear;
     &__uploaded {
       border: 1px dashed $lightgray-color;
+      img {
+        opacity: 0.9;
+      }
     }
     &:hover {
       background-color: lighten($black-color, 95%);

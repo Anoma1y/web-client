@@ -7,7 +7,7 @@ import {
 } from '../containers/Sidebar/store/actions';
 import Storage from 'lib/storage';
 
-const individual = [pullCoins, pullProfile, pullIssuers, pullThirdPartyCards, pullCards];
+const individual = [pullCoins, pullProfile, pullThirdPartyCards, pullCards];
 const merchant = [pullCoins, pullProfile];
 const administrator = [pullProfile];
 

@@ -6,7 +6,6 @@ import {
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  SET_ISSUERS,
   CHANGE_EDIT_NAME,
   EDIT_NAME_IS_LOADING
 } from './types';
@@ -45,11 +44,6 @@ export const setCards = (cards) => ({
 export const setThirdPartyCards = (tCards) => ({
   type: SET_THIRD_PARTY_CARDS,
   payload: tCards,
-});
-
-export const setIssuers = (issuers) => ({
-  type: SET_ISSUERS,
-  payload: issuers,
 });
 
 export const setActive = (active = { type: null, id: null }) => ({
@@ -92,7 +86,7 @@ export const applyEditName = (index) => (dispatch, getState) => {
       dispatch(setEditNameIsLoading(false));
     })
     .catch(() => {
-      dispatch(send({ id: uuid(), status: 'errod', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
       dispatch(setEditNameIsLoading(false));
     });
 };
@@ -141,23 +135,6 @@ export const pullCards = () => (dispatch) => new Promise((resolve, reject) => {
       if (data.status !== 200) reject();
 
       dispatch(setCards(data.data.records));
-      resolve();
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
-
-/**
- * Экшен для получения списка доступных валют
- * @returns {function(*=): Promise<any>}
- */
-export const pullIssuers = () => (dispatch) => new Promise((resolve, reject) => {
-  api.coins.getIssuersList()
-    .then((data) => {
-      if (data.status !== 200) reject();
-
-      dispatch(setIssuers(data.data.records));
       resolve();
     })
     .catch((error) => {
