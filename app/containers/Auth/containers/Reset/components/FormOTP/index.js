@@ -19,6 +19,7 @@ import {
   validateOTP,
   validatePassword
 } from 'lib/auth';
+import CONFIG from 'lib/config';
 
 @connect(state => ({ Auth_Reset: state.Auth_Reset }), {
   resendOTP,
@@ -73,18 +74,17 @@ export default class FormOTP extends Component {
    */
   handleReSendOTP = () => {
 
-    this.setState({
-      timer: 30
-    });
+    this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
+
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(false);
         clearInterval(this.resendTimeout);
       }
-      this.setState({
-        timer: this.state.timer - 1
-      });
+
+      this.setState({ timer: this.state.timer - 1 });
+
     }, 1000);
 
     this.props.resendOTP();
@@ -101,9 +101,14 @@ export default class FormOTP extends Component {
     const checkPassword = validatePassword(newUserPassword);
 
     const checkError = checkOTP.error || checkPassword.error;
+
     this.setState({
-      otpError: checkOTP.error ? checkOTP.errorText : '',
-      passwordError: checkPassword.error ? checkPassword.errorText : ''
+      otpError: checkOTP.error
+        ? checkOTP.errorText
+        : '',
+      passwordError: checkPassword.error
+        ? checkPassword.errorText
+        : ''
     });
 
     this.props.setError(checkError);
@@ -121,9 +126,7 @@ export default class FormOTP extends Component {
    * Метод для отправки ОТП
    */
   handleSendOTP = () => {
-    if (this.validateForm()) {
-      this.props.sendConfirm();
-    }
+    if (this.validateForm()) this.props.sendConfirm();
   };
 
   render() {
@@ -139,6 +142,7 @@ export default class FormOTP extends Component {
 
     return (
       <Fragment>
+
         <div className={'auth-form_item'}>
           <Input
             type="text"
@@ -152,6 +156,7 @@ export default class FormOTP extends Component {
             onBlur={this.handlePasswordBlur}
           />
         </div>
+
         <div className={'auth-form_item'}>
           <Input
             type="text"
@@ -164,6 +169,7 @@ export default class FormOTP extends Component {
             onChange={this.handleChangeOTP}
           />
         </div>
+
         <div className={'auth-form_item auth-form_btn'}>
           <div className={'auth-form_inline-btn'}>
             <Button
@@ -175,6 +181,7 @@ export default class FormOTP extends Component {
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
           </div>
+
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}

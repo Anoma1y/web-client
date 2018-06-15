@@ -1,4 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, {
+  Component,
+  Fragment
+} from 'react';
 import { connect } from 'react-redux';
 import Input from 'components/Input';
 import Button from 'components/Button';
@@ -13,6 +16,7 @@ import {
 } from '../../store/actions';
 import { clearAll } from 'containers/Notification/store/actions';
 import { validateOTP } from 'lib/auth';
+import CONFIG from 'lib/config';
 
 @connect(state => ({ Auth_Signup: state.Auth_Signup }), {
   resendOTP,
@@ -39,6 +43,9 @@ export default class FormOTP extends Component {
     }, 100000);
   }
 
+  /**
+   * Очистка всех таймеров и сброс данных после удалении компонента
+   */
   componentWillUnmount() {
     clearTimeout(this.timeout);
     clearInterval(this.resendTimeout);
@@ -58,22 +65,22 @@ export default class FormOTP extends Component {
 
   /**
    * Метод для обработки запуска экшена для повторной отправки ОТП
-   * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на 30 секунд
+   * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на %OTP_BLOCK_TIMEOUT% секунд
    */
   handleReSendOTP = () => {
 
-    this.setState({
-      timer: 30
-    });
+    this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
+
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(false);
         clearInterval(this.resendTimeout);
       }
-      this.setState({
-        timer: this.state.timer - 1
-      });
+
+      // Обратный отсчет
+      this.setState({ timer: this.state.timer - 1 });
+
     }, 1000);
 
     this.props.resendOTP();
@@ -89,11 +96,7 @@ export default class FormOTP extends Component {
     const checkOTP = validateOTP(OTP);
     const checkError = checkOTP.error;
 
-    if (checkOTP.error) {
-      this.setState({
-        otpError: checkOTP.errorText
-      });
-    }
+    if (checkOTP.error) this.setState({ otpError: checkOTP.errorText });
 
     this.props.setError(checkError);
     return !checkError;
@@ -103,9 +106,7 @@ export default class FormOTP extends Component {
    * Метод для отправки ОТП
    */
   handleSendOTP = () => {
-    if (this.validateForm()) {
-      this.props.sendConfirm();
-    }
+    if (this.validateForm()) this.props.sendConfirm();
   };
 
   render() {
@@ -120,11 +121,12 @@ export default class FormOTP extends Component {
 
     return (
       <Fragment>
+
         <div className={'auth-form_item'}>
           <Input
             type="text"
             placeholder={'Entering OTP'}
-            icon={<HttpsIcon color={'action'}/>}
+            icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.otpError}
             errorPosition={'under'}
@@ -132,6 +134,7 @@ export default class FormOTP extends Component {
             onChange={this.handleChangeOTP}
           />
         </div>
+
         <div className={'auth-form_item auth-form_btn'}>
           <div className={'auth-form_inline-btn'}>
             <Button
@@ -143,6 +146,7 @@ export default class FormOTP extends Component {
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
           </div>
+
           <div className={'auth-form_inline-btn'}>
             <Button
               color={'green'}
@@ -159,6 +163,7 @@ export default class FormOTP extends Component {
               </div>
             }
           </div>
+
         </div>
       </Fragment>
     );

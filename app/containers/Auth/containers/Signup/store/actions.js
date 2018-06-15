@@ -83,12 +83,15 @@ export const reset = () => ({
  */
 export const getOTP = () => (dispatch, getState) => {
 
-  const { login, role, country, isError } = getState().Auth_Signup;
-  let authLogin = login;
+  const {
+    login,
+    role,
+    country,
+    isError
+  } = getState().Auth_Signup;
+  let authLogin = login.toLowerCase();
 
-  if (isError) {
-    return;
-  }
+  if (isError) return;
 
   dispatch(setIsLoading(true));
   dispatch(setErrorMessage(''));
@@ -114,11 +117,15 @@ export const getOTP = () => (dispatch, getState) => {
       const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
-      if (code === 'USER_ALREADY_EXISTS') {
-        dispatch(setErrorMessage(message));
-      } else {
-        dispatch(setErrorMessage('Server error'));
+
+      switch (code) {
+        case 'USER_ALREADY_EXISTS':
+          dispatch(setErrorMessage(message));
+          break;
+        default:
+          dispatch(setErrorMessage('Server error'));
       }
+
     });
 };
 
@@ -127,7 +134,12 @@ export const getOTP = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const sendConfirm = () => (dispatch, getState) => {
-  const { login, isError, OTP } = getState().Auth_Signup;
+
+  const {
+    login,
+    isError,
+    OTP
+  } = getState().Auth_Signup;
   let authLogin = login.toLowerCase();
 
   if (isError) return;
@@ -146,9 +158,11 @@ export const sendConfirm = () => (dispatch, getState) => {
       dispatch(setIsLoading(false));
 
       if (data.status !== 200) {
+
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;
+
       }
 
       const { authorizationToken, members } = data.data;
@@ -160,7 +174,7 @@ export const sendConfirm = () => (dispatch, getState) => {
       dispatch(replace('/dashboard/'));
 
     })
-  // USER_ALREADY_EXISTS
+
     .catch((error) => {
       const { code, message } = error.response.data;
 
@@ -169,7 +183,6 @@ export const sendConfirm = () => (dispatch, getState) => {
         case 'CONFIRMATION_CODE_INVALID':
           dispatch(setErrorMessage(message));
           break;
-        // todo в дальнешейм заменить на превышено кол-во попыток + время добавить
         case 'UNKNOWN_ERROR':
           dispatch(blockOTPsend(true));
           dispatch(setErrorMessage('Превышено количество попыток'));
@@ -186,14 +199,16 @@ export const sendConfirm = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const resendOTP = () => (dispatch, getState) => {
-  const { login, resendOTPIsBlocked, isError } = getState().Auth_Signup;
-  let authLogin = login;
+  const {
+    login,
+    resendOTPIsBlocked,
+    isError
+  } = getState().Auth_Signup;
+  let authLogin = login.toLowerCase();
 
   dispatch(changeOTP(''));
 
-  if (resendOTPIsBlocked || isError) {
-    return;
-  }
+  if (resendOTPIsBlocked || isError) return;
 
   dispatch(blockedResendOTP(true));
   dispatch(setIsLoading(true));
@@ -205,18 +220,19 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.registrationResendOTP(authLogin)
-    .then((data) => {
-      console.log(data)
-      dispatch(setIsLoading(false));
-    })
+    .then(() => dispatch(setIsLoading(false)))
     .catch((error) => {
       const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
-      if (code === 'USER_NOT_FOUND') {
-        dispatch(setErrorMessage(message));
-      } else {
-        dispatch(setErrorMessage('Server error'));
+
+      switch (code) {
+        case 'USER_NOT_FOUND':
+          dispatch(setErrorMessage(message));
+          break;
+        default:
+          dispatch(setErrorMessage('Server error'));
       }
+
     });
 };

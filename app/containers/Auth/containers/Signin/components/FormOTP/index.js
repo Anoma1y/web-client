@@ -13,6 +13,7 @@ import {
 } from '../../store/actions';
 import { clearAll } from 'containers/Notification/store/actions';
 import { validateOTP } from 'lib/auth';
+import CONFIG from 'lib/config';
 
 @connect(state => ({ Auth_Signin: state.Auth_Signin }), {
   resendOTP,
@@ -62,18 +63,17 @@ export default class FormOTP extends Component {
    */
   handleReSendOTP = () => {
 
-    this.setState({
-      timer: 30
-    });
+    this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
+
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(false);
         clearInterval(this.resendTimeout);
       }
-      this.setState({
-        timer: this.state.timer - 1
-      });
+
+      this.setState({ timer: this.state.timer - 1 });
+
     }, 1000);
 
     this.props.resendOTP();

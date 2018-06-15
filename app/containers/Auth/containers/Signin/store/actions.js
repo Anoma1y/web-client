@@ -79,13 +79,23 @@ export const reset = () => ({
   type: RESET
 });
 
-// TODO переместить в отдельный компонент + переделать логаут
+/**
+ * TODO переместить в отдельный компонент + переделать логаут
+ * Экшен очищает локальное хранищиле и сбарсывает весь стейт на INITIAL_STATE
+ * @returns {function(*)}
+ */
 export const logout = () => (dispatch) => {
   Storage.clear();
   dispatch({ type: RESET_ALL });
   dispatch(replace('/auth/signin'));
 };
 
+/**
+ * Экшен для входа в систему
+ * Если установлена двухфакторка, то будет переход к следующему шагу (отправку ОТП)
+ * Иначе - вход в систему
+ * @returns {function(*=, *)}
+ */
 export const signin = () => (dispatch, getState) => {
   const { login, password, isError } = getState().Auth_Signin;
   let authLogin = login.toLowerCase();
@@ -102,7 +112,6 @@ export const signin = () => (dispatch, getState) => {
 
   api.auth.authorization(authLogin, password)
     .then((data) => {
-      const { action } = data.data;
 
       dispatch(setIsLoading(false));
 
@@ -111,6 +120,8 @@ export const signin = () => (dispatch, getState) => {
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;
       }
+
+      const { action } = data.data;
 
       switch (action) {
         case 'TOKEN_CREATED':
@@ -136,6 +147,10 @@ export const signin = () => (dispatch, getState) => {
       const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
+
+      /**
+       * USER_BANNED - бан попытки входа на 5 минут
+       */
       switch (code) {
         case 'USER_BANNED':
           const dateBanned = message.split(' ');
@@ -167,12 +182,14 @@ export const signin = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const sendConfirm = () => (dispatch, getState) => {
-  const { login, isError, OTP } = getState().Auth_Signin;
+  const {
+    login,
+    isError,
+    OTP
+  } = getState().Auth_Signin;
   let authLogin = login;
 
-  if (isError) {
-    return;
-  }
+  if (isError) return;
 
   dispatch(setIsLoading(true));
   dispatch(setErrorMessage(''));
@@ -209,8 +226,7 @@ export const sendConfirm = () => (dispatch, getState) => {
         case 'CONFIRMATION_CODE_INVALID':
           dispatch(setErrorMessage(message));
           break;
-        // todo добавить ошибку если ОТП устарел
-        // todo в дальнешейм заменить на превышено кол-во попыток + время добавить
+        // todo в дальнешейм заменить на превышено кол-во попыток + время добавить, добавить ошибку если ОТП устарел
         case 'UNKNOWN_ERROR':
           dispatch(blockOTPsend(true));
           dispatch(setErrorMessage('Превышено количество попыток'));
@@ -227,14 +243,16 @@ export const sendConfirm = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const resendOTP = () => (dispatch, getState) => {
-  const { login, resendOTPIsBlocked, isError } = getState().Auth_Signin;
+  const {
+    login,
+    resendOTPIsBlocked,
+    isError
+  } = getState().Auth_Signin;
   let authLogin = login;
 
   dispatch(changeOTP(''));
 
-  if (resendOTPIsBlocked || isError) {
-    return;
-  }
+  if (resendOTPIsBlocked || isError) return;
 
   dispatch(blockedResendOTP(true));
   dispatch(setIsLoading(true));
@@ -246,10 +264,7 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.authorizationResendOTP(authLogin)
-    .then((data) => {
-      console.log(data)
-      dispatch(setIsLoading(false));
-    })
+    .then(() => dispatch(setIsLoading(false)))
     .catch((error) => {
       const { code, message } = error.response.data;
 

@@ -134,7 +134,7 @@ export default class Sidebar extends Component {
 
                 <ProductAdd
                   name={'Add card'}
-                  link={'card'}
+                  link={'product-list'}
                 />
 
               </div>

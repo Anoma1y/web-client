@@ -77,7 +77,10 @@ export const reset = () => ({
  */
 export const getOTP = () => (dispatch, getState) => {
 
-  const { login, isError } = getState().Auth_Reset;
+  const {
+    login,
+    isError
+  } = getState().Auth_Reset;
   let authLogin = login;
 
   if (isError) return;
@@ -96,7 +99,7 @@ export const getOTP = () => (dispatch, getState) => {
     .then((data) => {
 
       if (data.status !== 200) {
-        dispatch(setErrorMessage('Server error')); // ?
+        dispatch(setErrorMessage('Server error')); // ?, upd 15.06.18: чо не понятно?
         return;
       }
 
@@ -124,7 +127,12 @@ export const getOTP = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const sendConfirm = () => (dispatch, getState) => {
-  const { login, newUserPassword, OTP, isError } = getState().Auth_Reset;
+  const {
+    login,
+    newUserPassword,
+    OTP,
+    isError
+  } = getState().Auth_Reset;
   let authLogin = login.toLowerCase();
 
   if (isError) return;
@@ -184,12 +192,14 @@ export const sendConfirm = () => (dispatch, getState) => {
  * @returns {function(*, *)}
  */
 export const resendOTP = () => (dispatch, getState) => {
-  const { login, resendOTPIsBlocked, isError } = getState().Auth_Reset;
+  const {
+    login,
+    resendOTPIsBlocked,
+    isError
+  } = getState().Auth_Reset;
   let authLogin = login;
 
-  if (resendOTPIsBlocked || isError) {
-    return;
-  }
+  if (resendOTPIsBlocked || isError) return;
 
   dispatch(changeOTP(''));
   dispatch(setIsLoading(true));
@@ -202,10 +212,7 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.resetResendOTP(authLogin)
-    .then(() => {
-      // TODO добавить какое нибудь оповещение
-      dispatch(setIsLoading(false));
-    })
+    .then(() => dispatch(setIsLoading(false)))
     .catch((error) => {
       const { code, message } = error.response.data;
 
