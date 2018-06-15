@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./app",
-    "dev": "webpack-dev-server --config=internals/webpack/development.config.js --mode=development",
+    "dev": "webpack-dev-server --config=internals/webpack/development.config.js --mode=development --port 8080",
     "build:clean": "rimraf ./build",
     "build:public": "node ./internals/helpers/CopyToBuild.js",
     "build": "yarn run build:clean && yarn build:public && webpack --config=internals/webpack/production.config.js --mode=production",
