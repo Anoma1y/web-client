@@ -1,39 +1,16 @@
 import {
   pullCoins,
   pullProfile,
-  pullIssuers,
   pullThirdPartyCards,
   pullCards
 } from '../containers/Sidebar/store/actions';
 import Storage from 'lib/storage';
 
-const individual = [pullCoins, pullProfile, pullThirdPartyCards, pullCards];
-const merchant = [pullCoins, pullProfile];
-const administrator = [pullProfile];
-
-/**
- * Функия для определения роли и вызова массива функций для определенной роли
- * @param role - роль
- * @param dispatch
- * @returns {Promise<[*]>}
- */
-const init = (role, dispatch) => {
-  let actions = [];
-
-  switch (role) {
-    case 'merchant':
-      actions = merchant;
-      break;
-    case 'administrator':
-      actions = administrator;
-      break;
-    default:
-      actions = individual;
-  }
-
-  return Promise.all(actions.map((action) => {
-    return dispatch(action());
-  }));
+const ROLES = {
+  individual: [pullCoins, pullProfile, pullThirdPartyCards, pullCards],
+  merchant: [pullCoins, pullProfile],
+  administrator: [pullProfile],
+  byDefault: [pullProfile]
 };
 
 /**
@@ -42,6 +19,9 @@ const init = (role, dispatch) => {
  */
 export const initialData = () => (dispatch) => {
   const { role } = Storage.get('members')[0];
+  const currentRole = ROLES[role] || ROLES.byDefault;
 
-  return init(role, dispatch);
+  return Promise.all(currentRole.map((action) => {
+    return dispatch(action());
+  }));
 };

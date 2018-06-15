@@ -67,7 +67,11 @@ export const setEditNameIsLoading = (isLoading = false) => ({
  * @returns {function(*, *)}
  */
 export const applyEditName = (index) => (dispatch, getState) => {
-  const { editName, coins } = getState().Dashboard_Sidebar;
+
+  const {
+    editName,
+    coins
+  } = getState().Dashboard_Sidebar;
   const coin = coins[index];
 
   /**
@@ -81,6 +85,7 @@ export const applyEditName = (index) => (dispatch, getState) => {
       if (data.status !== 200) return;
 
       const { coin } = data.data;
+
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Имя кошелька изменено', timeout: 4000 }));
       dispatch(setCoin(coin, index));
       dispatch(setEditNameIsLoading(false));

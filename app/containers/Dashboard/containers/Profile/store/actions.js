@@ -35,9 +35,9 @@ export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, re
       if (data.status !== 200) return;
 
       const { documentTypes } = data.data;
-      const types = documentTypes.filter((item) => {
-        if (item.optional === false) return item;
-      }).map((item) => item.type);
+      const types = documentTypes
+        .filter((item) => !item.optional)
+        .map((item) => item.type);
 
       dispatch(setDocumentTypes(types));
       resolve();
@@ -58,7 +58,8 @@ export const pullDocumentsType = () => (dispatch) => new Promise((resolve, rejec
       if (data.status !== 200) return;
 
       const { documents } = data.data;
-      const usedTypes = documents.map((item) => item.type);
+      const usedTypes = documents
+        .map((item) => item.type);
 
       dispatch(changeUsedType(usedTypes)); // todo test action, need smth do
       resolve();

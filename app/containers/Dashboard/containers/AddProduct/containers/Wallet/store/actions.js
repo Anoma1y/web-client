@@ -92,11 +92,16 @@ export const createWallet = () => (dispatch, getState) => {
   dispatch(setIsError(false));
   dispatch(setIsLoading(true));
 
+  /**
+   * После получения списка уже имеющихся кошельков с сервера
+   * и сравнением с уже существующей валютой кошельком,
+   * выполняется запрос на добавление нового кошелька
+   * Для каждого кошелька можно только 1 валюту(?)
+   */
   api.coins.getCoinsList()
     .then((data) => {
       if (data.status !== 200) return;
 
-      // Для каждого кошелька можно только 1 валюту(?)
       const currencyIsUsed = _.some(data.data.coins, { currency: { id: currency } });
 
       if (currencyIsUsed) {
@@ -106,7 +111,9 @@ export const createWallet = () => (dispatch, getState) => {
       }
 
       /**
-       * Добавление нового кошелька, если валюта не занята(?)
+       * Добавление нового кошелька, если валюта не занята
+       * Кошелек добавляется в конец, при обновлении страницы возможно
+       * изменения его положения в новом массиве
        */
       api.coins.createCoin(name, currency, TYPE)
         .then((data) => {

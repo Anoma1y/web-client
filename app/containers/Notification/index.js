@@ -50,6 +50,4 @@ const Notification = (props) => {
   );
 };
 
-export default connect(state => ({ Notification: state.Notification }), {
-
-})(Notification);
+export default connect(state => ({ Notification: state.Notification }))(Notification);

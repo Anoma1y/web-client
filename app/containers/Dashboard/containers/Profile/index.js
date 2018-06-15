@@ -56,7 +56,12 @@ export default class Profile extends Component {
     </div>
   );
 
-  renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
+  /**
+   * Рендер лоадера
+   * @param size - размер лоадера, по умолчанию 70
+   * @returns {*}
+   */
+  renderLoader = (size = 70) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
   render() {
     const { activeIndex, ready } = this.state;

@@ -39,7 +39,9 @@
     flex-direction: column;
     justify-content: space-between;
   }
-
+  &:hover .sideProduct-add {
+    opacity: 1;
+  }
   // todo нужен фикс скрола для мобилок
   .sidebar-inner {
     width: calc(100% + 17px);
@@ -339,9 +341,11 @@
   padding-top: 0.2rem;
   padding-bottom: 0.5rem;
   background-color: $white-color;
-  transition: background-color 0.15s linear;
+  transition: background-color 0.15s linear, opacity 0.15s linear;
+  opacity: 0;
 
   &__active {
+    opacity: 1;
     background-color: lighten($lightblue-color, 40%);
   }
 

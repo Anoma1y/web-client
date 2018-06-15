@@ -144,35 +144,42 @@ export const signin = () => (dispatch, getState) => {
 
     })
     .catch((error) => {
-      const { code, message } = error.response.data;
-
-      dispatch(setIsLoading(false));
-
       /**
        * USER_BANNED - бан попытки входа на 5 минут
        */
-      switch (code) {
-        case 'USER_BANNED':
-          const dateBanned = message.split(' ');
-          const dateBannedFormated = moment(dateBanned[dateBanned.length - 1]);
-          const time = setInterval(() => {
-            dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
-            if (dateBannedFormated < moment()) {
-              dispatch(setErrorMessage(''));
-              dispatch(setIsBlocked(false));
-              clearInterval(time);
-            }
-          }, 10000);
-          dispatch(setIsBlocked(true));
-          dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
-          break;
-        case 'INVALID_LOGIN_OR_PASS':
-          dispatch(setErrorMessage(message));
-          break;
-        default:
-          dispatch(setErrorMessage('Server error'));
-      }
+      dispatch(setIsLoading(false));
 
+      const errorHandler = (code, message) => {
+        dispatch(setIsLoading(false));
+        switch (code) {
+          case 'USER_BANNED':
+            const dateBanned = message.split(' ');
+            const dateBannedFormated = moment(dateBanned[dateBanned.length - 1]);
+            const time = setInterval(() => {
+              dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
+              if (dateBannedFormated < moment()) {
+                dispatch(setErrorMessage(''));
+                dispatch(setIsBlocked(false));
+                clearInterval(time);
+              }
+            }, 10000);
+            dispatch(setIsBlocked(true));
+            dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
+            break;
+          case 'INVALID_LOGIN_OR_PASS':
+            dispatch(setErrorMessage(message));
+            break;
+          default:
+            dispatch(setErrorMessage('Server error'));
+        }
+      };
+
+      try {
+        const { code, message } = error.response.data;
+        errorHandler(code, message);
+      } catch (err) {
+        dispatch(setErrorMessage('Server error'));
+      }
     });
 
 };
@@ -219,21 +226,30 @@ export const sendConfirm = () => (dispatch, getState) => {
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {
-      const { code, message } = error.response.data;
-
       dispatch(setIsLoading(false));
-      switch (code) {
-        case 'CONFIRMATION_CODE_INVALID':
-          dispatch(setErrorMessage(message));
-          break;
-        // todo в дальнешейм заменить на превышено кол-во попыток + время добавить, добавить ошибку если ОТП устарел
-        case 'UNKNOWN_ERROR':
-          dispatch(blockOTPsend(true));
-          dispatch(setErrorMessage('Превышено количество попыток'));
-          break;
-        default:
-          dispatch(setErrorMessage('Server error'));
+
+      const errorHandler = (code, message) => {
+        switch (code) {
+          case 'CONFIRMATION_CODE_INVALID':
+            dispatch(setErrorMessage(message));
+            break;
+          case 'UNKNOWN_ERROR':
+            dispatch(blockOTPsend(true));
+            dispatch(setErrorMessage('Превышено количество попыток'));
+            break;
+          default:
+            dispatch(setErrorMessage('Server error'));
+
+        }
       }
+
+      try {
+        const { code, message } = error.response.data;
+        errorHandler(code, message);
+      } catch (err) {
+        dispatch(setErrorMessage('Server error'));
+      }
+
     });
 };
 
@@ -266,14 +282,26 @@ export const resendOTP = () => (dispatch, getState) => {
   api.auth.authorizationResendOTP(authLogin)
     .then(() => dispatch(setIsLoading(false)))
     .catch((error) => {
-      const { code, message } = error.response.data;
 
       dispatch(setIsLoading(false));
-      if (code === 'USER_NOT_FOUND') {
-        dispatch(setErrorMessage(message));
-      } else {
+
+      const errorHandler = (code, message) => {
+        switch (code) {
+          case 'USER_NOT_FOUND':
+            dispatch(setErrorMessage(message));
+            break;
+          default:
+            dispatch(setErrorMessage('Server error'));
+        }
+      };
+
+      try {
+        const { code, message } = error.response.data;
+        errorHandler(code, message);
+      } catch (err) {
         dispatch(setErrorMessage('Server error'));
       }
+
     });
 
 };

@@ -111,9 +111,7 @@ export default class Wallet extends Component {
                 >
                   <option value={''} hidden disabled>Currency</option>
                   {
-                    issuers.map((issuer) => {
-                      return <option key={issuer.id} value={issuer.id}>{issuer.sn}</option>
-                    })
+                    issuers.map((issuer) => <option key={issuer.id} value={issuer.id}>{issuer.sn}</option>)
                   }
                 </Select>
                 {

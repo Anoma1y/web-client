@@ -20,7 +20,6 @@ import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
-// todo иногда вызывается баг с токеном = null
 @connect(null, ({
   replace,
   initialData,
@@ -37,7 +36,10 @@ export default class Dashboard extends Component {
     const authToken = Storage.get('session');
 
     // Если токена нету в локальном хранилище, то вызов ошибки
-    if (authToken === null) this.handlerError();
+    if (authToken === null) {
+      this.handlerNotification('error', 'Ошибка', 'Произошла непредвиденная ошибка');
+      return null;
+    }
 
     const {
       token, // Токен
@@ -91,6 +93,8 @@ export default class Dashboard extends Component {
     this.props.replace('/auth/signin');
   };
 
+  renderLoader = () => <CircularProgress size={70} className={'page_loading'} />;
+
   renderDashboard = () => (
     <div className={'page'}>
 
@@ -127,8 +131,6 @@ export default class Dashboard extends Component {
 
     </div>
   );
-
-  renderLoader = () => <CircularProgress size={70} className={'page_loading'} />
 
   render() {
     return (

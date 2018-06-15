@@ -66,9 +66,7 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
     .then((data) => {
       dispatch(setOTPisLoading(false));
 
-      if (data.status !== 200) {
-        return;
-      }
+      if (data.status !== 200) return;
 
       const { action } = data.data;
       const message = `${action === 'EMAIL_SENT' ? 'Email' : 'Sms code'} was sent`;
@@ -172,9 +170,7 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
 
   let login = contact[type].toLowerCase();
 
-  if (resendOTPIsBlocked[type]) {
-    return;
-  }
+  if (resendOTPIsBlocked[type]) return;
 
   dispatch(blockedResendOTP(type, true));
   dispatch(setOTPisLoading(type, true));
