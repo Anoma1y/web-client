@@ -103,8 +103,10 @@
     &_info {
       font-family: $font-regular-serif;
       color: darken($lightgray-color, 5%);
-      span {
+      a {
         display: inline-block;
+        text-decoration: none;
+        color: $lightblue-color;
         position: relative;
         font-size: 0.8125rem;
         &:after {

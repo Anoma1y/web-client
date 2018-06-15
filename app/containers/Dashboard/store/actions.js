@@ -19,9 +19,9 @@ const ROLES = {
  */
 export const initialData = () => (dispatch) => {
   const { role } = Storage.get('members')[0];
-  const currentRole = ROLES[role] || ROLES.byDefault;
+  const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
 
-  return Promise.all(currentRole.map((action) => {
+  return Promise.all(currentRoleInitialActions.map((action) => {
     return dispatch(action());
   }));
 };

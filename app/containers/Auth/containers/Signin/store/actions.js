@@ -94,10 +94,23 @@ export const logout = () => (dispatch) => {
  * Экшен для входа в систему
  * Если установлена двухфакторка, то будет переход к следующему шагу (отправку ОТП)
  * Иначе - вход в систему
+ * Логин должен быть, в случае с почтой - транслитом в lower case, телефоном - номер в международном формате без "+"
+ * Алгоритм авторизации:
+ *    1) Пользователь вводит логин (адрес электронной почты или телефон)
+ *    2) Пользователь вводит пароль
+ *    3) Нажимает кнопку "Войти" -----------------------------------------------------------------
+ *    4) Система отправляет Пользователю письмо/смс с кодом подтверждения (OTP).                 |  Если двухфакторка отключена
+ *    5) Пользователь вводит OTP.                                                                |  Пользователь попадает сразу в
+ *    6) Нажимает кнопку "Подтвердить авторизацию".                                              |  ЛК получив токен и роль
+ *    7) Попадает в свой кабинет. <---------------------------------------------------------------
  * @returns {function(*=, *)}
  */
 export const signin = () => (dispatch, getState) => {
-  const { login, password, isError } = getState().Auth_Signin;
+  const {
+    login,
+    password,
+    isError
+  } = getState().Auth_Signin;
   let authLogin = login.toLowerCase();
 
   dispatch(setIsLoading(true));
@@ -121,7 +134,7 @@ export const signin = () => (dispatch, getState) => {
         return;
       }
 
-      const { action } = data.data;
+      const { action } = data.data; // TOKEN_CREATED or OTP_SENT
 
       switch (action) {
         case 'TOKEN_CREATED':
@@ -144,25 +157,26 @@ export const signin = () => (dispatch, getState) => {
 
     })
     .catch((error) => {
-      /**
-       * USER_BANNED - бан попытки входа на 5 минут
-       */
       dispatch(setIsLoading(false));
 
       const errorHandler = (code, message) => {
         dispatch(setIsLoading(false));
         switch (code) {
-          case 'USER_BANNED':
+          case 'USER_BANNED': // USER_BANNED - бан попытки входа на 5 минут
             const dateBanned = message.split(' ');
             const dateBannedFormated = moment(dateBanned[dateBanned.length - 1]);
+
             const time = setInterval(() => {
               dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
+
               if (dateBannedFormated < moment()) {
                 dispatch(setErrorMessage(''));
                 dispatch(setIsBlocked(false));
                 clearInterval(time);
               }
+
             }, 10000);
+
             dispatch(setIsBlocked(true));
             dispatch(setErrorMessage(`Try again ${moment().to(dateBannedFormated)}`));
             break;
@@ -178,10 +192,9 @@ export const signin = () => (dispatch, getState) => {
         const { code, message } = error.response.data;
         errorHandler(code, message);
       } catch (err) {
-        dispatch(setErrorMessage('Server error'));
+        dispatch(setErrorMessage('System is under maintenance'));
       }
     });
-
 };
 
 /**
@@ -247,7 +260,7 @@ export const sendConfirm = () => (dispatch, getState) => {
         const { code, message } = error.response.data;
         errorHandler(code, message);
       } catch (err) {
-        dispatch(setErrorMessage('Server error'));
+        dispatch(setErrorMessage('System is under maintenance'));
       }
 
     });
@@ -299,7 +312,7 @@ export const resendOTP = () => (dispatch, getState) => {
         const { code, message } = error.response.data;
         errorHandler(code, message);
       } catch (err) {
-        dispatch(setErrorMessage('Server error'));
+        dispatch(setErrorMessage('System is under maintenance'));
       }
 
     });
