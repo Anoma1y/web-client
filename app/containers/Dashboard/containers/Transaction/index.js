@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import DataTable from './components/DataTable';
 import FilterSearch from './components/FilterSearch';
+import { getDays } from 'lib/date';
 import {
   pullTransactions,
   reset
@@ -27,22 +28,28 @@ export default class Transaction extends React.Component {
     errorText: null
   };
 
+  componentDidMount() {
+    const { dateStart, dateEnd } = getDays('date-month');
+    const date = { dateStart, dateEnd };
+
+    this.initialData(date);
+  }
+
   componentWillUnmount() {
     this.props.reset();
   }
 
   // todo добавить обработчки ошибок
   initialData = (date) => {
-    this.props.pullTransactions(date)
+    const { filter } = this.props;
+    this.props.pullTransactions(date, filter)
       .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }))
+      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
   };
 
   renderMain = () => (
     <Grid item xs={12} className={'dashboard-container'}>
-      <DataTable
-        records={this.props.Dashboard_Transaction.records}
-      />
+      <DataTable records={this.props.Dashboard_Transaction.records} />
     </Grid>
   );
 
@@ -50,12 +57,11 @@ export default class Transaction extends React.Component {
 
   render() {
     const { ready } = this.state;
+
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>
-          <FilterSearch
-            handleChangeDate={(date) => this.initialData(date)}
-          />
+          <FilterSearch handleChangeDate={(date) => this.initialData(date)} />
         </Grid>
         {
           ready

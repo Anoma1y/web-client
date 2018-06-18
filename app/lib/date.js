@@ -1,5 +1,16 @@
 import moment from 'moment';
 
+export const selectItems = [
+  { label: 'Last week', id: 'date-week' }, // Неделя
+  { label: 'Last month', id: 'date-month' }, // Месяц
+  { label: '', id: 'date-month-1' }, // Май
+  { label: '', id: 'date-month-2' }, // Апрель
+  { label: '', id: 'date-month-3' }, // Март
+  { label: 'Last 3 months', id: 'date-3month' }, // 3 месяца
+  { label: 'For the last year', id: 'date-year' }, // Последний год
+  { label: 'For all time', id: 'date-all' }, // За все время
+];
+
 /**
  * Метод для получения первого дня месяца
  * @param start - количество месяцев от текущего времени

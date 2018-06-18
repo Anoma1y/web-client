@@ -7,6 +7,7 @@ import {
   CHANGE_FILTER_DATE,
   APPEND_RECORDS_LIST,
   SET_BLOCKED_APPEND,
+  SET_FILTER_VALUE,
   SET_APPEND_IS_LOADING,
   RESET
 } from './types';
@@ -66,6 +67,10 @@ const HANDLERS = {
       dateFrom: payload.start,
       dateTo: payload.end
     }
+  }),
+  [SET_FILTER_VALUE]: (state, { payload }) => ({
+    ...state,
+    filter: payload
   }),
   [RESET]: (state) => ({
     ...state,

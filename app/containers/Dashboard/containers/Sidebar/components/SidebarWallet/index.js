@@ -99,11 +99,7 @@ export default class SidebarWallet extends React.Component {
     />
   );
 
-  renderRemoveConfirm = () => (
-    <div className={'sidebar-wallet_remove-confirm'}>
-      Удалить кошелек?
-    </div>
-  )
+  renderRemoveConfirm = () => <div className={'sidebar-wallet_remove-confirm'}>Delete the wallet?</div>
 
   renderControlPanelContent = () => {
 

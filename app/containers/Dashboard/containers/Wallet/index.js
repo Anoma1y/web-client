@@ -17,14 +17,6 @@ import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions
 import { pullCoin } from './store/actions';
 import './style.scss';
 
-const panes = [
-  { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
-  { icon: <SendIcon />, menuItem: 'Payments', render: () => <Transaction /> },
-  { icon: <Icon name={'sent_m'} />, menuItem: 'Withdraw', render: () => <Transaction /> },
-  { icon: <CompareArrowsIcon />, menuItem: 'Exchange', render: () => <Transaction /> },
-  { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
-];
-
 @connect((state) => ({ Dashboard_Wallet: state.Dashboard_Wallet }), ({
   setActive,
   pullCoin
@@ -46,10 +38,6 @@ export default class Wallet extends Component {
     }
   }
 
-  componentWillUnmount() {
-    console.log(`Wallet is unmounting`);
-  }
-
   initialData = () => {
     this.setState({ ready: false });
     const { id } = this.props.match.params;
@@ -62,15 +50,24 @@ export default class Wallet extends Component {
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
-  renderContent = (activeIndex) => (
-    <div className={'profile-container'}>
-      <Tab
-        panes={panes}
-        onTabChange={this.handleChangeTab}
-        activeIndex={activeIndex}
-      />
-    </div>
-  );
+  renderContent = (activeIndex) => {
+    const panes = [
+      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction filter={{ coinSerials: [this.props.match.params.id] }} /> },
+      { icon: <SendIcon />, menuItem: 'Payments', render: () => <Transaction /> },
+      { icon: <Icon name={'sent_m'} />, menuItem: 'Withdraw', render: () => <Transaction /> },
+      { icon: <CompareArrowsIcon />, menuItem: 'Exchange', render: () => <Transaction /> },
+      { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
+    ];
+    return (
+      <div className={'profile-container'}>
+        <Tab
+          panes={panes}
+          onTabChange={this.handleChangeTab}
+          activeIndex={activeIndex}
+        />
+      </div>
+    )
+  }
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 

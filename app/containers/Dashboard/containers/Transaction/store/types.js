@@ -7,4 +7,5 @@ export const CHANGE_FILTER_DATE = 'Dashboard_Transactions/CHANGE_FILTER_DATE';
 export const APPEND_RECORDS_LIST = 'Dashboard_Transactions/APPEND_RECORDS_LIST';
 export const SET_BLOCKED_APPEND = 'Dashboard_Transactions/SET_BLOCKED_APPEND';
 export const SET_APPEND_IS_LOADING = 'Dashboard_Transactions/SET_APPEND_IS_LOADING';
+export const SET_FILTER_VALUE = 'Dashboard_Transactions/SET_FILTER_VALUE';
 export const RESET = 'Dashboard_Transactions/RESET';

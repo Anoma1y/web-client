@@ -8,21 +8,11 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
-  getDays
+  getDays,
+  selectItems
 } from 'lib/date';
 import _ from 'lodash';
 import './style.scss';
-
-const selectItems = [
-  { label: 'Last week', id: 'date-week' }, // Неделя
-  { label: 'Last month', id: 'date-month' }, // Месяц
-  { label: '', id: 'date-month-1' }, // Май
-  { label: '', id: 'date-month-2' }, // Апрель
-  { label: '', id: 'date-month-3' }, // Март
-  { label: 'Last 3 months', id: 'date-3month' }, // 3 месяца
-  { label: 'For the last year', id: 'date-year' }, // Последний год
-  { label: 'For all time', id: 'date-all' }, // За все время
-];
 
 class DateFilter extends Component {
 
@@ -40,8 +30,6 @@ class DateFilter extends Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
-    const { dateStart, dateEnd } = getDays('date-month');
-    this.props.handleChangeDate({ dateStart, dateEnd });
   }
 
   componentWillUnmount() {
@@ -93,6 +81,7 @@ class DateFilter extends Component {
     const { value } = event.target;
     const { dateStart, dateEnd } = getDays(value);
     const { label, id } = _.filter(selectItems, { id: value })[0];
+
     this.setState({
       value,
       isOpen: false,

@@ -44,6 +44,7 @@ import {
   SET_RECORDS_LIST,
   CHANGE_PAGE_NUMBER,
   CHANGE_PAGE_SIZE,
+  SET_FILTER_VALUE,
   CHANGE_TOTAL_PAGES,
   CHANGE_TOTAL_RECORDS,
   SET_APPEND_IS_LOADING,
@@ -187,20 +188,17 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
 
 // todo нужен фикс для аккаунтов, отличных от обычного пользователя
 // не все транзакции содержат поля from и to
-export const pullTransactions = (date) => (dispatch, getState) => new Promise((resolve, reject) => {
-  const {
-    pageSize,
-    filter
-  } = getState().Dashboard_Transaction;
-
+export const pullTransactions = (date, filterProps) => (dispatch, getState) => new Promise((resolve, reject) => {
+  const { pageSize, filter } = getState().Dashboard_Transaction;
   const currentFilter = {
     ...filter,
+    ...filterProps,
     types,
     statuses,
     dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
     dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
   };
-
+  console.log(currentFilter)
   const pageNumber = 0;
 
   dispatch(changePageNumber(pageNumber));
