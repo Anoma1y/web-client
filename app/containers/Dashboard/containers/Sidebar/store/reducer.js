@@ -2,12 +2,13 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
+  REMOVE_COIN,
   SET_CARDS,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
   CHANGE_EDIT_NAME,
-  EDIT_NAME_IS_LOADING
+  EDIT_IS_LOADING
 } from './types';
 
 const INITIAL_STATE = {
@@ -17,7 +18,7 @@ const INITIAL_STATE = {
   thirdPartyCards: [],
   notification: '',
   editName: '',
-  editNameIsLoading: false,
+  editIsLoading: false,
   active: {
     type: null,
     id: null
@@ -37,6 +38,13 @@ const HANDLERS = {
     const newCoins = [...state.coins];
     newCoins[payload.index] = payload.coin;
     return { ...state, coins: newCoins };
+  },
+  [REMOVE_COIN]: (state, { payload }) => {
+    const newCoins = [...state.coins].filter((item) => item.serial !== payload);
+    return {
+      ...state,
+      coins: newCoins
+    }
   },
   [SET_CARDS]: (state, { payload }) => ({
     ...state,
@@ -58,9 +66,9 @@ const HANDLERS = {
     ...state,
     editName: payload
   }),
-  [EDIT_NAME_IS_LOADING]: (state, { payload }) => ({
+  [EDIT_IS_LOADING]: (state, { payload }) => ({
     ...state,
-    editNameIsLoading: payload
+    editIsLoading: payload
   }),
 };
 

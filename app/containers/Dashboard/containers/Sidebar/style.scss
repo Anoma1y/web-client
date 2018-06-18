@@ -211,6 +211,18 @@
     background-color: darken($white-color, 5%);
   }
 
+
+  &_control-change {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &_edit {
 
     &-input {
@@ -223,6 +235,12 @@
       cursor: pointer;
       &:focus {
         outline: none;
+      }
+
+      &__loading {
+        svg path {
+          fill: $lightgray-color !important;
+        }
       }
     }
 
@@ -251,9 +269,27 @@
       }
     }
 
-    &__disabled {
-      svg path {
-        fill: $lightgray-color !important;
+    &__close {
+      svg {
+        font-size: 1.5rem;
+      }
+      path {
+        fill: $red-color;
+      }
+      &:hover path {
+        fill: lighten($red-color, 7%);
+      }
+    }
+
+    &__apply {
+      svg {
+        font-size: 1.5rem;
+      }
+      path {
+        fill: $green-color;
+      }
+      &:hover path {
+        fill: lighten($green-color, 7%);
       }
     }
   }

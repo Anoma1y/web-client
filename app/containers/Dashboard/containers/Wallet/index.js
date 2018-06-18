@@ -37,19 +37,27 @@ export default class Wallet extends Component {
   };
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.pullCoin(id)
-      .then(() => {
-        this.props.setActive({
-          type: 'wallet',
-          id
-        });
-        this.setState({ ready: true });
-      });
+    this.initialData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.initialData();
+    }
   }
 
   componentWillUnmount() {
-    this.props.setActive({ type: null, id: null });
+    console.log(`Wallet is unmounting`);
+  }
+
+  initialData = () => {
+    this.setState({ ready: false });
+    const { id } = this.props.match.params;
+    this.props.pullCoin(id)
+      .then(() => {
+        this.props.setActive({ type: 'wallet', id });
+        this.setState({ ready: true });
+      });
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });

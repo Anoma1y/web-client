@@ -2,16 +2,19 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
+  REMOVE_COIN,
   SET_CARDS,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
   CHANGE_EDIT_NAME,
-  EDIT_NAME_IS_LOADING
+  EDIT_IS_LOADING
 } from './types';
+import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
+import { getPathInfo } from 'lib/pathUtils';
 
 export const setProfile = (value) => ({
   type: SET_PROFILE,
@@ -29,6 +32,11 @@ export const setCoin = (coin, index) => ({
     coin,
     index
   },
+});
+
+export const deleteCoin = (serial) => ({
+  type: REMOVE_COIN,
+  payload: serial,
 });
 
 export const setNotification = (value) => ({
@@ -56,10 +64,43 @@ export const changeEditName = (value) => ({
   payload: value,
 });
 
-export const setEditNameIsLoading = (isLoading = false) => ({
-  type: EDIT_NAME_IS_LOADING,
+export const setEditIsLoading = (isLoading = false) => ({
+  type: EDIT_IS_LOADING,
   payload: isLoading,
 });
+
+export const applyRemove = (index) => (dispatch, getState) => {
+  const { coins } = getState().Dashboard_Sidebar;
+  const removeCoin = coins[index];
+  const { serial, amount } = removeCoin;
+  const currentPath = getPathInfo(getState().routing.location.pathname);
+  const currentSerial = currentPath[currentPath.length - 1];
+
+  if (amount !== 0) {
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Кошелек можно удалить только если баланс равен 0', timeout: 4000 }));
+    return;
+  }
+
+  dispatch(setEditIsLoading(true));
+  api.coins.deleteCoin(serial)
+    .then((data) => {
+      if (data.status !== 200) return;
+
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: `Кошелек ${serial} был удален`, timeout: 4000 }));
+      dispatch(deleteCoin(serial));
+      dispatch(setEditIsLoading(false));
+
+      if (currentSerial.name === serial) {
+        dispatch(replace('/dashboard/'));
+      }
+
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при удалении кошелька', timeout: 4000 }));
+      dispatch(setEditIsLoading(false));
+    })
+
+}
 
 /**
  * Экшен для изменении имени кошелька
@@ -72,27 +113,27 @@ export const applyEditName = (index) => (dispatch, getState) => {
     editName,
     coins
   } = getState().Dashboard_Sidebar;
-  const coin = coins[index];
-
+  const editCoin = coins[index];
+  const { serial, name } = editCoin;
   /**
    * Минимальная длина имени кошелька - 2 символа и старое имя не должно равняться новому
    */
-  if (editName.length < 2 || coin.name === editName) return;
+  if (editName.length < 2 || name === editName) return;
 
-  dispatch(setEditNameIsLoading(true));
-  api.coins.editName(coin.serial, editName)
+  dispatch(setEditIsLoading(true));
+  api.coins.editName(serial, editName)
     .then((data) => {
       if (data.status !== 200) return;
 
       const { coin } = data.data;
 
-      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Имя кошелька изменено', timeout: 4000 }));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: `Имя кошелька ${serial} изменено`, timeout: 4000 }));
       dispatch(setCoin(coin, index));
-      dispatch(setEditNameIsLoading(false));
+      dispatch(setEditIsLoading(false));
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
-      dispatch(setEditNameIsLoading(false));
+      dispatch(setEditIsLoading(false));
     });
 };
 

@@ -135,6 +135,9 @@ export const createWallet = () => (dispatch, getState) => {
             case 'UNKNOWN_ERROR':
               dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 4000 }));
               break;
+            case 'COIN_ALREADY_EXISTS':
+              dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 4000 }));
+              break;
             default:
               dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error при создании wallet', timeout: 4000 }));
           }

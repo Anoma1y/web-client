@@ -4,35 +4,44 @@ import {
   EuroSymbol as EuroSymbolIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  Save as SaveIcon
+  Check as CheckIcon,
+  Close as CloseIcon,
+  Settings as SettingsIcon
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import {
   changeEditName,
-  applyEditName
+  applyEditName,
+  applyRemove
 } from '../../store/actions'
 import Text from 'components/Text';
 import Amount from 'components/Amount';
+import Icon from 'components/Icon';
 
-const renderEuro = () => (
+// todo добавить функцию для выбора валют
+const renderCurrency = (currency) => (
   <div className={'sidebar-wallet-icon wallet-currency'}>
-    <EuroSymbolIcon />
+    {
+      currency === 'EUR' ? <EuroSymbolIcon /> : currency === 'USD' ? <Icon name={'usd'} /> : null
+    }
   </div>
 );
 
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
   changeEditName,
-  applyEditName
+  applyEditName,
+  applyRemove
 }))
 export default class SidebarWallet extends React.Component {
 
   state = {
-    editName: {
+    controlWallet: {
+      type: '',
       index: 0,
-      isEdit: false
+      isChange: false
     }
-  }
+  };
 
   /**
    * Метод для изменения ввода имени кошелька
@@ -46,72 +55,148 @@ export default class SidebarWallet extends React.Component {
     this.props.changeEditName(value);
   };
 
-  /**
-   * Метод для изменения измени кошелька на новый
-   * @param index - индекс массива которым является текущий кошелек
-   */
-  handleApplyEdit = (index) => {
-    if (this.props.Dashboard_Sidebar.editNameIsLoading) return;
+  handleOpenControl = (type, index) => {
+    if (this.props.Dashboard_Sidebar.editIsLoading) return;
 
     this.setState({
-      editName: {
-        index,
-        isEdit: false
-      }
-    });
-
-    this.props.applyEditName(index);
-  };
-
-  /**
-   * Метод для открытия панели редактирования имени кошелька
-   * @param index - индекс массива которым является текущий кошелек
-   */
-  handleEditOpen = (index) => {
-    this.setState({
-      editName: {
-        index,
-        isEdit: true
-      }
-    });
+      controlWallet: { type, index, isChange: true }
+    })
   }
 
-  renderEditName = (index) => (
+  handleCloseControl = () => {
+    this.setState({
+      controlWallet: { type: '', index: 0, isChange: false }
+    })
+  }
+
+  handleApplyControl = () => {
+    if (this.props.Dashboard_Sidebar.editIsLoading) return;
+
+    const { type, index, isChange } = this.state.controlWallet;
+
+    if (!isChange) return;
+
+    switch (type) {
+      case 'edit':
+        this.props.applyEditName(index);
+        break;
+      case 'remove':
+        this.props.applyRemove(index);
+        break;
+      default:
+        this.handleCloseControl();
+    }
+
+    this.handleCloseControl();
+  };
+
+  renderEditName = () => (
     <TextField
       type={'text'}
       className={'sidebar-wallet_edit-input'}
-      value={this.props.Dashboard_Sidebar.editName || this.props.Dashboard_Sidebar.coins[index].name}
-      onChange={(event) => this.handleEditChange(event, index)}
+      value={this.props.Dashboard_Sidebar.editName || this.props.Dashboard_Sidebar.coins[this.state.controlWallet.index].name}
+      onChange={(event) => this.handleEditChange(event, this.state.controlWallet.index)}
     />
   );
 
-  renderEditControl = (index, amount) => (
-    <div className={'sidebar-wallet_edit'}>
-      <button
-        className={'sidebar-wallet_edit-btn sidebar-wallet_edit__rename'}
-        onClick={
-          (this.state.editName.index === index && this.state.editName.isEdit)
-            ? () => this.handleApplyEdit(index)
-            : () => this.handleEditOpen(index)
-        }
-      >
-        {
-          (this.state.editName.index === index && this.state.editName.isEdit)
-            ? <SaveIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
-            : <EditIcon className={this.props.Dashboard_Sidebar.editNameIsLoading ? 'sidebar-wallet_edit__disabled' : ''} />
-        }
-      </button>
-      {
-        amount === 0 &&
-        <button className={'sidebar-wallet_edit-btn sidebar-wallet_edit__delete'}>
-          <DeleteIcon />
-        </button>
-      }
+  renderRemoveConfirm = () => (
+    <div className={'sidebar-wallet_remove-confirm'}>
+      Удалить кошелек?
     </div>
+  )
+
+  renderControlPanelContent = () => {
+
+    const renderTypeContent = () => {
+      switch (this.state.controlWallet.type) {
+        case 'edit':
+          return this.renderEditName();
+        case 'remove':
+          return this.renderRemoveConfirm();
+        default:
+          return null;
+      }
+    };
+
+    return this.state.controlWallet.isChange && renderTypeContent();
+  }
+
+  renderOpenControl = () => (
+    <div className={'sidebar-wallet_control-change'}>
+      <div className={'sidebar-container_icon'}>
+        <SettingsIcon />
+      </div>
+      <div className={'sidebar-wallet-content sidebar-container_content'}>
+        {this.renderControlPanelContent()}
+      </div>
+      <div className={'sidebar-wallet_btn sidebar-container_btn'}>
+        {this.renderControlPanel(this.state.controlWallet.index)}
+      </div>
+    </div>
+  )
+
+  renderControlPanel = (index) => {
+    const { editIsLoading } = this.props.Dashboard_Sidebar;
+    const isLoading = editIsLoading ? 'sidebar-wallet_edit-btn__loading' : '';
+
+    return (
+      <div className={'sidebar-wallet_edit'}>
+        {
+          (this.state.controlWallet.isChange && this.state.controlWallet.index === index) ?
+            <React.Fragment>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__apply ${isLoading}`} onClick={() => this.handleApplyControl()}>
+                <CheckIcon />
+              </button>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__close ${isLoading}`} onClick={() => this.handleCloseControl()}>
+                <CloseIcon />
+              </button>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
+                <EditIcon />
+              </button>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__delete ${isLoading}`} onClick={() => this.handleOpenControl('remove', index)}>
+                <DeleteIcon />
+              </button>
+            </React.Fragment>
+
+        }
+      </div>
+    )
+  }
+
+  renderContent = (item, index) => (
+    <React.Fragment>
+      <div className={'sidebar-container_icon'}>
+        {
+          renderCurrency(item.issuer.currency)
+        }
+      </div>
+      <div className={'sidebar-wallet-content sidebar-container_content'}>
+        <Text className={'sidebar-wallet-amount'}>
+          <Text.Content className={'sidebar-wallet-amount_name'}>
+            {
+
+              <Link to={`/dashboard/wallet/${item.serial}`}>
+                {item.name}
+              </Link>
+            }
+          </Text.Content>
+          <Text.Sub className={'sidebar-wallet-amount_value'}>
+            <Amount value={item.amount} currency={item.issuer.currency} />
+          </Text.Sub>
+        </Text>
+      </div>
+      <div className={'sidebar-wallet_btn sidebar-container_btn'}>
+        {this.renderControlPanel(index)}
+      </div>
+    </React.Fragment>
   )
 
   render() {
     const { active } = this.props.Dashboard_Sidebar;
+
     return (
       <div className={'sidebar-wallets_wrapper'}>
         <div className={'sidebar_title'}>
@@ -119,37 +204,20 @@ export default class SidebarWallet extends React.Component {
         </div>
         {
           this.props.Dashboard_Sidebar.coins.map((item, index) => {
+
             const isActive = active.id === item.serial && active.type === 'wallet';
             return (
               <div className={`sidebar-wallet sidebar-container ${isActive ? 'sidebar-wallet__active' : ''}`} key={item.serial}>
-                <div className={'sidebar-container_icon'}>
-                  {renderEuro()}
-                </div>
-                <div className={'sidebar-wallet-content sidebar-container_content'}>
-                  <Text className={'sidebar-wallet-amount'}>
-                    <Text.Content className={'sidebar-wallet-amount_name'}>
-                      {
-                          this.state.editName.isEdit
-                            ? this.renderEditName(index)
-                            :
-                            <Link to={`/dashboard/wallet/${item.serial}`}>
-                              {item.name}
-                            </Link>
-                        }
-                    </Text.Content>
-                    <Text.Sub className={'sidebar-wallet-amount_value'}>
-                      <Amount
-                        value={item.amount}
-                        currency={'EUR'}
-                      />
-                    </Text.Sub>
-                  </Text>
-                </div>
-                <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-                  {this.renderEditControl(index, item.amount)}
-                </div>
+
+                {
+                  (this.state.controlWallet.isChange && this.state.controlWallet.index === index)
+                    ? this.renderOpenControl()
+                    : this.renderContent(item, index)
+                }
+
               </div>
             );
+
           })
         }
       </div>
