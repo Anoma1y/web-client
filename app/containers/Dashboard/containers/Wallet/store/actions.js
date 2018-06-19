@@ -1,5 +1,5 @@
 import {
-  SET_COIN
+  SET_COIN,
 } from './types';
 import { api } from 'lib/api';
 import _ from 'lodash';

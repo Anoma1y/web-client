@@ -1,9 +1,9 @@
 import {
-  SET_COIN
+  SET_COIN,
 } from './types';
 
 const INITIAL_STATE = {
-  coin: {}
+  coin: {},
 };
 
 const HANDLERS = {

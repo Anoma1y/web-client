@@ -42,6 +42,7 @@ export default class Transaction extends React.Component {
   // todo добавить обработчки ошибок
   initialData = (date) => {
     const { filter } = this.props;
+
     this.props.pullTransactions(date, filter)
       .then(() => this.setState({ ready: true }))
       .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));

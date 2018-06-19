@@ -6,6 +6,7 @@ import CoinsApiModule from './Coins';
 import CardsApiModule from './Cards';
 import TransactionsApiModule from './Transactions';
 import MediaApiModule from './Media';
+import ExchangeApiMoudle from './Exchange';
 
 class Api {
 
@@ -26,6 +27,7 @@ class Api {
     this.cards = new CardsApiModule(this.http);
     this.transactions = new TransactionsApiModule(this.http);
     this.media = new MediaApiModule(this.http);
+    this.exchange = new ExchangeApiMoudle(this.http);
   }
 
   /**
