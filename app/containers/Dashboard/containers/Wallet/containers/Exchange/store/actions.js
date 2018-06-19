@@ -79,6 +79,7 @@ export const pullRates = (isUpdate) => (dispatch, getState) => new Promise((reso
 
   if (!isUpdate) {
     dispatch(setIsLoadRate(false));
+    dispatch(changeAmount({ sell: 0, buy: 0 }));
   } else {
     dispatch(setIsLoading(true));
   }
@@ -96,7 +97,7 @@ export const pullRates = (isUpdate) => (dispatch, getState) => new Promise((reso
 
       if (isUpdate) dispatch(setIsLoading(false));
 
-      resolve();
+      resolve(rates);
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Невозможно загрузить рейты', timeout: 4000 }));
