@@ -1,16 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import NumberFormat from 'react-number-format';
 import {
   Grid,
   Select,
-  MenuItem,
   FormControl,
   Button,
   TextField,
   InputLabel,
   CircularProgress
 } from '@material-ui/core';
+import NumberFormat from 'containers/Dashboard/components/NumberFormat';
 import {
   pullRates,
   pullCoins,
@@ -19,28 +18,6 @@ import {
   reset
 } from './store/actions';
 import { calulcateExchange } from 'lib/amount';
-import _ from 'lodash';
-
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      ref={inputRef}
-      decimalScale={2}
-      allowNegative={false}
-      thousandSeparator
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value,
-          },
-        });
-      }}
-    />
-  );
-}
 
 @connect((state) => ({ Wallet_Exchange: state.Wallet_Exchange }), ({
   pullRates,
@@ -143,7 +120,7 @@ export default class Exchange extends Component {
                     onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
                     value={amount.sell}
                     InputProps={{
-                      inputComponent: NumberFormatCustom,
+                      inputComponent: NumberFormat,
                     }}
                   />
 
@@ -158,7 +135,7 @@ export default class Exchange extends Component {
                     onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
                     value={amount.buy}
                     InputProps={{
-                      inputComponent: NumberFormatCustom,
+                      inputComponent: NumberFormat,
                     }}
                   />
 
