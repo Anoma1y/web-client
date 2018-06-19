@@ -1,30 +1,54 @@
 import {
   SET_COINS,
-  CHANGE_COIN,
+  SET_RATES,
+  CHANGE_COIN_SERIAL,
   CHANGE_AMOUNT,
-  SET_ISSUER_ID
+  SET_IS_LOADING,
+  SET_IS_LOAD_RATE,
+  SET_ISSUER_ID,
+  RESET
 } from './types';
+import { send } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
+import uuid from 'uuid/v1';
+import _ from 'lodash';
 
 export const setCoins = (coins) => ({
   type: SET_COINS,
   payload: coins,
 });
 
-export const changeCoin = (coin) => ({
-  type: CHANGE_COIN,
+export const setRates = (value) => ({
+  type: SET_RATES,
+  payload: value,
+});
+
+export const setIsLoadRate = (value) => ({
+  type: SET_IS_LOAD_RATE,
+  payload: value,
+});
+
+export const setIsLoading = (value) => ({
+  type: SET_IS_LOADING,
+  payload: value,
+});
+
+export const changeCoinSerial = (coin) => ({
+  type: CHANGE_COIN_SERIAL,
   payload: coin,
 });
 
 export const changeAmount = (amount) => ({
   type: CHANGE_AMOUNT,
-  payload: amount,
+  payload: amount
 });
 
 export const setIssuerId = (value) => ({
   type: SET_ISSUER_ID,
   payload: value
 });
+
+export const reset = () => ({ type: RESET })
 
 export const pullCoins = (coinException) => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getCoinsList()
@@ -38,26 +62,45 @@ export const pullCoins = (coinException) => (dispatch) => new Promise((resolve, 
       resolve();
     })
     .catch((err) => {
-      reject(err)
+      reject(err);
     });
 });
 
-export const pullRates = () => (dispatch, getState) => new Promise((resolve, reject) => {
+export const pullRates = (isUpdate) => (dispatch, getState) => new Promise((resolve, reject) => {
   const {
     Dashboard_Wallet: { coin },
-    Wallet_Exchange: { coins, outCoin }
+    Wallet_Exchange: { coins, outCoinSerial }
   } = getState();
-  const outCoinIssuer = coins.filter((coin) => coin.serial === outCoin);
-  // const inIssuerId = coin.issuer.id;
-  // const outIssuerId = outCoinIssuer.issuer.id
-  console.log(outCoinIssuer)
-  // dispatch(setIssuerId({ inIssuerId, outIssuerId }));
-  //
-  // api.exchange.getRates()
-  //   .then((data) => {
-  //     console.log(data)
-  //   })
-  //   .catch(() => {
-  //
-  //   })
-})
+  const outCoinIssuer = _.find(coins, { serial: outCoinSerial });
+  const inIssuerId = coin.issuer.id;
+  const outIssuerId = outCoinIssuer.issuer.id
+
+  dispatch(setIssuerId({ inIssuerId, outIssuerId }));
+
+  if (!isUpdate) {
+    dispatch(setIsLoadRate(false));
+  } else {
+    dispatch(setIsLoading(true));
+  }
+
+  api.exchange.getRates(inIssuerId, outIssuerId)
+    .then((data) => {
+
+      if (data.status !== 200) reject();
+
+      const { records } = data.data;
+      const rates = _.find(records, { direction: 'buy' }); // Обмен валют для каждого кошелька подразумевает лишь продажу этой валюты и покупку другой
+
+      dispatch(setIsLoadRate(true));
+      dispatch(setRates(rates));
+
+      if (isUpdate) dispatch(setIsLoading(false));
+
+      resolve();
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Невозможно загрузить рейты', timeout: 4000 }));
+      dispatch(setIsLoading(false));
+      reject();
+    });
+});

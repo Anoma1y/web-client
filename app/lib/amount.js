@@ -1,5 +1,4 @@
 import { getCurrencySymbol } from './currencyCode';
-import _ from 'lodash';
 
 export const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед копейками
 export const AMOUNT_MAJOR_PART_SIZE = 3; // Отброс последних 3х значение в копейки и точку
@@ -14,7 +13,7 @@ export const AMOUNT_SPLITTER = ','; // Разделитель между час�
  * @returns {function(string)}
  */
 export const createSplitter = (partSize) => {
-  const parts = (str)=> {
+  const parts = (str) => {
     const { length } = str;
     if (length <= partSize) {
       return [str];
@@ -48,30 +47,16 @@ export const formatAmount = (amount) => {
   };
 };
 
-/**
- * Функция для тестирования, лол
- */
-const testAmount = () => {
-  for (let i = 1; i <= 25; i++) {
-    const value = Number(_.random(-100000, 1000000.99).toFixed(2));
-    const amount = { value, currency: 'EUR' };
-    const amountValue = amount.value.toString();
-    const amounts = {
-      value: amountValue.match(/^-?\d+\.\d\d$/) ? amountValue.replace('.', '') : amountValue.match(/^-?\d+\.\d$/) ? `${amountValue.replace('.', '')}0` : amountValue.match(/^-?\d+$/) ? `${amountValue}00` : '000',
-      currency: amount.currency
-    };
-    const {
-      majorPart,
-      minorPart,
-      isNegative,
-      currencySymbol
-    } = formatAmount(amounts);
-    console.log(
-      value,
-      `${majorPart}.${minorPart} ${currencySymbol}`,
-      isNegative
-    );
-  }
-};
+export const calulcateExchange = (value, type, rate) => {
+  let amount = { sell: 0, buy: 0 };
 
-// testAmount();
+  if (type === 'sell') {
+    amount.sell = value;
+    amount.buy = Number(value * rate).toFixed(2);
+  } else if (type === 'buy') {
+    amount.sell = Number(value / rate).toFixed(2);
+    amount.buy = value;
+  }
+
+  return amount;
+};

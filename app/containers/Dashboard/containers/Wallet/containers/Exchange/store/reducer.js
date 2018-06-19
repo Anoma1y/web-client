@@ -1,18 +1,28 @@
 import {
   SET_COINS,
-  CHANGE_COIN,
+  CHANGE_COIN_SERIAL,
   CHANGE_AMOUNT,
-  SET_ISSUER_ID
+  SET_ISSUER_ID,
+  SET_IS_LOAD_RATE,
+  SET_IS_LOADING,
+  SET_RATES,
+  RESET
 } from './types';
 
 const INITIAL_STATE = {
   coins: [],
-  outCoin: '',
-  amount: '',
+  outCoinSerial: '',
+  amount: {
+    sell: 0,
+    buy: 0
+  },
   issuer: {
     inIssuerId: '',
     outIssuerId: ''
-  }
+  },
+  rates: {},
+  isLoading: false,
+  isLoadRate: false
 };
 
 const HANDLERS = {
@@ -20,9 +30,21 @@ const HANDLERS = {
     ...state,
     coins: payload
   }),
-  [CHANGE_COIN]: (state, { payload }) => ({
+  [SET_IS_LOADING]: (state, { payload }) => ({
     ...state,
-    outCoin: payload
+    isLoading: payload
+  }),
+  [SET_IS_LOAD_RATE]: (state, { payload }) => ({
+    ...state,
+    isLoadRate: payload
+  }),
+  [SET_RATES]: (state, { payload }) => ({
+    ...state,
+    rates: payload
+  }),
+  [CHANGE_COIN_SERIAL]: (state, { payload }) => ({
+    ...state,
+    outCoinSerial: payload
   }),
   [CHANGE_AMOUNT]: (state, { payload }) => ({
     ...state,
@@ -31,6 +53,10 @@ const HANDLERS = {
   [SET_ISSUER_ID]: (state, { payload }) => ({
     ...state,
     issuer: payload
+  }),
+  [RESET]: (state) => ({
+    ...state,
+    ...INITIAL_STATE
   }),
 };
 

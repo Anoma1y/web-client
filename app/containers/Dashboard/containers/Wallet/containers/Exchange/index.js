@@ -14,9 +14,11 @@ import {
 import {
   pullRates,
   pullCoins,
-  changeCoin,
-  changeAmount
+  changeCoinSerial,
+  changeAmount,
+  reset
 } from './store/actions';
+import { calulcateExchange } from 'lib/amount';
 import _ from 'lodash';
 
 function NumberFormatCustom(props) {
@@ -43,13 +45,16 @@ function NumberFormatCustom(props) {
 @connect((state) => ({ Wallet_Exchange: state.Wallet_Exchange }), ({
   pullRates,
   pullCoins,
-  changeCoin,
-  changeAmount
+  changeCoinSerial,
+  changeAmount,
+  reset
 }))
 export default class Exchange extends Component {
   state = {
     ready: false,
-    errorText: ''
+    errorText: '',
+    limitError: false,
+    blockUpdate: false
   }
 
   componentDidMount() {
@@ -60,26 +65,42 @@ export default class Exchange extends Component {
       .catch(() => this.setState({ ready: true, errorText: 'Ошибочка' }));
   }
 
+  componentWillUnmount() {
+    this.props.reset();
+    clearTimeout(this.timeBlock);
+  }
+
   debounceUpdate = _.debounce(() => {
-    console.log('update debounce');
-  }, 1000)
+    this.props.pullRates(true);
+  }, 2000)
 
   handleChangeCurrentCoinExchange = (event) => {
     const { value } = event.target;
-    this.props.changeCoin(value);
+
+    this.props.changeCoinSerial(value);
     this.props.pullRates();
   };
 
-  handleChangeAmountExchange = (event) => {
+  handleChangeAmountExchange = (event, type) => {
     const { value } = event.target;
-    this.props.changeAmount(value);
+    const { rates, } = this.props.Wallet_Exchange;
+    const amount = calulcateExchange(value, type, rates.rate);
+
+    this.props.changeAmount(amount);
     this.debounceUpdate();
   };
+
+  updateRates = () => {
+    this.setState({ blockUpdate: true });
+    this.timeBlock = setTimeout(() => this.setState({ blockUpdate: false }), 5000);
+
+    this.props.pullRates(true);
+  }
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />
 
   renderContent = () => {
-    const { coins, outCoin, amount } = this.props.Wallet_Exchange;
+    const { coins, outCoinSerial, amount, rates, isLoadRate, isLoading } = this.props.Wallet_Exchange;
 
     return (
       <Grid container className={'wallet-exchange'}>
@@ -96,10 +117,25 @@ export default class Exchange extends Component {
 
                   <TextField
                     fullWidth
-                    label={'Amount'}
-                    placeholder={'Entering amount'}
-                    onChange={this.handleChangeAmountExchange}
-                    value={amount}
+                    label={'Sell'}
+                    disabled={outCoinSerial === ''}
+                    onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
+                    value={amount.sell}
+                    InputProps={{
+                      inputComponent: NumberFormatCustom,
+                    }}
+                  />
+
+                </Grid>
+
+                <Grid item xs={4}>
+
+                  <TextField
+                    fullWidth
+                    label={'Buy'}
+                    disabled={outCoinSerial === ''}
+                    onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
+                    value={amount.buy}
                     InputProps={{
                       inputComponent: NumberFormatCustom,
                     }}
@@ -113,9 +149,7 @@ export default class Exchange extends Component {
                     <Select
                       fullWidth
                       native
-                      // error={currencyError}
-                      value={outCoin}
-
+                      value={outCoinSerial}
                       id={'coin-select'}
                       onChange={this.handleChangeCurrentCoinExchange}
                       inputProps={{
@@ -133,30 +167,54 @@ export default class Exchange extends Component {
               </Grid>
             </Grid>
 
-            <Grid item xs={12}>
+            {
+              isLoadRate &&
+              <Grid item xs={12}>
 
-              <Grid container>
-
-                <Grid item xs={12}>
-
-                  Курс обмена: 1 EUR = 1.23 USD
-
-                </Grid>
-
-                <Grid item xs={12}>
-
-                  <Button
-                    variant={'raised'}
-                    color={'primary'}
-                  >
-                    Обменять
-                  </Button>
-
+                <Grid container>
+                  <Grid item xs={12}>
+                    <p>Курс: {rates.rate}</p>
+                    <p>Reserve: {rates.reserve}</p>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid container justify={'space-around'}>
+                      <Grid item xs={2}>
+                        <div className={'mui-btn'}>
+                          <Button
+                            fullWidth
+                            variant={'raised'}
+                            color={'primary'}
+                            disabled={isLoading}
+                          >
+                            Обменять
+                          </Button>
+                          {
+                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
+                          }
+                        </div>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <div className={'mui-btn'}>
+                          <Button
+                            fullWidth
+                            variant={'raised'}
+                            color={'primary'}
+                            disabled={this.state.blockUpdate || isLoading}
+                            onClick={this.updateRates}
+                          >
+                            Обновить
+                          </Button>
+                          {
+                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
+                          }
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
                 </Grid>
 
               </Grid>
-
-            </Grid>
+            }
 
           </Grid>
 
