@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { CircularProgress } from '@material-ui/core';
 import {
   KeyboardArrowLeft as KeyboardArrowLeftIcon,
   Person as PersonIcon
@@ -9,9 +10,21 @@ import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
+import {
+  pullCards,
+  pullCoins,
+  pullProfile,
+  pullThirdPartyCards,
+} from './store/actions';
 import './style.scss';
+import Storage from 'lib/storage';
 
-@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
+@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+  pullCards,
+  pullCoins,
+  pullProfile,
+  pullThirdPartyCards,
+}))
 export default class Sidebar extends Component {
 
   state = {
@@ -24,9 +37,42 @@ export default class Sidebar extends Component {
    * - клик по любой другой области не совпадающей с сайдбаром
    */
   componentDidMount() {
-    this.updateDimensions();
+    const ROLES = {
+      individual: [this.props.pullCoins, this.props.pullProfile, this.props.pullThirdPartyCards],
+      merchant: [this.props.pullCoins, this.props.pullProfile],
+      administrator: [this.props.pullProfile],
+      byDefault: [this.props.pullProfile]
+    };
+    const { role } = Storage.get('members')[0];
+    const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
+
+    Promise.all(currentRoleInitialActions.map((action) => {
+      return action();
+    }))
+      .then(() => {
+        if (role === 'individual') {
+          const { thirdPartyCards } = this.props.Dashboard_Sidebar;
+          // const pullCard = thirdPartyCards.map((it) => () => this.props.pullCards(it.cardId));
+          // const fuck = thirdPartyCards.map((card) => {
+          //     return card.cardId;
+          // })
+
+          Promise.all(thirdPartyCards.map((card) => {
+            console.log(card.cardId)
+            return this.props.pullCards(card.cardId);
+          }))
+            .then(() => this.setState({ ready: true }))
+            .catch(() => this.setState({ ready: true }))
+        } else {
+          this.setState({ ready: true })
+        }
+
+      })
+      .catch(() => this.setState({ ready: true }))
+
     document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
+    this.updateDimensions();
   }
 
   componentWillUnmount() {
@@ -85,7 +131,7 @@ export default class Sidebar extends Component {
     this.sidebarRef = node;
   };
 
-  render() {
+  renderContent = () => {
     const { sidebarIsOpen } = this.state;
 
     return (
@@ -156,6 +202,10 @@ export default class Sidebar extends Component {
         </div>
         <div className={`blackout ${sidebarIsOpen ? 'blackout__active' : ''}`}> </div>
       </React.Fragment>
-    );
+    )
+  }
+
+  render() {
+    return this.state.ready ? this.renderContent() : <CircularProgress size={24} className={'dashboard_loading'} />
   }
 }

@@ -26,9 +26,13 @@ const renderVisa = () => (
 const getStatusCard = (status) => {
   switch (status) {
     case 'WAITING_FOR_CARDHOLDER_DETAILS':
-      return 'Карта ожидается';
+      return 'Card is waiting for cardholder to confirm the details';
+    case 'CONFIRMED_BY_CARDHOLDER':
+      return 'Card details are confirmed by cardholder';
+    case 'INACTIVE':
+      return 'Inactive card';
     default:
-      return 'В ожидании чуда';
+      return 'Неизсвестный статус';
   }
 }
 

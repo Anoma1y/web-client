@@ -7,7 +7,7 @@ import {
 import Storage from 'lib/storage';
 
 const ROLES = {
-  individual: [pullCoins, pullProfile, pullThirdPartyCards, pullCards],
+  individual: [pullCoins, pullProfile, pullCards],
   merchant: [pullCoins, pullProfile],
   administrator: [pullProfile],
   byDefault: [pullProfile]

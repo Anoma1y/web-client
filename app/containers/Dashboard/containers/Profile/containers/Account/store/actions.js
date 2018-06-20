@@ -47,7 +47,7 @@ export const reset = () => ({
  */
 export const updateUserContactRequest = (type) => (dispatch, getState) => {
   const { contact } = getState().form.ProfileAccount.values;
-  let login = contact[type];
+  let login = contact[type].toLowerCase();
 
   dispatch(setOTPisLoading(true));
 
@@ -63,11 +63,13 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
       const { action } = data.data;
       const message = `${action === 'EMAIL_SENT' ? 'Email' : 'Sms code'} was sent`;
+
       dispatch(setOTPisSend(type, true));
       dispatch(send({ id: uuid(), status: 'info', title: 'Information', message, timeout: 3000 }));
     })
     .catch((error) => {
       const { code, message } = error.response.data;
+
       switch (code) {
         case 'USER_EMAIL_ALREADY_VERIFIED':
           dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
@@ -82,7 +84,6 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
       dispatch(setOTPisSend(type, false));
       dispatch(setOTPisLoading(false));
     });
-
 };
 
 /**
@@ -127,9 +128,9 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
 
       switch (code) {
         case 'USER_NOT_ACTIVE':
-          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 7000 }));
           Storage.clear();
           api.removeHeader('Authorization');
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 7000 }));
           dispatch(replace('/auth/signin'));
           break;
         case 'CONFIRMATION_CODE_INVALID':
@@ -173,17 +174,17 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
   }
 
   api.profile.updateContacResendOTP(login)
-    .then(() => {
-      dispatch(setOTPisLoading(type, false));
-    })
+    .then(() => dispatch(setOTPisLoading(type, false)))
     .catch((error) => {
       const { code, message } = error.response.data;
 
       dispatch(setOTPisLoading(type, false));
+
       if (code === 'USER_NOT_FOUND') {
         dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
       } else {
         dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
       }
+
     });
 };

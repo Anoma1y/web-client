@@ -14,4 +14,12 @@ export default class Cards {
     return this.http.get(config.GET_THIRD_PARTY_CARDS);
   }
 
+  getInfo(cardId) {
+    return this.http.get(`${config.CARD_INFO}/${cardId}`)
+  }
+
+  updateState(cardId) {
+    return this.http.get(`${config.UPDATE_STATE}/${cardId}`)
+  }
+
 }

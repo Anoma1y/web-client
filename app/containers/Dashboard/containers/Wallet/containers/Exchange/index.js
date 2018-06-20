@@ -107,18 +107,20 @@ export default class Exchange extends Component {
         <Grid item xs={12}>
 
           <Grid container>
-            <Grid item xs={12}>
-              Для обмена, выберите кошелек, в валюту которого вы хотите конвертировать средства
+            <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+              <div className={'wallet-exchange_text'}>
+                Для обмена, выберите кошелек, в валюту которого вы хотите конвертировать средства
+              </div>
             </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={40} justify={'center'}>
+            <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+              <Grid container spacing={40} justify={'flex-start'} className={'wallet-exchange-form'}>
 
-                <Grid item xs={4}>
+                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
 
                   <TextField
                     fullWidth
-                    label={'Sell'}
-                    disabled={!isLoadRate}
+                    label={(rates && rates.rate) ? `Sell ${rates.inIssuer.currency}` : 'Sell'}
+                    disabled={!isLoadRate || !rates}
                     onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
                     value={amount.sell}
                     InputProps={{
@@ -128,12 +130,12 @@ export default class Exchange extends Component {
 
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
 
                   <TextField
                     fullWidth
-                    label={'Buy'}
-                    disabled={!isLoadRate}
+                    label={(rates && rates.rate) ? `Buy ${rates.outIssuer.currency}` : 'Buy'}
+                    disabled={!isLoadRate || !rates}
                     onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
                     value={amount.buy}
                     InputProps={{
@@ -143,8 +145,8 @@ export default class Exchange extends Component {
 
                 </Grid>
 
-                <Grid item xs={4}>
-                  <FormControl >
+                <Grid item xs={3} className={'wallet-exchange-form_item wallet-exchange-form_select'}>
+                  <FormControl fullWidth>
                     <InputLabel htmlFor={'coin-select'}>Coin</InputLabel>
                     <Select
                       fullWidth
@@ -168,17 +170,16 @@ export default class Exchange extends Component {
             </Grid>
 
             {
-              isLoadRate &&
-              <Grid item xs={12}>
+              (isLoadRate && rates && rates.rate) &&
+              <Grid item xs={12} className={'wallet-exchange_wrapper wallet-exchange-operations'}>
 
                 <Grid container>
-                  <Grid item xs={12}>
-                    <p>Курс: {rates.rate}</p>
-                    <p>Reserve: {rates.reserve}</p>
+                  <Grid item xs={12} className={'wallet-exchange-operations_rates'}>
+                    <p>Rate {`${rates.inIssuer.currency}/${rates.outIssuer.currency}`}: {rates.rate}</p>
                   </Grid>
                   <Grid item xs={12}>
-                    <Grid container justify={'space-around'}>
-                      <Grid item xs={2}>
+                    <Grid container justify={'flex-start'} spacing={40}>
+                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__success'}>
                         <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth
@@ -190,7 +191,7 @@ export default class Exchange extends Component {
                           </Button>
                         </MuiButton>
                       </Grid>
-                      <Grid item xs={2}>
+                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__update'}>
                         <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth

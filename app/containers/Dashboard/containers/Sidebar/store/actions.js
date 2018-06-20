@@ -163,7 +163,9 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
     .then((data) => {
       if (data.status !== 200) reject();
 
-      dispatch(setThirdPartyCards(data.data.cards));
+      const { cards } = data.data;
+
+      dispatch(setThirdPartyCards(cards));
       resolve();
     })
     .catch((error) => {
@@ -175,8 +177,8 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
  * Экшен для получения списка всех доступных карточек
  * @returns {function(*=): Promise<any>}
  */
-export const pullCards = () => (dispatch) => new Promise((resolve, reject) => {
-  api.cards.getCardsList()
+export const pullCards = (cardId) => (dispatch) => new Promise((resolve, reject) => {
+  api.cards.getInfo(cardId)
     .then((data) => {
       if (data.status !== 200) reject();
 

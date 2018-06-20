@@ -13,8 +13,8 @@ const INITIAL_STATE = {
   coins: [],
   outCoinSerial: '',
   amount: {
-    sell: 0,
-    buy: 0
+    sell: '',
+    buy: ''
   },
   issuer: {
     inIssuerId: '',
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   },
   rates: {},
   isLoading: false,
-  isLoadRate: false
+  isLoadRate: false,
 };
 
 const HANDLERS = {

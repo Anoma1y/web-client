@@ -38,3 +38,35 @@
     font-size: 1.1rem;
   }
 }
+
+.wallet-exchange {
+  &_text {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-family: $font-regular;
+    font-size: 0.9rem;
+  }
+  &-form {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    &_item {
+      input, select {
+        font-family: $font-regular;
+      }
+      label {
+        font-family: $font-regular;
+      }
+    }
+  }
+  &-operations {
+    font-family: $font-regular;
+    &_rates {
+      p {
+        margin: 0;
+      }
+    }
+    &_btn {
+      margin-top: 1rem !important;
+    }
+  }
+}

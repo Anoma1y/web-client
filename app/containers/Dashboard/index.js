@@ -63,13 +63,10 @@ export default class Dashboard extends Component {
    */
   handlerInit = (token) => {
     const tokenName = `TOKEN ${token}`;
-    const { initialData } = this.props;
 
-    api.addHeader('Authorization', tokenName).then(() => {
-      initialData()
-        .then(() => this.setState({ ready: true }))
-        .catch(() => this.handlerNotification('error', 'Ошибка', 'Данные не были загружены'));
-    });
+    api.addHeader('Authorization', tokenName)
+      .then(() => this.setState({ ready: true }))
+      .catch(() => this.handlerNotification('error', 'Ошибка', 'Данные не были загружены'))
   };
 
   /**
