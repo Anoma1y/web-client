@@ -47,6 +47,13 @@ export const formatAmount = (amount) => {
   };
 };
 
+/**
+ * Функция для расчета обмена с учетом текущего рейта
+ * @param value - значение вводимое
+ * @param type - тип sell/buy
+ * @param rate - рейт
+ * @returns {{sell: number, buy: number}}
+ */
 export const calulcateExchange = (value, type, rate) => {
   let amount = { sell: 0, buy: 0 };
 

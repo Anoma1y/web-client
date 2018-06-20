@@ -10,6 +10,7 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import NumberFormat from 'containers/Dashboard/components/NumberFormat';
+import MuiButton from 'components/MuiButton';
 import {
   pullRates,
   pullCoins,
@@ -27,6 +28,7 @@ import { calulcateExchange } from 'lib/amount';
   reset
 }))
 export default class Exchange extends Component {
+
   state = {
     ready: false,
     errorText: '',
@@ -66,7 +68,7 @@ export default class Exchange extends Component {
    */
   handleChangeAmountExchange = (event, type) => {
     const { value } = event.target;
-    const { rates, } = this.props.Wallet_Exchange;
+    const { rates } = this.props.Wallet_Exchange;
     const amount = calulcateExchange(value, type, rates.rate);
 
     this.props.changeAmount(amount);
@@ -86,7 +88,7 @@ export default class Exchange extends Component {
 
     this.setState({ blockUpdate: true });
     this.timeBlock = setTimeout(() => this.setState({ blockUpdate: false }), 5000);
-  }
+  };
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
 
@@ -177,7 +179,7 @@ export default class Exchange extends Component {
                   <Grid item xs={12}>
                     <Grid container justify={'space-around'}>
                       <Grid item xs={2}>
-                        <div className={'mui-btn'}>
+                        <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth
                             variant={'raised'}
@@ -186,13 +188,10 @@ export default class Exchange extends Component {
                           >
                             SUBMIT
                           </Button>
-                          {
-                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-                          }
-                        </div>
+                        </MuiButton>
                       </Grid>
                       <Grid item xs={2}>
-                        <div className={'mui-btn'}>
+                        <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth
                             variant={'raised'}
@@ -202,10 +201,7 @@ export default class Exchange extends Component {
                           >
                             UPDATE RATE
                           </Button>
-                          {
-                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-                          }
-                        </div>
+                        </MuiButton>
                       </Grid>
                     </Grid>
                   </Grid>

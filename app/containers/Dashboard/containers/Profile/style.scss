@@ -26,6 +26,10 @@
     &_input {
 
     }
+    &_documents-wrapper {
+      position: relative;
+      padding-bottom: 2rem;
+    }
     &_separate-text {
       font-family: $font-semibold-serif;
       text-align: center;
