@@ -37,10 +37,12 @@ const HANDLERS = {
   [SET_COIN]: (state, { payload }) => {
     const newCoins = [...state.coins];
     newCoins[payload.index] = payload.coin;
+
     return { ...state, coins: newCoins };
   },
   [REMOVE_COIN]: (state, { payload }) => {
     const newCoins = [...state.coins].filter((item) => item.serial !== payload);
+
     return {
       ...state,
       coins: newCoins

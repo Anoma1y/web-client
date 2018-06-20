@@ -2,22 +2,15 @@ import {
   SET_OTP_IS_SEND,
   SET_OTP_IS_BLOCKED,
   SET_OTP_IS_LOADING,
-  CHANGE_OTP,
   RESET
 } from './types';
+import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from '../../../store/actions';
 import { pullProfile as pullProfileSidebar } from '../../../../Sidebar/store/actions';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
-
-export const changeOTP = (contactType, value) => ({
-  type: CHANGE_OTP,
-  payload: {
-    contactType,
-    value
-  }
-});
+import Storage from 'lib/storage';
 
 export const setOTPisLoading = (contactType, isLoading = false) => ({
   type: SET_OTP_IS_LOADING,
@@ -92,7 +85,6 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
 };
 
-// todo не всегда оптравляется логин (телефон? почта??)
 /**
  * Экшен для подтверждения логина (телефона/почты)
  * @param type - тип подтверждаемого типа телефон/почта
@@ -100,9 +92,6 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
  */
 export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   const {
-    Profile_Account: {
-      otp
-    },
     form: {
       ProfileAccount: {
         values: {
@@ -118,8 +107,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   }
 
   dispatch(setOTPisLoading(type, true));
-
-  api.profile.updateContactConfirm(login, otp[type])
+  api.profile.updateContactConfirm(login, contact.otp)
     .then((data) => {
 
       if (data.status !== 200) return;
@@ -138,6 +126,12 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       dispatch(setOTPisLoading(type, false));
 
       switch (code) {
+        case 'USER_NOT_ACTIVE':
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 7000 }));
+          Storage.clear();
+          api.removeHeader('Authorization');
+          dispatch(replace('/auth/signin'));
+          break;
         case 'CONFIRMATION_CODE_INVALID':
           dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
           break;
@@ -167,7 +161,6 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
       }
     }
   } = getState();
-
   let login = contact[type].toLowerCase();
 
   if (resendOTPIsBlocked[type]) return;

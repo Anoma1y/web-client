@@ -1,5 +1,4 @@
 import {
-  CHANGE_OTP,
   SET_OTP_IS_SEND,
   SET_OTP_IS_BLOCKED,
   SET_OTP_IS_LOADING,
@@ -7,10 +6,6 @@ import {
 } from './types';
 
 const INITIAL_STATE = {
-  otp: {
-    phoneNumber: '',
-    email: ''
-  },
   otpIsSend: {
     phoneNumber: false,
     email: false
@@ -26,10 +21,6 @@ const INITIAL_STATE = {
 };
 
 const HANDLERS = {
-  [CHANGE_OTP]: (state, { payload }) => ({
-    ...state,
-    otp: { ...state.otp, [payload.contactType]: payload.value }
-  }),
   [SET_OTP_IS_SEND]: (state, { payload }) => ({
     ...state,
     otpIsSend: { ...state.otpIsSend, [payload.contactType]: payload.otpIsSend }

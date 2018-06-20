@@ -60,6 +60,7 @@ export default class DataTable extends Component {
     }
   }
 
+  // todo для разных типов - разные поля для serial и т.п., нужно поправить
   renderRow = () => {
     const { records } = this.props;
     const transactions = records.map((it) => {
@@ -88,10 +89,10 @@ export default class DataTable extends Component {
                   {this.getType(data.type)}
                   </TableCell>
                 <TableCell>
-                  {`${data.from.serial} (${data.from.organizationName})`}
+                  {/*{`${data.from.serial} (${data.from.organizationName})`}*/}
                   </TableCell>
                 <TableCell>
-                  {`${data.to.serial} (${data.to.organizationName})`}
+                  {/*{`${data.to.serial} (${data.to.organizationName})`}*/}
                 </TableCell>
                 <TableCell numeric className={'transactions-table_amount'}>
                   <Amount

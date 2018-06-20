@@ -1,6 +1,6 @@
 import {
-  SET_ISSUERS,
   SET_IS_LOADING,
+  SET_AVAILABLE_ISSUERS,
   SET_IS_ERROR,
   CHANGE_NAME,
   CHANGE_CURRENCY,
@@ -12,13 +12,13 @@ const INITIAL_STATE = {
   currency: '',
   isLoading: false,
   isError: false,
-  issuers: []
-}
+  availableIssuers: []
+};
 
 const HANDLERS = {
-  [SET_ISSUERS]: (state, { payload }) => ({
+  [SET_AVAILABLE_ISSUERS]: (state, { payload }) => ({
     ...state,
-    issuers: payload
+    availableIssuers: payload
   }),
   [SET_IS_LOADING]: (state, { payload }) => ({
     ...state,

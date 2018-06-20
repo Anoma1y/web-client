@@ -114,15 +114,6 @@ export default class Sidebar extends Component {
                 }
               </div>
 
-              <div className={'sidebar_item sidebar-product-add'}>
-
-                <ProductAdd
-                  name={'Add wallet'}
-                  link={'wallet'}
-                />
-
-              </div>
-
               <div className={'sidebar_item sidebar-wallets'}>
                 {
                   (this.props.Dashboard_Sidebar.cards.length !== 0 || this.props.Dashboard_Sidebar.thirdPartyCards.length !== 0) && <SidebarCard />
@@ -133,7 +124,7 @@ export default class Sidebar extends Component {
               <div className={'sidebar_item sidebar-product-add'}>
 
                 <ProductAdd
-                  name={'Add card'}
+                  name={'Add product'}
                   link={'product-list'}
                 />
 
