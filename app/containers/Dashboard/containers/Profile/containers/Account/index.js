@@ -218,7 +218,7 @@ export default class Account extends Component {
     return (
       <Grid container className={'profile'}>
         <Grid container className={'profile-form_wrapper'}>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <FormControl fullWidth>
               {
                 otpIsSend.email
@@ -228,7 +228,7 @@ export default class Account extends Component {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <FormControl fullWidth>
               {
                 otpIsSend.phoneNumber

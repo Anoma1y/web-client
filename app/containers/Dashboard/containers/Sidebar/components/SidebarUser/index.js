@@ -7,9 +7,9 @@ import { getUserName } from 'lib/utils';
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 export default class SidebarUser extends React.Component {
 
-  // todo поправить стили для очень длинного логина
   render() {
     const { profile } = this.props.Dashboard_Sidebar;
+
     return (
       <div className={'user-info sidebar-container'}>
 

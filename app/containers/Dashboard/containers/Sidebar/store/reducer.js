@@ -2,13 +2,13 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
-  REMOVE_COIN,
   SET_CARDS,
-  APPEND_CARD,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  CHANGE_EDIT_NAME,
+  REMOVE_COIN,
+  APPEND_CARD,
+  CHANGE_EDIT_NAME_WALLET,
   EDIT_IS_LOADING
 } from './types';
 
@@ -18,7 +18,7 @@ const INITIAL_STATE = {
   cards: [],
   thirdPartyCards: [],
   notification: '',
-  editName: '',
+  editNameWallet: '',
   editIsLoading: false,
   active: {
     type: null,
@@ -69,9 +69,9 @@ const HANDLERS = {
     ...state,
     active: payload
   }),
-  [CHANGE_EDIT_NAME]: (state, { payload }) => ({
+  [CHANGE_EDIT_NAME_WALLET]: (state, { payload }) => ({
     ...state,
-    editName: payload
+    editNameWallet: payload
   }),
   [EDIT_IS_LOADING]: (state, { payload }) => ({
     ...state,

@@ -117,7 +117,7 @@ export default class Sidebar extends Component {
    */
   handleSidebarRef = (node) => {
     this.sidebarRef = node;
-  }
+  };
 
   renderContent = () => {
     const {
@@ -163,8 +163,8 @@ export default class Sidebar extends Component {
         </div>
 
       </div>
-    )
-  }
+    );
+  };
 
   render() {
 

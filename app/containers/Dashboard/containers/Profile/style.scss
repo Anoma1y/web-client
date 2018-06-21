@@ -241,27 +241,33 @@
     th {
       font-family: $font-regular-serif;
       font-size: 0.7rem;
-      text-align: center;
       color: $gray-color;
+    }
+  }
+  &__align {
+    &_left {
+      text-align: left !important;
+    }
+    &_center {
+      text-align: center !important;
     }
   }
   &_body {
     td {
       font-family: $font-regular-serif;
       font-size: 0.8rem;
-      text-align: center;
       color: $black-color !important;
     }
   }
   & tbody tr {
     &:nth-child(even) {
-      background-color: #f1faff;
+      background-color: rgba(241, 250, 255, 0.6);
     }
   }
   &_item {
-    &__type {
-      text-align: left !important;
-    }
+    border-bottom-color: rgba(224, 224, 224, 0.3);
+    padding-top: 1.3rem !important;
+    padding-bottom: 1.3rem !important;
   }
 }
 

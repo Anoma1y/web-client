@@ -191,6 +191,10 @@
   }
 }
 
+.sidebar-cards {
+  margin-bottom: 2rem;
+}
+
 .sidebar-wallets {
   width: 100%;
   padding: 1.2rem 0;
@@ -311,6 +315,20 @@
         fill: lighten($green-color, 7%);
       }
     }
+
+    &__update {
+      svg {
+        margin-top: 5px;
+        font-size: 1.3rem;
+      }
+      path {
+        fill: $lightblue-color;
+      }
+      &:hover path {
+        fill: lighten($lightblue-color, 7%);
+      }
+    }
+
   }
 
   &__active {

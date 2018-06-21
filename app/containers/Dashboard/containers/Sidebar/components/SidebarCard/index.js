@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  Check as CheckIcon,
+  Close as CloseIcon,
+  Edit as EditIcon,
+  Cached as CachedIcon
+} from '@material-ui/icons';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
-import Dropdown from 'components/Dropdown';
-
-const menuItems = [
-  { name: 'Pay', link: '/wallet/pay' },
-  { name: 'Rename', link: '/wallet/rename' },
-];
 
 const renderMasterCard = () => (
   <div className={'sidebar-wallet-icon sidebar-wallet-card'}>
@@ -17,27 +17,68 @@ const renderMasterCard = () => (
   </div>
 );
 
-const renderVisa = () => (
-  <div className={'sidebar-wallet-icon sidebar-wallet-card'}>
-    <Icon name={'visa'} size={35} />
-  </div>
-);
-
 const getStatusCard = (status) => {
   switch (status) {
     case 'WAITING_FOR_CARDHOLDER_DETAILS':
-      return 'Card is waiting for cardholder to confirm the details';
+      return 'Waiting the details';
     case 'CONFIRMED_BY_CARDHOLDER':
-      return 'Card details are confirmed by cardholder';
+      return 'Card are confirmed';
     case 'INACTIVE':
       return 'Inactive card';
     default:
-      return 'Неизсвестный статус';
+      return 'Inactive status';
   }
 }
 
 @connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
-export default class SidebarCard extends React.Component {
+export default class SidebarCard extends Component {
+
+  state = {
+    controlCard: {
+      type: '',
+      index: 0,
+      isChange: false
+    }
+  };
+
+  handleOpenControl = (type, index) => {
+    if (this.props.Dashboard_Sidebar.editIsLoading) return;
+
+    this.setState({
+      controlCard: { type, index, isChange: true }
+    });
+  };
+
+  handleCloseControl = () => {
+    this.setState({
+      controlCard: { type: '', index: 0, isChange: false }
+    });
+  };
+
+  handleApplyControl = () => {
+    if (this.props.Dashboard_Sidebar.editIsLoading) return;
+
+    const { type, index, isChange } = this.state.controlCard;
+
+    if (!isChange) return;
+
+    switch (type) {
+      case 'edit':
+        this.props.applyEditName(index);
+        break;
+      case 'update':
+        this.props.applyRemove(index);
+        break;
+      default:
+        this.handleCloseControl();
+    }
+
+    this.handleCloseControl();
+  };
+
+  handleUpdateCard = (index) => {
+    console.log('Update card with index', index)
+  }
 
   renderProgressCard = (status) => (
     <div className={'sidebar-wallet_card-status'}>
@@ -45,10 +86,45 @@ export default class SidebarCard extends React.Component {
     </div>
   )
 
+  renderControlPanel = (index, isActive = false) => {
+    const { editIsLoading } = this.props.Dashboard_Sidebar;
+    const isLoading = editIsLoading ? 'sidebar-wallet_edit-btn__loading' : '';
+
+    return (
+      <div className={'sidebar-wallet_edit'}>
+        {
+          (this.state.controlCard.isChange && this.state.controlCard.index === index) ?
+            <Fragment>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__apply ${isLoading}`} onClick={() => this.handleApplyControl()}>
+                <CheckIcon />
+              </button>
+              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__close ${isLoading}`} onClick={() => this.handleCloseControl()}>
+                <CloseIcon />
+              </button>
+            </Fragment>
+            :
+            <Fragment>
+              {
+                isActive ?
+                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
+                    <EditIcon />
+                  </button>
+                  :
+                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__update ${isLoading}`} onClick={() => this.handleUpdateCard(index)}>
+                    <CachedIcon />
+                  </button>
+              }
+            </Fragment>
+
+        }
+      </div>
+    )
+  }
+
   renderCards = () => (
     <div className={'sidebar-cards'}>
       {
-        this.props.Dashboard_Sidebar.cards.map((card) => {
+        this.props.Dashboard_Sidebar.cards.map((card, index) => {
           const { card: cardInfo } = card;
           const isActive = cardInfo.status === 'ACTIVE';
 
@@ -74,7 +150,7 @@ export default class SidebarCard extends React.Component {
                 </Link>
               </div>
               <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-
+                {this.renderControlPanel(index, isActive)}
               </div>
             </div>
           )

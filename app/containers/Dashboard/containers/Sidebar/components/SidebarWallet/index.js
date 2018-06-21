@@ -11,8 +11,8 @@ import {
 import { Link } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
 import {
-  changeEditName,
-  applyEditName,
+  changeEditNameWallet,
+  applyEditNameWallet,
   applyRemove
 } from '../../store/actions'
 import Text from 'components/Text';
@@ -29,8 +29,8 @@ const renderCurrency = (currency) => (
 );
 
 @connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
-  changeEditName,
-  applyEditName,
+  changeEditNameWallet,
+  applyEditNameWallet,
   applyRemove
 }))
 export default class SidebarWallet extends React.Component {
@@ -52,7 +52,7 @@ export default class SidebarWallet extends React.Component {
 
     if (value.length > 22 || /[^a-zA-Z\s\d_]/.test(value)) return;
 
-    this.props.changeEditName(value);
+    this.props.changeEditNameWallet(value);
   };
 
   handleOpenControl = (type, index) => {
@@ -78,7 +78,7 @@ export default class SidebarWallet extends React.Component {
 
     switch (type) {
       case 'edit':
-        this.props.applyEditName(index);
+        this.props.applyEditNameWallet(index);
         break;
       case 'remove':
         this.props.applyRemove(index);
@@ -94,7 +94,7 @@ export default class SidebarWallet extends React.Component {
     <TextField
       type={'text'}
       className={'sidebar-wallet_edit-input'}
-      value={this.props.Dashboard_Sidebar.editName || this.props.Dashboard_Sidebar.coins[this.state.controlWallet.index].name}
+      value={this.props.Dashboard_Sidebar.editNameWallet || this.props.Dashboard_Sidebar.coins[this.state.controlWallet.index].name}
       onChange={(event) => this.handleEditChange(event, this.state.controlWallet.index)}
     />
   );

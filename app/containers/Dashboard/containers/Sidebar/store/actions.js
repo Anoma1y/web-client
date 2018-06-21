@@ -2,13 +2,13 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
-  REMOVE_COIN,
   SET_CARDS,
-  APPEND_CARD,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  CHANGE_EDIT_NAME,
+  REMOVE_COIN,
+  APPEND_CARD,
+  CHANGE_EDIT_NAME_WALLET,
   EDIT_IS_LOADING
 } from './types';
 import { replace } from 'react-router-redux';
@@ -65,8 +65,8 @@ export const setActive = (active = { type: null, id: null }) => ({
   payload: active,
 });
 
-export const changeEditName = (value) => ({
-  type: CHANGE_EDIT_NAME,
+export const changeEditNameWallet = (value) => ({
+  type: CHANGE_EDIT_NAME_WALLET,
   payload: value,
 });
 
@@ -113,10 +113,10 @@ export const applyRemove = (index) => (dispatch, getState) => {
  * @param index - индекс массива coins, в котором распологается кошелек
  * @returns {function(*, *)}
  */
-export const applyEditName = (index) => (dispatch, getState) => {
+export const applyEditNameWallet = (index) => (dispatch, getState) => {
 
   const {
-    editName,
+    editNameWallet,
     coins
   } = getState().Dashboard_Sidebar;
   const editCoin = coins[index];
@@ -124,10 +124,10 @@ export const applyEditName = (index) => (dispatch, getState) => {
   /**
    * Минимальная длина имени кошелька - 2 символа и старое имя не должно равняться новому
    */
-  if (editName.length < 2 || name === editName) return;
+  if (editNameWallet.length < 2 || name === editNameWallet) return;
 
   dispatch(setEditIsLoading(true));
-  api.coins.editName(serial, editName)
+  api.coins.editName(serial, editNameWallet)
     .then((data) => {
       if (data.status !== 200) return;
 

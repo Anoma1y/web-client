@@ -198,7 +198,7 @@ export const pullTransactions = (date, filterProps) => (dispatch, getState) => n
     dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
     dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
   };
-  console.log(currentFilter)
+
   const pageNumber = 0;
 
   dispatch(changePageNumber(pageNumber));
