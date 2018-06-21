@@ -10,6 +10,8 @@ import {
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
+import { updateCard } from '../../store/actions';
+import _ from 'lodash';
 
 const renderMasterCard = () => (
   <div className={'sidebar-wallet-icon sidebar-wallet-card'}>
@@ -28,30 +30,33 @@ const getStatusCard = (status) => {
     default:
       return 'Inactive status';
   }
-}
+};
 
-@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+  updateCard
+}))
 export default class SidebarCard extends Component {
 
   state = {
     controlCard: {
+      id: 0,
       type: '',
       index: 0,
       isChange: false
     }
   };
 
-  handleOpenControl = (type, index) => {
+  handleOpenControl = (type, id, index) => {
     if (this.props.Dashboard_Sidebar.editIsLoading) return;
 
     this.setState({
-      controlCard: { type, index, isChange: true }
+      controlCard: { type, id, index, isChange: true }
     });
   };
 
   handleCloseControl = () => {
     this.setState({
-      controlCard: { type: '', index: 0, isChange: false }
+      controlCard: { type: '', id: 0, index: 0, isChange: false }
     });
   };
 
@@ -76,17 +81,19 @@ export default class SidebarCard extends Component {
     this.handleCloseControl();
   };
 
-  handleUpdateCard = (index) => {
-    console.log('Update card with index', index)
-  }
+  handleUpdateCard = _.debounce((id, index) => {
+    this.props.updateCard(id, index);
+  }, 1000);
 
   renderProgressCard = (status) => (
     <div className={'sidebar-wallet_card-status'}>
       {getStatusCard(status)}
     </div>
-  )
+  );
 
-  renderControlPanel = (index, isActive = false) => {
+  renderAmount = (amount, currency = 'EUR') => <Amount value={amount} currency={currency} />;
+
+  renderControlPanel = (id, index, isActive = false) => {
     const { editIsLoading } = this.props.Dashboard_Sidebar;
     const isLoading = editIsLoading ? 'sidebar-wallet_edit-btn__loading' : '';
 
@@ -106,11 +113,11 @@ export default class SidebarCard extends Component {
             <Fragment>
               {
                 isActive ?
-                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
+                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', id, index)}>
                     <EditIcon />
                   </button>
                   :
-                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__update ${isLoading}`} onClick={() => this.handleUpdateCard(index)}>
+                  <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__update ${isLoading}`} onClick={() => this.handleUpdateCard(id, index)}>
                     <CachedIcon />
                   </button>
               }
@@ -118,7 +125,7 @@ export default class SidebarCard extends Component {
 
         }
       </div>
-    )
+    );
   }
 
   renderCards = () => (
@@ -134,7 +141,7 @@ export default class SidebarCard extends Component {
                 {renderMasterCard()}
               </div>
               <div className={'sidebar-wallet-content sidebar-container_content'}>
-                <Link to={isActive ? '/dashboard/card' : '/dashboard/'}>
+                <Link to={`/dashboard/card/${cardInfo.id}`}>
                   <Text className={'sidebar-wallet-amount'}>
                     <Text.Content className={'sidebar-wallet-amount_name'}>
                       Master Card **** {cardInfo.number.slice(-4)}
@@ -142,7 +149,7 @@ export default class SidebarCard extends Component {
                     <Text.Sub className={'sidebar-wallet-amount_value'}>
                       {
                         isActive
-                          ? <Amount value={0} currency={cardInfo.currency} />
+                          ? this.renderAmount(0, cardInfo.currency)
                           : this.renderProgressCard(cardInfo.status)
                       }
                     </Text.Sub>
@@ -150,10 +157,10 @@ export default class SidebarCard extends Component {
                 </Link>
               </div>
               <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-                {this.renderControlPanel(index, isActive)}
+                {this.renderControlPanel(cardInfo.id, index, isActive)}
               </div>
             </div>
-          )
+          );
         })
       }
     </div>
@@ -166,8 +173,12 @@ export default class SidebarCard extends Component {
         <div className={'sidebar_title'}>
           Cards
         </div>
-        {this.props.Dashboard_Sidebar.cards.length !== 0 && this.renderCards()}
+
+        {
+          this.props.Dashboard_Sidebar.cards.length !== 0 && this.renderCards()
+        }
+
       </div>
     );
   }
-};
+}

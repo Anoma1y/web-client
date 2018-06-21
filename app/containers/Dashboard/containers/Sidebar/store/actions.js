@@ -3,6 +3,7 @@ import {
   SET_COINS,
   SET_COIN,
   SET_CARDS,
+  SET_CARDS_AFTER_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -48,6 +49,11 @@ export const setNotification = (value) => ({
 export const setCards = (cards) => ({
   type: SET_CARDS,
   payload: cards
+});
+
+export const setCardsAfterUpdate = (cards) => ({
+  type: SET_CARDS_AFTER_UPDATE,
+  payload: cards,
 });
 
 export const appendCard = (card) => ({
@@ -198,6 +204,26 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
       reject(error);
     });
 });
+
+export const updateCard = (cardId, index) => (dispatch, getState) => new Promise((resolve, reject) => {
+
+  api.cards.updateState(cardId)
+    .then((data) => {
+      if (data.status !== 200) reject();
+
+      const { cards } = getState().Dashboard_Sidebar;
+      const { cardInfo } = data.data;
+
+      const newCards = [...cards];
+      newCards[index] = cardInfo;
+
+      dispatch(setCardsAfterUpdate(newCards));
+      resolve();
+
+    })
+    .catch(() => reject())
+
+})
 
 /**
  * Экшен для получения всех данных о профайле пользователя

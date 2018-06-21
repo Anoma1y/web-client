@@ -39,10 +39,10 @@ export default class Dashboard extends Component {
       return null;
     }
 
-    this.props.send({ id: uuid(), status: 'error', title: 'Error', message: 'Error message text', actionClose: true });
-    this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Warning message text', actionClose: true });
-    this.props.send({ id: uuid(), status: 'info', title: 'Info', message: 'Info message text', actionClose: true });
-    this.props.send({ id: uuid(), status: 'success', title: 'Success', message: 'Success message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'error', title: 'Error', message: 'Error message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Warning message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'info', title: 'Info', message: 'Info message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'success', title: 'Success', message: 'Success message text', actionClose: true });
 
     const {
       token, // Токен

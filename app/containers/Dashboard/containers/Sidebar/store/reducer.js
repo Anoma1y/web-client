@@ -3,6 +3,7 @@ import {
   SET_COINS,
   SET_COIN,
   SET_CARDS,
+  SET_CARDS_AFTER_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -50,6 +51,10 @@ const HANDLERS = {
     }
   },
   [SET_CARDS]: (state, { payload }) => ({
+    ...state,
+    cards: payload
+  }),
+  [SET_CARDS_AFTER_UPDATE]: (state, { payload }) => ({
     ...state,
     cards: payload
   }),
