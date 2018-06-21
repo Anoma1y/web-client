@@ -4,6 +4,7 @@ import {
   SET_COIN,
   REMOVE_COIN,
   SET_CARDS,
+  APPEND_CARD,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -51,6 +52,10 @@ const HANDLERS = {
   [SET_CARDS]: (state, { payload }) => ({
     ...state,
     cards: payload
+  }),
+  [APPEND_CARD]: (state, { payload }) => ({
+    ...state,
+    cards: [...state.cards, payload]
   }),
   [SET_THIRD_PARTY_CARDS]: (state, { payload }) => ({
     ...state,

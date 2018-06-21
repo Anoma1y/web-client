@@ -1,5 +1,6 @@
 export const SET_PROFILE = 'Dashboard_Sidebar/SET_PROFILE';
 export const SET_COINS = 'Dashboard_Sidebar/SET_COINS';
+export const APPEND_CARD = 'Dashboard_Sidebar/APPEND_CARD';
 export const SET_COIN = 'Dashboard_Sidebar/SET_COIN';
 export const SET_CARDS = 'Dashboard_Sidebar/SET_CARDS';
 export const REMOVE_COIN = 'Dashboard_Sidebar/REMOVE_COIN';

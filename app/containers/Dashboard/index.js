@@ -13,7 +13,6 @@ import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import { CircularProgress } from '@material-ui/core';
 import { send } from 'containers/Notification/store/actions';
-import { initialData } from './store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import moment from 'moment';
@@ -22,7 +21,6 @@ import uuid from 'uuid/v1';
 
 @connect(null, ({
   replace,
-  initialData,
   send
 }))
 export default class Dashboard extends Component {
@@ -37,7 +35,7 @@ export default class Dashboard extends Component {
 
     // Если токена нету в локальном хранилище, то вызов ошибки
     if (authToken === null) {
-      this.handlerNotification('error', 'Ошибка', 'Произошла непредвиденная ошибка');
+      this.handlerError('error', 'Ошибка', 'Произошла непредвиденная ошибка');
       return null;
     }
 
@@ -51,7 +49,7 @@ export default class Dashboard extends Component {
     if (authToken && (moment() < moment(expiresAt))) {
       this.handlerInit(token);
     } else {
-      this.handlerNotification('warning', 'Предупреждение', 'Время сессии истекло')
+      this.handlerError('warning', 'Предупреждение', 'Время сессии истекло')
     }
   }
 
@@ -66,7 +64,7 @@ export default class Dashboard extends Component {
 
     api.addHeader('Authorization', tokenName)
       .then(() => this.setState({ ready: true }))
-      .catch(() => this.handlerNotification('error', 'Ошибка', 'Данные не были загружены'))
+      .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };
 
   /**
@@ -75,16 +73,8 @@ export default class Dashboard extends Component {
    * @param title - заголовок оповещения
    * @param message - сообщение оповещения
    */
-  handlerNotification = (status, title, message) => {
+  handlerError = (status, title, message) => {
     this.props.send({ id: uuid(), status, title, message, actionClose: true });
-    this.handlerError();
-  };
-
-  /**
-   * Метод для обработки ошибок
-   * Очистки локального хранилища, удаления заголовка и редирект на страницу авторизации
-   */
-  handlerError = () => {
     Storage.clear();
     api.removeHeader('Authorization');
     this.props.replace('/auth/signin');

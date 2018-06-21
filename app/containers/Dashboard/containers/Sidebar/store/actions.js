@@ -4,6 +4,7 @@ import {
   SET_COIN,
   REMOVE_COIN,
   SET_CARDS,
+  APPEND_CARD,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -47,6 +48,11 @@ export const setNotification = (value) => ({
 export const setCards = (cards) => ({
   type: SET_CARDS,
   payload: cards
+});
+
+export const appendCard = (card) => ({
+  type: APPEND_CARD,
+  payload: card,
 });
 
 export const setThirdPartyCards = (tCards) => ({
@@ -177,12 +183,15 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
  * Экшен для получения списка всех доступных карточек
  * @returns {function(*=): Promise<any>}
  */
-export const pullCards = (cardId) => (dispatch) => new Promise((resolve, reject) => {
+export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
+
   api.cards.getInfo(cardId)
     .then((data) => {
       if (data.status !== 200) reject();
 
-      dispatch(setCards(data.data.records));
+      const { cardInfo } = data.data;
+
+      dispatch(appendCard(cardInfo));
       resolve();
     })
     .catch((error) => {

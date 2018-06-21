@@ -39,43 +39,42 @@ const getStatusCard = (status) => {
 @connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }))
 export default class SidebarCard extends React.Component {
 
-  renderCardProgress = () => (
-    <div className={'sidebar-tpcards'}>
-      {this.props.Dashboard_Sidebar.thirdPartyCards.map((card) => {
-        return (
-          <div className={'sidebar-wallet sidebar-container'} key={card.cardId}>
-            <div className={'sidebar-tpcards_item sidebar-wallet-content sidebar-container_content'}>
-              <div className={'sidebar_tpcards_status'}>
-                {getStatusCard(card.status)}
-              </div>
-            </div>
-          </div>
-        )
-      })}
+  renderProgressCard = (status) => (
+    <div className={'sidebar-wallet_card-status'}>
+      {getStatusCard(status)}
     </div>
-  );
+  )
 
   renderCards = () => (
     <div className={'sidebar-cards'}>
       {
         this.props.Dashboard_Sidebar.cards.map((card) => {
-          return (
-            <div key={card.id} className={'sidebar-wallet sidebar-container'}>
+          const { card: cardInfo } = card;
+          const isActive = cardInfo.status === 'ACTIVE';
 
+          return (
+            <div key={cardInfo.id} className={'sidebar-wallet sidebar-container'}>
+              <div className={'sidebar-container_icon'}>
+                {renderMasterCard()}
+              </div>
               <div className={'sidebar-wallet-content sidebar-container_content'}>
-                <Link to={'/dashboard/card'}>
+                <Link to={isActive ? '/dashboard/card' : '/dashboard/'}>
                   <Text className={'sidebar-wallet-amount'}>
                     <Text.Content className={'sidebar-wallet-amount_name'}>
-                      Master Card **** 6307
+                      Master Card **** {cardInfo.number.slice(-4)}
                     </Text.Content>
                     <Text.Sub className={'sidebar-wallet-amount_value'}>
-                      <Amount value={23450.52} />
+                      {
+                        isActive
+                          ? <Amount value={0} currency={cardInfo.currency} />
+                          : this.renderProgressCard(cardInfo.status)
+                      }
                     </Text.Sub>
                   </Text>
                 </Link>
               </div>
               <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-                <Dropdown item={menuItems}>...</Dropdown>
+
               </div>
             </div>
           )
@@ -91,7 +90,6 @@ export default class SidebarCard extends React.Component {
         <div className={'sidebar_title'}>
           Cards
         </div>
-        {this.props.Dashboard_Sidebar.thirdPartyCards.length !== 0 && this.renderCardProgress()}
         {this.props.Dashboard_Sidebar.cards.length !== 0 && this.renderCards()}
       </div>
     );
