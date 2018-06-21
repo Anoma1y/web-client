@@ -119,7 +119,8 @@ export default class Sidebar extends Component {
     this.sidebarRef = node;
   };
 
-  renderContent = () => {
+  render() {
+    const { sidebarIsOpen } = this.state;
     const {
       notification,
       coins,
@@ -127,59 +128,47 @@ export default class Sidebar extends Component {
     } = this.props.Dashboard_Sidebar;
 
     return (
-      <div className={'sidebar-inner'}>
-
-        <div className={'sidebar_item sidebar-user'}>
-
-          <SidebarUser />
-
-        </div>
-
-        <div className={'sidebar_item sidebar-notification'}>
-          {
-            notification && <SidebarNotification />
-          }
-        </div>
-
-        <div className={'sidebar_item sidebar-wallets'}>
-          {
-            coins.length !== 0 && <SidebarWallet />
-          }
-        </div>
-
-        <div className={'sidebar_item sidebar-wallets'}>
-          {
-            cards.length !== 0 && <SidebarCard />
-          }
-        </div>
-
-        <div className={'sidebar_item sidebar-product-add'}>
-
-          <ProductAdd
-            name={'Add product'}
-            link={'product-list'}
-          />
-
-        </div>
-
-      </div>
-    );
-  };
-
-  render() {
-
-    const { sidebarIsOpen } = this.state;
-
-    return (
       <React.Fragment>
         <div className={`sidebar sidebar-content ${sidebarIsOpen ? 'sidebar__active' : ''}`} ref={this.handleSidebarRef}>
 
           <div className={'sidebar-wrapper'}>
 
-            {
-              this.state.ready && this.renderContent()
-            }
+            <div className={'sidebar-inner'}>
 
+              <div className={'sidebar_item sidebar-user'}>
+
+                <SidebarUser />
+
+              </div>
+
+              <div className={'sidebar_item sidebar-notification'}>
+                {
+                  notification && <SidebarNotification />
+                }
+              </div>
+
+              <div className={'sidebar_item sidebar-wallets'}>
+                {
+                  coins.length !== 0 && <SidebarWallet />
+                }
+              </div>
+
+              <div className={'sidebar_item sidebar-wallets'}>
+                {
+                  cards.length !== 0 && <SidebarCard />
+                }
+              </div>
+
+              <div className={'sidebar_item sidebar-product-add'}>
+
+                <ProductAdd
+                  name={'Add product'}
+                  link={'product-list'}
+                />
+
+              </div>
+
+            </div>
             <div className={'sidebar-inner'}>
               <button className={'sidebar-close'} onClick={this.handleSidebarClose}>
                 <div className={'sidebar-close_icon'}>
@@ -187,9 +176,7 @@ export default class Sidebar extends Component {
                   <KeyboardArrowLeftIcon />
 
                 </div>
-                <div className={'sidebar-close_text'}>
-                    Close menu
-                </div>
+                <div className={'sidebar-close_text'}>Close menu</div>
               </button>
             </div>
 

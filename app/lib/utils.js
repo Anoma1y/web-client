@@ -53,7 +53,7 @@ export const getUserName = (profile) => {
     return contact.email || contact.phoneNumber;
   }
 
-  return 'User';
+  return 'Jago User';
 };
 
 const roles = {

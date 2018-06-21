@@ -15,7 +15,17 @@ import {
 
 const INITIAL_STATE = {
   profile: {},
-  coins: [],
+  coins: [{
+    serial: '0',
+    name: 'Jago Wallet',
+    amount: 10000,
+    issuer: {
+      sn: 'EUR',
+      currency: 'EUR'
+    },
+    active: true,
+    type: 'client'
+  }],
   cards: [],
   thirdPartyCards: [],
   notification: '',

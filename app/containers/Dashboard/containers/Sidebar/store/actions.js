@@ -186,7 +186,8 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
 });
 
 /**
- * Экшен для получения списка всех доступных карточек
+ * Экшен для получения карты по id - карты
+ * @param cardId - id карты
  * @returns {function(*=): Promise<any>}
  */
 export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
@@ -205,6 +206,12 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
     });
 });
 
+/**
+ * Экшен для обновления статуса выпуска карты
+ * @param cardId - id карты
+ * @param index - индекс карты в массиве
+ * @returns {function(*=, *=): Promise<any>}
+ */
 export const updateCard = (cardId, index) => (dispatch, getState) => new Promise((resolve, reject) => {
 
   api.cards.updateState(cardId)
@@ -221,9 +228,11 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
       resolve();
 
     })
-    .catch(() => reject())
-
-})
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при обновлении статуса карты', timeout: 4000 }));
+      reject();
+    });
+});
 
 /**
  * Экшен для получения всех данных о профайле пользователя

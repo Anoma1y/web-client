@@ -49,15 +49,11 @@ export default class SidebarCard extends Component {
   handleOpenControl = (type, id, index) => {
     if (this.props.Dashboard_Sidebar.editIsLoading) return;
 
-    this.setState({
-      controlCard: { type, id, index, isChange: true }
-    });
+    this.setState({ controlCard: { type, id, index, isChange: true } });
   };
 
   handleCloseControl = () => {
-    this.setState({
-      controlCard: { type: '', id: 0, index: 0, isChange: false }
-    });
+    this.setState({ controlCard: { type: '', id: 0, index: 0, isChange: false } });
   };
 
   handleApplyControl = () => {
