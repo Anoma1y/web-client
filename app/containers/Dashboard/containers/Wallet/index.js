@@ -56,14 +56,14 @@ export default class Wallet extends Component {
 
     const panes = [
       {
-        icon: <CompareArrowsIcon />,
-        menuItem: 'Exchange',
-        render: () => <Exchange coinException={this.props.Dashboard_Wallet.coin.serial} />
-      },
-      {
         icon: <ReorderIcon />,
         menuItem: 'Transactions',
         render: () => <Transaction filter={{ coinSerials: [this.props.match.params.id] }} />
+      },
+      {
+        icon: <CompareArrowsIcon />,
+        menuItem: 'Exchange',
+        render: () => <Exchange coinException={this.props.Dashboard_Wallet.coin.serial} />
       },
       {
         icon: <SendIcon />,

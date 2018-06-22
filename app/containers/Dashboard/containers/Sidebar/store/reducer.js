@@ -4,6 +4,7 @@ import {
   SET_COIN,
   SET_CARDS,
   SET_CARDS_AFTER_UPDATE,
+  SET_CARDS_IS_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -15,18 +16,9 @@ import {
 
 const INITIAL_STATE = {
   profile: {},
-  coins: [{
-    serial: '0',
-    name: 'Jago Wallet',
-    amount: 10000,
-    issuer: {
-      sn: 'EUR',
-      currency: 'EUR'
-    },
-    active: true,
-    type: 'client'
-  }],
+  coins: [],
   cards: [],
+  cardsIsUpdate: false,
   thirdPartyCards: [],
   notification: '',
   editNameWallet: '',
@@ -67,6 +59,10 @@ const HANDLERS = {
   [SET_CARDS_AFTER_UPDATE]: (state, { payload }) => ({
     ...state,
     cards: payload
+  }),
+  [SET_CARDS_IS_UPDATE]: (state, { payload }) => ({
+    ...state,
+    cardsIsUpdate: payload
   }),
   [APPEND_CARD]: (state, { payload }) => ({
     ...state,

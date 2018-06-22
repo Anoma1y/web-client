@@ -4,6 +4,7 @@ import {
   SET_COIN,
   SET_CARDS,
   SET_CARDS_AFTER_UPDATE,
+  SET_CARDS_IS_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
@@ -54,6 +55,11 @@ export const setCards = (cards) => ({
 export const setCardsAfterUpdate = (cards) => ({
   type: SET_CARDS_AFTER_UPDATE,
   payload: cards,
+});
+
+export const setCardIsUpdate = (isUpdate = false) => ({
+  type: SET_CARDS_IS_UPDATE,
+  payload: isUpdate,
 });
 
 export const appendCard = (card) => ({
@@ -214,6 +220,7 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
  */
 export const updateCard = (cardId, index) => (dispatch, getState) => new Promise((resolve, reject) => {
 
+  dispatch(setCardIsUpdate(true));
   api.cards.updateState(cardId)
     .then((data) => {
       if (data.status !== 200) reject();
@@ -225,11 +232,13 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
       newCards[index] = cardInfo;
 
       dispatch(setCardsAfterUpdate(newCards));
+      dispatch(setCardIsUpdate(false));
       resolve();
 
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при обновлении статуса карты', timeout: 4000 }));
+      dispatch(setCardIsUpdate(false));
       reject();
     });
 });

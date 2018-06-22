@@ -4,8 +4,8 @@ import {
   Grid,
   CircularProgress
 } from '@material-ui/core';
-import DataTable from './components/DataTable';
-import FilterSearch from './components/FilterSearch';
+import Table from './containers/Table';
+import Filter from './containers/Filter';
 import { getDays } from 'lib/date';
 import {
   pullTransactions,
@@ -32,27 +32,20 @@ export default class Transaction extends React.Component {
     const { dateStart, dateEnd } = getDays('date-month');
     const date = { dateStart, dateEnd };
 
-    this.initialData(date);
+    this.props.pullTransactions(date)
+      .then(() => this.setState({ ready: true }))
+      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
   }
 
   componentWillUnmount() {
     this.props.reset();
   }
 
-  // todo добавить обработчки ошибок
-  initialData = (date) => {
-    const { filter } = this.props;
+  updateTransactions = (type, event) => {
+    this.props.pullTransactions(event, {}, true, false);
+  }
 
-    this.props.pullTransactions(date, filter)
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
-  };
-
-  renderMain = () => (
-    <Grid item xs={12} className={'dashboard-container'}>
-      <DataTable records={this.props.Dashboard_Transaction.records} />
-    </Grid>
-  );
+  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} />
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
@@ -62,13 +55,13 @@ export default class Transaction extends React.Component {
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>
-          <FilterSearch handleChangeDate={(date) => this.initialData(date)} />
+          <Filter onEvent={(type, event) => this.updateTransactions(type, event)} />
         </Grid>
-        {
-          ready
-            ? this.renderMain()
-            : this.renderLoader(40)
-        }
+        <Grid item xs={12} className={'dashboard-container'}>
+          {
+            ready ? this.renderMain() : this.renderLoader(24)
+          }
+        </Grid>
       </Grid>
     );
   }

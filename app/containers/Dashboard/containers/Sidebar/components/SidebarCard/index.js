@@ -83,7 +83,7 @@ export default class SidebarCard extends Component {
 
   renderProgressCard = (status) => (
     <div className={'sidebar-wallet_card-status'}>
-      {getStatusCard(status)}
+      { this.props.Dashboard_Sidebar.cardsIsUpdate ? <span className={'sidebar-wallet_card-status__update'}>Update status</span> : getStatusCard(status) }
     </div>
   );
 

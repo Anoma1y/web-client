@@ -251,6 +251,9 @@
     font-family: $font-regular;
     text-transform: uppercase;
     color: $blue-color;
+    &__update {
+      color: $red-color;
+    }
   }
 
   &_control-change {

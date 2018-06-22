@@ -10,12 +10,11 @@ import {
 import Amount from 'components/Amount';
 import moment from 'moment';
 import {
-  appendTransactions,
-  setAppendIsLoading
+  pullTransactions
 } from '../../store/actions';
 import _ from 'lodash';
 
-@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ appendTransactions }))
+@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ pullTransactions }))
 export default class DataTable extends Component {
 
   state = {
@@ -32,7 +31,7 @@ export default class DataTable extends Component {
   }
 
   debounceAppend = _.debounce(() => {
-    this.props.appendTransactions();
+    this.props.pullTransactions({}, {}, false, true);
   }, 800);
 
   handleScroll = () => {
@@ -87,11 +86,13 @@ export default class DataTable extends Component {
                 </TableCell>
                 <TableCell>
                   {this.getType(data.type)}
-                  </TableCell>
+                </TableCell>
                 <TableCell>
+                  LT705555511111113418
                   {/*{`${data.from.serial} (${data.from.organizationName})`}*/}
-                  </TableCell>
+                </TableCell>
                 <TableCell>
+                  LT705555511111113418
                   {/*{`${data.to.serial} (${data.to.organizationName})`}*/}
                 </TableCell>
                 <TableCell numeric className={'transactions-table_amount'}>
