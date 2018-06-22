@@ -2,12 +2,15 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
-  REMOVE_COIN,
   SET_CARDS,
+  SET_CARDS_AFTER_UPDATE,
+  SET_CARDS_IS_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  CHANGE_EDIT_NAME,
+  REMOVE_COIN,
+  APPEND_CARD,
+  CHANGE_EDIT_NAME_WALLET,
   EDIT_IS_LOADING
 } from './types';
 
@@ -15,9 +18,10 @@ const INITIAL_STATE = {
   profile: {},
   coins: [],
   cards: [],
+  cardsIsUpdate: false,
   thirdPartyCards: [],
   notification: '',
-  editName: '',
+  editNameWallet: '',
   editIsLoading: false,
   active: {
     type: null,
@@ -37,10 +41,12 @@ const HANDLERS = {
   [SET_COIN]: (state, { payload }) => {
     const newCoins = [...state.coins];
     newCoins[payload.index] = payload.coin;
+
     return { ...state, coins: newCoins };
   },
   [REMOVE_COIN]: (state, { payload }) => {
     const newCoins = [...state.coins].filter((item) => item.serial !== payload);
+
     return {
       ...state,
       coins: newCoins
@@ -49,6 +55,18 @@ const HANDLERS = {
   [SET_CARDS]: (state, { payload }) => ({
     ...state,
     cards: payload
+  }),
+  [SET_CARDS_AFTER_UPDATE]: (state, { payload }) => ({
+    ...state,
+    cards: payload
+  }),
+  [SET_CARDS_IS_UPDATE]: (state, { payload }) => ({
+    ...state,
+    cardsIsUpdate: payload
+  }),
+  [APPEND_CARD]: (state, { payload }) => ({
+    ...state,
+    cards: [...state.cards, payload]
   }),
   [SET_THIRD_PARTY_CARDS]: (state, { payload }) => ({
     ...state,
@@ -62,9 +80,9 @@ const HANDLERS = {
     ...state,
     active: payload
   }),
-  [CHANGE_EDIT_NAME]: (state, { payload }) => ({
+  [CHANGE_EDIT_NAME_WALLET]: (state, { payload }) => ({
     ...state,
-    editName: payload
+    editNameWallet: payload
   }),
   [EDIT_IS_LOADING]: (state, { payload }) => ({
     ...state,

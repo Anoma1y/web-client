@@ -6,37 +6,50 @@
   }
   &-form {
     padding: 1.5rem 0;
+
     &_control {
-      margin-bottom: 2rem !important;
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+      &:first-child {
+        padding-top: 0 !important;
+      }
     }
+
     &_wrapper {
       margin-bottom: 2rem;
       margin-top: 2rem;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
     }
+
     &_inner {
       margin-top: 1rem !important;
       margin-bottom: 1rem !important;
     }
+
     &__inner {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
     }
-    &_input {
 
+    &_documents-wrapper {
+      position: relative;
+      padding-bottom: 2rem;
     }
+
     &_separate-text {
       font-family: $font-semibold-serif;
       text-align: center;
       font-size: 1.2rem;
     }
+
     &_upload {
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
     }
+
     &_upload-control-panel {
       position: absolute;
       top: -1.2rem;
@@ -48,6 +61,7 @@
         font-family: $font-semibold-serif;
       }
     }
+
     &_upload-text {
       font-family: $font-semibold-serif;
       margin-top: 0.8rem;
@@ -55,6 +69,7 @@
       color: $gray-color;
       cursor: default;
     }
+
     &_label {
       color: $black-color !important;
       font-family: $font-semibold-serif !important;
@@ -64,6 +79,7 @@
       }
     }
   }
+
   &_icon {
     &__verified {
       color: $green-color;
@@ -80,12 +96,15 @@
     font-family: $font-semibold-serif;
     color: $white-color;
     cursor: default;
+
     .text_content {
       margin-top: 0.6rem;
     }
+
     &__role {
       font-size: 1rem;
     }
+
     &__login {
       font-family: $font-thin-serif;
       font-size: 2.375rem;
@@ -98,18 +117,21 @@
   width: 100%;
   height: 100%;
   position: relative;
+
   &-wrap {
     width: 100%;
     height: 100%;
     border-radius: 0.4rem;
     overflow: hidden;
   }
+
   &_control {
     position: absolute;
     top: 1rem;
     left: 1rem;
     width: calc(100% - 2rem);
   }
+
   &_preview {
     width: 100%;
     height: 100%;
@@ -118,6 +140,7 @@
       height: 100%;
     }
   }
+
   &_btn {
     float: right;
   }
@@ -237,27 +260,33 @@
     th {
       font-family: $font-regular-serif;
       font-size: 0.7rem;
-      text-align: center;
       color: $gray-color;
+    }
+  }
+  &__align {
+    &_left {
+      text-align: left !important;
+    }
+    &_center {
+      text-align: center !important;
     }
   }
   &_body {
     td {
       font-family: $font-regular-serif;
       font-size: 0.8rem;
-      text-align: center;
       color: $black-color !important;
     }
   }
   & tbody tr {
     &:nth-child(even) {
-      background-color: #f1faff;
+      background-color: rgba(241, 250, 255, 0.6);
     }
   }
   &_item {
-    &__type {
-      text-align: left !important;
-    }
+    border-bottom-color: rgba(224, 224, 224, 0.3) !important;
+    padding-top: 1.3rem !important;
+    padding-bottom: 1.3rem !important;
   }
 }
 

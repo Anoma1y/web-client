@@ -40,8 +40,9 @@ export default class Wallet extends Component {
   }
 
   initialData = () => {
-    this.setState({ ready: false });
     const { id } = this.props.match.params;
+
+    this.setState({ ready: false });
     this.props.pullCoin(id)
       .then(() => {
         this.props.setActive({ type: 'wallet', id });
@@ -54,11 +55,31 @@ export default class Wallet extends Component {
   renderContent = (activeIndex) => {
 
     const panes = [
-      { icon: <CompareArrowsIcon />, menuItem: 'Exchange', render: () => <Exchange coinException={this.props.Dashboard_Wallet.coin.serial} /> },
-      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction filter={{ coinSerials: [this.props.match.params.id] }} /> },
-      { icon: <SendIcon />, menuItem: 'Payments', render: () => <Transaction /> },
-      { icon: <Icon name={'sent_m'} />, menuItem: 'Withdraw', render: () => <Transaction /> },
-      { icon: <Icon name={'filter'} />, menuItem: 'Balance & limits', render: () => <Transaction /> },
+      {
+        icon: <ReorderIcon />,
+        menuItem: 'Transactions',
+        render: () => <Transaction filter={{ coinSerials: [this.props.match.params.id] }} />
+      },
+      {
+        icon: <CompareArrowsIcon />,
+        menuItem: 'Exchange',
+        render: () => <Exchange coinException={this.props.Dashboard_Wallet.coin.serial} />
+      },
+      {
+        icon: <SendIcon />,
+        menuItem: 'Payments',
+        render: () => <Transaction />
+      },
+      {
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Withdraw',
+        render: () => <Transaction />
+      },
+      {
+        icon: <Icon name={'filter'} />,
+        menuItem: 'Balance & limits',
+        render: () => <Transaction />
+      },
     ];
 
     return (
@@ -76,6 +97,7 @@ export default class Wallet extends Component {
 
   render() {
     const { ready, activeIndex } = this.state;
+
     return (
       <Grid container justify={'center'} className={'wallet'}>
         <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>

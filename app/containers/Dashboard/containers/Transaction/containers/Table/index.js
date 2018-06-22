@@ -10,12 +10,11 @@ import {
 import Amount from 'components/Amount';
 import moment from 'moment';
 import {
-  appendTransactions,
-  setAppendIsLoading
+  pullTransactions
 } from '../../store/actions';
 import _ from 'lodash';
 
-@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ appendTransactions }))
+@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ pullTransactions }))
 export default class DataTable extends Component {
 
   state = {
@@ -23,17 +22,16 @@ export default class DataTable extends Component {
   };
 
   componentDidMount() {
+    // this.time = setTimeout(() => {
+    //   console.log('1111')
+    // }, 5000)
+
     document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
-    clearTimeout(this.timeOut);
   }
-
-  debounceAppend = _.debounce(() => {
-    this.props.appendTransactions();
-  }, 800);
 
   handleScroll = () => {
     const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement;
@@ -45,7 +43,7 @@ export default class DataTable extends Component {
     if (this.props.Dashboard_Transaction.appendIsLoading) return;
 
     if (windowBottom > docHeight - 100) {
-      this.debounceAppend();
+      this.props.pullTransactions({}, {}, false, true);
     }
   };
 
@@ -60,6 +58,7 @@ export default class DataTable extends Component {
     }
   }
 
+  // todo для разных типов - разные поля для serial и т.п., нужно поправить
   renderRow = () => {
     const { records } = this.props;
     const transactions = records.map((it) => {
@@ -86,12 +85,14 @@ export default class DataTable extends Component {
                 </TableCell>
                 <TableCell>
                   {this.getType(data.type)}
-                  </TableCell>
+                </TableCell>
                 <TableCell>
-                  {`${data.from.serial} (${data.from.organizationName})`}
-                  </TableCell>
+                  LT705555511111113418
+                  {/*{`${data.from.serial} (${data.from.organizationName})`}*/}
+                </TableCell>
                 <TableCell>
-                  {`${data.to.serial} (${data.to.organizationName})`}
+                  LT705555511111113418
+                  {/*{`${data.to.serial} (${data.to.organizationName})`}*/}
                 </TableCell>
                 <TableCell numeric className={'transactions-table_amount'}>
                   <Amount
@@ -107,9 +108,23 @@ export default class DataTable extends Component {
     });
   };
 
+  renderEmptyRecords = () => (
+    <TableBody className={'transactions-table_item'}>
+      <TableRow className={'transactions-table_head'}>
+        <TableCell colSpan={16}>
+          No transactions
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  );
+
   renderTable = () => (
     <Table className={'transactions-table'}>
-      {this.renderRow()}
+      {
+        this.props.Dashboard_Transaction.records.length === 0
+          ? this.renderEmptyRecords()
+          : this.renderRow()
+      }
     </Table>
   )
   renderLoader = () => (
@@ -120,7 +135,6 @@ export default class DataTable extends Component {
     </div>
   )
   render() {
-    this.renderRow()
     return (
       <div className={'data-table'}>
         {this.renderTable()}

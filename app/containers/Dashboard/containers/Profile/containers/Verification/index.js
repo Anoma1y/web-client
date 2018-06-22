@@ -18,21 +18,30 @@ import { pullDocuments } from './store/actions';
 export default class Verification extends Component {
 
   state = {
-    ready: false,
+    readyDocuments: false,
     errorLoading: false
   };
 
   componentDidMount() {
     this.props.pullDocuments()
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorLoading: true }));
+      .then(() => this.setState({ readyDocuments: true }))
   }
+
+  renderLoadingDocuments = () => <CircularProgress className={'table_loading'} size={24} />;
 
   renderDocuments = () => (
     <Fragment>
+
+      <Grid container>
+        <Grid item xs={10}>
+          <Divider />
+        </Grid>
+      </Grid>
+
       <Grid container className={'profile-form_wrapper'}>
 
         <PhotoIdentity />
+
       </Grid>
 
       <Grid container>
@@ -47,41 +56,30 @@ export default class Verification extends Component {
 
       </Grid>
     </Fragment>
-  );
+  )
 
-  renderLoading = () => <CircularProgress className={'dashboard_loading'} size={24} />;
-
-  render() {
+  renderContent = () => {
     return (
       <Grid container className={'profile'}>
         <Grid container className={'profile-form_wrapper'}>
-          <div className={'dashboard-container'}>
-
-            <FormPersonInfo />
-
-          </div>
-          <div className={'dashboard-container'}>
-
-            <FormUserAddress />
-
-          </div>
+          <FormPersonInfo />
         </Grid>
-
-        <Grid container>
-          <Grid item xs={10}>
-            <Divider />
-          </Grid>
+        <Grid container className={'profile-form_wrapper'}>
+          <FormUserAddress />
         </Grid>
-
-        {
-          this.state.ready
-            ? this.renderDocuments()
-            : this.state.ready && this.state.errorLoading
-              ? null
-            : this.renderLoading()
-        }
+        <Grid container className={'profile-form_wrapper profile-form_documents-wrapper'}>
+          {
+            this.state.readyDocuments
+              ? this.renderDocuments()
+              : this.renderLoadingDocuments()
+          }
+        </Grid>
 
       </Grid>
-    )
+    );
+  };
+
+  render() {
+    return this.renderContent();
   }
 }

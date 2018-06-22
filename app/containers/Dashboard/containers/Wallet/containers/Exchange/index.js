@@ -1,16 +1,16 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import NumberFormat from 'react-number-format';
 import {
   Grid,
   Select,
-  MenuItem,
   FormControl,
   Button,
   TextField,
   InputLabel,
   CircularProgress
 } from '@material-ui/core';
+import NumberFormat from 'containers/Dashboard/components/NumberFormat';
+import MuiButton from 'components/MuiButton';
 import {
   pullRates,
   pullCoins,
@@ -19,28 +19,6 @@ import {
   reset
 } from './store/actions';
 import { calulcateExchange } from 'lib/amount';
-import _ from 'lodash';
-
-function NumberFormatCustom(props) {
-  const { inputRef, onChange, ...other } = props;
-
-  return (
-    <NumberFormat
-      {...other}
-      ref={inputRef}
-      decimalScale={2}
-      allowNegative={false}
-      thousandSeparator
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value,
-          },
-        });
-      }}
-    />
-  );
-}
 
 @connect((state) => ({ Wallet_Exchange: state.Wallet_Exchange }), ({
   pullRates,
@@ -50,6 +28,7 @@ function NumberFormatCustom(props) {
   reset
 }))
 export default class Exchange extends Component {
+
   state = {
     ready: false,
     errorText: '',
@@ -89,7 +68,7 @@ export default class Exchange extends Component {
    */
   handleChangeAmountExchange = (event, type) => {
     const { value } = event.target;
-    const { rates, } = this.props.Wallet_Exchange;
+    const { rates } = this.props.Wallet_Exchange;
     const amount = calulcateExchange(value, type, rates.rate);
 
     this.props.changeAmount(amount);
@@ -109,7 +88,7 @@ export default class Exchange extends Component {
 
     this.setState({ blockUpdate: true });
     this.timeBlock = setTimeout(() => this.setState({ blockUpdate: false }), 5000);
-  }
+  };
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
 
@@ -128,44 +107,46 @@ export default class Exchange extends Component {
         <Grid item xs={12}>
 
           <Grid container>
-            <Grid item xs={12}>
-              Для обмена, выберите кошелек, в валюту которого вы хотите конвертировать средства
+            <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+              <div className={'wallet-exchange_text'}>
+                Для обмена, выберите кошелек, в валюту которого вы хотите конвертировать средства
+              </div>
             </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={40} justify={'center'}>
+            <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+              <Grid container spacing={40} justify={'flex-start'} className={'wallet-exchange-form'}>
 
-                <Grid item xs={4}>
+                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
 
                   <TextField
                     fullWidth
-                    label={'Sell'}
-                    disabled={!isLoadRate}
+                    label={(rates && rates.rate) ? `Sell ${rates.inIssuer.currency}` : 'Sell'}
+                    disabled={!isLoadRate || !rates}
                     onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
                     value={amount.sell}
                     InputProps={{
-                      inputComponent: NumberFormatCustom,
+                      inputComponent: NumberFormat,
                     }}
                   />
 
                 </Grid>
 
-                <Grid item xs={4}>
+                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
 
                   <TextField
                     fullWidth
-                    label={'Buy'}
-                    disabled={!isLoadRate}
+                    label={(rates && rates.rate) ? `Buy ${rates.outIssuer.currency}` : 'Buy'}
+                    disabled={!isLoadRate || !rates}
                     onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
                     value={amount.buy}
                     InputProps={{
-                      inputComponent: NumberFormatCustom,
+                      inputComponent: NumberFormat,
                     }}
                   />
 
                 </Grid>
 
-                <Grid item xs={4}>
-                  <FormControl >
+                <Grid item xs={3} className={'wallet-exchange-form_item wallet-exchange-form_select'}>
+                  <FormControl fullWidth>
                     <InputLabel htmlFor={'coin-select'}>Coin</InputLabel>
                     <Select
                       fullWidth
@@ -189,18 +170,17 @@ export default class Exchange extends Component {
             </Grid>
 
             {
-              isLoadRate &&
-              <Grid item xs={12}>
+              (isLoadRate && rates && rates.rate) &&
+              <Grid item xs={12} className={'wallet-exchange_wrapper wallet-exchange-operations'}>
 
                 <Grid container>
-                  <Grid item xs={12}>
-                    <p>Курс: {rates.rate}</p>
-                    <p>Reserve: {rates.reserve}</p>
+                  <Grid item xs={12} className={'wallet-exchange-operations_rates'}>
+                    <p>Rate {`${rates.inIssuer.currency}/${rates.outIssuer.currency}`}: {rates.rate}</p>
                   </Grid>
                   <Grid item xs={12}>
-                    <Grid container justify={'space-around'}>
-                      <Grid item xs={2}>
-                        <div className={'mui-btn'}>
+                    <Grid container justify={'flex-start'} spacing={40}>
+                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__success'}>
+                        <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth
                             variant={'raised'}
@@ -209,13 +189,10 @@ export default class Exchange extends Component {
                           >
                             SUBMIT
                           </Button>
-                          {
-                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-                          }
-                        </div>
+                        </MuiButton>
                       </Grid>
-                      <Grid item xs={2}>
-                        <div className={'mui-btn'}>
+                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__update'}>
+                        <MuiButton isLoading={isLoading}>
                           <Button
                             fullWidth
                             variant={'raised'}
@@ -225,10 +202,7 @@ export default class Exchange extends Component {
                           >
                             UPDATE RATE
                           </Button>
-                          {
-                            isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-                          }
-                        </div>
+                        </MuiButton>
                       </Grid>
                     </Grid>
                   </Grid>

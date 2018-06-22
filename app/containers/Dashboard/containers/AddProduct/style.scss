@@ -1,21 +1,32 @@
 @import 'lib/style/vars.scss';
 
 .addProduct {
-  padding-top: 5rem;
+  padding-top: 1rem;
   &-list {
     padding-top: 1rem;
     padding-bottom: 2rem;
   }
   &-item {
-    background-color: $lightblue-color;
-    padding: 2.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    &:first-child {
-      margin-top: 0;
+    //background-color: $lightblue-color;
+    &__color {
+      &_blue {
+        background: linear-gradient(178.29864539467394deg, rgba(73, 186, 242,1) 5.163721413721413%,rgba(72, 185, 241,1) 5.163721413721413%,rgba(68, 57, 219,1) 78.65644490644489%);
+      }
+      &_gray {
+        background: linear-gradient(178.29864539467394deg, rgba(201, 201, 201,1) 5.163721413721413%,rgba(200, 200, 200,1) 5.163721413721413%,rgba(131, 129, 150,1) 78.65644490644489%);
+      }
     }
-    &:last-child {
-      margin-bottom: 0;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    &_wrapper {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -79,18 +90,20 @@
     font-family: $font-regular;
     &_title {
       font-family: $font-thin;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       letter-spacing: 0.7px;
+      margin: 0;
     }
     &_paragraph {
-      font-size: 1rem;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
     }
   }
   &_list {
     list-style-type: none;
   }
   &_list-item {
-    margin-top: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
     &:before {
       content: '';
@@ -106,7 +119,7 @@
   &-price {
     color: #e9de1a;
     font-family: $font-semibold;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     &_currency {
       margin-left: 0.3rem;
       margin-right: 0.4rem;

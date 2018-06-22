@@ -13,11 +13,17 @@ export const getValuesDeep = (object) => {
   const arr = [];
   const getVal = (obj) => {
     for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        getVal(obj[key]);
-      } else {
-        arr.push(obj[key]);
+      switch (typeof obj[key]) {
+        case 'object':
+          getVal(obj[key]);
+          break;
+        case 'boolean':
+          arr.push(obj[key] ? 1 : 0);
+          break;
+        default:
+          arr.push(obj[key]);
       }
+
     }
   }
   getVal(object);
@@ -27,6 +33,7 @@ export const getValuesDeep = (object) => {
 /**
  * Функция для получения имени пользователя
  * @param profile - объект profile, получаемый после авторизации
+ * @param isLoading - если тру, то выводит плейсхолдер
  * @returns {*}
  */
 export const getUserName = (profile) => {
@@ -46,7 +53,7 @@ export const getUserName = (profile) => {
     return contact.email || contact.phoneNumber;
   }
 
-  return 'User';
+  return 'Jago User';
 };
 
 const roles = {

@@ -29,6 +29,7 @@
   // Блок с логотипом
   &-logo {
     cursor: pointer;
+
     @media screen and (max-width: $break-lg - 1) {
       order: 2;
     }

@@ -2,12 +2,15 @@ import {
   SET_PROFILE,
   SET_COINS,
   SET_COIN,
-  REMOVE_COIN,
   SET_CARDS,
+  SET_CARDS_AFTER_UPDATE,
+  SET_CARDS_IS_UPDATE,
   SET_THIRD_PARTY_CARDS,
   SET_NOTIFICATION,
   SET_ACTIVE,
-  CHANGE_EDIT_NAME,
+  REMOVE_COIN,
+  APPEND_CARD,
+  CHANGE_EDIT_NAME_WALLET,
   EDIT_IS_LOADING
 } from './types';
 import { replace } from 'react-router-redux';
@@ -49,6 +52,21 @@ export const setCards = (cards) => ({
   payload: cards
 });
 
+export const setCardsAfterUpdate = (cards) => ({
+  type: SET_CARDS_AFTER_UPDATE,
+  payload: cards,
+});
+
+export const setCardIsUpdate = (isUpdate = false) => ({
+  type: SET_CARDS_IS_UPDATE,
+  payload: isUpdate,
+});
+
+export const appendCard = (card) => ({
+  type: APPEND_CARD,
+  payload: card,
+});
+
 export const setThirdPartyCards = (tCards) => ({
   type: SET_THIRD_PARTY_CARDS,
   payload: tCards,
@@ -59,8 +77,8 @@ export const setActive = (active = { type: null, id: null }) => ({
   payload: active,
 });
 
-export const changeEditName = (value) => ({
-  type: CHANGE_EDIT_NAME,
+export const changeEditNameWallet = (value) => ({
+  type: CHANGE_EDIT_NAME_WALLET,
   payload: value,
 });
 
@@ -107,10 +125,10 @@ export const applyRemove = (index) => (dispatch, getState) => {
  * @param index - индекс массива coins, в котором распологается кошелек
  * @returns {function(*, *)}
  */
-export const applyEditName = (index) => (dispatch, getState) => {
+export const applyEditNameWallet = (index) => (dispatch, getState) => {
 
   const {
-    editName,
+    editNameWallet,
     coins
   } = getState().Dashboard_Sidebar;
   const editCoin = coins[index];
@@ -118,10 +136,10 @@ export const applyEditName = (index) => (dispatch, getState) => {
   /**
    * Минимальная длина имени кошелька - 2 символа и старое имя не должно равняться новому
    */
-  if (editName.length < 2 || name === editName) return;
+  if (editNameWallet.length < 2 || name === editNameWallet) return;
 
   dispatch(setEditIsLoading(true));
-  api.coins.editName(serial, editName)
+  api.coins.editName(serial, editNameWallet)
     .then((data) => {
       if (data.status !== 200) return;
 
@@ -163,7 +181,9 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
     .then((data) => {
       if (data.status !== 200) reject();
 
-      dispatch(setThirdPartyCards(data.data.cards));
+      const { cards } = data.data;
+
+      dispatch(setThirdPartyCards(cards));
       resolve();
     })
     .catch((error) => {
@@ -172,19 +192,54 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
 });
 
 /**
- * Экшен для получения списка всех доступных карточек
+ * Экшен для получения карты по id - карты
+ * @param cardId - id карты
  * @returns {function(*=): Promise<any>}
  */
-export const pullCards = () => (dispatch) => new Promise((resolve, reject) => {
-  api.cards.getCardsList()
+export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
+
+  api.cards.getInfo(cardId)
     .then((data) => {
       if (data.status !== 200) reject();
 
-      dispatch(setCards(data.data.records));
+      const { cardInfo } = data.data;
+
+      dispatch(appendCard(cardInfo));
       resolve();
     })
     .catch((error) => {
       reject(error);
+    });
+});
+
+/**
+ * Экшен для обновления статуса выпуска карты
+ * @param cardId - id карты
+ * @param index - индекс карты в массиве
+ * @returns {function(*=, *=): Promise<any>}
+ */
+export const updateCard = (cardId, index) => (dispatch, getState) => new Promise((resolve, reject) => {
+
+  dispatch(setCardIsUpdate(true));
+  api.cards.updateState(cardId)
+    .then((data) => {
+      if (data.status !== 200) reject();
+
+      const { cards } = getState().Dashboard_Sidebar;
+      const { cardInfo } = data.data;
+
+      const newCards = [...cards];
+      newCards[index] = cardInfo;
+
+      dispatch(setCardsAfterUpdate(newCards));
+      dispatch(setCardIsUpdate(false));
+      resolve();
+
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при обновлении статуса карты', timeout: 4000 }));
+      dispatch(setCardIsUpdate(false));
+      reject();
     });
 });
 

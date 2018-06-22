@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MuiButton from 'components/MuiButton';
 import {
   Grid,
   FormLabel,
@@ -11,29 +12,29 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import {
-  pullIssuers,
+  pullAwailableIssuers,
   changeName,
   changeCurrency,
-  createWallet
+  createWallet,
 } from './store/actions';
 
 @connect((state) => ({ AddProduct_Wallet: state.AddProduct_Wallet }), ({
-  pullIssuers,
+  pullAwailableIssuers,
   changeName,
   changeCurrency,
   createWallet
 }))
 export default class Wallet extends Component {
 
+  // todo fix
   state = {
-    ready: false,
+    ready: true,
     errorText: null
   };
 
   componentDidMount() {
-    this.props.pullIssuers()
+    this.props.pullAwailableIssuers()
       .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Error loading' }));
   }
 
   /**
@@ -71,8 +72,8 @@ export default class Wallet extends Component {
     const {
       name,
       currency,
-      issuers,
       isError,
+      availableIssuers,
       isLoading
     } = this.props.AddProduct_Wallet;
     const nameError = isError && name.length < 2;
@@ -111,7 +112,7 @@ export default class Wallet extends Component {
                 >
                   <option value={''} hidden disabled>Currency</option>
                   {
-                    issuers.map((issuer) => <option key={issuer.id} value={issuer.id}>{issuer.sn}</option>)
+                    availableIssuers.map((issuer) => <option key={issuer.id} value={issuer.id}>{issuer.sn}</option>)
                   }
                 </Select>
                 {
@@ -122,7 +123,7 @@ export default class Wallet extends Component {
 
             <Grid container className={'addProduct-form_item'} justify={'center'}>
               <Grid item xs={4}>
-                <div className={'mui-btn'}>
+                <MuiButton isLoading={isLoading}>
                   <Button
                     fullWidth
                     variant={'raised'}
@@ -132,10 +133,7 @@ export default class Wallet extends Component {
                   >
                     Create
                   </Button>
-                  {
-                    isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-                  }
-                </div>
+                </MuiButton>
               </Grid>
 
             </Grid>

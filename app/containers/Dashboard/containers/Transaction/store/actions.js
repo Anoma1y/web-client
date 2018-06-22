@@ -45,6 +45,7 @@ import {
   CHANGE_PAGE_NUMBER,
   CHANGE_PAGE_SIZE,
   SET_FILTER_VALUE,
+  CHANGE_FILTER_DATE,
   CHANGE_TOTAL_PAGES,
   CHANGE_TOTAL_RECORDS,
   SET_APPEND_IS_LOADING,
@@ -75,6 +76,14 @@ export const changePageSize = (value) => ({
   payload: value,
 });
 
+export const changeFilterDate = (start, end) => ({
+  type: CHANGE_FILTER_DATE,
+  payload: {
+    start,
+    end
+  },
+});
+
 export const reset = () => ({
   type: RESET
 });
@@ -99,13 +108,13 @@ export const setAppendIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
-const sort = {
+const SORT = {
   date: 'desc',
   status: null,
   type: null
 };
 
-const types = [
+const TYPES = [
   'client_transaction_transfer',
   'client_create_prepaid',
   'client_charge_prepaid',
@@ -133,7 +142,7 @@ const types = [
   'bank_redeem'
 ];
 
-const statuses = [
+const STATUSES = [
   'limited',
   'pending',
   'declined',
@@ -159,16 +168,17 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
   if (appendIsLoading) return;
 
   const nextPage = pageNumber + 1;
+
   const currentFilter = {
     ...filter,
-    types,
-    statuses
+    TYPES,
+    STATUSES
   };
 
   dispatch(setAppendIsLoading(true));
   dispatch(changePageNumber(nextPage));
 
-  api.transactions.getTransactionsList(pageSize, nextPage, sort, currentFilter)
+  api.transactions.getTransactionsList(pageSize, nextPage, SORT, currentFilter)
     .then((data) => {
       const { records } = data.data;
       if (records.length === 0) {
@@ -188,29 +198,70 @@ export const appendTransactions = () => (dispatch, getState) => new Promise((res
 
 // todo нужен фикс для аккаунтов, отличных от обычного пользователя
 // не все транзакции содержат поля from и to
-export const pullTransactions = (date, filterProps) => (dispatch, getState) => new Promise((resolve, reject) => {
-  const { pageSize, filter } = getState().Dashboard_Transaction;
+export const pullTransactions = (date, filterProps = {}, isUpdate = false, isAppend = false) => (dispatch, getState) => new Promise((resolve, reject) => {
+  const {
+    pageNumber,
+    blockedAppend,
+    appendIsLoading,
+    filter
+  } = getState().Dashboard_Transaction;
+
   const currentFilter = {
-    ...filter,
     ...filterProps,
-    types,
-    statuses,
+    types: TYPES,
+    statuses: STATUSES,
     dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
     dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
   };
-  console.log(currentFilter)
-  const pageNumber = 0;
 
-  dispatch(changePageNumber(pageNumber));
-  api.transactions.getTransactionsList(pageSize, pageNumber, sort, currentFilter)
+  dispatch(changeFilterDate(moment(date.dateStart).toISOString(), moment(date.dateEnd).toISOString()));
+
+  let nextPage = pageNumber;
+
+  if (blockedAppend) {
+    dispatch(setAppendIsLoading(false));
+    return;
+  }
+
+  if (appendIsLoading) return;
+
+  if (isAppend) {
+    nextPage = pageNumber + 1;
+    dispatch(setAppendIsLoading(true));
+    dispatch(changePageNumber(nextPage));
+  }
+
+  if (isUpdate) {
+    nextPage = 0;
+    dispatch(changePageNumber(nextPage));
+  }
+
+  api.transactions.getTransactionsList(10, nextPage, SORT, currentFilter)
     .then((data) => {
       const { records, totalPages, totalRecords } = data.data;
-      dispatch(changeTotalPages(totalPages));
-      dispatch(changeTotalRecords(totalRecords));
-      dispatch(setRecords(records));
+
+      if (isAppend) {
+
+        if (records.length === 0) {
+          dispatch(setBlockedAppend(true));
+          dispatch(setAppendIsLoading(false));
+          return;
+        }
+
+        dispatch(appendRecords(records));
+        dispatch(setAppendIsLoading(false));
+      }
+
+      if (!isAppend) {
+        dispatch(changeTotalPages(totalPages));
+        dispatch(changeTotalRecords(totalRecords));
+        dispatch(setRecords(records));
+      }
+
       resolve()
     })
     .catch(() => {
+      dispatch(setAppendIsLoading(false));
       reject();
     });
 });

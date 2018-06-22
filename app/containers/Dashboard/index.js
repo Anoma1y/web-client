@@ -13,7 +13,6 @@ import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import { CircularProgress } from '@material-ui/core';
 import { send } from 'containers/Notification/store/actions';
-import { initialData } from './store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import moment from 'moment';
@@ -22,7 +21,6 @@ import uuid from 'uuid/v1';
 
 @connect(null, ({
   replace,
-  initialData,
   send
 }))
 export default class Dashboard extends Component {
@@ -37,9 +35,14 @@ export default class Dashboard extends Component {
 
     // Если токена нету в локальном хранилище, то вызов ошибки
     if (authToken === null) {
-      this.handlerNotification('error', 'Ошибка', 'Произошла непредвиденная ошибка');
+      this.handlerError('error', 'Ошибка', 'Произошла непредвиденная ошибка');
       return null;
     }
+
+    // this.props.send({ id: uuid(), status: 'error', title: 'Error', message: 'Error message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Warning message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'info', title: 'Info', message: 'Info message text', actionClose: true });
+    // this.props.send({ id: uuid(), status: 'success', title: 'Success', message: 'Success message text', actionClose: true });
 
     const {
       token, // Токен
@@ -51,7 +54,7 @@ export default class Dashboard extends Component {
     if (authToken && (moment() < moment(expiresAt))) {
       this.handlerInit(token);
     } else {
-      this.handlerNotification('warning', 'Предупреждение', 'Время сессии истекло')
+      this.handlerError('warning', 'Предупреждение', 'Время сессии истекло')
     }
   }
 
@@ -63,13 +66,10 @@ export default class Dashboard extends Component {
    */
   handlerInit = (token) => {
     const tokenName = `TOKEN ${token}`;
-    const { initialData } = this.props;
 
-    api.addHeader('Authorization', tokenName).then(() => {
-      initialData()
-        .then(() => this.setState({ ready: true }))
-        .catch(() => this.handlerNotification('error', 'Ошибка', 'Данные не были загружены'));
-    });
+    api.addHeader('Authorization', tokenName)
+      .then(() => this.setState({ ready: true }))
+      .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };
 
   /**
@@ -78,16 +78,8 @@ export default class Dashboard extends Component {
    * @param title - заголовок оповещения
    * @param message - сообщение оповещения
    */
-  handlerNotification = (status, title, message) => {
+  handlerError = (status, title, message) => {
     this.props.send({ id: uuid(), status, title, message, actionClose: true });
-    this.handlerError();
-  };
-
-  /**
-   * Метод для обработки ошибок
-   * Очистки локального хранилища, удаления заголовка и редирект на страницу авторизации
-   */
-  handlerError = () => {
     Storage.clear();
     api.removeHeader('Authorization');
     this.props.replace('/auth/signin');

@@ -3,20 +3,15 @@ import {
   CHANGE_CURRENCY,
   SET_IS_LOADING,
   SET_IS_ERROR,
-  SET_ISSUERS,
+  SET_AVAILABLE_ISSUERS,
   RESET
 } from './types';
 import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
-import { setCoins } from 'containers/Dashboard/containers/Sidebar/store/actions';
+import { setCoins as setCoinsSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import { api } from 'lib/api';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
-
-export const setIssuers = (issuers) => ({
-  type: SET_ISSUERS,
-  payload: issuers,
-});
 
 export const changeName = (name) => ({
   type: CHANGE_NAME,
@@ -33,6 +28,38 @@ export const setIsError = (isError = false) => ({
   payload: isError,
 });
 
+export const setAvailableIssuers = (value) => ({
+  type: SET_AVAILABLE_ISSUERS,
+  payload: value,
+});
+
+export const pullAwailableIssuers = () => (dispatch) => new Promise((resolve, reject) => {
+  api.coins.getIssuersList()
+    .then((issuersList) => {
+      api.coins.getCoinsList()
+        .then((coinsList) => {
+          if (coinsList.status !== 200) reject();
+
+          const { coins } = coinsList.data;
+          const { records: issuers } = issuersList.data;
+
+          const usedCoins = coins.map((it) => {
+            return {
+              sn: it.issuer.sn
+            };
+          });
+          const availableIssuers = _.differenceBy(issuers, usedCoins, 'sn');
+          const walletIsAvailable = availableIssuers.length !== 0;
+
+          dispatch(setAvailableIssuers(availableIssuers));
+          resolve(walletIsAvailable);
+        })
+    })
+    .catch((err) => {
+      reject(err);
+    })
+})
+
 /**
  * Экшен для изменения текущей валюты
  * При каждом изменении валюты, добавляется стандартное именя кошелька: Wallet %CURRENCY%
@@ -40,8 +67,8 @@ export const setIsError = (isError = false) => ({
  * @returns {function(*, *)}
  */
 export const changeCurrency = (value) => (dispatch, getState) => {
-  const { issuers } = getState().AddProduct_Wallet;
-  const selectedIssuer = _.find(issuers, (o) => o.id === value);
+  const { availableIssuers } = getState().AddProduct_Wallet;
+  const selectedIssuer = _.find(availableIssuers, (o) => o.id === value);
   const walletName = `Wallet ${selectedIssuer.sn}`;
 
   dispatch(changeCurrencyName(value));
@@ -55,23 +82,6 @@ export const setIsLoading = (isLoading = false) => ({
 
 export const reset = () => ({
   type: RESET
-});
-
-/**
- * Экшен для получения списка доступных валют
- * @returns {function(*=): Promise<any>}
- */
-export const pullIssuers = () => (dispatch) => new Promise((resolve, reject) => {
-  api.coins.getIssuersList()
-    .then((data) => {
-      if (data.status !== 200) reject();
-
-      dispatch(setIssuers(data.data.records));
-      resolve();
-    })
-    .catch((error) => {
-      reject(error);
-    });
 });
 
 /**
@@ -103,14 +113,6 @@ export const createWallet = () => (dispatch, getState) => {
     .then((data) => {
       if (data.status !== 200) return;
 
-      const currencyIsUsed = _.some(data.data.coins, { currency: { id: currency } });
-
-      if (currencyIsUsed) {
-        dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Кошелек для указаной валюты уже существует', timeout: 4000 }));
-        dispatch(setIsLoading(false));
-        return;
-      }
-
       /**
        * Добавление нового кошелька, если валюта не занята
        * Кошелек добавляется в конец, при обновлении страницы возможно
@@ -123,7 +125,7 @@ export const createWallet = () => (dispatch, getState) => {
           const { coin } = data.data;
           const newCoins = [...coins, coin];
 
-          dispatch(setCoins(newCoins));
+          dispatch(setCoinsSidebar(newCoins));
           dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Wallet success создан', timeout: 4000 }));
           dispatch(reset());
           dispatch(replace(`/dashboard/wallet/${coin.serial}`));
@@ -142,6 +144,8 @@ export const createWallet = () => (dispatch, getState) => {
               dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error при создании wallet', timeout: 4000 }));
           }
 
+          dispatch(changeName(''));
+          dispatch(changeCurrencyName(''));
           dispatch(setIsLoading(false));
 
         });

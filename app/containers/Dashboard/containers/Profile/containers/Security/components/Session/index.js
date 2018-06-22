@@ -59,19 +59,19 @@ export default class Session extends Component {
     <Table className={'session-history'}>
       <TableHead className={'session-history_header'}>
         <TableRow>
-          <TableCell>Тип доступа</TableCell>
-          <TableCell>Время</TableCell>
-          <TableCell>IP-адрес (Страна)</TableCell>
+          <TableCell className={'session-history__align_left'}>Тип доступа</TableCell>
+          <TableCell className={'session-history__align_center'}>Время</TableCell>
+          <TableCell className={'session-history__align_center'}>IP-адрес (Страна)</TableCell>
         </TableRow>
       </TableHead>
       <TableBody className={'session-history_body'}>
         {
           this.props.Profile_Security.session.map((item, index) => {
             return (
-              <TableRow key={index}>
-                <TableCell className={'session-history_item__type'}>{item.userAgent}</TableCell>
-                <TableCell>{item.dateTime}</TableCell>
-                <TableCell>{`${item.host} (${item.userIp})`}</TableCell>
+              <TableRow key={index} className={'session-history_line'}>
+                <TableCell className={'session-history_item session-history_item__type session-history__align_left'}>{item.userAgent}</TableCell>
+                <TableCell className={'session-history_item session-history_item__date session-history__align_center'}>{item.dateTime}</TableCell>
+                <TableCell className={'session-history_item session-history_item__ip session-history__align_center'}>{`${item.host} (${item.userIp})`}</TableCell>
               </TableRow>
             );
           })

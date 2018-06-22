@@ -2,22 +2,15 @@ import {
   SET_OTP_IS_SEND,
   SET_OTP_IS_BLOCKED,
   SET_OTP_IS_LOADING,
-  CHANGE_OTP,
   RESET
 } from './types';
+import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from '../../../store/actions';
 import { pullProfile as pullProfileSidebar } from '../../../../Sidebar/store/actions';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
-
-export const changeOTP = (contactType, value) => ({
-  type: CHANGE_OTP,
-  payload: {
-    contactType,
-    value
-  }
-});
+import Storage from 'lib/storage';
 
 export const setOTPisLoading = (contactType, isLoading = false) => ({
   type: SET_OTP_IS_LOADING,
@@ -54,7 +47,7 @@ export const reset = () => ({
  */
 export const updateUserContactRequest = (type) => (dispatch, getState) => {
   const { contact } = getState().form.ProfileAccount.values;
-  let login = contact[type];
+  let login = contact[type].toLowerCase();
 
   dispatch(setOTPisLoading(true));
 
@@ -70,11 +63,13 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
       const { action } = data.data;
       const message = `${action === 'EMAIL_SENT' ? 'Email' : 'Sms code'} was sent`;
+
       dispatch(setOTPisSend(type, true));
       dispatch(send({ id: uuid(), status: 'info', title: 'Information', message, timeout: 3000 }));
     })
     .catch((error) => {
       const { code, message } = error.response.data;
+
       switch (code) {
         case 'USER_EMAIL_ALREADY_VERIFIED':
           dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
@@ -89,10 +84,8 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
       dispatch(setOTPisSend(type, false));
       dispatch(setOTPisLoading(false));
     });
-
 };
 
-// todo не всегда оптравляется логин (телефон? почта??)
 /**
  * Экшен для подтверждения логина (телефона/почты)
  * @param type - тип подтверждаемого типа телефон/почта
@@ -100,9 +93,6 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
  */
 export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   const {
-    Profile_Account: {
-      otp
-    },
     form: {
       ProfileAccount: {
         values: {
@@ -118,8 +108,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   }
 
   dispatch(setOTPisLoading(type, true));
-
-  api.profile.updateContactConfirm(login, otp[type])
+  api.profile.updateContactConfirm(login, contact.otp)
     .then((data) => {
 
       if (data.status !== 200) return;
@@ -138,6 +127,12 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       dispatch(setOTPisLoading(type, false));
 
       switch (code) {
+        case 'USER_NOT_ACTIVE':
+          Storage.clear();
+          api.removeHeader('Authorization');
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 7000 }));
+          dispatch(replace('/auth/signin'));
+          break;
         case 'CONFIRMATION_CODE_INVALID':
           dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
           break;
@@ -167,7 +162,6 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
       }
     }
   } = getState();
-
   let login = contact[type].toLowerCase();
 
   if (resendOTPIsBlocked[type]) return;
@@ -180,17 +174,17 @@ export const updateUserContactResendOTP = (type) => (dispatch, getState) => {
   }
 
   api.profile.updateContacResendOTP(login)
-    .then(() => {
-      dispatch(setOTPisLoading(type, false));
-    })
+    .then(() => dispatch(setOTPisLoading(type, false)))
     .catch((error) => {
       const { code, message } = error.response.data;
 
       dispatch(setOTPisLoading(type, false));
+
       if (code === 'USER_NOT_FOUND') {
         dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
       } else {
         dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
       }
+
     });
 };

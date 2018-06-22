@@ -4,13 +4,14 @@ import {
   Grid,
   CircularProgress
 } from '@material-ui/core';
-import DataTable from './components/DataTable';
-import FilterSearch from './components/FilterSearch';
+import Table from './containers/Table';
+import Filter from './containers/Filter';
 import { getDays } from 'lib/date';
 import {
   pullTransactions,
   reset
 } from 'containers/Dashboard/containers/Transaction/store/actions';
+import { TRANSACTION_TYPES, TRANSACTION_STATUSES } from 'lib/transactions';
 import './style.scss';
 
 // todo проблема с временем (не соответствует поясу и isoString)
@@ -28,31 +29,32 @@ export default class Transaction extends React.Component {
     errorText: null
   };
 
+  filter = [];
+
   componentDidMount() {
     const { dateStart, dateEnd } = getDays('date-month');
     const date = { dateStart, dateEnd };
 
-    this.initialData(date);
+    this.props.pullTransactions(date, this.props.filter || {})
+      .then(() => this.setState({ ready: true }))
+      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
   }
 
   componentWillUnmount() {
     this.props.reset();
   }
 
-  // todo добавить обработчки ошибок
-  initialData = (date) => {
-    const { filter } = this.props;
+  initialData = () => new Promise((resolve, reject) => {
+    this.filter.types = TRANSACTION_TYPES.filter((type) => type.selected).map((type) => type.type);
+    this.filter.statuses = TRANSACTION_STATUSES.filter((status) => status.selected).map((status) => status.type);
+    resolve();
+  })
 
-    this.props.pullTransactions(date, filter)
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
-  };
+  updateTransactions = (type, event) => {
+    this.props.pullTransactions(event, {}, true, false);
+  }
 
-  renderMain = () => (
-    <Grid item xs={12} className={'dashboard-container'}>
-      <DataTable records={this.props.Dashboard_Transaction.records} />
-    </Grid>
-  );
+  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} />
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
@@ -62,13 +64,13 @@ export default class Transaction extends React.Component {
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>
-          <FilterSearch handleChangeDate={(date) => this.initialData(date)} />
+          <Filter onEvent={(type, event) => this.updateTransactions(type, event)} />
         </Grid>
-        {
-          ready
-            ? this.renderMain()
-            : this.renderLoader(40)
-        }
+        <Grid item xs={12} className={'dashboard-container'}>
+          {
+            ready ? this.renderMain() : this.renderLoader(24)
+          }
+        </Grid>
       </Grid>
     );
   }
