@@ -107,9 +107,23 @@ export default class DataTable extends Component {
     });
   };
 
+  renderEmptyRecords = () => (
+    <TableBody className={'transactions-table_item'}>
+      <TableRow className={'transactions-table_head'}>
+        <TableCell colSpan={16}>
+          No transactions
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  );
+
   renderTable = () => (
     <Table className={'transactions-table'}>
-      {this.renderRow()}
+      {
+        this.props.Dashboard_Transaction.records.length === 0
+          ? this.renderEmptyRecords()
+          : this.renderRow()
+      }
     </Table>
   )
   renderLoader = () => (

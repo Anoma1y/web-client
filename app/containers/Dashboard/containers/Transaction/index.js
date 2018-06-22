@@ -32,7 +32,7 @@ export default class Transaction extends React.Component {
     const { dateStart, dateEnd } = getDays('date-month');
     const date = { dateStart, dateEnd };
 
-    this.props.pullTransactions(date)
+    this.props.pullTransactions(date, this.props.filter || {})
       .then(() => this.setState({ ready: true }))
       .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
   }
