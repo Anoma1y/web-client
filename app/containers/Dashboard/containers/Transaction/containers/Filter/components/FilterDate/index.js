@@ -12,7 +12,6 @@ import {
   selectItems
 } from 'lib/date';
 import _ from 'lodash';
-import './style.scss';
 
 class DateFilter extends Component {
 

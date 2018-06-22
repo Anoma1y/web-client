@@ -22,17 +22,15 @@ export default class DataTable extends Component {
   };
 
   componentDidMount() {
+    // this.time = setTimeout(() => {
+    //   console.log('1111')
+    // }, 5000)
     document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
-    clearTimeout(this.timeOut);
   }
-
-  debounceAppend = _.debounce(() => {
-    this.props.pullTransactions({}, {}, false, true);
-  }, 800);
 
   handleScroll = () => {
     const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement;
@@ -44,7 +42,7 @@ export default class DataTable extends Component {
     if (this.props.Dashboard_Transaction.appendIsLoading) return;
 
     if (windowBottom > docHeight - 100) {
-      this.debounceAppend();
+      this.props.pullTransactions({}, {}, false, true);
     }
   };
 
@@ -122,7 +120,6 @@ export default class DataTable extends Component {
     </div>
   )
   render() {
-    this.renderRow()
     return (
       <div className={'data-table'}>
         {this.renderTable()}

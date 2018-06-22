@@ -62,19 +62,12 @@ export default class Verification extends Component {
     return (
       <Grid container className={'profile'}>
         <Grid container className={'profile-form_wrapper'}>
-          <div className={'dashboard-container'}>
-
-            <FormPersonInfo />
-
-          </div>
-          <div className={'dashboard-container'}>
-
-            <FormUserAddress />
-
-          </div>
+          <FormPersonInfo />
         </Grid>
-
-        <Grid container className={'profile-form_documents-wrapper'}>
+        <Grid container className={'profile-form_wrapper'}>
+          <FormUserAddress />
+        </Grid>
+        <Grid container className={'profile-form_wrapper profile-form_documents-wrapper'}>
           {
             this.state.readyDocuments
               ? this.renderDocuments()
