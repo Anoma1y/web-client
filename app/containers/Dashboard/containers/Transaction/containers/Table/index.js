@@ -25,6 +25,7 @@ export default class DataTable extends Component {
     // this.time = setTimeout(() => {
     //   console.log('1111')
     // }, 5000)
+
     document.addEventListener('scroll', this.handleScroll);
   }
 

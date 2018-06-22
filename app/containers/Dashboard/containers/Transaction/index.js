@@ -11,6 +11,7 @@ import {
   pullTransactions,
   reset
 } from 'containers/Dashboard/containers/Transaction/store/actions';
+import { TRANSACTION_TYPES, TRANSACTION_STATUSES } from 'lib/transactions';
 import './style.scss';
 
 // todo проблема с временем (не соответствует поясу и isoString)
@@ -28,6 +29,8 @@ export default class Transaction extends React.Component {
     errorText: null
   };
 
+  filter = [];
+
   componentDidMount() {
     const { dateStart, dateEnd } = getDays('date-month');
     const date = { dateStart, dateEnd };
@@ -40,6 +43,12 @@ export default class Transaction extends React.Component {
   componentWillUnmount() {
     this.props.reset();
   }
+
+  initialData = () => new Promise((resolve, reject) => {
+    this.filter.types = TRANSACTION_TYPES.filter((type) => type.selected).map((type) => type.type);
+    this.filter.statuses = TRANSACTION_STATUSES.filter((status) => status.selected).map((status) => status.type);
+    resolve();
+  })
 
   updateTransactions = (type, event) => {
     this.props.pullTransactions(event, {}, true, false);
