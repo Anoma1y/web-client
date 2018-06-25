@@ -32,7 +32,7 @@ const getStatusCard = (status) => {
   }
 };
 
-@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard_Main: state.Dashboard_Main }), ({
   updateCard
 }))
 export default class SidebarCard extends Component {
@@ -127,7 +127,7 @@ export default class SidebarCard extends Component {
   renderCards = () => (
     <div className={'sidebar-cards'}>
       {
-        this.props.Dashboard_Sidebar.cards.map((card, index) => {
+        this.props.Dashboard_Main.cards.map((card, index) => {
           const { card: cardInfo } = card;
           const isActive = cardInfo.status === 'ACTIVE';
 
@@ -171,7 +171,7 @@ export default class SidebarCard extends Component {
         </div>
 
         {
-          this.props.Dashboard_Sidebar.cards.length !== 0 && this.renderCards()
+          this.props.Dashboard_Main.cards.length !== 0 && this.renderCards()
         }
 
       </div>

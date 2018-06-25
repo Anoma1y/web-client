@@ -1,20 +1,26 @@
 import {
-  SET_COINS
+  SET_CARD
 } from './types';
 import { api } from 'lib/api';
 
-export const setCoins = (coins) => ({
-  type: SET_COINS,
-  payload: coins
+export const setCard = (card) => ({
+  type: SET_CARD,
+  payload: card
 });
 
-export const setWalletInfo = () => (dispatch) => {
-  api.coins.getCoinsList()
-    .then((data) => {
-      dispatch(setCoins(data.data.coins));
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-};
+export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
 
+  api.cards.getInfo(cardId)
+    .then((data) => {
+
+      if (data.status !== 200) return;
+
+      const { cardInfo } = data.data;
+
+      dispatch(setCard(cardInfo));
+      resolve();
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});

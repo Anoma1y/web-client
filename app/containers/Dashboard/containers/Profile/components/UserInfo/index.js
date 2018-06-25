@@ -10,6 +10,7 @@ import Storage from 'lib/storage';
 const UserInfo = (props) => {
   const { profile } = props.Dashboard_Profile;
   const { role } = Storage.get('members')[0];
+
   return (
     <div className={'dashboard_info profile-user-name'}>
       <div className={'profile-user-name_content container'}>

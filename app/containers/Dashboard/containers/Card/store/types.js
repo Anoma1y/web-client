@@ -1,1 +1,1 @@
-export const SET_COINS = 'Dashboard_Card/SET_COINS';
+export const SET_CARD = 'Dashboard_Card/SET_CARD';

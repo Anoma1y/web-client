@@ -28,7 +28,7 @@ const renderCurrency = (currency) => (
   </div>
 );
 
-@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
+@connect(({ Dashboard_Sidebar, Dashboard_Main }) => ({ Dashboard_Sidebar, Dashboard_Main }), ({
   changeEditNameWallet,
   applyEditNameWallet,
   applyRemove
@@ -94,7 +94,7 @@ export default class SidebarWallet extends React.Component {
     <TextField
       type={'text'}
       className={'sidebar-wallet_edit-input'}
-      value={this.props.Dashboard_Sidebar.editNameWallet || this.props.Dashboard_Sidebar.coins[this.state.controlWallet.index].name}
+      value={this.props.Dashboard_Sidebar.editNameWallet || this.props.Dashboard_Main.wallets[this.state.controlWallet.index].name}
       onChange={(event) => this.handleEditChange(event, this.state.controlWallet.index)}
     />
   );
@@ -199,7 +199,7 @@ export default class SidebarWallet extends React.Component {
           Wallets
         </div>
         {
-          this.props.Dashboard_Sidebar.coins.map((item, index) => {
+          this.props.Dashboard_Main.wallets.map((item, index) => {
 
             const isActive = active.id === item.serial && active.type === 'wallet';
             return (

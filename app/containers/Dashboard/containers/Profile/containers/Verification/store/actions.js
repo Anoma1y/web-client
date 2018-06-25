@@ -13,7 +13,10 @@ import { api } from 'lib/api';
 import { changeUsedType } from '../../../store/actions';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
-import { pullProfile as pullProfileSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
+import {
+  pullProfile as pullProfileMain,
+  setNotification as setNotificationMain // todo добавить для каждого обновления верификации
+} from 'containers/Dashboard/containers/Main/store/actions';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
 
@@ -242,7 +245,7 @@ export const updateUserAddress = () => (dispatch, getState) => {
        */
       Promise.all([
         dispatch(pullProfile(profile)),
-        dispatch(pullProfileSidebar(profile))
+        dispatch(pullProfileMain(profile))
       ])
         .then(() => {
           dispatch(setUpdateUserAddressIsLoading(false));
@@ -305,7 +308,7 @@ export const updatePersonInfo = () => (dispatch, getState) => {
        */
       Promise.all([
         dispatch(pullProfile(profile)),
-        dispatch(pullProfileSidebar(profile))
+        dispatch(pullProfileMain(profile))
       ])
         .then(() => {
           dispatch(setUpdatePersonInfoIsLoading(false));

@@ -13,15 +13,25 @@ import Profile from './containers/Profile';
 import Footer from './containers/Footer';
 import { CircularProgress } from '@material-ui/core';
 import { send } from 'containers/Notification/store/actions';
+import {
+  pullProfile,
+  pullThirdPartyCards,
+  pullCard,
+  pullWallets
+} from './containers/Main/store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
-@connect(null, ({
+@connect(({ Dashboard_Main }) => ({ Dashboard_Main }), ({
+  pullWallets,
+  pullThirdPartyCards,
+  pullCard,
+  pullProfile,
+  send,
   replace,
-  send
 }))
 export default class Dashboard extends Component {
 
@@ -66,9 +76,35 @@ export default class Dashboard extends Component {
    */
   handlerInit = (token) => {
     const tokenName = `TOKEN ${token}`;
+    const ROLES = {
+      individual: [this.props.pullWallets, this.props.pullProfile, this.props.pullThirdPartyCards],
+      merchant: [this.props.pullWallets, this.props.pullProfile],
+      administrator: [this.props.pullProfile],
+      byDefault: [this.props.pullProfile]
+    };
+    const { role } = Storage.get('members')[0];
+    const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
 
     api.addHeader('Authorization', tokenName)
-      .then(() => this.setState({ ready: true }))
+      .then(() => {
+        Promise.all(currentRoleInitialActions.map((action) => action()))
+          .then(() => {
+
+            if (role === 'individual') {
+              const { thirdPartyCards } = this.props.Dashboard_Main;
+              const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
+
+              Promise.all(pullCardList.map((card) => card()))
+                .then(() => this.setState({ ready: true }))
+                .catch(() => this.setState({ ready: true }));
+
+            } else {
+              this.setState({ ready: true });
+            }
+
+          })
+          .catch(() => this.setState({ ready: true }));
+      })
       .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };
 
@@ -107,7 +143,7 @@ export default class Dashboard extends Component {
         <div className={'content-wrapper'}>
           <Switch>
             <Route exact path={`${this.props.match.url}`} component={Main} />
-            <Route exact path={`${this.props.match.url}/card`} component={Card} />
+            <Route exact path={`${this.props.match.url}/card/:id`} component={Card} />
             <Route exact path={`${this.props.match.url}/wallet/:id`} component={Wallet} />
             <Route exact path={`${this.props.match.url}/profile`} component={Profile} />
             <Route exact path={`${this.props.match.url}/transaction`} component={Transaction} />

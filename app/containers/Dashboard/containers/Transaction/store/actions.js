@@ -114,88 +114,6 @@ const SORT = {
   type: null
 };
 
-const TYPES = [
-  'client_transaction_transfer',
-  'client_create_prepaid',
-  'client_charge_prepaid',
-  'merchant_payment',
-  'merchant_invoice',
-  'gate_charge',
-  'gate_redeem',
-  'gate_purchase',
-  'gate_card_refund',
-  'gate_card_verification',
-  'exchange_transaction',
-  'cash_desk_redeem',
-  'cash_desk_charge',
-  'payroll_charge',
-  'contract_transit',
-  'merchant_cashback',
-  'deposit_topup',
-  'deposit_profit_payment',
-  'deposit_payout',
-  'deposit_capitalization',
-  'deposit_accruing',
-  'credit_issue',
-  'credit_payment',
-  'bank_topup',
-  'bank_redeem'
-];
-
-const STATUSES = [
-  'limited',
-  'pending',
-  'declined',
-  'processed',
-  'rejected',
-  'error'
-];
-
-export const appendTransactions = () => (dispatch, getState) => new Promise((resolve, reject) => {
-  const {
-    pageSize,
-    pageNumber,
-    blockedAppend,
-    appendIsLoading,
-    filter
-  } = getState().Dashboard_Transaction;
-
-  if (blockedAppend) {
-    dispatch(setAppendIsLoading(false))
-    return;
-  }
-
-  if (appendIsLoading) return;
-
-  const nextPage = pageNumber + 1;
-
-  const currentFilter = {
-    ...filter,
-    TYPES,
-    STATUSES
-  };
-
-  dispatch(setAppendIsLoading(true));
-  dispatch(changePageNumber(nextPage));
-
-  api.transactions.getTransactionsList(pageSize, nextPage, SORT, currentFilter)
-    .then((data) => {
-      const { records } = data.data;
-      if (records.length === 0) {
-        dispatch(setBlockedAppend(true));
-        dispatch(setAppendIsLoading(false));
-        return;
-      }
-      dispatch(appendRecords(records));
-      dispatch(setAppendIsLoading(false));
-      resolve();
-    })
-    .catch(() => {
-      reject();
-      dispatch(setAppendIsLoading(false));
-    });
-})
-
 // todo нужен фикс для аккаунтов, отличных от обычного пользователя
 // не все транзакции содержат поля from и to
 export const pullTransactions = (date, filterProps = {}, isUpdate = false, isAppend = false) => (dispatch, getState) => new Promise((resolve, reject) => {
@@ -206,22 +124,17 @@ export const pullTransactions = (date, filterProps = {}, isUpdate = false, isApp
     filter
   } = getState().Dashboard_Transaction;
 
+  if (blockedAppend && !isUpdate) return;
+
   const currentFilter = {
     ...filterProps,
-    types: TYPES,
-    statuses: STATUSES,
-    dateFrom: filter.dateFrom ? filter.dateFrom : moment(date.dateStart).toISOString(),
-    dateTo: filter.dateTo ? filter.dateTo : moment(date.dateEnd).toISOString()
+    dateFrom: date.dateStart ? moment(date.dateStart).toISOString() : filter.dateFrom,
+    dateTo: date.dateEnd ? moment(date.dateEnd).toISOString() : filter.dateTo
   };
 
   dispatch(changeFilterDate(moment(date.dateStart).toISOString(), moment(date.dateEnd).toISOString()));
 
   let nextPage = pageNumber;
-
-  if (blockedAppend) {
-    dispatch(setAppendIsLoading(false));
-    return;
-  }
 
   if (appendIsLoading) return;
 

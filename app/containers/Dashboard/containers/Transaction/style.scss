@@ -18,7 +18,7 @@
     }
   }
   &_content {
-    cursor: default;
+    cursor: pointer;
     font-family: $font-regular !important;
     &:nth-child(odd) {
       background-color: lighten($lightblue-color, 44%);
@@ -33,15 +33,12 @@
   &_amount {
     font-family: $font-regular-serif;
     .amount {
-      &_major {
-        color: #1ac422;
-      }
       &_minor {
         opacity: 0.8;
       }
     }
     .amount_operation__color_minus {
-      color: $black-color;
+      color: $red-color;
     }
   }
 }
@@ -235,6 +232,23 @@
     font-family: $font-regular-serif;
     font-size: 0.85rem;
     color: $black-color;
+  }
+}
+
+.transactions-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: #283e79;
+  padding: 5rem 2rem 1rem !important;
+  &:focus {
+    border: none;
+    outline: none;
+  }
+  &-content {
+    background-color: #ffffff;
   }
 }
 

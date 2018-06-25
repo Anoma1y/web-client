@@ -11,7 +11,10 @@ import {
   pullTransactions,
   reset
 } from 'containers/Dashboard/containers/Transaction/store/actions';
-import { TRANSACTION_TYPES, TRANSACTION_STATUSES } from 'lib/transactions';
+import {
+  TRANSACTION_TYPES,
+  TRANSACTION_STATUSES
+} from 'lib/transactions';
 import './style.scss';
 
 // todo проблема с временем (не соответствует поясу и isoString)
@@ -29,38 +32,39 @@ export default class Transaction extends React.Component {
     errorText: null
   };
 
-  filter = [];
+  filter = {};
 
   componentDidMount() {
     const { dateStart, dateEnd } = getDays('date-month');
     const date = { dateStart, dateEnd };
 
-    this.props.pullTransactions(date, this.props.filter || {})
+    this.filter.types = TRANSACTION_TYPES.filter((type) => type.selected).map((type) => type.type);
+    this.filter.statuses = TRANSACTION_STATUSES.filter((status) => status.selected).map((status) => status.type);
+
+    if (this.props.filter) {
+      this.filter = { ...this.filter, ...this.props.filter };
+    }
+
+    this.props.pullTransactions(date, this.filter || {})
       .then(() => this.setState({ ready: true }))
       .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
+
   }
 
   componentWillUnmount() {
     this.props.reset();
   }
 
-  initialData = () => new Promise((resolve, reject) => {
-    this.filter.types = TRANSACTION_TYPES.filter((type) => type.selected).map((type) => type.type);
-    this.filter.statuses = TRANSACTION_STATUSES.filter((status) => status.selected).map((status) => status.type);
-    resolve();
-  })
+  updateTransactions = (type, event) => this.props.pullTransactions(event, this.filter, true, false);
 
-  updateTransactions = (type, event) => {
-    this.props.pullTransactions(event, {}, true, false);
-  }
+  appendTransactions = () => this.props.pullTransactions({}, this.filter, false, true);
 
-  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} />
+  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} onAppend={() => this.appendTransactions()} />
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
   render() {
     const { ready } = this.state;
-
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>

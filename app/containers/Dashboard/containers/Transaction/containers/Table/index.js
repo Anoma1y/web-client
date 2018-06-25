@@ -1,36 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
+  Grid,
   Table,
   TableBody,
   TableCell,
   TableRow,
+  Modal,
   CircularProgress
 } from '@material-ui/core';
+import {
+  Print as PrintIcon,
+  PlayForWork as PlayForWorkIcon
+} from '@material-ui/icons';
 import Amount from 'components/Amount';
 import moment from 'moment';
 import {
   pullTransactions
 } from '../../store/actions';
+import { getTransactionsStatus, getTransactionsType } from 'lib/transactions';
 import _ from 'lodash';
 
-@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({ pullTransactions }))
+@connect(({ Dashboard_Transaction, Dashboard_Main }) => ({ Dashboard_Transaction, Dashboard_Main }), ({ pullTransactions }))
 export default class DataTable extends Component {
 
   state = {
     isLoading: false,
+    modal: {
+      isOpen: false,
+      id: 0
+    }
   };
 
   componentDidMount() {
-    // this.time = setTimeout(() => {
-    //   console.log('1111')
-    // }, 5000)
-
     document.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleOpenModal = (id) => {
+    this.setState({ modal: { isOpen: true, id } })
+  }
+  handleCloseModal = () => {
+    this.setState({
+      modal: {
+        isOpen: false,
+        id: 0
+      }
+    })
   }
 
   handleScroll = () => {
@@ -43,23 +62,14 @@ export default class DataTable extends Component {
     if (this.props.Dashboard_Transaction.appendIsLoading) return;
 
     if (windowBottom > docHeight - 100) {
-      this.props.pullTransactions({}, {}, false, true);
+      this.props.onAppend();
     }
   };
 
-  getType = (type) => {
-    switch (type) {
-      case 'client_transaction_issue':
-        return 'Client transaction issue';
-      case 'client_transaction_transfer':
-        return 'Client transaction transfer';
-      default:
-        return 'Transfer';
-    }
-  }
-
   // todo для разных типов - разные поля для serial и т.п., нужно поправить
   renderRow = () => {
+    const { wallets } = this.props.Dashboard_Main;
+    const userWallets = wallets.map((wallet) => wallet.serial);
     const { records } = this.props;
     const transactions = records.map((it) => {
       return {
@@ -69,6 +79,7 @@ export default class DataTable extends Component {
     });
     const group = _.groupBy(transactions, 'groupDate');
     const keys = Object.keys(group);
+
     return keys.map((item) => {
       return (
         <TableBody key={item} className={'transactions-table_item'}>
@@ -78,29 +89,70 @@ export default class DataTable extends Component {
             </TableCell>
           </TableRow>
           { group[item].map((data) => {
+
+            const AMOUNT = data.amount ? data.amount : data.invoiceAmount ? data.invoiceAmount : data.cashAmount ? data.cashAmount : '';
+
+            const findFrom = data.from && _.includes(userWallets, data.from.serial);
+            const findTo = data.to && _.includes(userWallets, data.to.serial);
+
+            const fromSerial = data.from ? (findFrom ? data.from.serial : data.to.serial) : '';
+            const toSerial = data.to ? (findTo ? data.from.serial : data.to.serial) : '';
+
+            const wallet = _.find(wallets, { serial: fromSerial });
+
             return (
-              <TableRow key={`${data.id}`} className={'transactions-table_content'}>
-                <TableCell>
-                  {moment(data.createdAt).format('HH:mm DD/MM/YYYY')}
-                </TableCell>
-                <TableCell>
-                  {this.getType(data.type)}
-                </TableCell>
-                <TableCell>
-                  LT705555511111113418
-                  {/*{`${data.from.serial} (${data.from.organizationName})`}*/}
-                </TableCell>
-                <TableCell>
-                  LT705555511111113418
-                  {/*{`${data.to.serial} (${data.to.organizationName})`}*/}
-                </TableCell>
-                <TableCell numeric className={'transactions-table_amount'}>
-                  <Amount
-                    operation={'plus'}
-                    value={data.amount}
-                  />
-                </TableCell>
-              </TableRow>
+              <React.Fragment key={`${data.id}`}>
+                <TableRow className={'transactions-table_content'} onClick={() => this.handleOpenModal(data.id)}>
+                  <TableCell>
+                    {getTransactionsType(data.type).description}
+                  </TableCell>
+                  <TableCell>
+                    {(data.to || data.from) ? `${wallet.serial} (${wallet.name})` : ''}
+                  </TableCell>
+                  <TableCell>
+                    {toSerial}
+                  </TableCell>
+                  <TableCell numeric className={'transactions-table_amount'}>
+                    <Amount
+                      operation={findFrom ? 'minus' : 'plus'}
+                      value={AMOUNT}
+                    />
+                  </TableCell>
+                </TableRow>
+                <Modal
+                  open={this.state.modal.id === data.id && this.state.modal.isOpen}
+                  onClose={this.handleCloseModal}
+                >
+                  <div className={'transactions-modal'}>
+                    <div className={'transactions-modal_title'}>
+                      Transaction
+                    </div>
+                    <Grid container className={'transactions-modal-content'}>
+                      <Grid item xs={4}>
+                        <div>Where: Bank of America</div>
+                        <div>When: {moment(data.createdAt).format('DD.MM.YYYY, HH:mm')}</div>
+                        <div>From: {(data.to || data.from) ? `${wallet.serial} (${wallet.name})` : ''}</div>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <div>Amount:
+                          <Amount
+                            operation={findFrom ? 'minus' : 'plus'}
+                            value={AMOUNT}
+                          />
+                        </div>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <div>Status: {getTransactionsStatus(data.status).description}</div>
+                        <div>
+                          <PlayForWorkIcon />
+                          <PrintIcon />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Modal>
+              </React.Fragment>
+
             );
           }) }
         </TableBody>

@@ -79,8 +79,7 @@ export default class ImageUpload extends Component {
 
     const reader = new FileReader();
     const file = event.target.files[0];
-
-    if (CONFIG.UPLOAD_FILE_FORMATS.includes(file.type)) {
+    if (_.includes(CONFIG.UPLOAD_FILE_FORMATS, file.type)) {
       if ((file.size / 1024 / 1024) <= CONFIG.UPLOAD_FILE_SIZE) {
         const formData = this.convertingImageToFile(file);
 

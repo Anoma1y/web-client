@@ -8,7 +8,7 @@ import {
 } from './types';
 import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
-import { setCoins as setCoinsSidebar } from 'containers/Dashboard/containers/Sidebar/store/actions';
+import { setWallets as setWalletsMain } from 'containers/Dashboard/containers/Main/store/actions';
 import { api } from 'lib/api';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
@@ -91,7 +91,7 @@ export const reset = () => ({
 export const createWallet = () => (dispatch, getState) => {
   const {
     AddProduct_Wallet: { name, currency },
-    Dashboard_Sidebar: { coins }
+    Dashboard_Main: { wallets }
   } = getState();
   const TYPE = 'client'; // todo заменить на определенный
 
@@ -123,9 +123,9 @@ export const createWallet = () => (dispatch, getState) => {
           if (data.status !== 200) return;
 
           const { coin } = data.data;
-          const newCoins = [...coins, coin];
+          const newCoins = [...wallets, coin];
 
-          dispatch(setCoinsSidebar(newCoins));
+          dispatch(setWalletsMain(newCoins));
           dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Wallet success создан', timeout: 4000 }));
           dispatch(reset());
           dispatch(replace(`/dashboard/wallet/${coin.serial}`));

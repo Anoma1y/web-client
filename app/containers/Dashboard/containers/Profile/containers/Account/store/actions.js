@@ -7,7 +7,7 @@ import {
 import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from '../../../store/actions';
-import { pullProfile as pullProfileSidebar } from '../../../../Sidebar/store/actions';
+import { pullProfile as pullProfileMain } from '../../../../Main/store/actions';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
 import Storage from 'lib/storage';
@@ -116,7 +116,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       const { profile } = data.data;
 
       dispatch(pullProfile(profile));
-      dispatch(pullProfileSidebar(profile));
+      dispatch(pullProfileMain(profile));
       dispatch(setOTPisLoading(type, false));
       dispatch(setOTPisSend(type, false));
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Учетная запись подтверждена', timeout: 3000 }));

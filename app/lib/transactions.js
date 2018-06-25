@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const TRANSACTION_STATUSES = [
   {
     type: 'limited',
@@ -183,3 +185,7 @@ export const TRANSACTION_TYPES = [
     selected: true
   }
 ];
+
+export const getTransactionsType = (type) => _.find(TRANSACTION_TYPES, (transaction) => transaction.type === type);
+
+export const getTransactionsStatus = (status) => _.find(TRANSACTION_STATUSES, (transaction) => transaction.type === status);

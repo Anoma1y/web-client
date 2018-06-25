@@ -9,21 +9,9 @@ import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
-import {
-  pullCard,
-  pullCoins,
-  pullProfile,
-  pullThirdPartyCards,
-} from './store/actions';
-import Storage from 'lib/storage';
 import './style.scss';
 
-@connect(state => ({ Dashboard_Sidebar: state.Dashboard_Sidebar }), ({
-  pullCard,
-  pullCoins,
-  pullProfile,
-  pullThirdPartyCards,
-}))
+@connect(({ Dashboard_Main }) => ({ Dashboard_Main }))
 export default class Sidebar extends Component {
 
   state = {
@@ -38,34 +26,6 @@ export default class Sidebar extends Component {
    * Для карты получается инфа о всех картах привязанных  к аккаунту и затем выполнения Promise.all для каждого id карты
    */
   componentDidMount() {
-    const ROLES = {
-      individual: [this.props.pullCoins, this.props.pullProfile, this.props.pullThirdPartyCards],
-      merchant: [this.props.pullCoins, this.props.pullProfile],
-      administrator: [this.props.pullProfile],
-      byDefault: [this.props.pullProfile]
-    };
-
-    const { role } = Storage.get('members')[0];
-    const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
-
-    Promise.all(currentRoleInitialActions.map((action) => action()))
-      .then(() => {
-
-        if (role === 'individual') {
-          const { thirdPartyCards } = this.props.Dashboard_Sidebar;
-          const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
-
-          Promise.all(pullCardList.map((card) => card()))
-            .then(() => this.setState({ ready: true }))
-            .catch(() => this.setState({ ready: true }));
-
-        } else {
-          this.setState({ ready: true });
-        }
-
-      })
-      .catch(() => this.setState({ ready: true }));
-
     document.addEventListener('mousedown', this.handleClickOutside);
     window.addEventListener('resize', this.updateDimensions);
     this.updateDimensions();
@@ -123,9 +83,9 @@ export default class Sidebar extends Component {
     const { sidebarIsOpen } = this.state;
     const {
       notification,
-      coins,
+      wallets,
       cards
-    } = this.props.Dashboard_Sidebar;
+    } = this.props.Dashboard_Main;
 
     return (
       <React.Fragment>
@@ -149,7 +109,7 @@ export default class Sidebar extends Component {
 
               <div className={'sidebar_item sidebar-wallets'}>
                 {
-                  coins.length !== 0 && <SidebarWallet />
+                  wallets.length !== 0 && <SidebarWallet />
                 }
               </div>
 
