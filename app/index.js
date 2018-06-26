@@ -6,6 +6,31 @@ import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store/createStore';
 import App from './App';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+// import { debounce } from 'lodash';
+
+// const inactivityLogout = (inactivityTime) => {
+//
+//   let inactivityState = false;
+//   let inactivityTimer = null;
+//
+//   const handleInactivity = () => {
+//     clearInterval(inactivityTimer)
+//     if (inactivityState) console.log('Logout');
+//
+//     inactivityState = false;
+//     inactivityTimer = setTimeout(() => {
+//       inactivityState = true
+//     }, inactivityTime);
+//
+//   }
+//
+//   document.addEventListener('mousemove', debounce(handleInactivity, 200));
+//   document.addEventListener('keydown', debounce(handleInactivity, 200));
+//   document.addEventListener('scroll', debounce(handleInactivity, 200));
+//
+// }
+//
+// document.addEventListener('DOMContentLoaded', inactivityLogout(4000))
 
 const theme = createMuiTheme({
   palette: {

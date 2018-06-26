@@ -65,6 +65,7 @@ export default class Transaction extends React.Component {
 
   render() {
     const { ready } = this.state;
+
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>

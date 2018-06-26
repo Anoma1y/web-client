@@ -161,14 +161,6 @@ export default class Dashboard extends Component {
   );
 
   render() {
-    return (
-      <div className={'page'}>
-        {
-          this.state.ready
-            ? this.renderDashboard()
-            : this.renderLoader()
-        }
-      </div>
-    );
+    return this.state.ready ? this.renderDashboard() : this.renderLoader();
   }
 }

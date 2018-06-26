@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Text from 'components/Text';
 import { Button } from '@material-ui/core';
-import {
-  KeyboardArrowDown as KeyboardArrowDownIcon
-} from '@material-ui/icons';
+import { KeyboardArrowDown as KeyboardArrowDownIcon } from '@material-ui/icons';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

@@ -99,7 +99,7 @@ export default class DataTable extends Component {
             const toSerial = data.to ? (findTo ? data.from.serial : data.to.serial) : '';
 
             const wallet = _.find(wallets, { serial: fromSerial });
-            const FROM_WALLET = wallet ? `${wallet.serial} (${wallet.name})` : fromSerial
+            const FROM_WALLET = wallet ? `${wallet.serial} (${wallet.name})` : fromSerial;
 
             return (
               <React.Fragment key={`${data.id}`}>
@@ -153,7 +153,6 @@ export default class DataTable extends Component {
                   </div>
                 </Modal>
               </React.Fragment>
-
             );
           }) }
         </TableBody>
@@ -180,14 +179,16 @@ export default class DataTable extends Component {
       }
     </Table>
   )
-  renderLoader = () => (
-    <div className={'data-table_loader'}>
-      {
-        this.props.Dashboard_Transaction.appendIsLoading && <CircularProgress size={24} className={'table_loading'} />
-      }
-    </div>
-  )
+
+  renderLoader = () => {
+    return this.props.Dashboard_Transaction.appendIsLoading &&
+      <div className={'data-table_loader'}>
+        <CircularProgress size={24} className={'table_loading'} />
+      </div>
+  }
+
   render() {
+
     return (
       <div className={'data-table'}>
         {this.renderTable()}
