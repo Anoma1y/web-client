@@ -140,7 +140,7 @@ export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => 
       } = data.data;
 
       if (!(contact.emailVerified && contact.phoneVerified)) {
-        // dispatch(setNotification('Unverified account'));
+        dispatch(setNotification('Unverified account'));
       }
 
       dispatch(setProfile(profile));

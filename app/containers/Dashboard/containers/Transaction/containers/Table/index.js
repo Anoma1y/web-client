@@ -99,6 +99,7 @@ export default class DataTable extends Component {
             const toSerial = data.to ? (findTo ? data.from.serial : data.to.serial) : '';
 
             const wallet = _.find(wallets, { serial: fromSerial });
+            const FROM_WALLET = wallet ? `${wallet.serial} (${wallet.name})` : fromSerial
 
             return (
               <React.Fragment key={`${data.id}`}>
@@ -107,7 +108,7 @@ export default class DataTable extends Component {
                     {getTransactionsType(data.type).description}
                   </TableCell>
                   <TableCell>
-                    {(data.to || data.from) ? `${wallet.serial} (${wallet.name})` : ''}
+                    {FROM_WALLET}
                   </TableCell>
                   <TableCell>
                     {toSerial}
@@ -131,7 +132,7 @@ export default class DataTable extends Component {
                       <Grid item xs={4}>
                         <div>Where: Bank of America</div>
                         <div>When: {moment(data.createdAt).format('DD.MM.YYYY, HH:mm')}</div>
-                        <div>From: {(data.to || data.from) ? `${wallet.serial} (${wallet.name})` : ''}</div>
+                        <div>From: 10</div>
                       </Grid>
                       <Grid item xs={4}>
                         <div>Amount:
