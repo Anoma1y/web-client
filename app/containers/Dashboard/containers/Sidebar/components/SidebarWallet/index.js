@@ -18,13 +18,15 @@ import {
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
+import { getCurrencySymbol } from 'lib/amount';
 
 // todo добавить функцию для выбора валют
 const renderCurrency = (currency) => (
   <div className={'sidebar-wallet-icon wallet-currency'}>
-    {
-      currency === 'EUR' ? <EuroSymbolIcon /> : currency === 'USD' ? <Icon name={'usd'} /> : null
-    }
+    <span className={'wallet-currency_symbol'}>{getCurrencySymbol(currency)}</span>
+    {/*{*/}
+      {/*currency === 'EUR' ? <EuroSymbolIcon /> : currency === 'USD' ? <Icon name={'usd'} /> : null*/}
+    {/*}*/}
   </div>
 );
 

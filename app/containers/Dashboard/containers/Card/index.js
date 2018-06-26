@@ -54,8 +54,8 @@ export default class Card extends React.Component {
 
   renderContent = (activeIndex) => {
     const panes = [
-      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
       { icon: <Icon name={'transfer-in'} />, menuItem: 'Top-up', render: () => <TopUp /> },
+      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
       { icon: <Icon name={'sent_m'} />, menuItem: 'Balance & limits', render: () => <Balance /> },
       { icon: <SettingsIcon />, menuItem: 'Settings', render: () => <Settings /> },
     ];

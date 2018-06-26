@@ -423,26 +423,20 @@
     }
 
   }
-
   &-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #F0FAFF;
-    border-radius: 50%;
-    margin: 0 auto;
-    position: relative;
-    svg {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background-color: #F0FAFF;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+  }
+  .wallet-currency {
+    &_symbol {
+      line-height: 40px;
+      color: $lightblue-color;
+      font-size: 1.5rem;
     }
-    &.wallet-currency {
-      path {
-        fill: $lightblue-color;
-      }
-    }
-
   }
 }
 

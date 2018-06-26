@@ -7,6 +7,7 @@ import CardsApiModule from './Cards';
 import TransactionsApiModule from './Transactions';
 import MediaApiModule from './Media';
 import ExchangeApiMoudle from './Exchange';
+import TopupApiMoudle from './Topup';
 
 class Api {
 
@@ -28,6 +29,7 @@ class Api {
     this.transactions = new TransactionsApiModule(this.http);
     this.media = new MediaApiModule(this.http);
     this.exchange = new ExchangeApiMoudle(this.http);
+    this.topup = new TopupApiMoudle(this.http);
   }
 
   /**
