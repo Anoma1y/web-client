@@ -186,6 +186,14 @@ export const TRANSACTION_TYPES = [
   }
 ];
 
+/**
+ * ФУнкция для получения описания транзакции по типу
+ * @param type - тип транзакции
+ */
 export const getTransactionsType = (type) => _.find(TRANSACTION_TYPES, (transaction) => transaction.type === type);
 
+/**
+ * Функция для получения описания о статусе транзакции по статусу
+ * @param status - статус транзакции
+ */
 export const getTransactionsStatus = (status) => _.find(TRANSACTION_STATUSES, (transaction) => transaction.type === status);

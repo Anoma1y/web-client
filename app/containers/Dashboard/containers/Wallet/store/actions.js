@@ -11,7 +11,7 @@ export const setCoin = (coin) => ({
 
 export const pullCoin = (id) => (dispatch) => new Promise((resolve, reject) => {
 
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
 
       if (data.status !== 200) return;

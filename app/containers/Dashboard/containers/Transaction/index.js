@@ -46,9 +46,9 @@ export default class Transaction extends React.Component {
     }
 
     this.props.pullTransactions(date, this.filter || {})
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
-
+      .then(() => {})
+      .catch(() => this.setState({ errorText: 'Ошибка загрузки данных' }))
+      .finally(() => this.setState({ ready: true }))
   }
 
   componentWillUnmount() {

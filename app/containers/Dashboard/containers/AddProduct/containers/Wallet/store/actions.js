@@ -36,7 +36,7 @@ export const setAvailableIssuers = (value) => ({
 export const pullAwailableIssuers = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getIssuersList()
     .then((issuersList) => {
-      api.coins.getCoinsList()
+      api.coins.getWalletsList()
         .then((coinsList) => {
           if (coinsList.status !== 200) reject();
 
@@ -109,7 +109,7 @@ export const createWallet = () => (dispatch, getState) => {
    * выполняется запрос на добавление нового кошелька
    * Для каждого кошелька можно только 1 валюту(?)
    */
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
       if (data.status !== 200) return;
 

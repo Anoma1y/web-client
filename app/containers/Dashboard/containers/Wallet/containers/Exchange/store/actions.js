@@ -51,7 +51,7 @@ export const setIssuerId = (value) => ({
 export const reset = () => ({ type: RESET })
 
 export const pullCoins = (coinException) => (dispatch) => new Promise((resolve, reject) => {
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
       if (data.status !== 200) reject();
 

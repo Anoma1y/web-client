@@ -70,7 +70,7 @@ export const setThirdPartyCards = (tCards) => ({
  * @returns {function(*=): Promise<any>}
  */
 export const pullWallets = () => (dispatch) => new Promise((resolve, reject) => {
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
       if (data.status !== 200) reject();
 

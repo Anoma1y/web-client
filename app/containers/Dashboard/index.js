@@ -25,6 +25,7 @@ import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
+// todo добавить для каждого промисса метод - finally
 @connect(({ Dashboard_Main }) => ({ Dashboard_Main }), ({
   pullWallets,
   pullThirdPartyCards,

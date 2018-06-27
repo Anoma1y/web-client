@@ -16,7 +16,7 @@ import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions
 import { pullCard } from './store/actions';
 import './style.scss';
 
-@connect((state) => ({ Dashboard_Card: state.Dashboard_Card }), ({
+@connect(({ Dashboard_Card }) => ({ Dashboard_Card }), ({
   setActive,
   pullCard
 }))
@@ -41,23 +41,39 @@ export default class Card extends React.Component {
     const { id } = this.props.match.params;
 
     this.setState({ ready: false });
-
     this.props.pullCard(id)
       .then(() => {
-
         this.props.setActive({ type: 'card', id });
-        this.setState({ ready: true });
-      });
+      })
+      .catch(() => {})
+      .finally(() => this.setState({ ready: true }))
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
   renderContent = (activeIndex) => {
+    const { id } = this.props.match.params;
     const panes = [
-      { icon: <Icon name={'transfer-in'} />, menuItem: 'Top-up', render: () => <TopUp /> },
-      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
-      { icon: <Icon name={'sent_m'} />, menuItem: 'Balance & limits', render: () => <Balance /> },
-      { icon: <SettingsIcon />, menuItem: 'Settings', render: () => <Settings /> },
+      {
+        icon: <Icon name={'transfer-in'} />,
+        menuItem: 'Top-up',
+        render: () => <TopUp cardId={id} />
+      },
+      {
+        icon: <ReorderIcon />,
+        menuItem: 'Transactions',
+        render: () => <Transaction />
+      },
+      {
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Balance & limits',
+        render: () => <Balance />
+      },
+      {
+        icon: <SettingsIcon />,
+        menuItem: 'Settings',
+        render: () => <Settings />
+      },
     ];
 
     return (
@@ -74,13 +90,16 @@ export default class Card extends React.Component {
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
   render() {
-    const { ready, activeIndex } = this.state;
+    const {
+      ready,
+      activeIndex
+    } = this.state;
 
     return (
       <Grid container justify={'center'} className={'wallet'}>
         <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
 
-          <CardInfo />
+          <CardInfo data={this.props.Dashboard_Card.card} />
 
         </Grid>
         <Grid item xs={12}>

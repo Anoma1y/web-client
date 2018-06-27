@@ -6,7 +6,7 @@ export default class Coins {
     this.http = http;
   }
 
-  getCoinsList() {
+  getWalletsList() {
     return this.http.get(config.GET_COINS_LIST);
   }
 
