@@ -34,14 +34,10 @@ const HANDLERS = {
 
     return { ...state, wallets: newWallets };
   },
-  [REMOVE_WALLET]: (state, { payload }) => {
-    const newWallets = [...state.wallets].filter((item) => item.serial !== payload);
-
-    return {
-      ...state,
-      wallets: newWallets
-    }
-  },
+  [REMOVE_WALLET]: (state, { payload }) => ({
+    ...state,
+    wallets: [...state.wallets].filter((item) => item.serial !== payload)
+  }),
   [SET_CARDS]: (state, { payload }) => ({
     ...state,
     cards: payload

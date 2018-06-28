@@ -15,7 +15,6 @@ import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from 'containers/Dashboard/containers/Profile/store/actions';
 import {
   pullProfile as pullProfileMain,
-  setNotification as setNotificationMain // todo добавить для каждого обновления верификации
 } from 'containers/Dashboard/containers/Main/store/actions';
 import _ from 'lodash';
 import uuid from 'uuid/v1';

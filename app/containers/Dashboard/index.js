@@ -25,7 +25,6 @@ import moment from 'moment';
 import './style.scss';
 import uuid from 'uuid/v1';
 
-// todo добавить для каждого промисса метод - finally
 @connect(({ Dashboard_Main }) => ({ Dashboard_Main }), ({
   pullWallets,
   pullThirdPartyCards,
@@ -40,7 +39,6 @@ export default class Dashboard extends Component {
     ready: false
   };
 
-  // todo нужен фикс пустого значения сесии
   componentDidMount() {
     const authToken = Storage.get('session');
 
@@ -50,15 +48,7 @@ export default class Dashboard extends Component {
       return null;
     }
 
-    // this.props.send({ id: uuid(), status: 'error', title: 'Error', message: 'Error message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Warning message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'info', title: 'Info', message: 'Info message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'success', title: 'Success', message: 'Success message text', actionClose: true });
-
-    const {
-      token, // Токен
-      expiresAt // Время смерти токена
-    } = authToken;
+    const { token, expiresAt } = authToken;
 
     // Если время жизни токена истек, то вызов ошибки
     // Иначе вызов промисов для добавления заголовков и инициализации данных
@@ -90,21 +80,18 @@ export default class Dashboard extends Component {
       .then(() => {
         Promise.all(currentRoleInitialActions.map((action) => action()))
           .then(() => {
-
             if (role === 'individual') {
               const { thirdPartyCards } = this.props.Dashboard_Main;
               const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
 
               Promise.all(pullCardList.map((card) => card()))
-                .then(() => this.setState({ ready: true }))
-                .catch(() => this.setState({ ready: true }));
-
+                .finally(() => this.setState({ ready: true }));
             } else {
               this.setState({ ready: true });
             }
-
           })
-          .catch(() => this.setState({ ready: true }));
+          .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'))
+          .finally(() => this.setState({ ready: true }))
       })
       .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };

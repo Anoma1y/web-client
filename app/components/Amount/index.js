@@ -49,13 +49,7 @@ const Amount = (props) => {
   } = formatAmount(amounts);
 
   const renderCurrencySymbol = (currencySymbol) => {
-    if (showCurrency) {
-      return (
-        <span className={`${classBlockName}_currency`}>
-          {` ${currencySymbol}`}
-        </span>
-      );
-    }
+    if (showCurrency) return <span className={`${classBlockName}_currency`}>{currencySymbol}</span>;
     return null;
   };
 

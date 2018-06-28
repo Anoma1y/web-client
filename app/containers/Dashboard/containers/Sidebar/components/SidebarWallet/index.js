@@ -21,7 +21,6 @@ import Text from 'components/Text';
 import Amount from 'components/Amount';
 import { getCurrencySymbol } from 'lib/amount';
 
-// todo добавить функцию для выбора валют
 const renderCurrency = (currency) => (
   <div className={'sidebar-wallet-icon wallet-currency'}>
     <span className={'wallet-currency_symbol'}>{getCurrencySymbol(currency)}</span>
@@ -58,15 +57,12 @@ export default class SidebarWallet extends React.Component {
   handleOpenControl = (type, index) => {
     if (this.props.Dashboard_Sidebar.editIsLoading) return;
 
-    this.setState({
-      controlWallet: { type, index, isChange: true }
-    })
+    this.setState({ controlWallet: { type, index, isChange: true } });
   }
 
   handleCloseControl = () => {
-    this.setState({
-      controlWallet: { type: '', index: 0, isChange: false }
-    })
+    this.props.changeEditNameWallet('');
+    this.setState({ controlWallet: { type: '', index: 0, isChange: false } })
   }
 
   handleApplyControl = () => {
@@ -203,17 +199,14 @@ export default class SidebarWallet extends React.Component {
       </div>
       <div className={'sidebar-wallet-content sidebar-container_content'}>
         <Text className={'sidebar-wallet-amount'}>
-          <Text.Content className={'sidebar-wallet-amount_name'}>
-            {
-
-              <Link to={`/dashboard/wallet/${item.serial}`}>
-                {item.name}
-              </Link>
-            }
-          </Text.Content>
-          <Text.Sub className={'sidebar-wallet-amount_value'}>
-            <Amount value={item.amount} currency={item.issuer.currency} />
-          </Text.Sub>
+          <Link to={`/dashboard/wallet/${item.serial}`}>
+            <Text.Content className={'sidebar-wallet-amount_name'}>
+              {item.name}
+            </Text.Content>
+            <Text.Sub className={'sidebar-wallet-amount_value'}>
+              <Amount value={item.amount} currency={item.issuer.currency} />
+            </Text.Sub>
+          </Link>
         </Text>
       </div>
       <div className={'sidebar-wallet_btn sidebar-container_btn'}>

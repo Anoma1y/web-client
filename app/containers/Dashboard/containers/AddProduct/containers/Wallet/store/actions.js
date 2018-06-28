@@ -7,11 +7,13 @@ import {
   RESET
 } from './types';
 import { replace } from 'react-router-redux';
-import { send } from 'containers/Notification/store/actions';
-import { setWallets as setWalletsMain } from 'containers/Dashboard/containers/Main/store/actions';
-import { api } from 'lib/api';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
+import { send } from 'containers/Notification/store/actions';
+import {
+  setWallets as setWalletsMain
+} from 'containers/Dashboard/containers/Main/store/actions';
+import { api } from 'lib/api';
 
 export const changeName = (name) => ({
   type: CHANGE_NAME,
@@ -53,12 +55,10 @@ export const pullAwailableIssuers = () => (dispatch) => new Promise((resolve, re
 
           dispatch(setAvailableIssuers(availableIssuers));
           resolve(walletIsAvailable);
-        })
+        });
     })
-    .catch((err) => {
-      reject(err);
-    })
-})
+    .catch((err) => reject(err))
+});
 
 /**
  * Экшен для изменения текущей валюты
