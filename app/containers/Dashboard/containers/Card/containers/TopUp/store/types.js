@@ -8,3 +8,4 @@ export const SET_TRANSACTION = 'Card_TopUp/SET_TRANSACTION';
 export const SET_PAYER_FIELDS = 'Card_TopUp/SET_PAYER_FIELDS';
 export const SET_IS_LOADING = 'Card_TopUp/SET_IS_LOADING';
 export const RESET = 'Card_TopUp/RESET';
+export const RESET_TOPUP = 'Card_TopUp/RESET_TOPUP';

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NumberFormat from 'containers/Dashboard/components/NumberFormat';
 import MuiButton from 'components/MuiButton';
+import Amount from 'components/Amount';
 import {
   Grid,
   Button,
@@ -10,7 +11,14 @@ import {
   CircularProgress,
   InputLabel,
   FormControl,
-  Tooltip
+  Tooltip,
+  Step,
+  Stepper,
+  StepLabel,
+  StepButton,
+  StepContent,
+  StepIcon,
+  MobileStepper
 } from '@material-ui/core';
 import {
   changeAmount,
@@ -19,6 +27,8 @@ import {
   pullWallets,
   retrieveListPaymentProviders,
   topup,
+  resetTopup,
+  calculateCommission,
   reset
 } from './store/actions';
 import _ from 'lodash';
@@ -35,24 +45,33 @@ const TX_TYPE = [
   pullWallets,
   retrieveListPaymentProviders,
   topup,
+  resetTopup,
+  calculateCommission,
   reset
 }))
 export default class TopUp extends Component {
 
   state = {
-    ready: false
+    ready: false,
+    activeStep: 0,
+    isFinish: false
   }
 
   componentDidMount() {
-    const { cardId } = this.props;
-
-    this.props.pullWallets(cardId)
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибочка' }));
+    this.initialState();
   }
 
   componentWillUnmount() {
     this.props.reset();
+  }
+
+  initialState = () => {
+    const { cardId } = this.props;
+
+    this.props.pullWallets(cardId)
+      .then(() => {})
+      .catch(() => this.setState({ errorText: 'Ошибочка' }))
+      .finally(() => this.setState({ ready: true }));
   }
 
   handleChangeAmount = (event) => {
@@ -76,13 +95,120 @@ export default class TopUp extends Component {
     this.props.setProvider(provider);
   }
 
-  handleClick = () => {
-    this.props.topup();
+  getSteps = () => [
+    'Change transaction type',
+    'Calculate commission',
+    'Finish'
+  ];
+
+  getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return this.renderFirstStage();
+      case 1:
+        return this.renderSecondStage();
+      case 2:
+        return this.renderThirdStage();
+      default:
+        return 'What is love. Baby dont hurt me, dont hurt me, no more';
+    }
+  };
+
+  handleNext = () => {
+    const { activeStep } = this.state;
+
+    switch (activeStep) {
+      case 0:
+        this.props.calculateCommission()
+          .then(() => this.setState({ activeStep: activeStep + 1 }));
+        break;
+      case 1:
+        this.setState({ isFinish: true, activeStep: activeStep + 2 });
+        break;
+      default:
+        this.setState({ activeStep: activeStep + 1 });
+    }
+  };
+
+  handleBack = () => {
+    const { activeStep } = this.state;
+    this.setState({ activeStep: activeStep - 1 });
+  };
+
+  handleReset = () => {
+    this.props.resetTopup();
+    this.setState({ activeStep: 0, isFinish: false });
+  };
+
+  renderSteps = () => {
+    const steps = this.getSteps();
+    const { activeStep, isFinish } = this.state;
+
+    return (
+      <div>
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          <div>{this.getStepContent(isFinish ? activeStep - 1 : activeStep)}</div>
+          {isFinish ? (
+            <div>
+              <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
+                <Button
+                  variant={'raised'}
+                  color={'secondary'}
+                  onClick={this.handleReset}
+                  disabled={this.props.Card_TopUp.isLoading}
+                >
+                  Add more
+                </Button>
+              </MuiButton>
+            </div>
+          ) : (
+            <div>
+              <div>
+                {(activeStep !== 0 && activeStep !== (steps.length - 1)) &&
+                  <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
+                    <Button
+                      variant={'raised'}
+                      color={'primary'}
+                      disabled={this.props.Card_TopUp.isLoading}
+                      onClick={this.handleBack}
+                    >
+                      Back
+                    </Button>
+                  </MuiButton>
+                }
+                <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
+                  <Button
+                    variant={'raised'}
+                    color={'primary'}
+                    disabled={
+                      this.props.Card_TopUp.isLoading
+                      || this.props.Card_TopUp.amount === 0
+                      || this.props.Card_TopUp.provider.accountId === ''
+                      || this.props.Card_TopUp.txType === ''
+                    }
+                    onClick={this.handleNext}
+                  >
+                    {(activeStep === steps.length - 2) ? 'Submit' : 'Next'}
+                  </Button>
+                </MuiButton>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   };
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
 
-  renderContent = () => {
+  renderFirstStage = () => {
     const {
       wallet,
       providers,
@@ -100,16 +226,16 @@ export default class TopUp extends Component {
                 id={'tooltip-controlled_serial'}
                 leaveDelay={50}
                 placement={'top'}
-                title={wallet.serial}
+                title={wallet.serial || ''}
               >
-                <p>{wallet.name}</p>
+                <p>{wallet.name || ''}</p>
               </Tooltip>
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs={4}>
               <FormControl fullWidth>
-                <InputLabel htmlFor={'tx-select'}>Coin</InputLabel>
+                <InputLabel htmlFor={'tx-select'}>Transaction type</InputLabel>
                 <Select
                   fullWidth
                   native
@@ -163,27 +289,39 @@ export default class TopUp extends Component {
               </Grid>
           }
 
-          <Grid container>
-            <MuiButton isLoading={isLoading}>
-              <Button
-                fullWidth
-                variant={'raised'}
-                color={'primary'}
-                disabled={isLoading}
-                onClick={this.handleClick}
-              >
-                Submit
-              </Button>
-            </MuiButton>
-
-          </Grid>
-
         </Grid>
       </Grid>
     )
   }
 
+  renderSecondStage = () => {
+    const { commission } = this.props.Card_TopUp;
+
+    return (
+      <Grid container>
+        <Grid item xs={6}>
+          <div>Source amount: <Amount value={commission.sourceAmount} currency={commission.currency.code || 'EUR'} /></div>
+          <div>Commission: {commission.commissionAmount}%</div>
+          <div>Amount to send: <Amount value={commission.amountToSend} currency={commission.currency.code || 'EUR'} /></div>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  renderThirdStage = () => {
+    return (
+      <Grid container>
+        <Grid item xs={6}>
+          <p>Order ID: 1529958565662</p>
+          <p>Payment: CardPay</p>
+          <p>Amount to send: 5000 EUR</p>
+          <p>Final amount: 19999999 EUR</p>
+        </Grid>
+      </Grid>
+    );
+  };
+
   render() {
-    return this.state.ready ? this.renderContent() : this.renderLoader();
+    return this.state.ready ? this.renderSteps() : this.renderLoader();
   }
 }

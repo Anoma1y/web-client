@@ -9,6 +9,7 @@ import {
   SET_PAYER_FIELDS,
   SET_IS_LOADING,
   RESET,
+  RESET_TOPUP
 } from './types';
 
 const INITIAL_STATE = {
@@ -66,6 +67,13 @@ const HANDLERS = {
     ...state,
     isLoading: payload
   }),
+  [RESET_TOPUP]: (state) => {
+    return {
+      ...state,
+      ...INITIAL_STATE,
+      wallet: state.wallet,
+    }
+  },
   [RESET]: (state) => ({
     ...state,
     ...INITIAL_STATE
