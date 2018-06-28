@@ -11,6 +11,7 @@ import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
 import { updateCard } from '../../store/actions';
+import { getCardStatus } from 'lib/card';
 import _ from 'lodash';
 
 const renderMasterCard = () => (
@@ -18,19 +19,6 @@ const renderMasterCard = () => (
     <Icon name={'mastercard'} size={35} />
   </div>
 );
-
-const getStatusCard = (status) => {
-  switch (status) {
-    case 'WAITING_FOR_CARDHOLDER_DETAILS':
-      return 'Waiting the details';
-    case 'CONFIRMED_BY_CARDHOLDER':
-      return 'Card are confirmed';
-    case 'INACTIVE':
-      return 'Inactive card';
-    default:
-      return 'Inactive status';
-  }
-};
 
 @connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard_Main: state.Dashboard_Main }), ({
   updateCard
@@ -83,7 +71,7 @@ export default class SidebarCard extends Component {
 
   renderProgressCard = (status) => (
     <div className={'sidebar-wallet_card-status'}>
-      { this.props.Dashboard_Sidebar.cardsIsUpdate ? <span className={'sidebar-wallet_card-status__update'}>Update status</span> : getStatusCard(status) }
+      { this.props.Dashboard_Sidebar.cardsIsUpdate ? <span className={'sidebar-wallet_card-status__update'}>Update status</span> : getCardStatus(status) }
     </div>
   );
 

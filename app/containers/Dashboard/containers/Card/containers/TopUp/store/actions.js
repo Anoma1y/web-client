@@ -11,7 +11,9 @@ import {
   RESET,
   RESET_TOPUP
 } from './types';
+import { send } from 'containers/Notification/store/actions';
 import { api } from 'lib/api';
+import uuid from 'uuid/v1';
 import _ from 'lodash';
 
 export const changeAmount = (value) => ({
@@ -90,9 +92,7 @@ export const pullWallets = (cardId) => (dispatch, getState) => new Promise((reso
       dispatch(setWallet(wallet));
       resolve();
     })
-    .catch((err) => {
-      reject(err);
-    });
+    .catch((err) => reject(err));
 });
 
 export const calculateCommission = () => (dispatch, getState) => new Promise((resolve, reject) => {
@@ -111,8 +111,11 @@ export const calculateCommission = () => (dispatch, getState) => new Promise((re
       dispatch(setCommission(data.data));
       resolve();
     })
-    .catch(() => reject())
-    .finally(() => dispatch(setIsLoading(false)))
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error calculating commission', timeout: 3000 }));
+      reject();
+    })
+    .finally(() => dispatch(setIsLoading(false)));
 })
 
 export const topup = () => (dispatch, getState) => new Promise((resolve, reject) => {

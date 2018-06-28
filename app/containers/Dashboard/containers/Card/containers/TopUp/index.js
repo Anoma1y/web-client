@@ -120,7 +120,7 @@ export default class TopUp extends Component {
     switch (activeStep) {
       case 0:
         this.props.calculateCommission()
-          .then(() => this.setState({ activeStep: activeStep + 1 }));
+          .then(() => this.setState({ activeStep: activeStep + 1 }))
         break;
       case 1:
         this.setState({ isFinish: true, activeStep: activeStep + 2 });

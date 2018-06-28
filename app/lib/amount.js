@@ -864,15 +864,13 @@ export const createSplitter = (partSize) => {
  * { основная часть, остаточная часть, меньше или больше нуля, символ валюты }
  */
 export const formatAmount = (amount) => {
-  const {
-    value,
-    currency
-  } = amount;
+  const { value, currency } = amount;
   const fractionDigits = Math.log(100) / Math.LN10;
   const valueAbsStr = (Math.abs(Number(value)) / 100).toFixed(fractionDigits);
   const numberParts = valueAbsStr.split('.');
   const amountSplitter = createSplitter(AMOUNT_MAJOR_PART_SIZE);
   const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(AMOUNT_SPLITTER);
+
   return {
     majorPart: majorPartFormatted,
     minorPart: numberParts[1],
@@ -889,7 +887,7 @@ export const formatAmount = (amount) => {
  * @returns {{sell: number, buy: number}}
  */
 export const calulcateExchange = (value, type, rate) => {
-  let amount = { sell: 0, buy: 0 };
+  const amount = { sell: 0, buy: 0 };
 
   if (type === 'sell') {
     amount.sell = value;

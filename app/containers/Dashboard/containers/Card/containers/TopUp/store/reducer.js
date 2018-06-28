@@ -67,15 +67,11 @@ const HANDLERS = {
     ...state,
     isLoading: payload
   }),
-  [RESET_TOPUP]: (state) => {
-    return {
-      ...state,
-      ...INITIAL_STATE,
-      wallet: state.wallet,
-    }
-  },
-  [RESET]: (state) => ({
-    ...state,
+  [RESET_TOPUP]: (state) => ({
+    ...INITIAL_STATE,
+    wallet: state.wallet,
+  }),
+  [RESET]: () => ({
     ...INITIAL_STATE
   }),
 };

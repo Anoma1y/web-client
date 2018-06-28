@@ -33,7 +33,6 @@ export const getValuesDeep = (object) => {
 /**
  * Функция для получения имени пользователя
  * @param profile - объект profile, получаемый после авторизации
- * @param isLoading - если тру, то выводит плейсхолдер
  * @returns {*}
  */
 export const getUserName = (profile) => {

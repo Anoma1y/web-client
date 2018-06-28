@@ -126,8 +126,6 @@ export const signin = () => (dispatch, getState) => {
   api.auth.authorization(authLogin, password)
     .then((data) => {
 
-      dispatch(setIsLoading(false));
-
       if (data.status !== 200) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
@@ -157,8 +155,6 @@ export const signin = () => (dispatch, getState) => {
 
     })
     .catch((error) => {
-      dispatch(setIsLoading(false));
-
       const errorHandler = (code, message) => {
         dispatch(setIsLoading(false));
         switch (code) {
@@ -194,7 +190,8 @@ export const signin = () => (dispatch, getState) => {
       } catch (err) {
         dispatch(setErrorMessage('System is under maintenance'));
       }
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -221,7 +218,6 @@ export const sendConfirm = () => (dispatch, getState) => {
 
   api.auth.authorizationConfirm(authLogin, OTP)
     .then((data) => {
-      dispatch(setIsLoading(false));
 
       if (data.status !== 200) {
         Storage.clear();
@@ -239,8 +235,6 @@ export const sendConfirm = () => (dispatch, getState) => {
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {
-      dispatch(setIsLoading(false));
-
       const errorHandler = (code, message) => {
         switch (code) {
           case 'CONFIRMATION_CODE_INVALID':
@@ -262,8 +256,8 @@ export const sendConfirm = () => (dispatch, getState) => {
       } catch (err) {
         dispatch(setErrorMessage('System is under maintenance'));
       }
-
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -293,10 +287,8 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.authorizationResendOTP(authLogin)
-    .then(() => dispatch(setIsLoading(false)))
+    .then(() => {})
     .catch((error) => {
-
-      dispatch(setIsLoading(false));
 
       const errorHandler = (code, message) => {
         switch (code) {
@@ -315,6 +307,7 @@ export const resendOTP = () => (dispatch, getState) => {
         dispatch(setErrorMessage('System is under maintenance'));
       }
 
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 
 };

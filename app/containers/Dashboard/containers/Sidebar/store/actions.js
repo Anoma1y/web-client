@@ -54,7 +54,6 @@ export const applyRemove = (index) => (dispatch, getState) => {
 
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: `Кошелек ${serial} был удален`, timeout: 4000 }));
       dispatch(removeWalletMain(serial));
-      dispatch(setEditIsLoading(false));
 
       if (currentSerial.name === serial) {
         dispatch(replace('/dashboard/'));
@@ -63,8 +62,8 @@ export const applyRemove = (index) => (dispatch, getState) => {
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при удалении кошелька', timeout: 4000 }));
-      dispatch(setEditIsLoading(false));
     })
+    .finally(() => dispatch(setEditIsLoading(false)));
 }
 
 /**
@@ -95,12 +94,11 @@ export const applyEditNameWallet = (index) => (dispatch, getState) => {
 
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: `Имя кошелька ${serial} изменено`, timeout: 4000 }));
       dispatch(setWalletMain(coin, index));
-      dispatch(setEditIsLoading(false));
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
-      dispatch(setEditIsLoading(false));
-    });
+    })
+    .finally(() => dispatch(setEditIsLoading(false)))
 };
 
 /**
@@ -123,14 +121,13 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
       newCards[index] = cardInfo;
 
       dispatch(setCardsAfterUpdateMain(newCards));
-      dispatch(setCardIsUpdate(false));
       resolve();
 
     })
     .catch(() => {
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при обновлении статуса карты', timeout: 4000 }));
-      dispatch(setCardIsUpdate(false));
       reject();
-    });
+    })
+    .finally(() => dispatch(setCardIsUpdate(false)))
 });
 
