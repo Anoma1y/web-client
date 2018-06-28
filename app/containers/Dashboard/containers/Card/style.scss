@@ -48,3 +48,50 @@
     font-size: 1.1rem;
   }
 }
+
+.card-topup {
+  p {
+    margin: 0;
+  }
+  &-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  &-header {
+    padding-bottom: 0.5rem !important;
+    padding-top: 0.5rem !important;
+
+    &_label {
+      cursor: default;
+      span {
+        font-family: $font-regular;
+      }
+    }
+  }
+  &-container {
+    padding: 0 2rem 1rem;
+    font-family: $font-regular;
+  }
+  &-form {
+    &_header {
+      cursor: default;
+      p {
+        font-family: $font-regular;
+        color: $gray-color;
+        margin-bottom: 1.5rem;
+      }
+    }
+    &_item {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    input, select, label {
+      font-family: $font-regular;
+    }
+  }
+  &-control {
+    &_btn {
+      font-family: $font-regular !important;
+    }
+  }
+}

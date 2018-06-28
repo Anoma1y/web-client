@@ -145,32 +145,37 @@ export default class TopUp extends Component {
     const { activeStep, isFinish } = this.state;
 
     return (
-      <div>
-        <Stepper activeStep={activeStep} alternativeLabel>
+      <div className={'card-topup'}>
+        <Stepper activeStep={activeStep} alternativeLabel className={'card-topup-header'}>
           {steps.map((label) => (
             <Step key={label}>
-              <StepLabel>{label}</StepLabel>
+              <StepLabel className={'card-topup-header_label'}>{label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        <div>
-          <div>{this.getStepContent(isFinish ? activeStep - 1 : activeStep)}</div>
-          {isFinish ? (
-            <div>
-              <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
-                <Button
-                  variant={'raised'}
-                  color={'secondary'}
-                  onClick={this.handleReset}
-                  disabled={this.props.Card_TopUp.isLoading}
-                >
-                  Add more
-                </Button>
-              </MuiButton>
-            </div>
-          ) : (
-            <div>
-              <div>
+        <div className={'card-topup-container'}>
+          <div className={'card-topup-content'}>
+            {
+              this.getStepContent(isFinish ? activeStep - 1 : activeStep)
+            }
+          </div>
+          <div className={'card-topup-control'}>
+            {isFinish ? (
+              <div className={'card-topup-control_item'}>
+                <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
+                  <Button
+                    variant={'raised'}
+                    color={'secondary'}
+                    disabled={this.props.Card_TopUp.isLoading}
+                    onClick={this.handleReset}
+                    className={'card-topup-control_btn card-topup-control_btn__reset'}
+                  >
+                    Add more
+                  </Button>
+                </MuiButton>
+              </div>
+            ) : (
+              <div className={'card-topup-control_item'}>
                 {(activeStep !== 0 && activeStep !== (steps.length - 1)) &&
                   <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
                     <Button
@@ -178,6 +183,7 @@ export default class TopUp extends Component {
                       color={'primary'}
                       disabled={this.props.Card_TopUp.isLoading}
                       onClick={this.handleBack}
+                      className={'card-topup-control_btn card-topup-control_btn__back'}
                     >
                       Back
                     </Button>
@@ -194,13 +200,14 @@ export default class TopUp extends Component {
                       || this.props.Card_TopUp.txType === ''
                     }
                     onClick={this.handleNext}
+                    className={'card-topup-control_btn card-topup-control_btn__next'}
                   >
                     {(activeStep === steps.length - 2) ? 'Submit' : 'Next'}
                   </Button>
                 </MuiButton>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
@@ -217,23 +224,15 @@ export default class TopUp extends Component {
     } = this.props.Card_TopUp;
 
     return (
-      <Grid container>
+      <Grid container className={'card-topup-wrapper card-topup-form'}>
         <Grid item xs={12}>
           <Grid container>
-            <Grid item xs={4}>
-              <Tooltip
-                enterDelay={150}
-                id={'tooltip-controlled_serial'}
-                leaveDelay={50}
-                placement={'top'}
-                title={wallet.serial || ''}
-              >
-                <p>{wallet.name || ''}</p>
-              </Tooltip>
+            <Grid item xs={4} className={'card-topup-form_header'}>
+              <p>{wallet.name || ''} - {wallet.serial || ''}</p>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={4}>
+            <Grid item xs={4} className={'card-topup-form_item'}>
               <FormControl fullWidth>
                 <InputLabel htmlFor={'tx-select'}>Transaction type</InputLabel>
                 <Select
@@ -254,7 +253,7 @@ export default class TopUp extends Component {
           {
             providers.length !== 0 &&
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={4} className={'card-topup-form_item'}>
                   <FormControl fullWidth>
                     <InputLabel htmlFor={'tx-select'}>Provider</InputLabel>
                     <Select
@@ -276,7 +275,7 @@ export default class TopUp extends Component {
           {
             provider.accountId !== '' &&
               <Grid container>
-                <Grid item xs={4}>
+                <Grid item xs={4} className={'card-topup-form_item'}>
                   <TextField
                     label={'Amount'}
                     value={this.props.Card_TopUp.amount}
@@ -298,7 +297,7 @@ export default class TopUp extends Component {
     const { commission } = this.props.Card_TopUp;
 
     return (
-      <Grid container>
+      <Grid container className={'card-topup-wrapper'}>
         <Grid item xs={6}>
           <div>Source amount: <Amount value={commission.sourceAmount} currency={commission.currency.code || 'EUR'} /></div>
           <div>Commission: {commission.commissionAmount}%</div>
@@ -310,7 +309,7 @@ export default class TopUp extends Component {
 
   renderThirdStage = () => {
     return (
-      <Grid container>
+      <Grid container className={'card-topup-wrapper'}>
         <Grid item xs={6}>
           <p>Order ID: 1529958565662</p>
           <p>Payment: CardPay</p>

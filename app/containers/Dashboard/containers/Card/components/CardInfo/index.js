@@ -12,7 +12,7 @@ export default (props) => {
         <div className={'card-content'}>
           <Text className={'card-content_text'}>
             <Text.Content>
-                Available on Master Card **** {cardNumber}
+                Available on Master Card **** {cardNumber || '****'}
             </Text.Content>
             <Text.Sub>
               <Amount
@@ -29,10 +29,10 @@ export default (props) => {
         </div>
         <div className={'card-image'}>
           <div className={'card-image_thumb'}>
-            <img src="/static/images/card-template.png" alt="Card" />
+            <img src={'/static/images/card-template.png'} alt={'Card'} />
           </div>
           <div className={'card-image_title'}>
-            <p> **** {cardNumber} </p>
+            <p> **** {cardNumber || '****'} </p>
           </div>
         </div>
       </div>

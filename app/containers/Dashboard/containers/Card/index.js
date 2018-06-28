@@ -67,12 +67,12 @@ export default class Card extends React.Component {
       {
         icon: <Icon name={'sent_m'} />,
         menuItem: 'Balance & limits',
-        render: () => <Balance />
+        render: () => <Balance cardId={id} />
       },
       {
         icon: <SettingsIcon />,
         menuItem: 'Settings',
-        render: () => <Settings />
+        render: () => <Settings cardId={id} />
       },
     ];
 
