@@ -10,9 +10,7 @@ import { replace } from 'react-router-redux';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
 import { send } from 'containers/Notification/store/actions';
-import {
-  setWallets as setWalletsMain
-} from 'containers/Dashboard/containers/Main/store/actions';
+import { setWallets as setWalletsMain } from 'containers/Dashboard/containers/Main/store/actions';
 import { api } from 'lib/api';
 
 export const changeName = (name) => ({
