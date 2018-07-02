@@ -11,7 +11,7 @@ import {
   removeWallet as removeWalletMain,
   setWallet as setWalletMain,
   setCardsAfterUpdate as setCardsAfterUpdateMain
-} from 'containers/Dashboard/containers/Main/store/actions';
+} from 'containers/Dashboard/store/actions';
 import uuid from 'uuid/v1';
 import { getPathInfo } from 'lib/pathUtils';
 
@@ -36,7 +36,7 @@ export const setEditIsLoading = (isLoading = false) => ({
 });
 
 export const applyRemove = (index) => (dispatch, getState) => {
-  const { wallets } = getState().Dashboard_Main;
+  const { wallets } = getState().Dashboard;
   const walletRemoveData = wallets[index];
   const { serial, amount } = walletRemoveData;
   const currentPath = getPathInfo(getState().routing.location.pathname);
@@ -74,7 +74,7 @@ export const applyRemove = (index) => (dispatch, getState) => {
 export const applyEditNameWallet = (index) => (dispatch, getState) => {
 
   const {
-    Dashboard_Main: { wallets },
+    Dashboard: { wallets },
     Dashboard_Sidebar: { editNameWallet }
   } = getState();
 
@@ -114,7 +114,7 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
     .then((data) => {
       if (data.status !== 200) reject();
 
-      const { cards } = getState().Dashboard_Main;
+      const { cards } = getState().Dashboard;
       const { cardInfo } = data.data;
 
       const newCards = [...cards];

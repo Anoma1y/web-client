@@ -18,14 +18,14 @@ import {
   pullThirdPartyCards,
   pullCard,
   pullWallets
-} from './containers/Main/store/actions';
+} from './store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import moment from 'moment';
-import './style.scss';
 import uuid from 'uuid/v1';
+import './style.scss';
 
-@connect(({ Dashboard_Main }) => ({ Dashboard_Main }), ({
+@connect(({ Dashboard }) => ({ Dashboard }), ({
   pullWallets,
   pullThirdPartyCards,
   pullCard,
@@ -45,7 +45,7 @@ export default class Dashboard extends Component {
     // Если токена нету в локальном хранилище, то вызов ошибки
     if (authToken === null) {
       this.handlerError('error', 'Ошибка', 'Произошла непредвиденная ошибка');
-      return null;
+      return;
     }
 
     const { token, expiresAt } = authToken;
@@ -73,25 +73,27 @@ export default class Dashboard extends Component {
       administrator: [this.props.pullProfile],
       byDefault: [this.props.pullProfile]
     };
+    const ROLES_HAS_CARD = ['individual'];
     const { role } = Storage.get('members')[0];
     const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
 
-    api.addHeader('Authorization', tokenName)
+    api.addHeader('Authorization', tokenName) // добавления заголовка Authorization для всех запросов (axios) к API
       .then(() => {
-        Promise.all(currentRoleInitialActions.map((action) => action()))
+        Promise.all(currentRoleInitialActions.map((action) => action())) // получение всех необходимых данных по ролям
           .then(() => {
-            if (role === 'individual') {
-              const { thirdPartyCards } = this.props.Dashboard_Main;
+            if (ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
+              const { thirdPartyCards } = this.props.Dashboard;
               const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
 
               Promise.all(pullCardList.map((card) => card()))
                 .finally(() => this.setState({ ready: true }));
+
             } else {
               this.setState({ ready: true });
             }
           })
           .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'))
-          .finally(() => this.setState({ ready: true }))
+          .finally(() => this.setState({ ready: true }));
       })
       .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };

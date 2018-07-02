@@ -10,7 +10,7 @@ import { replace } from 'react-router-redux';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
 import { send } from 'containers/Notification/store/actions';
-import { setWallets as setWalletsMain } from 'containers/Dashboard/containers/Main/store/actions';
+import { setWallets as setWalletsMain } from 'containers/Dashboard/store/actions';
 import { api } from 'lib/api';
 
 export const changeName = (name) => ({
@@ -89,7 +89,7 @@ export const reset = () => ({
 export const createWallet = () => (dispatch, getState) => {
   const {
     AddProduct_Wallet: { name, currency },
-    Dashboard_Main: { wallets }
+    Dashboard: { wallets }
   } = getState();
   const TYPE = 'client'; // todo заменить на определенный
 

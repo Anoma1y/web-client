@@ -10,7 +10,7 @@ import { pullProfile } from '../../../store/actions';
 import {
   pullProfile as pullProfileMain,
   setNotification as setNotificationMain
-} from 'containers/Dashboard/containers/Main/store/actions';
+} from 'containers/Dashboard/store/actions';
 import { api } from 'lib/api';
 import uuid from 'uuid/v1';
 import Storage from 'lib/storage';

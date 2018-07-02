@@ -79,7 +79,7 @@ export const reset = () => ({ type: RESET });
  * @returns {function(*=, *): Promise<any>}
  */
 export const pullWallets = (cardId) => (dispatch, getState) => new Promise((resolve, reject) => {
-  const { cards } = getState().Dashboard_Main;
+  const { cards } = getState().Dashboard;
   const currentCard = _.find(cards, { card: { id: cardId } });
 
   api.coins.getWalletsList()

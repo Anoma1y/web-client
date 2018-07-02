@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-@connect((state) => ({ Dashboard_Main: state.Dashboard_Main }))
+@connect((state) => ({ Dashboard: state.Dashboard }))
 export default class SidebarNotification extends React.Component {
   render() {
     return (
@@ -11,7 +11,7 @@ export default class SidebarNotification extends React.Component {
         </div>
 
         <div className={'sidebar-notice_message sidebar-container_content'}>
-          {this.props.Dashboard_Main.notification}
+          {this.props.Dashboard.notification}
         </div>
       </div>
     )

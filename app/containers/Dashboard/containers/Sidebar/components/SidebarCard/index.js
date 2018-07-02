@@ -20,7 +20,7 @@ const renderMasterCard = () => (
   </div>
 );
 
-@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard_Main: state.Dashboard_Main }), ({
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard: state.Dashboard }), ({
   updateCard
 }))
 export default class SidebarCard extends Component {
@@ -117,7 +117,7 @@ export default class SidebarCard extends Component {
     return (
       <div className={'sidebar-cards'}>
         {
-          this.props.Dashboard_Main.cards.map((card, index) => {
+          this.props.Dashboard.cards.map((card, index) => {
             const { card: cardInfo } = card;
             const isActive = cardInfo.status === 'ACTIVE';
             const isSidebarActiveTab = sidebarActiveTab.id === cardInfo.id && sidebarActiveTab.type === 'card';
@@ -163,7 +163,7 @@ export default class SidebarCard extends Component {
         </div>
 
         {
-          this.props.Dashboard_Main.cards.length !== 0 && this.renderCards()
+          this.props.Dashboard.cards.length !== 0 && this.renderCards()
         }
 
       </div>

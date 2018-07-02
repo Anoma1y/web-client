@@ -21,7 +21,7 @@ import {
 import { getTransactionsStatus, getTransactionsType } from 'lib/transactions';
 import _ from 'lodash';
 
-@connect(({ Dashboard_Transaction, Dashboard_Main }) => ({ Dashboard_Transaction, Dashboard_Main }), ({ pullTransactions }))
+@connect(({ Dashboard_Transaction, Dashboard }) => ({ Dashboard_Transaction, Dashboard }), ({ pullTransactions }))
 export default class DataTable extends Component {
 
   state = {
@@ -68,7 +68,7 @@ export default class DataTable extends Component {
 
   // todo для разных типов - разные поля для serial и т.п., нужно поправить
   renderRow = () => {
-    const { wallets } = this.props.Dashboard_Main;
+    const { wallets } = this.props.Dashboard;
     const userWallets = wallets.map((wallet) => wallet.serial);
     const { records } = this.props;
     const transactions = records.map((it) => {

@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import { Person as PersonIcon } from '@material-ui/icons';
 import { getUserName } from 'lib/utils';
 
-@connect(state => ({ Dashboard_Main: state.Dashboard_Main }))
+@connect(state => ({ Dashboard: state.Dashboard }))
 export default class SidebarUser extends React.Component {
 
   render() {
-    const { profile } = this.props.Dashboard_Main;
+    const { profile } = this.props.Dashboard;
 
     return (
       <div className={'user-info sidebar-container'}>
