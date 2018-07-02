@@ -81,16 +81,15 @@ export default class Dashboard extends Component {
       .then(() => {
         Promise.all(currentRoleInitialActions.map((action) => action())) // получение всех необходимых данных по ролям
           .then(() => {
-            if (ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
-              const { thirdPartyCards } = this.props.Dashboard;
-              const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
-
-              Promise.all(pullCardList.map((card) => card()))
-                .finally(() => this.setState({ ready: true }));
-
-            } else {
+            if (!ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
               this.setState({ ready: true });
+              return;
             }
+            const { thirdPartyCards } = this.props.Dashboard;
+            const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
+
+            Promise.all(pullCardList.map((card) => card()))
+              .finally(() => this.setState({ ready: true }));
           })
           .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'))
           .finally(() => this.setState({ ready: true }));

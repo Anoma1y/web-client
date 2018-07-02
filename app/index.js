@@ -6,31 +6,29 @@ import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store/createStore';
 import App from './App';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+// import { logout } from 'containers/Auth/containers/Signin/store/actions';
 // import { debounce } from 'lodash';
 
 // const inactivityLogout = (inactivityTime) => {
-//
 //   let inactivityState = false;
 //   let inactivityTimer = null;
 //
 //   const handleInactivity = () => {
 //     clearInterval(inactivityTimer)
-//     if (inactivityState) console.log('Logout');
+//     if (inactivityState) store.dispatch(logout());
 //
 //     inactivityState = false;
 //     inactivityTimer = setTimeout(() => {
-//       inactivityState = true
+//       inactivityState = true;
 //     }, inactivityTime);
-//
-//   }
+//   };
 //
 //   document.addEventListener('mousemove', debounce(handleInactivity, 200));
 //   document.addEventListener('keydown', debounce(handleInactivity, 200));
 //   document.addEventListener('scroll', debounce(handleInactivity, 200));
-//
 // }
 //
-// document.addEventListener('DOMContentLoaded', inactivityLogout(4000))
+// document.addEventListener('DOMContentLoaded', inactivityLogout(10000));
 
 const theme = createMuiTheme({
   palette: {
