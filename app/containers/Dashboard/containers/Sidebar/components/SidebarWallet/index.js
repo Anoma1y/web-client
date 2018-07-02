@@ -19,7 +19,7 @@ import {
 } from '../../store/actions'
 import Text from 'components/Text';
 import Amount from 'components/Amount';
-import { getCurrencySymbol } from 'lib/amount';
+import { getCurrencySymbol } from 'lib/currencyCodes';
 
 const renderCurrency = (currency) => (
   <div className={'sidebar-wallet-icon wallet-currency'}>

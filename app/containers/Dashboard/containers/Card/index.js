@@ -55,9 +55,9 @@ export default class Card extends React.Component {
     const { id } = this.props.match.params;
     const panes = [
       {
-        icon: <Icon name={'sent_m'} />,
-        menuItem: 'Balance & limits',
-        render: () => <Balance cardId={id} />
+        icon: <ReorderIcon />,
+        menuItem: 'Transactions',
+        render: () => <Transaction />
       },
       {
         icon: <Icon name={'transfer-in'} />,
@@ -65,9 +65,9 @@ export default class Card extends React.Component {
         render: () => <TopUp cardId={id} />
       },
       {
-        icon: <ReorderIcon />,
-        menuItem: 'Transactions',
-        render: () => <Transaction />
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Balance & limits',
+        render: () => <Balance cardId={id} />
       },
       {
         icon: <SettingsIcon />,
