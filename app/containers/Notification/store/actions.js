@@ -21,9 +21,11 @@ export const clearAll = () => ({
 // todo добавить закрытие после смены локации
 export const send = (notification) => {
   const payload = Object.assign({}, notification);
+
   if (!payload.id) {
     payload.id = new Date().getTime();
   }
+
   return (dispatch) => {
     dispatch(sendNotification(payload));
     if (payload.timeout) {
