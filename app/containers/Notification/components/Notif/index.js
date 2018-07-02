@@ -15,9 +15,7 @@ const STATUS = {
   success: <CheckCircleIcon />
 };
 
-@connect(state => ({ Notification: state.Notification }), {
-  remove
-})
+@connect(({ Notification }) => ({ Notification }), { remove })
 export default class Notif extends Component {
 
   /**
@@ -30,7 +28,9 @@ export default class Notif extends Component {
   handleActionClick = (e) => {
     e.preventDefault();
     const { id } = this.props;
+
     if (!id) return;
+
     this.props.remove(id);
   };
 
