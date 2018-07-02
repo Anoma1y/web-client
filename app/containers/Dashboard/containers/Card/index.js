@@ -11,15 +11,15 @@ import {
 } from '@material-ui/icons';
 import Icon from 'components/Icon';
 import Tab from 'components/Tab';
-import { Grid, CircularProgress } from '@material-ui/core';
+import {
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import { pullCard } from './store/actions';
 import './style.scss';
 
-@connect(({ Dashboard_Card }) => ({ Dashboard_Card }), ({
-  setActive,
-  pullCard
-}))
+@connect(({ Dashboard_Card }) => ({ Dashboard_Card }), ({ setActive, pullCard }))
 export default class Card extends React.Component {
 
   state = {
@@ -46,7 +46,7 @@ export default class Card extends React.Component {
         this.props.setActive({ type: 'card', id });
       })
       .catch(() => {})
-      .finally(() => this.setState({ ready: true }))
+      .finally(() => this.setState({ ready: true }));
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
@@ -54,6 +54,11 @@ export default class Card extends React.Component {
   renderContent = (activeIndex) => {
     const { id } = this.props.match.params;
     const panes = [
+      {
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Balance & limits',
+        render: () => <Balance cardId={id} />
+      },
       {
         icon: <Icon name={'transfer-in'} />,
         menuItem: 'Top-up',
@@ -63,11 +68,6 @@ export default class Card extends React.Component {
         icon: <ReorderIcon />,
         menuItem: 'Transactions',
         render: () => <Transaction />
-      },
-      {
-        icon: <Icon name={'sent_m'} />,
-        menuItem: 'Balance & limits',
-        render: () => <Balance cardId={id} />
       },
       {
         icon: <SettingsIcon />,
@@ -84,7 +84,7 @@ export default class Card extends React.Component {
           activeIndex={activeIndex}
         />
       </div>
-    )
+    );
   };
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
@@ -112,6 +112,6 @@ export default class Card extends React.Component {
           </div>
         </Grid>
       </Grid>
-    )
+    );
   }
 }

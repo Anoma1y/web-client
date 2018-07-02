@@ -848,12 +848,16 @@ export const AMOUNT_SPLITTER = ','; // Разделитель между час�
  */
 export const createSplitter = (partSize) => {
   const parts = (str) => {
+
     const { length } = str;
+
     if (length <= partSize) {
       return [str];
     }
+
     return [str.slice(length - partSize, length)].concat(parts(str.slice(0, length - partSize)));
   };
+
   return parts;
 };
 
