@@ -15,7 +15,7 @@ import {
   validateLogin
 } from 'lib/auth';
 
-@connect((state) => ({ Auth_Reset: state.Auth_Reset }), {
+@connect(({ Auth_Reset }) => ({ Auth_Reset }), {
   changeLogin,
   setError,
   setIsPhone,
@@ -40,6 +40,7 @@ export default class FormReset extends Component {
     if (/[^a-z,A-Z,0-9@.+]/g.test(value)) return;
 
     const login = transformLoginType(value);
+
     this.props.changeLogin(login);
   };
 
@@ -71,7 +72,6 @@ export default class FormReset extends Component {
 
     this.props.setError(checkError);
     return !checkError;
-
   };
 
   /**
@@ -84,7 +84,6 @@ export default class FormReset extends Component {
   };
 
   render() {
-
     const {
       login,
       isLoading,
@@ -94,6 +93,7 @@ export default class FormReset extends Component {
     return (
       <Fragment>
         <div className={'auth-form_item'}>
+
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
@@ -105,8 +105,10 @@ export default class FormReset extends Component {
             onBlur={this.handleValidateForm}
             value={login}
           />
+
         </div>
         <div className={'auth-form_item auth-form_btn auth-form_btn__indent_none'}>
+
           <Button
             color={'lightblue'}
             onClick={this.handleReset}
@@ -114,12 +116,14 @@ export default class FormReset extends Component {
           >
             <span className={'auth-btn_text'}>Reset</span>
           </Button>
+
           {
             errorMessage !== '' &&
             <div className={'auth-form_error'}>
               <span>{errorMessage}</span>
             </div>
           }
+
         </div>
       </Fragment>
     )

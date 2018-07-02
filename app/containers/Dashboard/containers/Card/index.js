@@ -45,7 +45,6 @@ export default class Card extends React.Component {
       .then(() => {
         this.props.setActive({ type: 'card', id });
       })
-      .catch(() => {})
       .finally(() => this.setState({ ready: true }));
   }
 
@@ -90,10 +89,7 @@ export default class Card extends React.Component {
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
   render() {
-    const {
-      ready,
-      activeIndex
-    } = this.state;
+    const { ready, activeIndex } = this.state;
 
     return (
       <Grid container justify={'center'} className={'wallet'}>

@@ -19,7 +19,7 @@ import {
   validateLogin,
 } from 'lib/auth';
 
-@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+@connect(({ Auth_Signup }) => ({ Auth_Signup }), {
   changeLogin,
   setError,
   changeCountry,
@@ -76,6 +76,7 @@ export default class FormSignup extends Component {
    */
   handleChangeCountry = ({ value }) => {
     const country = value.toUpperCase();
+
     this.props.changeCountry(country);
   };
 
@@ -92,6 +93,7 @@ export default class FormSignup extends Component {
     return (
       <Fragment>
         <div className={'auth-form_item'}>
+
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
@@ -104,9 +106,11 @@ export default class FormSignup extends Component {
             onChange={this.handleChangeLogin}
             onBlur={this.handleLoginBlur}
           />
+
         </div>
 
         <div className={'auth-form_item'}>
+
           <SelectList
             options={countries}
             icon={<PlaceIcon color={'action'} />}
@@ -116,9 +120,11 @@ export default class FormSignup extends Component {
             required
             onChange={this.handleChangeCountry}
           />
+
         </div>
 
         <div className={'auth-form_item auth-form_btn'}>
+
           <Button
             color={'lightblue'}
             onClick={this.handleSignUp}
@@ -126,12 +132,14 @@ export default class FormSignup extends Component {
           >
             <span className={'auth-btn_text'}>Sign Up</span>
           </Button>
+
           {
             this.props.Auth_Signup.errorMessage !== '' &&
             <div className={'auth-form_error'}>
               <span>{this.props.Auth_Signup.errorMessage}</span>
             </div>
           }
+
         </div>
       </Fragment>
     );

@@ -15,7 +15,7 @@ import { clearAll } from 'containers/Notification/store/actions';
 import { validateOTP } from 'lib/auth';
 import CONFIG from 'lib/config';
 
-@connect(state => ({ Auth_Signin: state.Auth_Signin }), {
+@connect(({ Auth_Signin }) => ({ Auth_Signin }), {
   resendOTP,
   blockedResendOTP,
   sendConfirm,
@@ -62,7 +62,6 @@ export default class FormOTP extends Component {
    * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на 30 секунд
    */
   handleReSendOTP = () => {
-
     this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
@@ -85,7 +84,6 @@ export default class FormOTP extends Component {
    */
   validateForm = () => {
     const { OTP } = this.props.Auth_Signin;
-
     const checkOTP = validateOTP(OTP);
     const checkError = checkOTP.error;
 
@@ -109,7 +107,6 @@ export default class FormOTP extends Component {
   };
 
   render() {
-
     const {
       OTP,
       otpIsBlock,
@@ -121,6 +118,7 @@ export default class FormOTP extends Component {
     return (
       <Fragment>
         <div className={'auth-form_item'}>
+
           <Input
             type="text"
             placeholder={'Entering OTP'}
@@ -131,9 +129,11 @@ export default class FormOTP extends Component {
             value={OTP}
             onChange={this.handleChangeOTP}
           />
+
         </div>
         <div className={'auth-form_item auth-form_btn'}>
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
@@ -142,8 +142,10 @@ export default class FormOTP extends Component {
             >
               <span className={'auth-btn_text'}>Send OTP</span>
             </Button>
+
           </div>
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
@@ -152,12 +154,14 @@ export default class FormOTP extends Component {
             >
               <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
+
             {
               errorMessage !== '' &&
               <div className={'auth-form_error'}>
                 <span>{errorMessage}</span>
               </div>
             }
+
           </div>
         </div>
       </Fragment>

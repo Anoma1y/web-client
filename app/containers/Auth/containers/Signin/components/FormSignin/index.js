@@ -19,7 +19,7 @@ import {
   signin
 } from '../../store/actions';
 
-@connect(state => ({ Auth_Signin: state.Auth_Signin }), {
+@connect(({ Auth_Signin }) => ({ Auth_Signin }), {
   changeLogin,
   changePassword,
   setError,
@@ -37,6 +37,7 @@ export default class FormSignin extends Component {
    */
   showPassword = () => {
     const { passwordInputType } = this.state;
+
     this.setState({
       passwordInputType: passwordInputType === 'password' ? 'text' : 'password'
     });
@@ -95,6 +96,7 @@ export default class FormSignin extends Component {
    */
   handleChangePassword = (e) => {
     const { value } = e.target;
+
     this.props.changePassword(value);
   };
 
@@ -120,6 +122,7 @@ export default class FormSignin extends Component {
     return (
       <Fragment>
         <div className={'auth-form_item'}>
+
           <Input
             type="text"
             placeholder={'Entering EMail or phone number'}
@@ -131,23 +134,27 @@ export default class FormSignin extends Component {
             onBlur={this.handleValidateForm}
             value={login}
           />
+
         </div>
         <div className={'auth-form_item'}>
+
           <Input
             type={this.state.passwordInputType}
             placeholder={'Entering password'}
-            icon={<LockIcon color={'action'}/>}
+            icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
             onChange={this.handleChangePassword}
             value={password}
             className={'auth-form_input__password'}
           />
+
           <div className={'auth-form_show-password'} onClick={this.showPassword}>
             <VisibilityIcon />
-            <span className={'auth-form_show-placeholder'}>Show password</span>
           </div>
+
         </div>
         <div className={'auth-form_item auth-form_btn'}>
+
           <Button
             color={'lightblue'}
             onClick={this.handleSignIn}
@@ -156,15 +163,20 @@ export default class FormSignin extends Component {
           >
             <span className={'auth-btn_text'}>Sign in</span>
           </Button>
+
           {
             errorMessage &&
               <div className={'auth-form_error'}>
                 <span>{errorMessage}</span>
               </div>
           }
+
           <div className={'auth-form_reset-link'}>
-            <Link to={'/auth/reset/'}>Forgot password?</Link>
+            <Link to={'/auth/reset/'}>
+              Forgot password?
+            </Link>
           </div>
+
         </div>
       </Fragment>
     )
