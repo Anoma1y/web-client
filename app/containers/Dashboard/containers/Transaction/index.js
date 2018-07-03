@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import Table from './containers/Table';
 import Filter from './containers/Filter';
-import { getDays } from 'lib/date';
 import {
   pullTransactions,
   reset
@@ -15,13 +14,14 @@ import {
   TRANSACTION_TYPES,
   TRANSACTION_STATUSES
 } from 'lib/transactions';
+import { getDays } from 'lib/date';
 import './style.scss';
 
 // todo проблема с временем (не соответствует поясу и isoString)
 // не всегда работает рендж фильтр даты
 // куча мелких багов
 // баг с одинаковыми key
-@connect((state) => ({ Dashboard_Transaction: state.Dashboard_Transaction }), ({
+@connect(({ Dashboard_Transaction }) => ({ Dashboard_Transaction }), ({
   pullTransactions,
   reset
 }))
@@ -59,7 +59,7 @@ export default class Transaction extends React.Component {
 
   appendTransactions = () => this.props.pullTransactions({}, this.filter, false, true);
 
-  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} onAppend={() => this.appendTransactions()} />
+  renderMain = () => <Table records={this.props.Dashboard_Transaction.records} onAppend={() => this.appendTransactions()} />;
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 
