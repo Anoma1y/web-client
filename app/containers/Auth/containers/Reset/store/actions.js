@@ -5,6 +5,7 @@ import {
   SET_ERROR,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_OTP_IS_SEND,
   SET_ERROR_MESSAGE,
   SET_RESEND_OTP_BLOCKED,
@@ -43,6 +44,11 @@ export const setIsPhone = (isPhone = false) => ({
 
 export const setIsLoading = (isLoading = false) => ({
   type: SET_IS_LOADING,
+  payload: isLoading
+});
+
+export const setIsLoadingResend = (isLoading = false) => ({
+  type: SET_RESEND_IS_LOADING,
   payload: isLoading
 });
 
@@ -178,7 +184,7 @@ export const sendConfirm = () => (dispatch, getState) => {
           dispatch(setErrorMessage('Server error'));
       }
     })
-    .finally(() => dispatch(setIsLoading(false)))
+    .finally(() => dispatch(setIsLoading(false)));
 };
 
 /**
@@ -197,7 +203,7 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) return;
 
   dispatch(changeOTP(''));
-  dispatch(setIsLoading(true));
+  dispatch(setIsLoadingResend(true));
   dispatch(blockedResendOTP(true));
   dispatch(setErrorMessage(''));
 
@@ -223,5 +229,5 @@ export const resendOTP = () => (dispatch, getState) => {
           dispatch(setErrorMessage('Server error'));
       }
     })
-    .finally(() => dispatch(setIsLoading(false)))
+    .finally(() => dispatch(setIsLoadingResend(false)));
 };

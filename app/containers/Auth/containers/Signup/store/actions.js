@@ -6,6 +6,7 @@ import {
   CHANGE_OTP,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
   SET_OTP_IS_BLOCK,
@@ -69,6 +70,11 @@ export const setIsPhone = (isPhone = false) => ({
 
 export const setIsLoading = (isLoading = false) => ({
   type: SET_IS_LOADING,
+  payload: isLoading
+});
+
+export const setIsLoadingResend = (isLoading = false) => ({
+  type: SET_RESEND_IS_LOADING,
   payload: isLoading
 });
 
@@ -206,7 +212,7 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) return;
 
   dispatch(blockedResendOTP(true));
-  dispatch(setIsLoading(true));
+  dispatch(setIsLoadingResend(true));
   dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
@@ -227,5 +233,5 @@ export const resendOTP = () => (dispatch, getState) => {
           dispatch(setErrorMessage('Server error'));
       }
     })
-    .finally(() => dispatch(setIsLoading(false)))
+    .finally(() => dispatch(setIsLoadingResend(false)))
 };

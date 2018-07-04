@@ -5,6 +5,7 @@ import {
   SET_ERROR,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_OTP_IS_SEND,
   SET_ERROR_MESSAGE,
   SET_RESEND_OTP_BLOCKED,
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
+  isLoadingResend: false,
   otpIsSend: false,
   resendOTPIsBlocked: false,
   otpIsBlock: false,
@@ -45,6 +47,10 @@ const HANDLERS = {
   [SET_IS_LOADING]: (state, { payload }) => ({
     ...state,
     isLoading: payload
+  }),
+  [SET_RESEND_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    isLoadingResend: payload
   }),
   [SET_ERROR]: (state, { payload }) => ({
     ...state,

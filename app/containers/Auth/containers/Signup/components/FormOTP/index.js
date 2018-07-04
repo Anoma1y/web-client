@@ -35,19 +35,9 @@ export default class FormOTP extends Component {
   };
 
   /**
-   * После истечения 100000 мс, форма сбрасывает в начальное состояние
-   */
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.props.reset();
-    }, 100000);
-  }
-
-  /**
    * Очистка всех таймеров и сброс данных после удалении компонента
    */
   componentWillUnmount() {
-    clearTimeout(this.timeout);
     clearInterval(this.resendTimeout);
     this.props.clearAll();
     this.props.reset();
@@ -114,6 +104,7 @@ export default class FormOTP extends Component {
       OTP,
       otpIsBlock,
       isLoading,
+      isLoadingResend,
       resendOTPIsBlocked,
       errorMessage
     } = this.props.Auth_Signup;
@@ -156,7 +147,7 @@ export default class FormOTP extends Component {
               color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={isLoading}
+              loading={isLoadingResend}
             >
               <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>

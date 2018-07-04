@@ -38,17 +38,7 @@ export default class FormOTP extends Component {
     timer: 0
   };
 
-  /**
-   * После истечения 300000 мс (5 минут), форма сбрасывает в начальное состояние
-   */
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.props.reset();
-    }, 300000);
-  }
-
   componentWillUnmount() {
-    clearTimeout(this.timeout);
     clearInterval(this.resendTimeout);
     this.props.reset();
   }
@@ -133,6 +123,7 @@ export default class FormOTP extends Component {
       OTP,
       otpIsBlock,
       isLoading,
+      isLoadingResend,
       resendOTPIsBlocked,
       errorMessage
     } = this.props.Auth_Reset;
@@ -143,7 +134,7 @@ export default class FormOTP extends Component {
         <div className={'auth-form_item'}>
 
           <Input
-            type="text"
+            type={'text'}
             placeholder={'Entering new password'}
             icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
@@ -159,7 +150,7 @@ export default class FormOTP extends Component {
         <div className={'auth-form_item'}>
 
           <Input
-            type="text"
+            type={'text'}
             placeholder={'Entering OTP'}
             icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}
@@ -180,7 +171,7 @@ export default class FormOTP extends Component {
               disabled={otpIsBlock}
               loading={isLoading}
             >
-              <span className={'auth-btn_text'}>Send OTP</span>
+              <span className={'auth-btn_text'}>Submit</span>
             </Button>
 
           </div>
@@ -191,7 +182,7 @@ export default class FormOTP extends Component {
               color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={isLoading}
+              loading={isLoadingResend}
             >
               <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
