@@ -12,12 +12,9 @@ import {
   CircularProgress
 } from '@material-ui/core';
 import { pullSession } from '../../store/actions';
+import uuid from 'uuid/v1';
 
-@connect((state) => ({
-  Profile_Security: state.Profile_Security,
-}), ({
-    pullSession
-  }))
+@connect(({ Profile_Security }) => ({ Profile_Security }), ({ pullSession }))
 export default class Session extends Component {
 
   state = {
@@ -27,8 +24,8 @@ export default class Session extends Component {
 
   componentDidMount() {
     this.props.pullSession()
-      .then(() => this.setState({ ready: true }))
-      .catch(() => this.setState({ ready: true, errorText: 'Ошибка загрузки данных' }));
+      .catch(() => this.setState({ errorText: 'Ошибка загрузки данных' }))
+      .finally(() => this.setState({ ready: true }));
   }
 
   /**
@@ -66,9 +63,9 @@ export default class Session extends Component {
       </TableHead>
       <TableBody className={'session-history_body'}>
         {
-          this.props.Profile_Security.session.map((item, index) => {
+          this.props.Profile_Security.session.map((item) => {
             return (
-              <TableRow key={index} className={'session-history_line'}>
+              <TableRow key={uuid()} className={'session-history_line'}>
                 <TableCell className={'session-history_item session-history_item__type session-history__align_left'}>{item.userAgent}</TableCell>
                 <TableCell className={'session-history_item session-history_item__date session-history__align_center'}>{item.dateTime}</TableCell>
                 <TableCell className={'session-history_item session-history_item__ip session-history__align_center'}>{`${item.host} (${item.userIp})`}</TableCell>

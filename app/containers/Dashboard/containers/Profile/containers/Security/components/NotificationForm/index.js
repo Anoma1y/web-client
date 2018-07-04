@@ -10,21 +10,18 @@ import FieldSwitch from '../../../../components/FieldSwitch';
   initialValues: {
     security: state.Dashboard_Profile.profile.security,
   }
-}), ({
-    changeNotificationSend
-  }))
+}), ({ changeNotificationSend }))
 @reduxForm({
   form: 'SecurityNotification',
   enableReinitialize: true
 })
 export default class NotificationForm extends Component {
 
-  handleClick = () => {
-    this.props.changeNotificationSend();
-  };
+  handleClick = () => this.props.changeNotificationSend();
 
   render() {
     const { notificationIsLoading } = this.props.Profile_Security;
+
     return (
       <Fragment>
         <FormControl fullWidth>

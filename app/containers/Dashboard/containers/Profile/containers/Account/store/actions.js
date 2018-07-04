@@ -61,7 +61,7 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
       if (data.status !== 200) return;
 
       const { action } = data.data;
-      const message = `${action === 'EMAIL_SENT' ? 'Email' : 'Sms code'} was sent`;
+      const message = `${action === 'EMAIL_SENT' ? 'Email' : 'SMS code'} was sent`;
 
       dispatch(setOTPisSend(type, true));
       dispatch(send({ id: uuid(), status: 'info', title: 'Information', message, timeout: 3000 }));

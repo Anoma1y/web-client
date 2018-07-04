@@ -25,6 +25,7 @@ export default class Verification extends Component {
   componentDidMount() {
     this.props.pullDocuments()
       .then(() => this.setState({ readyDocuments: true }))
+      .catch(() => this.setState({ errorLoading: true }));
   }
 
   renderLoadingDocuments = () => <CircularProgress className={'table_loading'} size={24} />;

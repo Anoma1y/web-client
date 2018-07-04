@@ -23,15 +23,24 @@ const INITIAL_STATE = {
 const HANDLERS = {
   [SET_OTP_IS_SEND]: (state, { payload }) => ({
     ...state,
-    otpIsSend: { ...state.otpIsSend, [payload.contactType]: payload.otpIsSend }
+    otpIsSend: {
+      ...state.otpIsSend,
+      [payload.contactType]: payload.otpIsSend
+    }
   }),
   [SET_OTP_IS_BLOCKED]: (state, { payload }) => ({
     ...state,
-    resendOTPIsBlocked: { ...state.resendOTPIsBlocked, [payload.contactType]: payload.blocked }
+    resendOTPIsBlocked: {
+      ...state.resendOTPIsBlocked,
+      [payload.contactType]: payload.blocked
+    }
   }),
   [SET_OTP_IS_LOADING]: (state, { payload }) => ({
     ...state,
-    otpIsLoading: { ...state.otpIsLoading, [payload.contactType]: payload.otp }
+    otpIsLoading: {
+      ...state.otpIsLoading,
+      [payload.contactType]: payload.otp
+    }
   }),
   [RESET]: (state) => ({
     ...state,

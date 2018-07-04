@@ -136,7 +136,7 @@ export default class FormOTP extends Component {
               disabled={otpIsBlock}
               loading={isLoading}
             >
-              <span className={'auth-btn_text'}>Send OTP</span>
+              <span className={'auth-btn_text'}>Submit</span>
             </Button>
 
           </div>

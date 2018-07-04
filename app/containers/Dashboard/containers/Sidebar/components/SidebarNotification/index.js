@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 @connect((state) => ({ Dashboard: state.Dashboard }))
 export default class SidebarNotification extends React.Component {
@@ -11,7 +12,7 @@ export default class SidebarNotification extends React.Component {
         </div>
 
         <div className={'sidebar-notice_message sidebar-container_content'}>
-          {this.props.Dashboard.notification}
+          <Link to={'/dashboard/profile'}>{this.props.Dashboard.notification}</Link>
         </div>
       </div>
     )

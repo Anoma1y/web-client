@@ -19,9 +19,7 @@ import './style.scss';
  * className - собственный класс
  */
 
-@connect(({ Notification, routing }) => ({ Notification, routing }), ({
-  clearAll
-}))
+@connect(({ Notification, routing }) => ({ Notification, routing }), ({ clearAll }))
 export default class Notification extends Component {
 
   componentDidUpdate(prevProps) {

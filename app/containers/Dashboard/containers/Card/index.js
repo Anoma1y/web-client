@@ -42,9 +42,7 @@ export default class Card extends React.Component {
 
     this.setState({ ready: false });
     this.props.pullCard(id)
-      .then(() => {
-        this.props.setActive({ type: 'card', id });
-      })
+      .then(() => this.props.setActive({ type: 'card', id }))
       .finally(() => this.setState({ ready: true }));
   }
 

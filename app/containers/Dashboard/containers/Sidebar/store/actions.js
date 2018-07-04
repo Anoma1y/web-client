@@ -1,18 +1,18 @@
 import {
+  EDIT_IS_LOADING,
+  CHANGE_EDIT_NAME_WALLET,
   SET_CARDS_IS_UPDATE,
   SET_ACTIVE,
-  CHANGE_EDIT_NAME_WALLET,
-  EDIT_IS_LOADING
 } from './types';
 import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
-import { api } from 'lib/api';
 import {
   removeWallet as removeWalletMain,
   setWallet as setWalletMain,
   setCardsAfterUpdate as setCardsAfterUpdateMain
 } from 'containers/Dashboard/store/actions';
 import uuid from 'uuid/v1';
+import { api } from 'lib/api';
 import { getPathInfo } from 'lib/pathUtils';
 
 export const setCardIsUpdate = (isUpdate = false) => ({
@@ -61,7 +61,7 @@ export const applyRemove = (index) => (dispatch, getState) => {
 
     })
     .catch(() => {
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при удалении кошелька', timeout: 4000 }));
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: `Ошибка при удалении кошелька ${serial}`, timeout: 4000 }));
     })
     .finally(() => dispatch(setEditIsLoading(false)));
 }
@@ -80,6 +80,7 @@ export const applyEditNameWallet = (index) => (dispatch, getState) => {
 
   const editWallet = wallets[index];
   const { serial, name } = editWallet;
+
   /**
    * Минимальная длина имени кошелька - 2 символа и старое имя не должно равняться новому
    */
@@ -96,9 +97,9 @@ export const applyEditNameWallet = (index) => (dispatch, getState) => {
       dispatch(setWalletMain(coin, index));
     })
     .catch(() => {
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка изменения имени кошелька', timeout: 4000 }))
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: `Ошибка изменения имени кошелька ${serial}`, timeout: 4000 }))
     })
-    .finally(() => dispatch(setEditIsLoading(false)))
+    .finally(() => dispatch(setEditIsLoading(false)));
 };
 
 /**
@@ -128,6 +129,6 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Ошибка при обновлении статуса карты', timeout: 4000 }));
       reject();
     })
-    .finally(() => dispatch(setCardIsUpdate(false)))
+    .finally(() => dispatch(setCardIsUpdate(false)));
 });
 

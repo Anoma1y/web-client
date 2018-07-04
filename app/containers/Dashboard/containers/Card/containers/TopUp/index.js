@@ -11,14 +11,9 @@ import {
   CircularProgress,
   InputLabel,
   FormControl,
-  Tooltip,
   Step,
   Stepper,
   StepLabel,
-  StepButton,
-  StepContent,
-  StepIcon,
-  MobileStepper
 } from '@material-ui/core';
 import {
   changeAmount,
@@ -65,15 +60,6 @@ export default class TopUp extends Component {
     this.props.reset();
   }
 
-  initialState = () => {
-    const { cardId } = this.props;
-
-    this.props.pullWallets(cardId)
-      .then(() => {})
-      .catch(() => this.setState({ errorText: 'Ошибочка' }))
-      .finally(() => this.setState({ ready: true }));
-  }
-
   handleChangeAmount = (event) => {
     const { value } = event.target;
 
@@ -112,6 +98,13 @@ export default class TopUp extends Component {
       default:
         return 'What is love. Baby dont hurt me, dont hurt me, no more';
     }
+  };
+
+  initialState = () => {
+    const { cardId } = this.props;
+
+    this.props.pullWallets(cardId)
+      .finally(() => this.setState({ ready: true }));
   };
 
   handleNext = () => {
