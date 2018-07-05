@@ -26,7 +26,6 @@ import {
 }))
 export default class Wallet extends Component {
 
-  // todo fix
   state = {
     ready: true,
     errorText: null

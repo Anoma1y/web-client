@@ -17,13 +17,8 @@ import {
   updatePersonInfo,
 } from '../../store/actions';
 
-// todo пофиксить позже, нужен ли символы какие либо в транслите + пробелы (trim())
 const normalizeLatin = value => {
-
-  if (!/[^a-zA-Z\s]/.test(value)) {
-    return value;
-  }
-
+  if (!/[^a-zA-Z\s]/.test(value)) return value;
 };
 
 const validate = (values) => {
@@ -39,6 +34,7 @@ const validate = (values) => {
   if (!values.person.namePlain.first) {
     errors.person.namePlain.first = 'Required';
   }
+
   if (!values.person.namePlain.last) {
     errors.person.namePlain.last = 'Required';
   }
@@ -51,9 +47,7 @@ const validate = (values) => {
   initialValues: {
     person: state.Dashboard_Profile.profile.person,
   }
-}), ({
-    updatePersonInfo,
-  }))
+}), ({ updatePersonInfo }))
 @reduxForm({
   form: 'VerificationPersonInfo',
   validate,
@@ -121,6 +115,7 @@ export default class FormPersonInfo extends Component {
 
   render() {
     const { updatePersonInfoIsLoading } = this.props.Profile_Verification;
+
     return this.renderPersonInformation(updatePersonInfoIsLoading);
   }
 }

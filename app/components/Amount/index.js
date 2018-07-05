@@ -49,13 +49,11 @@ const Amount = (props) => {
   } = formatAmount(amounts);
 
   const renderCurrencySymbol = (currencySymbol) => {
+
     if (showCurrency) {
-      return (
-        <span className={`${classBlockName}_currency`}>
-          {` ${currencySymbol}`}
-        </span>
-      );
+      return <span className={`${classBlockName}_currency`}>{currencySymbol}</span>;
     }
+
     return null;
   };
 
@@ -74,6 +72,7 @@ const Amount = (props) => {
         </div>
       );
     }
+
     return null;
   };
 
@@ -86,8 +85,14 @@ const Amount = (props) => {
     return (
       <span className={mainClass}>
         <span className={majorClass}>
-          <span className={operationSignClass}>{ operation === 'plus' ? PLUS_SIGN_HTML_CODE : MINUS_SIGN_HTML_CODE }</span>
-          { majorPart }
+          <span className={operationSignClass}>
+            {
+              operation === 'plus'
+                ? PLUS_SIGN_HTML_CODE
+                : MINUS_SIGN_HTML_CODE
+            }
+          </span>
+          {majorPart}
         </span>
         {renderSeparatorAndMinorPart(minorPart)}
         {renderCurrencySymbol(currencySymbol)}

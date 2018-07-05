@@ -1,4 +1,4 @@
-import { getCurrencySymbol } from './currencyCode';
+import { getCurrencySymbol } from 'lib/currencyCodes';
 
 export const AMOUNT_MAJOR_MINOR_PARTS_SEPARATOR = '.'; // Точка перед копейками
 export const AMOUNT_MAJOR_PART_SIZE = 3; // Отброс последних 3х значение в копейки и точку
@@ -14,12 +14,14 @@ export const AMOUNT_SPLITTER = ','; // Разделитель между час�
  */
 export const createSplitter = (partSize) => {
   const parts = (str) => {
+
     const { length } = str;
-    if (length <= partSize) {
-      return [str];
-    }
+
+    if (length <= partSize) return [str];
+
     return [str.slice(length - partSize, length)].concat(parts(str.slice(0, length - partSize)));
   };
+
   return parts;
 };
 
@@ -30,15 +32,13 @@ export const createSplitter = (partSize) => {
  * { основная часть, остаточная часть, меньше или больше нуля, символ валюты }
  */
 export const formatAmount = (amount) => {
-  const {
-    value,
-    currency
-  } = amount;
+  const { value, currency } = amount;
   const fractionDigits = Math.log(100) / Math.LN10;
   const valueAbsStr = (Math.abs(Number(value)) / 100).toFixed(fractionDigits);
   const numberParts = valueAbsStr.split('.');
   const amountSplitter = createSplitter(AMOUNT_MAJOR_PART_SIZE);
   const majorPartFormatted = amountSplitter(numberParts[0]).reverse().join(AMOUNT_SPLITTER);
+
   return {
     majorPart: majorPartFormatted,
     minorPart: numberParts[1],
@@ -55,7 +55,7 @@ export const formatAmount = (amount) => {
  * @returns {{sell: number, buy: number}}
  */
 export const calulcateExchange = (value, type, rate) => {
-  let amount = { sell: 0, buy: 0 };
+  const amount = { sell: 0, buy: 0 };
 
   if (type === 'sell') {
     amount.sell = value;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Notif from './components/Notif';
 import classnames from 'classnames';
@@ -6,6 +6,7 @@ import {
   CSSTransition,
   TransitionGroup,
 } from 'react-transition-group';
+import { clearAll } from './store/actions';
 import './style.scss';
 
 /**
@@ -18,11 +19,19 @@ import './style.scss';
  * className - собственный класс
  */
 
-const Notification = (props) => {
+@connect(({ Notification, routing }) => ({ Notification, routing }), ({ clearAll }))
+export default class Notification extends Component {
 
-  const renderNotification = (blockName) => {
+  componentDidUpdate(prevProps) {
+    if (this.props || this.props.routing || this.props.routing.location || this.props.routing.location.pathname) {
+      if (this.props.routing.location.pathname !== prevProps.routing.location.pathname) {
+        this.props.clearAll();
+      }
+    }
+  }
 
-    return props.Notification.map((item) => {
+  renderNotification = (blockName) => {
+    return this.props.Notification.map((item) => {
       return (
         <CSSTransition
           key={item.id}
@@ -43,24 +52,17 @@ const Notification = (props) => {
 
   };
 
-  const {
-    className,
-  } = props;
+  render() {
+    const { className } = this.props;
+    const classBlockName = 'notification';
+    const classes = classnames(classBlockName, className);
 
-  const classBlockName = 'notification';
-
-  const classes = classnames(
-    classBlockName,
-    className
-  );
-
-  return (
-    <div className={classes}>
-      <TransitionGroup>
-        {renderNotification(classBlockName)}
-      </TransitionGroup>
-    </div>
-  );
-};
-
-export default connect(state => ({ Notification: state.Notification }))(Notification);
+    return (
+      <div className={classes}>
+        <TransitionGroup>
+          {this.renderNotification(classBlockName)}
+        </TransitionGroup>
+      </div>
+    )
+  }
+}

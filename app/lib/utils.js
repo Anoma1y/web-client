@@ -11,6 +11,7 @@ export const genHash = (string) => string.split('').reduce((a, b) => { a = ((a <
  */
 export const getValuesDeep = (object) => {
   const arr = [];
+
   const getVal = (obj) => {
     for (const key in obj) {
       switch (typeof obj[key]) {
@@ -23,9 +24,8 @@ export const getValuesDeep = (object) => {
         default:
           arr.push(obj[key]);
       }
-
     }
-  }
+  };
   getVal(object);
   return arr;
 };
@@ -33,7 +33,6 @@ export const getValuesDeep = (object) => {
 /**
  * Функция для получения имени пользователя
  * @param profile - объект profile, получаемый после авторизации
- * @param isLoading - если тру, то выводит плейсхолдер
  * @returns {*}
  */
 export const getUserName = (profile) => {

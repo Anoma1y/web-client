@@ -1,4 +1,7 @@
-import React, { Fragment, Component } from 'react';
+import React, {
+  Fragment,
+  Component
+} from 'react';
 import { connect } from 'react-redux';
 import {
   Field,
@@ -20,9 +23,8 @@ import { PASSWORD_VALIDATION_PATTERN } from 'lib/auth';
  * Удаление пробелов
  */
 const normalizePassword = value => {
-  if (!value) {
-    return value;
-  }
+  if (!value) return value;
+
   return value.trim();
 };
 
@@ -65,7 +67,7 @@ const validate = (values) => {
   return errors;
 };
 
-@connect((state) => ({ Profile_Security: state.Profile_Security }), ({ changePassword }))
+@connect(({ Profile_Security }) => ({ Profile_Security }), ({ changePassword }))
 @reduxForm({
   form: 'SecurityChangePassword',
   validate

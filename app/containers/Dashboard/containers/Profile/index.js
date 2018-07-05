@@ -32,7 +32,8 @@ export default class Profile extends Component {
   };
 
   componentDidMount() {
-    this.props.initialData().then(() => this.setState({ ready: true }));
+    this.props.initialData()
+      .then(() => this.setState({ ready: true }));
   }
 
   /**
@@ -65,6 +66,7 @@ export default class Profile extends Component {
 
   render() {
     const { activeIndex, ready } = this.state;
+
     return (
       <Grid container justify={'center'} className={'profile'}>
         <Grid item xs={12}>

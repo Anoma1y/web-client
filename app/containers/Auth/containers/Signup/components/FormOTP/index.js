@@ -18,7 +18,7 @@ import { clearAll } from 'containers/Notification/store/actions';
 import { validateOTP } from 'lib/auth';
 import CONFIG from 'lib/config';
 
-@connect(state => ({ Auth_Signup: state.Auth_Signup }), {
+@connect(({ Auth_Signup }) => ({ Auth_Signup }), {
   resendOTP,
   blockedResendOTP,
   sendConfirm,
@@ -35,19 +35,9 @@ export default class FormOTP extends Component {
   };
 
   /**
-   * После истечения 100000 мс, форма сбрасывает в начальное состояние
-   */
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.props.reset();
-    }, 100000);
-  }
-
-  /**
    * Очистка всех таймеров и сброс данных после удалении компонента
    */
   componentWillUnmount() {
-    clearTimeout(this.timeout);
     clearInterval(this.resendTimeout);
     this.props.clearAll();
     this.props.reset();
@@ -60,6 +50,7 @@ export default class FormOTP extends Component {
   handleChangeOTP = (e) => {
     const { value } = e.target;
     const otp = value.replace(/[^\d]/g, '');
+
     this.props.changeOTP(otp);
   };
 
@@ -68,7 +59,6 @@ export default class FormOTP extends Component {
    * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на %OTP_BLOCK_TIMEOUT% секунд
    */
   handleReSendOTP = () => {
-
     this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
@@ -92,7 +82,6 @@ export default class FormOTP extends Component {
    */
   validateForm = () => {
     const { OTP } = this.props.Auth_Signup;
-
     const checkOTP = validateOTP(OTP);
     const checkError = checkOTP.error;
 
@@ -115,6 +104,7 @@ export default class FormOTP extends Component {
       OTP,
       otpIsBlock,
       isLoading,
+      isLoadingResend,
       resendOTPIsBlocked,
       errorMessage
     } = this.props.Auth_Signup;
@@ -123,6 +113,7 @@ export default class FormOTP extends Component {
       <Fragment>
 
         <div className={'auth-form_item'}>
+
           <Input
             type="text"
             placeholder={'Entering OTP'}
@@ -133,35 +124,41 @@ export default class FormOTP extends Component {
             value={OTP}
             onChange={this.handleChangeOTP}
           />
+
         </div>
 
         <div className={'auth-form_item auth-form_btn'}>
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
               disabled={otpIsBlock}
               loading={isLoading}
             >
-              <span className={'auth-btn_text'}>Send OTP</span>
+              <span className={'auth-btn_text'}>Submit</span>
             </Button>
+
           </div>
 
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={isLoading}
+              loading={isLoadingResend}
             >
               <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
+
             {
               errorMessage !== '' &&
               <div className={'auth-form_error'}>
                 <span>{errorMessage}</span>
               </div>
             }
+
           </div>
 
         </div>

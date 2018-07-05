@@ -7,19 +7,18 @@ import FormFooter from 'containers/Auth/components/FormFooter';
 import HeaderForm from '../../components/HeaderForm';
 import HeaderConfirm from '../../components/HeaderConfirm';
 
-@connect((state) => ({ Auth_Signin: state.Auth_Signin }))
+@connect(({ Auth_Signin }) => ({ Auth_Signin }))
 export default class Signin extends Component {
 
   renderFormControl = () => {
     const { otpIsSend } = this.props.Auth_Signin;
+
     return otpIsSend ? <FormOTP /> : <FormSignin />;
   };
 
   renderHeader = () => {
-    const {
-      otpIsSend,
-      isPhone
-    } = this.props.Auth_Signin;
+    const { otpIsSend, isPhone } = this.props.Auth_Signin;
+
     return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Hello! lets get started'} message={'Enter your details below.'} />;
   };
 

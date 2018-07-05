@@ -3,6 +3,7 @@ import {
   CHANGE_PASSWORD,
   CHANGE_OTP,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_IS_PHONE,
   SET_IS_BLOCKED,
   SET_ERROR_MESSAGE,
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   isError: false,
   isPhone: false,
   isLoading: false,
+  isLoadingResend: false,
   isBlocked: false,
   otpIsSend: false,
   otpIsBlock: false,
@@ -42,6 +44,10 @@ const HANDLERS = {
   [SET_IS_LOADING]: (state, { payload }) => ({
     ...state,
     isLoading: payload
+  }),
+  [SET_RESEND_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    isLoadingResend: payload
   }),
   [SET_IS_BLOCKED]: (state, { payload }) => ({
     ...state,

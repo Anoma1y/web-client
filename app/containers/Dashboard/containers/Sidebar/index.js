@@ -9,16 +9,17 @@ import SidebarNotification from './components/SidebarNotification';
 import SidebarWallet from './components/SidebarWallet';
 import SidebarCard from './components/SidebarCard';
 import ProductAdd from './components/ProductAdd';
+import CONFIG from 'lib/config';
 import './style.scss';
 
-@connect(({ Dashboard_Main }) => ({ Dashboard_Main }))
+@connect(({ Dashboard }) => ({ Dashboard }))
 export default class Sidebar extends Component {
 
   state = {
     sidebarIsOpen: false
   };
 
-  /**
+  /**+
    * После монтирования и демонтирования компонента, добавляются / убираются обработчики событий для
    * - ресайза области с целью изменения состояния sidebarIsOpen на false - закрытие сайдбара
    * - клик по любой другой области не совпадающей с сайдбаром
@@ -48,11 +49,11 @@ export default class Sidebar extends Component {
   };
 
   /**
-   * Метод обработчки ресайза, если рабочая область больше 1200 пикселей (3ий основной брейкпоинт)
+   * Метод обработчки ресайза, если рабочая область больше CONFIG.BREAKPOINTS.B_LG пикселей (3ий основной брейкпоинт)
    * то переводит стейт в состояние false
    */
   updateDimensions = () => {
-    if (window.innerWidth >= 1200) {
+    if (window.innerWidth >= CONFIG.BREAKPOINTS.B_LG) {
       this.setState({ sidebarIsOpen: false });
     }
   };
@@ -85,7 +86,7 @@ export default class Sidebar extends Component {
       notification,
       wallets,
       cards
-    } = this.props.Dashboard_Main;
+    } = this.props.Dashboard;
 
     return (
       <React.Fragment>

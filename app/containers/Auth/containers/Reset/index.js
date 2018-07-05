@@ -7,16 +7,18 @@ import FormOTP from './components/FormOTP';
 import HeaderForm from '../../components/HeaderForm';
 import HeaderConfirm from '../../components/HeaderConfirm';
 
-@connect(state => ({ Auth_Reset: state.Auth_Reset }))
+@connect(({ Auth_Reset }) => ({ Auth_Reset }))
 export default class Reset extends Component {
 
   renderFormControl = () => {
     const { otpIsSend } = this.props.Auth_Reset;
+
     return otpIsSend ? <FormOTP /> : <FormReset />;
   };
 
   renderHeader = () => {
     const { otpIsSend, isPhone } = this.props.Auth_Reset;
+
     return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Reset'} message={'Enter the login for password recovery'} />;
   };
 

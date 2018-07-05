@@ -1,4 +1,4 @@
-const storage = window.localStorage;
+const storage = window.localStorage; // todo возможно, переделать в sessionStorage
 
 export default {
 

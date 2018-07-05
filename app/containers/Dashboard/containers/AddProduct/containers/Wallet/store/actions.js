@@ -7,11 +7,11 @@ import {
   RESET
 } from './types';
 import { replace } from 'react-router-redux';
-import { send } from 'containers/Notification/store/actions';
-import { setWallets as setWalletsMain } from 'containers/Dashboard/containers/Main/store/actions';
-import { api } from 'lib/api';
 import _ from 'lodash';
 import uuid from 'uuid/v1';
+import { send } from 'containers/Notification/store/actions';
+import { setWallets as setWalletsMain } from 'containers/Dashboard/store/actions';
+import { api } from 'lib/api';
 
 export const changeName = (name) => ({
   type: CHANGE_NAME,
@@ -36,7 +36,7 @@ export const setAvailableIssuers = (value) => ({
 export const pullAwailableIssuers = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getIssuersList()
     .then((issuersList) => {
-      api.coins.getCoinsList()
+      api.coins.getWalletsList()
         .then((coinsList) => {
           if (coinsList.status !== 200) reject();
 
@@ -53,12 +53,10 @@ export const pullAwailableIssuers = () => (dispatch) => new Promise((resolve, re
 
           dispatch(setAvailableIssuers(availableIssuers));
           resolve(walletIsAvailable);
-        })
+        });
     })
-    .catch((err) => {
-      reject(err);
-    })
-})
+    .catch((err) => reject(err))
+});
 
 /**
  * Экшен для изменения текущей валюты
@@ -91,7 +89,7 @@ export const reset = () => ({
 export const createWallet = () => (dispatch, getState) => {
   const {
     AddProduct_Wallet: { name, currency },
-    Dashboard_Main: { wallets }
+    Dashboard: { wallets }
   } = getState();
   const TYPE = 'client'; // todo заменить на определенный
 
@@ -109,7 +107,7 @@ export const createWallet = () => (dispatch, getState) => {
    * выполняется запрос на добавление нового кошелька
    * Для каждого кошелька можно только 1 валюту(?)
    */
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
       if (data.status !== 200) return;
 

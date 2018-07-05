@@ -11,15 +11,15 @@ import {
 } from '@material-ui/icons';
 import Icon from 'components/Icon';
 import Tab from 'components/Tab';
-import { Grid, CircularProgress } from '@material-ui/core';
+import {
+  Grid,
+  CircularProgress
+} from '@material-ui/core';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import { pullCard } from './store/actions';
 import './style.scss';
 
-@connect((state) => ({ Dashboard_Card: state.Dashboard_Card }), ({
-  setActive,
-  pullCard
-}))
+@connect(({ Dashboard_Card }) => ({ Dashboard_Card }), ({ setActive, pullCard }))
 export default class Card extends React.Component {
 
   state = {
@@ -41,23 +41,36 @@ export default class Card extends React.Component {
     const { id } = this.props.match.params;
 
     this.setState({ ready: false });
-
     this.props.pullCard(id)
-      .then(() => {
-
-        this.props.setActive({ type: 'card', id });
-        this.setState({ ready: true });
-      });
+      .then(() => this.props.setActive({ type: 'card', id }))
+      .finally(() => this.setState({ ready: true }));
   }
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
   renderContent = (activeIndex) => {
+    const { id } = this.props.match.params;
     const panes = [
-      { icon: <ReorderIcon />, menuItem: 'Transactions', render: () => <Transaction /> },
-      { icon: <Icon name={'transfer-in'} />, menuItem: 'Top-up', render: () => <TopUp /> },
-      { icon: <Icon name={'sent_m'} />, menuItem: 'Balance & limits', render: () => <Balance /> },
-      { icon: <SettingsIcon />, menuItem: 'Settings', render: () => <Settings /> },
+      {
+        icon: <ReorderIcon />,
+        menuItem: 'Transactions',
+        render: () => <Transaction />
+      },
+      {
+        icon: <Icon name={'transfer-in'} />,
+        menuItem: 'Top-up',
+        render: () => <TopUp cardId={id} />
+      },
+      {
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Balance & limits',
+        render: () => <Balance cardId={id} />
+      },
+      {
+        icon: <SettingsIcon />,
+        menuItem: 'Settings',
+        render: () => <Settings cardId={id} />
+      },
     ];
 
     return (
@@ -68,7 +81,7 @@ export default class Card extends React.Component {
           activeIndex={activeIndex}
         />
       </div>
-    )
+    );
   };
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
@@ -80,7 +93,7 @@ export default class Card extends React.Component {
       <Grid container justify={'center'} className={'wallet'}>
         <Grid item xs={12} className={'dashboard-container dashboard-container__fluid'}>
 
-          <CardInfo />
+          <CardInfo data={this.props.Dashboard_Card.card} />
 
         </Grid>
         <Grid item xs={12}>
@@ -93,6 +106,6 @@ export default class Card extends React.Component {
           </div>
         </Grid>
       </Grid>
-    )
+    );
   }
 }

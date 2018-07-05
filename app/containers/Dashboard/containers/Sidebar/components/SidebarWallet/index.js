@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  EuroSymbol as EuroSymbolIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
   Check as CheckIcon,
@@ -9,7 +8,10 @@ import {
   Settings as SettingsIcon
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import { TextField } from '@material-ui/core';
+import {
+  TextField,
+  Tooltip
+} from '@material-ui/core';
 import {
   changeEditNameWallet,
   applyEditNameWallet,
@@ -17,18 +19,15 @@ import {
 } from '../../store/actions'
 import Text from 'components/Text';
 import Amount from 'components/Amount';
-import Icon from 'components/Icon';
+import { getCurrencySymbol } from 'lib/currencyCodes';
 
-// todo добавить функцию для выбора валют
 const renderCurrency = (currency) => (
   <div className={'sidebar-wallet-icon wallet-currency'}>
-    {
-      currency === 'EUR' ? <EuroSymbolIcon /> : currency === 'USD' ? <Icon name={'usd'} /> : null
-    }
+    <span className={'wallet-currency_symbol'}>{getCurrencySymbol(currency)}</span>
   </div>
 );
 
-@connect(({ Dashboard_Sidebar, Dashboard_Main }) => ({ Dashboard_Sidebar, Dashboard_Main }), ({
+@connect(({ Dashboard_Sidebar, Dashboard }) => ({ Dashboard_Sidebar, Dashboard }), ({
   changeEditNameWallet,
   applyEditNameWallet,
   applyRemove
@@ -58,15 +57,12 @@ export default class SidebarWallet extends React.Component {
   handleOpenControl = (type, index) => {
     if (this.props.Dashboard_Sidebar.editIsLoading) return;
 
-    this.setState({
-      controlWallet: { type, index, isChange: true }
-    })
+    this.setState({ controlWallet: { type, index, isChange: true } });
   }
 
   handleCloseControl = () => {
-    this.setState({
-      controlWallet: { type: '', index: 0, isChange: false }
-    })
+    this.props.changeEditNameWallet('');
+    this.setState({ controlWallet: { type: '', index: 0, isChange: false } })
   }
 
   handleApplyControl = () => {
@@ -94,7 +90,7 @@ export default class SidebarWallet extends React.Component {
     <TextField
       type={'text'}
       className={'sidebar-wallet_edit-input'}
-      value={this.props.Dashboard_Sidebar.editNameWallet || this.props.Dashboard_Main.wallets[this.state.controlWallet.index].name}
+      value={this.props.Dashboard_Sidebar.editNameWallet || this.props.Dashboard.wallets[this.state.controlWallet.index].name}
       onChange={(event) => this.handleEditChange(event, this.state.controlWallet.index)}
     />
   );
@@ -141,19 +137,51 @@ export default class SidebarWallet extends React.Component {
           (this.state.controlWallet.isChange && this.state.controlWallet.index === index) ?
             <React.Fragment>
               <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__apply ${isLoading}`} onClick={() => this.handleApplyControl()}>
-                <CheckIcon />
+                <Tooltip
+                  enterDelay={150}
+                  id={'tooltip-controlled_Apply'}
+                  leaveDelay={50}
+                  placement={'left'}
+                  title={'Apply'}
+                >
+                  <CheckIcon />
+                </Tooltip>
               </button>
               <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__close ${isLoading}`} onClick={() => this.handleCloseControl()}>
-                <CloseIcon />
+                <Tooltip
+                  enterDelay={150}
+                  id={'tooltip-controlled_Close'}
+                  leaveDelay={50}
+                  placement={'left'}
+                  title={'Close'}
+                >
+                  <CloseIcon />
+                </Tooltip>
               </button>
             </React.Fragment>
             :
             <React.Fragment>
               <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
-                <EditIcon />
+                <Tooltip
+                  enterDelay={150}
+                  id={'tooltip-controlled_Edit'}
+                  leaveDelay={50}
+                  placement={'left'}
+                  title={'Edit'}
+                >
+                  <EditIcon />
+                </Tooltip>
               </button>
               <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__delete ${isLoading}`} onClick={() => this.handleOpenControl('remove', index)}>
-                <DeleteIcon />
+                <Tooltip
+                  enterDelay={150}
+                  id={'tooltip-controlled_Remove'}
+                  leaveDelay={50}
+                  placement={'left'}
+                  title={'Remove'}
+                >
+                  <DeleteIcon />
+                </Tooltip>
               </button>
             </React.Fragment>
 
@@ -171,17 +199,14 @@ export default class SidebarWallet extends React.Component {
       </div>
       <div className={'sidebar-wallet-content sidebar-container_content'}>
         <Text className={'sidebar-wallet-amount'}>
-          <Text.Content className={'sidebar-wallet-amount_name'}>
-            {
-
-              <Link to={`/dashboard/wallet/${item.serial}`}>
-                {item.name}
-              </Link>
-            }
-          </Text.Content>
-          <Text.Sub className={'sidebar-wallet-amount_value'}>
-            <Amount value={item.amount} currency={item.issuer.currency} />
-          </Text.Sub>
+          <Link to={`/dashboard/wallet/${item.serial}`}>
+            <Text.Content className={'sidebar-wallet-amount_name'}>
+              {item.name}
+            </Text.Content>
+            <Text.Sub className={'sidebar-wallet-amount_value'}>
+              <Amount value={item.amount} currency={item.issuer.currency} />
+            </Text.Sub>
+          </Link>
         </Text>
       </div>
       <div className={'sidebar-wallet_btn sidebar-container_btn'}>
@@ -191,7 +216,7 @@ export default class SidebarWallet extends React.Component {
   )
 
   render() {
-    const { active } = this.props.Dashboard_Sidebar;
+    const { active: sidebarActiveTab } = this.props.Dashboard_Sidebar;
 
     return (
       <div className={'sidebar-wallets_wrapper'}>
@@ -199,11 +224,11 @@ export default class SidebarWallet extends React.Component {
           Wallets
         </div>
         {
-          this.props.Dashboard_Main.wallets.map((item, index) => {
+          this.props.Dashboard.wallets.map((item, index) => {
 
-            const isActive = active.id === item.serial && active.type === 'wallet';
+            const isSidebarActiveTab = sidebarActiveTab.id === item.serial && sidebarActiveTab.type === 'wallet';
             return (
-              <div className={`sidebar-wallet sidebar-container ${isActive ? 'sidebar-wallet__active' : ''}`} key={item.serial}>
+              <div className={`sidebar-wallet sidebar-container ${isSidebarActiveTab ? 'sidebar-wallet__active' : ''}`} key={item.serial}>
 
                 {
                   (this.state.controlWallet.isChange && this.state.controlWallet.index === index)

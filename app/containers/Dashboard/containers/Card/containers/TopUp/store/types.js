@@ -1,0 +1,11 @@
+export const CHANGE_AMOUNT = 'Card_TopUp/CHANGE_AMOUNT';
+export const SET_WALLET = 'Card_TopUp/SET_WALLET';
+export const SET_TXTYPE = 'Card_TopUp/SET_TXTYPE';
+export const SET_PROVIDERS = 'Card_TopUp/SET_PROVIDERS';
+export const SET_PROVIDER = 'Card_TopUp/SET_PROVIDER';
+export const SET_COMMISSION = 'Card_TopUp/SET_COMMISSION';
+export const SET_TRANSACTION = 'Card_TopUp/SET_TRANSACTION';
+export const SET_PAYER_FIELDS = 'Card_TopUp/SET_PAYER_FIELDS';
+export const SET_IS_LOADING = 'Card_TopUp/SET_IS_LOADING';
+export const RESET = 'Card_TopUp/RESET';
+export const RESET_TOPUP = 'Card_TopUp/RESET_TOPUP';

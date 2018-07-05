@@ -20,6 +20,7 @@ import {
 import FieldTextAuth from '../../components/FieldTextAuth';
 import FieldText from '../../components/FieldText';
 import { clearAll } from 'containers/Notification/store/actions';
+import CONFIG from 'lib/config';
 
 /**
  * Функция для валидации
@@ -95,29 +96,21 @@ export default class Account extends Component {
    * Метод для подтверждения отправки OTP
    * @param type - тип email/phoneNumber
    */
-  handleSubmitContactOTP = (type) => {
-    this.props.updateUserContactConfirm(type);
-  }
+  handleSubmitContactOTP = (type) => this.props.updateUserContactConfirm(type);
 
   /**
    * Метод для повторной отправки OTP
    * @param type - тип email/phoneNumber
    */
   handleSubmitContactOTPResend = (type) => {
-
-    this.setState({
-      timer: 30
-    });
+    this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
 
     this.resendTimeout = setInterval(() => {
-
       if (this.state.timer === 1) {
         this.props.blockedResendOTP(type, false);
         clearInterval(this.resendTimeout);
       }
-
       this.setState({ timer: this.state.timer - 1 });
-
     }, 1000);
 
     this.props.updateUserContactResendOTP(type);
@@ -193,10 +186,10 @@ export default class Account extends Component {
               variant={'raised'}
               onClick={() => this.handleSubmitContactOTP(type)}
             >
-              Send OTP
+              Submit
             </Button>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Button
               fullWidth
               disabled={this.props.Profile_Account.resendOTPIsBlocked[type]}
@@ -215,6 +208,7 @@ export default class Account extends Component {
 
   renderContact = () => {
     const { otpIsSend } = this.props.Profile_Account;
+
     return (
       <Grid container className={'profile'}>
         <Grid container className={'profile-form_wrapper'}>

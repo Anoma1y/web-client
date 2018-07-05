@@ -40,7 +40,6 @@
     justify-content: space-between;
   }
 
-  // todo нужен фикс скрола для мобилок
   .sidebar-inner {
     width: calc(100% + 17px);
   }
@@ -135,6 +134,7 @@
     }
     &_content {
       flex-basis: 100%;
+      max-width: 162px; // todo пофиксить очень длинное имя кошелька в сайдбаре (сделать перевод на новую строку)
     }
     &_btn {
       flex: 0 0 40px;
@@ -392,15 +392,15 @@
   }
 
   &-amount {
-
+    a {
+      font-size: 1rem;
+      font-weight: normal;
+      white-space: nowrap;
+      color: $darkpurple-color;
+      text-decoration: none;
+    }
     &_name {
-      a {
-        font-size: 1rem;
-        font-weight: normal;
-        white-space: nowrap;
-        color: $darkpurple-color;
-        text-decoration: none;
-      }
+
       input {
         font-family: $font-regular;
         font-size: 1rem;
@@ -423,26 +423,20 @@
     }
 
   }
-
   &-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #F0FAFF;
-    border-radius: 50%;
-    margin: 0 auto;
-    position: relative;
-    svg {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background-color: #F0FAFF;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+  }
+  .wallet-currency {
+    &_symbol {
+      line-height: 40px;
+      color: $lightblue-color;
+      font-size: 1.5rem;
     }
-    &.wallet-currency {
-      path {
-        fill: $lightblue-color;
-      }
-    }
-
   }
 }
 

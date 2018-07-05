@@ -70,16 +70,14 @@ export const setThirdPartyCards = (tCards) => ({
  * @returns {function(*=): Promise<any>}
  */
 export const pullWallets = () => (dispatch) => new Promise((resolve, reject) => {
-  api.coins.getCoinsList()
+  api.coins.getWalletsList()
     .then((data) => {
       if (data.status !== 200) reject();
 
       dispatch(setWallets(data.data.coins));
       resolve();
     })
-    .catch((error) => {
-      reject(error);
-    });
+    .catch((error) => reject(error));
 });
 
 /**
@@ -96,9 +94,7 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
       dispatch(setThirdPartyCards(cards));
       resolve();
     })
-    .catch((error) => {
-      reject(error);
-    });
+    .catch((error) => reject(error));
 });
 
 /**
@@ -107,7 +103,6 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
  * @returns {function(*=): Promise<any>}
  */
 export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
-
   api.cards.getInfo(cardId)
     .then((data) => {
       if (data.status !== 200) reject();
@@ -117,9 +112,7 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
       dispatch(appendCard(cardInfo));
       resolve();
     })
-    .catch((error) => {
-      reject(error);
-    });
+    .catch((error) => reject(error));
 });
 
 /**
@@ -129,25 +122,17 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
 export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfile()
     .then((data) => {
-
       if (data.status !== 200) reject();
 
-      const {
-        profile,
-        profile: {
-          contact
-        }
-      } = data.data;
+      const { profile, profile: { contact } } = data.data;
 
       if (!(contact.emailVerified && contact.phoneVerified)) {
-        // dispatch(setNotification('Unverified account'));
+        dispatch(setNotification('Unverified account'));
       }
 
       dispatch(setProfile(profile));
       resolve();
     })
-    .catch((error) => {
-      reject(error);
-    });
+    .catch((error) => reject(error));
 
 });

@@ -4,14 +4,11 @@ import './style.scss';
 
 export default class Tab extends Component {
 
-  handleTabClick = (activeIndex, event) => {
-    this.props.onTabChange({
-      activeIndex, event
-    });
-  };
+  handleTabClick = (activeIndex, event) => this.props.onTabChange({ activeIndex, event });
 
   renderItems() {
-    const { panes, activeIndex } = this.props
+    const { panes, activeIndex } = this.props;
+
     return (
       <div className={'tabs-inner'}>
         {panes[activeIndex].render()}
@@ -21,6 +18,7 @@ export default class Tab extends Component {
 
   renderMenu() {
     const { panes, activeIndex } = this.props;
+
     return panes.map((item, index) => {
       return (
         <TabMenu
@@ -39,10 +37,14 @@ export default class Tab extends Component {
     return (
       <div className={'tabs'}>
         <div className={'tabs-menu'}>
-          {this.renderMenu()}
+          {
+            this.renderMenu()
+          }
         </div>
         <div className={'tabs-item'}>
-          {this.renderItems()}
+          {
+            this.renderItems()
+          }
         </div>
       </div>
     )

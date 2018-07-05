@@ -21,7 +21,7 @@ import {
 } from 'lib/auth';
 import CONFIG from 'lib/config';
 
-@connect(state => ({ Auth_Reset: state.Auth_Reset }), {
+@connect(({ Auth_Reset }) => ({ Auth_Reset }), {
   resendOTP,
   blockedResendOTP,
   sendConfirm,
@@ -38,23 +38,14 @@ export default class FormOTP extends Component {
     timer: 0
   };
 
-  /**
-   * После истечения 300000 мс (5 минут), форма сбрасывает в начальное состояние
-   */
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.props.reset();
-    }, 300000);
-  }
-
   componentWillUnmount() {
-    clearTimeout(this.timeout);
     clearInterval(this.resendTimeout);
     this.props.reset();
   }
 
   handleChangeNewUserPassword = (e) => {
     const { value } = e.target;
+
     this.props.changeNewPassword(value);
   };
 
@@ -65,6 +56,7 @@ export default class FormOTP extends Component {
   handleChangeOTP = (e) => {
     const { value } = e.target;
     const otp = value.replace(/[^\d]/g, '');
+
     this.props.changeOTP(otp);
   };
 
@@ -73,9 +65,7 @@ export default class FormOTP extends Component {
    * В независимости от результата, запускается таймер, который блочит повторную отправку ОТП на 30 секунд
    */
   handleReSendOTP = () => {
-
     this.setState({ timer: CONFIG.OTP_BLOCK_TIMEOUT });
-
     this.resendTimeout = setInterval(() => {
 
       if (this.state.timer === 1) {
@@ -96,10 +86,8 @@ export default class FormOTP extends Component {
    */
   validateForm = () => {
     const { OTP, newUserPassword } = this.props.Auth_Reset;
-
     const checkOTP = validateOTP(OTP);
     const checkPassword = validatePassword(newUserPassword);
-
     const checkError = checkOTP.error || checkPassword.error;
 
     this.setState({
@@ -130,12 +118,12 @@ export default class FormOTP extends Component {
   };
 
   render() {
-
     const {
       newUserPassword,
       OTP,
       otpIsBlock,
       isLoading,
+      isLoadingResend,
       resendOTPIsBlocked,
       errorMessage
     } = this.props.Auth_Reset;
@@ -144,8 +132,9 @@ export default class FormOTP extends Component {
       <Fragment>
 
         <div className={'auth-form_item'}>
+
           <Input
-            type="text"
+            type={'text'}
             placeholder={'Entering new password'}
             icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
@@ -155,11 +144,13 @@ export default class FormOTP extends Component {
             onChange={this.handleChangeNewUserPassword}
             onBlur={this.handlePasswordBlur}
           />
+
         </div>
 
         <div className={'auth-form_item'}>
+
           <Input
-            type="text"
+            type={'text'}
             placeholder={'Entering OTP'}
             icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}
@@ -168,35 +159,41 @@ export default class FormOTP extends Component {
             value={OTP}
             onChange={this.handleChangeOTP}
           />
+
         </div>
 
         <div className={'auth-form_item auth-form_btn'}>
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'blue'}
               onClick={this.handleSendOTP}
               disabled={otpIsBlock}
               loading={isLoading}
             >
-              <span className={'auth-btn_text'}>Send OTP</span>
+              <span className={'auth-btn_text'}>Submit</span>
             </Button>
+
           </div>
 
           <div className={'auth-form_inline-btn'}>
+
             <Button
               color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
-              loading={isLoading}
+              loading={isLoadingResend}
             >
               <span className={'auth-btn_text'}>{resendOTPIsBlocked ? `Wait ${this.state.timer} seconds` : 'Resend OTP'} </span>
             </Button>
+
             {
               errorMessage !== '' &&
               <div className={'auth-form_error'}>
                 <span>{errorMessage}</span>
               </div>
             }
+
           </div>
         </div>
       </Fragment>

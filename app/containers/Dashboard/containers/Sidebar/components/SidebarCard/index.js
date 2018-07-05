@@ -11,6 +11,7 @@ import Text from 'components/Text';
 import Amount from 'components/Amount';
 import Icon from 'components/Icon';
 import { updateCard } from '../../store/actions';
+import { getCardStatus } from 'lib/card';
 import _ from 'lodash';
 
 const renderMasterCard = () => (
@@ -19,20 +20,7 @@ const renderMasterCard = () => (
   </div>
 );
 
-const getStatusCard = (status) => {
-  switch (status) {
-    case 'WAITING_FOR_CARDHOLDER_DETAILS':
-      return 'Waiting the details';
-    case 'CONFIRMED_BY_CARDHOLDER':
-      return 'Card are confirmed';
-    case 'INACTIVE':
-      return 'Inactive card';
-    default:
-      return 'Inactive status';
-  }
-};
-
-@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard_Main: state.Dashboard_Main }), ({
+@connect((state) => ({ Dashboard_Sidebar: state.Dashboard_Sidebar, Dashboard: state.Dashboard }), ({
   updateCard
 }))
 export default class SidebarCard extends Component {
@@ -83,7 +71,7 @@ export default class SidebarCard extends Component {
 
   renderProgressCard = (status) => (
     <div className={'sidebar-wallet_card-status'}>
-      { this.props.Dashboard_Sidebar.cardsIsUpdate ? <span className={'sidebar-wallet_card-status__update'}>Update status</span> : getStatusCard(status) }
+      { this.props.Dashboard_Sidebar.cardsIsUpdate ? <span className={'sidebar-wallet_card-status__update'}>Update status</span> : getCardStatus(status) }
     </div>
   );
 
@@ -124,43 +112,47 @@ export default class SidebarCard extends Component {
     );
   }
 
-  renderCards = () => (
-    <div className={'sidebar-cards'}>
-      {
-        this.props.Dashboard_Main.cards.map((card, index) => {
-          const { card: cardInfo } = card;
-          const isActive = cardInfo.status === 'ACTIVE';
+  renderCards = () => {
+    const { active: sidebarActiveTab } = this.props.Dashboard_Sidebar;
+    return (
+      <div className={'sidebar-cards'}>
+        {
+          this.props.Dashboard.cards.map((card, index) => {
+            const { card: cardInfo } = card;
+            const isActive = cardInfo.status === 'ACTIVE';
+            const isSidebarActiveTab = sidebarActiveTab.id === cardInfo.id && sidebarActiveTab.type === 'card';
 
-          return (
-            <div key={cardInfo.id} className={'sidebar-wallet sidebar-container'}>
-              <div className={'sidebar-container_icon'}>
-                {renderMasterCard()}
+            return (
+              <div key={cardInfo.id} className={`sidebar-wallet sidebar-container ${isSidebarActiveTab ? 'sidebar-wallet__active' : ''}`}>
+                <div className={'sidebar-container_icon'}>
+                  {renderMasterCard()}
+                </div>
+                <div className={'sidebar-wallet-content sidebar-container_content'}>
+                  <Link to={`/dashboard/card/${cardInfo.id}`}>
+                    <Text className={'sidebar-wallet-amount'}>
+                      <Text.Content className={'sidebar-wallet-amount_name'}>
+                        Master Card **** {cardInfo.number.slice(-4)}
+                      </Text.Content>
+                      <Text.Sub className={'sidebar-wallet-amount_value'}>
+                        {
+                          isActive
+                            ? this.renderAmount(0, cardInfo.currency)
+                            : this.renderProgressCard(cardInfo.status)
+                        }
+                      </Text.Sub>
+                    </Text>
+                  </Link>
+                </div>
+                <div className={'sidebar-wallet_btn sidebar-container_btn'}>
+                  {this.renderControlPanel(cardInfo.id, index, isActive)}
+                </div>
               </div>
-              <div className={'sidebar-wallet-content sidebar-container_content'}>
-                <Link to={`/dashboard/card/${cardInfo.id}`}>
-                  <Text className={'sidebar-wallet-amount'}>
-                    <Text.Content className={'sidebar-wallet-amount_name'}>
-                      Master Card **** {cardInfo.number.slice(-4)}
-                    </Text.Content>
-                    <Text.Sub className={'sidebar-wallet-amount_value'}>
-                      {
-                        isActive
-                          ? this.renderAmount(0, cardInfo.currency)
-                          : this.renderProgressCard(cardInfo.status)
-                      }
-                    </Text.Sub>
-                  </Text>
-                </Link>
-              </div>
-              <div className={'sidebar-wallet_btn sidebar-container_btn'}>
-                {this.renderControlPanel(cardInfo.id, index, isActive)}
-              </div>
-            </div>
-          );
-        })
-      }
-    </div>
-  )
+            );
+          })
+        }
+      </div>
+    )
+  }
 
   render() {
     return (
@@ -171,7 +163,7 @@ export default class SidebarCard extends Component {
         </div>
 
         {
-          this.props.Dashboard_Main.cards.length !== 0 && this.renderCards()
+          this.props.Dashboard.cards.length !== 0 && this.renderCards()
         }
 
       </div>

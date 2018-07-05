@@ -14,22 +14,24 @@ export const remove = (id) => ({
   payload: id
 });
 
-export const clearAll = () => ({
-  type: CLEAR_ALL_NOTIFICATION
-});
+export const clearAll = () => ({ type: CLEAR_ALL_NOTIFICATION });
 
-// todo добавить закрытие после смены локации
 export const send = (notification) => {
   const payload = Object.assign({}, notification);
+
   if (!payload.id) {
     payload.id = new Date().getTime();
   }
+
   return (dispatch) => {
     dispatch(sendNotification(payload));
+
     if (payload.timeout) {
+
       setTimeout(() => {
         dispatch(remove(payload.id));
       }, payload.timeout);
+
     }
   };
 };

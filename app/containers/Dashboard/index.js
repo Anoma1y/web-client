@@ -18,14 +18,14 @@ import {
   pullThirdPartyCards,
   pullCard,
   pullWallets
-} from './containers/Main/store/actions';
+} from './store/actions';
 import { api } from 'lib/api';
 import Storage from 'lib/storage';
 import moment from 'moment';
-import './style.scss';
 import uuid from 'uuid/v1';
+import './style.scss';
 
-@connect(({ Dashboard_Main }) => ({ Dashboard_Main }), ({
+@connect(({ Dashboard }) => ({ Dashboard }), ({
   pullWallets,
   pullThirdPartyCards,
   pullCard,
@@ -39,25 +39,16 @@ export default class Dashboard extends Component {
     ready: false
   };
 
-  // todo нужен фикс пустого значения сесии
   componentDidMount() {
     const authToken = Storage.get('session');
 
     // Если токена нету в локальном хранилище, то вызов ошибки
     if (authToken === null) {
       this.handlerError('error', 'Ошибка', 'Произошла непредвиденная ошибка');
-      return null;
+      return;
     }
 
-    // this.props.send({ id: uuid(), status: 'error', title: 'Error', message: 'Error message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Warning message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'info', title: 'Info', message: 'Info message text', actionClose: true });
-    // this.props.send({ id: uuid(), status: 'success', title: 'Success', message: 'Success message text', actionClose: true });
-
-    const {
-      token, // Токен
-      expiresAt // Время смерти токена
-    } = authToken;
+    const { token, expiresAt } = authToken;
 
     // Если время жизни токена истек, то вызов ошибки
     // Иначе вызов промисов для добавления заголовков и инициализации данных
@@ -82,28 +73,26 @@ export default class Dashboard extends Component {
       administrator: [this.props.pullProfile],
       byDefault: [this.props.pullProfile]
     };
+    const ROLES_HAS_CARD = ['individual'];
     const { role } = Storage.get('members')[0];
     const currentRoleInitialActions = ROLES[role] || ROLES.byDefault;
 
-    api.addHeader('Authorization', tokenName)
+    api.addHeader('Authorization', tokenName) // добавления заголовка Authorization для всех запросов (axios) к API
       .then(() => {
-        Promise.all(currentRoleInitialActions.map((action) => action()))
+        Promise.all(currentRoleInitialActions.map((action) => action())) // получение всех необходимых данных по ролям
           .then(() => {
-
-            if (role === 'individual') {
-              const { thirdPartyCards } = this.props.Dashboard_Main;
-              const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
-
-              Promise.all(pullCardList.map((card) => card()))
-                .then(() => this.setState({ ready: true }))
-                .catch(() => this.setState({ ready: true }));
-
-            } else {
+            if (!ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
               this.setState({ ready: true });
+              return;
             }
+            const { thirdPartyCards } = this.props.Dashboard;
+            const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
 
+            Promise.all(pullCardList.map((card) => card()))
+              .finally(() => this.setState({ ready: true }));
           })
-          .catch(() => this.setState({ ready: true }));
+          .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'))
+          .finally(() => this.setState({ ready: true }));
       })
       .catch(() => this.handlerError('error', 'Ошибка', 'Данные не были загружены'));
   };
@@ -161,14 +150,6 @@ export default class Dashboard extends Component {
   );
 
   render() {
-    return (
-      <div className={'page'}>
-        {
-          this.state.ready
-            ? this.renderDashboard()
-            : this.renderLoader()
-        }
-      </div>
-    );
+    return this.state.ready ? this.renderDashboard() : this.renderLoader();
   }
 }

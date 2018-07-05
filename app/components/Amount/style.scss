@@ -8,7 +8,7 @@
 
   display: inline-block;
   white-space: nowrap;
-  font-family: 'Proxima Nova Regular', sans-serif;
+  font-family: $font-regular;
 
   &_minor-wrapper {
     display: inline-block;
@@ -16,8 +16,8 @@
 
   &_currency {
     display: inline-block;
-    min-width: 1em;
     text-align: right;
+    margin-left: 0.3rem;
   }
 
   &_separator, &_minor, &_currency {

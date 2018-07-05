@@ -5,6 +5,7 @@ import {
   CHANGE_OTP,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_IS_BLOCKED,
   SET_OTP_IS_BLOCK,
   SET_OTP_IS_SEND,
@@ -75,12 +76,16 @@ export const setIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+export const setIsLoadingResend = (isLoading = false) => ({
+  type: SET_RESEND_IS_LOADING,
+  payload: isLoading,
+});
+
 export const reset = () => ({
   type: RESET
 });
 
 /**
- * TODO переместить в отдельный компонент + переделать логаут
  * Экшен очищает локальное хранищиле и сбарсывает весь стейт на INITIAL_STATE
  * @returns {function(*)}
  */
@@ -126,8 +131,6 @@ export const signin = () => (dispatch, getState) => {
   api.auth.authorization(authLogin, password)
     .then((data) => {
 
-      dispatch(setIsLoading(false));
-
       if (data.status !== 200) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
@@ -157,8 +160,6 @@ export const signin = () => (dispatch, getState) => {
 
     })
     .catch((error) => {
-      dispatch(setIsLoading(false));
-
       const errorHandler = (code, message) => {
         dispatch(setIsLoading(false));
         switch (code) {
@@ -194,7 +195,8 @@ export const signin = () => (dispatch, getState) => {
       } catch (err) {
         dispatch(setErrorMessage('System is under maintenance'));
       }
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -221,7 +223,6 @@ export const sendConfirm = () => (dispatch, getState) => {
 
   api.auth.authorizationConfirm(authLogin, OTP)
     .then((data) => {
-      dispatch(setIsLoading(false));
 
       if (data.status !== 200) {
         Storage.clear();
@@ -239,8 +240,6 @@ export const sendConfirm = () => (dispatch, getState) => {
       dispatch(replace('/dashboard/'));
     })
     .catch((error) => {
-      dispatch(setIsLoading(false));
-
       const errorHandler = (code, message) => {
         switch (code) {
           case 'CONFIRMATION_CODE_INVALID':
@@ -262,8 +261,8 @@ export const sendConfirm = () => (dispatch, getState) => {
       } catch (err) {
         dispatch(setErrorMessage('System is under maintenance'));
       }
-
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -284,7 +283,7 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) return;
 
   dispatch(blockedResendOTP(true));
-  dispatch(setIsLoading(true));
+  dispatch(setIsLoadingResend(true));
   dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
@@ -293,10 +292,8 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.authorizationResendOTP(authLogin)
-    .then(() => dispatch(setIsLoading(false)))
+    .then(() => {})
     .catch((error) => {
-
-      dispatch(setIsLoading(false));
 
       const errorHandler = (code, message) => {
         switch (code) {
@@ -315,6 +312,7 @@ export const resendOTP = () => (dispatch, getState) => {
         dispatch(setErrorMessage('System is under maintenance'));
       }
 
-    });
+    })
+    .finally(() => dispatch(setIsLoadingResend(false)))
 
 };

@@ -1,4 +1,6 @@
 import {
+  APPEND_CARD,
+  REMOVE_WALLET,
   SET_CARDS,
   SET_CARD,
   SET_WALLETS,
@@ -6,8 +8,6 @@ import {
   SET_PROFILE,
   SET_CARDS_AFTER_UPDATE,
   SET_THIRD_PARTY_CARDS,
-  APPEND_CARD,
-  REMOVE_WALLET,
   SET_NOTIFICATION
 } from './types';
 
@@ -34,14 +34,10 @@ const HANDLERS = {
 
     return { ...state, wallets: newWallets };
   },
-  [REMOVE_WALLET]: (state, { payload }) => {
-    const newWallets = [...state.wallets].filter((item) => item.serial !== payload);
-
-    return {
-      ...state,
-      wallets: newWallets
-    }
-  },
+  [REMOVE_WALLET]: (state, { payload }) => ({
+    ...state,
+    wallets: [...state.wallets].filter((item) => item.serial !== payload)
+  }),
   [SET_CARDS]: (state, { payload }) => ({
     ...state,
     cards: payload

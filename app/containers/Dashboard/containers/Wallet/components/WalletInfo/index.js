@@ -3,7 +3,6 @@ import Text from 'components/Text';
 import Amount from 'components/Amount';
 
 export default (props) => {
-
   const { data } = props;
 
   return (

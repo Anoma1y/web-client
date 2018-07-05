@@ -6,6 +6,7 @@ import {
   CHANGE_OTP,
   SET_IS_PHONE,
   SET_IS_LOADING,
+  SET_RESEND_IS_LOADING,
   SET_OTP_IS_SEND,
   SET_RESEND_OTP_BLOCKED,
   SET_OTP_IS_BLOCK,
@@ -72,6 +73,11 @@ export const setIsLoading = (isLoading = false) => ({
   payload: isLoading
 });
 
+export const setIsLoadingResend = (isLoading = false) => ({
+  type: SET_RESEND_IS_LOADING,
+  payload: isLoading
+});
+
 export const reset = () => ({
   type: RESET
 });
@@ -110,13 +116,9 @@ export const getOTP = () => (dispatch, getState) => {
       }
 
       dispatch(setOtpIsSend(true));
-      dispatch(setIsLoading(false));
-
     })
     .catch((error) => {
       const { code, message } = error.response.data;
-
-      dispatch(setIsLoading(false));
 
       switch (code) {
         case 'USER_ALREADY_EXISTS':
@@ -126,7 +128,8 @@ export const getOTP = () => (dispatch, getState) => {
           dispatch(setErrorMessage('Server error'));
       }
 
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -155,8 +158,6 @@ export const sendConfirm = () => (dispatch, getState) => {
   api.auth.registrationConfirm(authLogin, OTP)
 
     .then((data) => {
-      dispatch(setIsLoading(false));
-
       if (data.status !== 200) {
 
         Storage.clear();
@@ -178,7 +179,6 @@ export const sendConfirm = () => (dispatch, getState) => {
     .catch((error) => {
       const { code, message } = error.response.data;
 
-      dispatch(setIsLoading(false));
       switch (code) {
         case 'CONFIRMATION_CODE_INVALID':
           dispatch(setErrorMessage(message));
@@ -190,7 +190,8 @@ export const sendConfirm = () => (dispatch, getState) => {
         default:
           dispatch(setErrorMessage('Server error'));
       }
-    });
+    })
+    .finally(() => dispatch(setIsLoading(false)))
 };
 
 /**
@@ -211,7 +212,7 @@ export const resendOTP = () => (dispatch, getState) => {
   if (resendOTPIsBlocked || isError) return;
 
   dispatch(blockedResendOTP(true));
-  dispatch(setIsLoading(true));
+  dispatch(setIsLoadingResend(true));
   dispatch(setErrorMessage(''));
 
   if (checkIsPhone(login)) {
@@ -220,11 +221,9 @@ export const resendOTP = () => (dispatch, getState) => {
   }
 
   api.auth.registrationResendOTP(authLogin)
-    .then(() => dispatch(setIsLoading(false)))
+    .then(() => {})
     .catch((error) => {
       const { code, message } = error.response.data;
-
-      dispatch(setIsLoading(false));
 
       switch (code) {
         case 'USER_NOT_FOUND':
@@ -233,6 +232,6 @@ export const resendOTP = () => (dispatch, getState) => {
         default:
           dispatch(setErrorMessage('Server error'));
       }
-
-    });
+    })
+    .finally(() => dispatch(setIsLoadingResend(false)))
 };

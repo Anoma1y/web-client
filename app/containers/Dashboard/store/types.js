@@ -1,0 +1,10 @@
+export const APPEND_CARD = 'Dashboard/APPEND_CARD';
+export const REMOVE_WALLET = 'Dashboard/REMOVE_WALLET';
+export const SET_WALLETS = 'Dashboard/SET_WALLETS';
+export const SET_NOTIFICATION = 'Dashboard/SET_NOTIFICATION';
+export const SET_WALLET = 'Dashboard/SET_WALLET';
+export const SET_CARDS = 'Dashboard/SET_CARDS';
+export const SET_CARD = 'Dashboard/SET_CARD';
+export const SET_PROFILE = 'Dashboard/SET_PROFILE';
+export const SET_CARDS_AFTER_UPDATE = 'Dashboard/SET_CARDS_AFTER_UPDATE';
+export const SET_THIRD_PARTY_CARDS = 'Dashboard/SET_THIRD_PARTY_CARDS';

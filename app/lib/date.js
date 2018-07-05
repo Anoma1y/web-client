@@ -31,56 +31,57 @@ export const getLastDay = (end) => moment().subtract(end, 'months').endOf('month
  * @returns {{dateStart: moment.Moment, dateEnd: moment.Moment}} - начальная и конечная дата
  */
 export const getDays = (val) => {
-  let dateStart;
-  let dateEnd;
+  const date = {
+    dateStart: null,
+    dateEnd: null
+  };
+
   switch (val) {
     case 'date-week': {
-      dateStart = moment().subtract(1, 'weeks').startOf('day');
-      dateEnd = moment().endOf('day');
+      date.dateStart = moment().subtract(1, 'weeks').startOf('day');
+      date.dateEnd = moment().endOf('day');
       break;
     }
     case 'date-month': {
-      dateStart = moment().subtract(1, 'months').startOf('day');
-      dateEnd = moment().endOf('day');
+      date.dateStart = moment().subtract(1, 'months').startOf('day');
+      date.dateEnd = moment().endOf('day');
       break;
     }
     case 'date-month-1': {
-      dateStart = getFirstDay(0);
-      dateEnd = getLastDay(0);
+      date.dateStart = getFirstDay(0);
+      date.dateEnd = getLastDay(0);
       break;
     }
     case 'date-month-2': {
-      dateStart = getFirstDay(1);
-      dateEnd = getLastDay(1);
+      date.dateStart = getFirstDay(1);
+      date.dateEnd = getLastDay(1);
       break;
     }
     case 'date-month-3': {
-      dateStart = getFirstDay(2);
-      dateEnd = getLastDay(2);
+      date.dateStart = getFirstDay(2);
+      date.dateEnd = getLastDay(2);
       break;
     }
     case 'date-3month': {
-      dateStart = getFirstDay(2);
-      dateEnd = getLastDay(0);
+      date.dateStart = getFirstDay(2);
+      date.dateEnd = getLastDay(0);
       break;
     }
     case 'date-year': {
-      dateStart = getFirstDay(12);
-      dateEnd = getLastDay(0);
+      date.dateStart = getFirstDay(12);
+      date.dateEnd = getLastDay(0);
       break;
     }
     case 'date-all': {
-      dateStart = moment(1318781876);
-      dateEnd = moment().endOf('day');
+      date.dateStart = moment(1318781876);
+      date.dateEnd = moment().endOf('day');
       break;
     }
     default: {
-      dateStart = moment();
-      dateEnd = moment();
+      date.dateStart = moment();
+      date.dateEnd = moment();
     }
   }
-  return {
-    dateStart,
-    dateEnd
-  };
+
+  return date;
 };
