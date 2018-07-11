@@ -60,7 +60,7 @@ export default class FormPersonInfo extends Component {
   renderPersonInformation = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
       <FormLabel component={'legend'} className={'profile-form_label'}>Person information</FormLabel>
-      <Grid container justify={'flex-start'}>
+      <Grid container justify={'center'}>
         <Grid item xs={12} className={'profile-form'} >
           <Grid container spacing={40}>
             <Grid item xs={3}>
