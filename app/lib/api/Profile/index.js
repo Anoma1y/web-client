@@ -35,6 +35,12 @@ export default class Profile {
     })
   }
 
+  updateAdditionalInfo(additional) {
+    return this.http.patch(config.PROFILE_UPDATE_ADDITIONAL_INFO, {
+      additional
+    })
+  }
+
   updateContactRequest(login) {
     return this.http.post(config.PROFILE_CONTACT_REQUEST, {
       login

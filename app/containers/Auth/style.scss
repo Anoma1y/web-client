@@ -57,7 +57,7 @@
     &_text {
       font-family: $font-semibold-serif;
       font-size: 0.9rem;
-      cursor: default;
+      text-decoration: none;
       color: $white-color;
       @media screen and (max-width: $break-lg) {
         color: $black-color;

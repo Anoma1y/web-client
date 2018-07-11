@@ -7,6 +7,7 @@ import {
   SET_ENTITY_DOCUMENT_IS_LOADING,
   SET_UPDATE_PERSON_INFO_IS_LOADING,
   SET_UPDATE_USER_ADDRESS_IS_LOADING,
+  SET_UPDATE_ADDITIONAL_INFO_IS_LOADING,
 } from './types';
 
 const INITIAL_STATE = {
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
   entityDocumentIsLoading: false,
   updatePersonInfoIsLoading: false,
   updateUserAddressIsLoading: false,
+  updateAdditionalInfoIsLoading: false,
 };
 
 const HANDLERS = {
@@ -45,6 +47,10 @@ const HANDLERS = {
   [SET_UPDATE_PERSON_INFO_IS_LOADING]: (state, { payload }) => ({
     ...state,
     updatePersonInfoIsLoading: payload
+  }),
+  [SET_UPDATE_ADDITIONAL_INFO_IS_LOADING]: (state, { payload }) => ({
+    ...state,
+    updateAdditionalInfoIsLoading: payload
   }),
   [SET_UPDATE_USER_ADDRESS_IS_LOADING]: (state, { payload }) => ({
     ...state,

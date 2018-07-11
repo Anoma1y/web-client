@@ -94,7 +94,6 @@ export const reset = () => ({
 export const logout = () => (dispatch) => {
   Storage.clear();
   dispatch({ type: RESET_ALL });
-  dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'The OTP was entered incorrectly. Account was temporarily suspended', timeout: 7000 }));
   dispatch(replace('/auth/signin'));
 };
 

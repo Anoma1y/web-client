@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 
 export default ({ type }) => (
   <Fragment>
-    <span className={'auth-top_text'}>
+    <Link
+      to={
+        type === 'signin'
+          ? '/auth/signin/'
+          : '/auth/signup/'
+      }
+      className={'auth-top_text'}>
       {
         type === 'signin'
           ? 'Already have an account?'
-          : 'Dont have an account?'
+          : 'Don\'t have an account?'
       }
-      </span>
+      </Link>
     <Link
       className={'auth-top_link'}
       to={
