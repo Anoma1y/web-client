@@ -17,9 +17,11 @@ import {
 import { RESET_ALL } from 'store/reducers';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
+import { send } from 'containers/Notification/store/actions'
 import moment from 'moment';
 import { checkIsPhone } from 'lib/auth';
 import { clearAll } from 'containers/Notification/store/actions';
+import uuid from 'uuid/v1'
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -92,6 +94,7 @@ export const reset = () => ({
 export const logout = () => (dispatch) => {
   Storage.clear();
   dispatch({ type: RESET_ALL });
+  dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'The OTP was entered incorrectly. Account was temporarily suspended', timeout: 7000 }));
   dispatch(replace('/auth/signin'));
 };
 

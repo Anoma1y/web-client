@@ -490,6 +490,16 @@
   width: 100%;
   white-space: nowrap;
 
+  a {
+    color: $white-color;
+    text-decoration: none;
+    font-family: $font-semibold;
+    transition: color 0.2s ease;
+    &:hover {
+      color: darken($white-color, 5%);
+    }
+  }
+
   &_icon {
     svg {
       display: block;

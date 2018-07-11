@@ -93,8 +93,8 @@ class DateFilter extends Component {
     }
 
     this.setState({ dateStart, dateEnd })
-  }
-  
+  };
+
   /**
    * Запись в стейт начальной даты
    * @param dateStart

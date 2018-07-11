@@ -7,6 +7,7 @@ import {
 import { replace } from 'react-router-redux';
 import { send } from 'containers/Notification/store/actions';
 import { pullProfile } from '../../../store/actions';
+import { RESET_ALL } from 'store/reducers';
 import {
   pullProfile as pullProfileMain,
   setNotification as setNotificationMain
@@ -100,6 +101,12 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       }
     }
   } = getState();
+
+  if (!contact || !contact.otp || contact.otp.length === 0) {
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Entering OTP', timeout: 3000 }));
+    return;
+  }
+
   let login = contact[type].toLowerCase();
 
   if (type === 'phoneNumber') {
@@ -118,7 +125,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
       dispatch(pullProfileMain(profile));
       dispatch(setNotificationMain(''));
       dispatch(setOTPisSend(type, false));
-      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Учетная запись подтверждена', timeout: 3000 }));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Account was verified', timeout: 3000 }));
     })
     .catch((error) => {
       const { code, message } = error.response.data;
@@ -127,11 +134,12 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
         case 'USER_NOT_ACTIVE':
           Storage.clear();
           api.removeHeader('Authorization');
-          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 7000 }));
+          dispatch({ type: RESET_ALL });
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'The OTP was entered incorrectly. Account was temporarily suspended', timeout: 7000 }));
           dispatch(replace('/auth/signin'));
           break;
         case 'CONFIRMATION_CODE_INVALID':
-          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: `${message} If the number of attempts expires, the account will be temporarily suspended!`, timeout: 3000 }));
           break;
         default:
           dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
