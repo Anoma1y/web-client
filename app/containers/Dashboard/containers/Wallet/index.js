@@ -13,6 +13,7 @@ import Icon from 'components/Icon';
 import Tab from 'components/Tab';
 import WalletInfo from './components/WalletInfo';
 import Exchange from './containers/Exchange';
+import Withdraw from './containers/Withdraw';
 import Transaction from 'containers/Dashboard/containers/Transaction';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
 import { pullCoin } from './store/actions';
@@ -56,6 +57,11 @@ export default class Wallet extends Component {
 
     const panes = [
       {
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Withdraw',
+        render: () => <Withdraw />
+      },
+      {
         icon: <ReorderIcon />,
         menuItem: 'Transactions',
         render: () => <Transaction filter={{ coinSerials: [this.props.match.params.id] }} />
@@ -68,11 +74,6 @@ export default class Wallet extends Component {
       {
         icon: <SendIcon />,
         menuItem: 'Payments',
-        render: () => <Transaction />
-      },
-      {
-        icon: <Icon name={'sent_m'} />,
-        menuItem: 'Withdraw',
         render: () => <Transaction />
       },
       {
