@@ -9,6 +9,9 @@ function NumberFormatCustom(props) {
     <NumberFormat
       {...other}
       ref={inputRef}
+      decimalScale={2}
+      allowNegative={false}
+      thousandSeparator
       onValueChange={values => {
         onChange({
           target: {
@@ -16,21 +19,10 @@ function NumberFormatCustom(props) {
           },
         });
       }}
-      thousandSeparator
-      prefix="$"
     />
   );
 }
-/**
- * Рендер формы для адреса
- * @param input - инпут
- * @param label - надпись
- * @param helperText - хх
- * @param touched - хз
- * @param error - текст ошибки
- * @param custom - плейсхолдер и т.п.
- * @returns {*}
- */
+
 export default ({ input, label, helperText, meta: { touched, error }, ...custom }) => (
   <Fragment>
     <TextField

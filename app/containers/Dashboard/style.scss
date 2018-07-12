@@ -150,3 +150,148 @@
     }
   }
 }
+
+.stepper {
+  p {
+    margin: 0;
+  }
+  &-wrapper {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  &-header {
+    padding-bottom: 0.5rem !important;
+    padding-top: 0.5rem !important;
+
+    &_label {
+      cursor: default;
+      span {
+        font-family: $font-regular;
+      }
+    }
+  }
+  &-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  &-container {
+    padding: 0 2rem 1rem;
+    font-family: $font-regular;
+  }
+  &-form {
+    &_header {
+      cursor: default;
+      p {
+        font-family: $font-regular;
+        color: $gray-color;
+        margin-bottom: 1.5rem;
+      }
+    }
+    &_item {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+    input, select, label {
+      font-family: $font-regular;
+    }
+  }
+  &-control {
+    width: 50%;
+    &_item {
+      display: flex;
+      justify-content: space-between;
+    }
+    &_btn {
+      font-family: $font-regular !important;
+    }
+  }
+}
+
+.operation-type {
+  &-list {
+    display: flex;
+  }
+  &-item {
+    width: 22%;
+    min-width: 9rem;
+    margin: 0.3rem;
+    padding: 1rem;
+    display: flex;
+    border: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: $white-color;
+    transition: background-color 0.2s linear;
+    &__active {
+      background-color: lighten($lightblue-color, 40%);
+    }
+    &__disabled {
+      color: $lightgray-color !important;
+      cursor: default;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background-color: lighten($lightblue-color, 40%);
+    }
+    &:hover &_icon {
+      background-color: lighten($lightblue-color, 42%);
+    }
+    &_icon {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      background-color: lighten($lightblue-color, 40%);
+      position: relative;
+      transition: background-color 0.4s linear;
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 5rem;
+      }
+    }
+    &_header {
+      font-family: $font-regular;
+      font-size: 1rem;
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 0.1rem;
+    }
+    &_description {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  }
+}
+.withdraw-amount {
+  &_description {
+    font-size: 0.85rem;
+    margin-bottom: 1rem !important;
+  }
+  &_input {
+    height: 50px;
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+  &-commission {
+    margin-top: 1rem !important;
+    &_item {
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      margin: 0.3rem 0;
+    }
+    &_divider {
+      width: 100%;
+      height: 1px;
+      background-color: lighten($lightgray-color, 20%);
+      margin-top: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+  }
+}

@@ -9,24 +9,34 @@ import {
   CircularProgress,
   Button,
 } from '@material-ui/core';
+import Type from './components/Type';
+import BOLForm from './components/BOLForm';
+import RequestForm from './components/RequestForm';
+import Finish from './components/Finish';
+import {
+  requestToWithdraw,
+  reset,
+} from './store/actions';
 
-@connect(({ Wallet_Withdraw }) => ({ Wallet_Withdraw }))
+@connect(({ Dashboard_Wallet, Wallet_Withdraw }) => ({ Dashboard_Wallet, Wallet_Withdraw }), ({
+  requestToWithdraw,
+  reset,
+}))
 export default class Withdraw extends Component {
 
   state = {
     ready: true,
-    activeStep: 0,
-    isFinish: false
+    activeStep: 1,
+    isFinish: false,
   }
 
   componentDidMount() {
     console.log('I am mounting, senpai~')
-    // this.initialState();
   }
 
   componentWillUnmount() {
     console.log('~senpai, watashi o nokosanaide kudasai')
-    // this.props.reset();
+    this.props.reset();
   }
 
   getSteps = () => [
@@ -35,14 +45,27 @@ export default class Withdraw extends Component {
     'Finish'
   ];
 
+  getType = (type) => {
+    switch (type) {
+      case 'BILL_OF_LADING':
+        return <BOLForm />
+      case 'BANK_TRANSFER':
+        return <RequestForm />;
+      default:
+        return null;
+    }
+  }
+
   getStepContent = (step) => {
+    const { activeType } = this.props.Wallet_Withdraw;
+
     switch (step) {
       case 0:
-        return <span>Hi 0</span>;
+        return <Type />;
       case 1:
-        return <span>Hi 1</span>;
+        return this.getType(activeType);
       case 2:
-        return <span>Hi 2</span>;
+        return <Finish />;
       default:
         return 'What is love. Baby dont hurt me, dont hurt me, no more';
     }
@@ -52,11 +75,11 @@ export default class Withdraw extends Component {
 
     switch (activeStep) {
       case 0:
-        this.props.calculateCommission()
-          .then(() => this.setState({ activeStep: activeStep + 1 }))
+        this.setState({ activeStep: activeStep + 1 });
         break;
       case 1:
-        this.setState({ isFinish: true, activeStep: activeStep + 2 });
+        this.props.requestToWithdraw()
+          .then(() => this.setState({ isFinish: true, activeStep: activeStep + 2 }));
         break;
       default:
         this.setState({ activeStep: activeStep + 1 });
@@ -69,7 +92,7 @@ export default class Withdraw extends Component {
   };
 
   handleReset = () => {
-    this.props.resetTopup();
+    this.props.reset();
     this.setState({ activeStep: 0, isFinish: false });
   };
 
@@ -80,45 +103,45 @@ export default class Withdraw extends Component {
     const { activeStep, isFinish } = this.state;
 
     return (
-      <div className={'card-topup'}>
-        <Stepper activeStep={activeStep} alternativeLabel className={'card-topup-header'}>
+      <div className={'stepper'}>
+        <Stepper activeStep={activeStep} alternativeLabel className={'stepper-header'}>
           {steps.map((label) => (
             <Step key={label}>
-              <StepLabel className={'card-topup-header_label'}>{label}</StepLabel>
+              <StepLabel className={'stepper-header_label'}>{label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        <div className={'card-topup-container'}>
-          <div className={'card-topup-content'}>
+        <div className={'stepper-container'}>
+          <div className={'stepper-content'}>
             {
               this.getStepContent(isFinish ? activeStep - 1 : activeStep)
             }
           </div>
-          <div className={'card-topup-control'}>
+          <div className={'stepper-control'}>
             {isFinish ? (
-              <div className={'card-topup-control_item'}>
+              <div className={'stepper-control_item'}>
                 <MuiButton isLoading={this.props.Wallet_Withdraw.isLoading}>
                   <Button
                     variant={'raised'}
                     color={'secondary'}
                     disabled={this.props.Wallet_Withdraw.isLoading}
                     onClick={this.handleReset}
-                    className={'card-topup-control_btn card-topup-control_btn__reset'}
+                    className={'stepper-control_btn stepper-control_btn__reset'}
                   >
                     Add more
                   </Button>
                 </MuiButton>
               </div>
             ) : (
-              <div className={'card-topup-control_item'}>
+              <div className={'stepper-control_item'}>
                 {(activeStep !== 0 && activeStep !== (steps.length - 1)) &&
                 <MuiButton isLoading={this.props.Wallet_Withdraw.isLoading}>
                   <Button
                     variant={'raised'}
-                    color={'primary'}
+                    color={'secondary'}
                     disabled={this.props.Wallet_Withdraw.isLoading}
                     onClick={this.handleBack}
-                    className={'card-topup-control_btn card-topup-control_btn__back'}
+                    className={'stepper-control_btn stepper-control_btn__back'}
                   >
                     Back
                   </Button>
@@ -129,10 +152,11 @@ export default class Withdraw extends Component {
                     variant={'raised'}
                     color={'primary'}
                     disabled={
-                      false
+                      this.props.Wallet_Withdraw.activeType === null
+                      || (this.state.activeStep === 1 && (this.props.Wallet_Withdraw.commission.transactionAmount && this.props.Wallet_Withdraw.commission.transactionAmount) !== Number(this.props.Wallet_Withdraw.amount))
                     }
                     onClick={this.handleNext}
-                    className={'card-topup-control_btn card-topup-control_btn__next'}
+                    className={'stepper-control_btn stepper-control_btn__next'}
                   >
                     {(activeStep === steps.length - 2) ? 'Submit' : 'Next'}
                   </Button>

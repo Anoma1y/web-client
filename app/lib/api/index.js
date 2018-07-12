@@ -8,6 +8,7 @@ import TransactionsApiModule from './Transactions';
 import MediaApiModule from './Media';
 import ExchangeApiMoudle from './Exchange';
 import TopupApiModule from './Topup';
+import WithdrawApiModule from './Withdraw';
 
 class Api {
 
@@ -30,6 +31,7 @@ class Api {
     this.media = new MediaApiModule(this.http);
     this.exchange = new ExchangeApiMoudle(this.http);
     this.topup = new TopupApiModule(this.http);
+    this.withdraw = new WithdrawApiModule(this.http);
   }
 
   /**
