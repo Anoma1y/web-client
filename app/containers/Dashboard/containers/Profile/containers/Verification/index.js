@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux';
 import FormPersonInfo from './components/FormPersonInfo';
 import FormUserAddress from './components/FormUserAddress';
+import FormAdditionalInfo from './components/FormAdditionalInfo';
 import PhotoDocument from './components/PhotoDocument';
 import PhotoIdentity from './components/PhotoIdentity';
 import { pullDocuments } from './store/actions';
@@ -67,6 +68,9 @@ export default class Verification extends Component {
         </Grid>
         <Grid container className={'profile-form_wrapper'}>
           <FormUserAddress />
+        </Grid>
+        <Grid container className={'profile-form_wrapper'}>
+          <FormAdditionalInfo />
         </Grid>
         <Grid container className={'profile-form_wrapper profile-form_documents-wrapper'}>
           {

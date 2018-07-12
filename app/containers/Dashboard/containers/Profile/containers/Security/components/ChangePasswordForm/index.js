@@ -42,10 +42,8 @@ const validate = (values) => {
    */
   if (!values.newPassword) {
     errors.newPassword = 'Required';
-  } else if (values.newPassword.length < 8) {
-    errors.newPassword = 'Password must be longer than 8 characters';
-  } else if (!PASSWORD_VALIDATION_PATTERN.test(values.newPassword)) {
-    errors.newPassword = 'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character';
+  } else if (values.newPassword.length < 8 || !PASSWORD_VALIDATION_PATTERN.test(values.newPassword)) {
+    errors.newPassword = 'Password must be longer 8 characters, contain at least one uppercase letter, one lowercase letter, one number and one special character';
   }
 
   /**
@@ -88,7 +86,7 @@ export default class ChangePasswordForm extends Component {
         <FormControl fullWidth>
           <FormLabel component={'legend'} className={'profile-form_label'}>Change password</FormLabel>
 
-          <Grid container spacing={40} className={'profile-form'} justify={'flex-start'}>
+          <Grid container spacing={40} className={'profile-form profile-form__height_180'} justify={'flex-start'}>
             <Grid item xs={4}>
 
               <Field

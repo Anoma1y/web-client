@@ -22,13 +22,13 @@ import './style.scss';
 @connect(({ Notification, routing }) => ({ Notification, routing }), ({ clearAll }))
 export default class Notification extends Component {
 
-  componentDidUpdate(prevProps) {
-    if (this.props || this.props.routing || this.props.routing.location || this.props.routing.location.pathname) {
-      if (this.props.routing.location.pathname !== prevProps.routing.location.pathname) {
-        this.props.clearAll();
-      }
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props || this.props.routing || this.props.routing.location || this.props.routing.location.pathname) {
+  //     if (this.props.routing.location.pathname !== prevProps.routing.location.pathname) {
+  //       this.props.clearAll();
+  //     }
+  //   }
+  // }
 
   renderNotification = (blockName) => {
     return this.props.Notification.map((item) => {

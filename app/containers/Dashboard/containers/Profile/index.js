@@ -18,8 +18,8 @@ import { initialData } from './store/actions';
 import './style.scss';
 
 const panes = [
-  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
   { icon: <FingerprintIcon />, menuItem: 'Verification', render: () => <Verification /> },
+  { icon: <PersonOutlineIcon />, menuItem: 'Account', render: () => <Account /> },
   { icon: <SecurityIcon />, menuItem: 'Security', render: () => <Security /> },
 ];
 

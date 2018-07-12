@@ -84,21 +84,28 @@ class DateFilter extends Component {
     this.props.onEvent('date', { dateStart, dateEnd });
   };
 
-  /**
-   * Запись в стейт начальной даты
-   * @param event
-   */
-  handleChangeStart = (event) => {
-    this.setState({ dateStart: moment(event).startOf('day') });
+  handleChangeDate = ({ dateStart, dateEnd }) => {
+    dateStart = dateStart || this.state.dateStart
+    dateEnd = dateEnd || this.state.dateEnd
+
+    if (dateStart.isAfter(dateEnd)) {
+      dateEnd = dateStart
+    }
+
+    this.setState({ dateStart, dateEnd })
   };
 
   /**
-   * Запись в стейт конечной даты
-   * @param event
+   * Запись в стейт начальной даты
+   * @param dateStart
    */
-  handleChangeEnd = (event) => {
-    this.setState({ dateEnd: moment(event).endOf('day') });
-  };
+  handleChangeStart = (dateStart) => this.handleChangeDate({ dateStart })
+
+  /**
+   * Запись в стейт конечной даты
+   * @param dateEnd
+   */
+  handleChangeEnd = (dateEnd) => this.handleChangeDate({ dateEnd })
 
   /**
    * Обработчик клика Submit для колбэка в props начальной и конечной даты

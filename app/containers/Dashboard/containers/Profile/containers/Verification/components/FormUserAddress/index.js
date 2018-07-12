@@ -37,7 +37,7 @@ export default class FormUserAddress extends Component {
 
   renderUserAddress = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
-      <FormLabel component={'legend'} className={'profile-form_label'}>User address</FormLabel>
+      <FormLabel component={'legend'} className={'profile-form_label'}>Post address</FormLabel>
       <Grid container justify={'flex-start'}>
         <Grid item xs={12} className={'profile-form'} >
           <Grid container spacing={40}>

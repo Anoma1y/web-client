@@ -7,6 +7,7 @@ import {
   SET_ENTITY_DOCUMENT_IS_LOADING,
   SET_UPDATE_PERSON_INFO_IS_LOADING,
   SET_UPDATE_USER_ADDRESS_IS_LOADING,
+  SET_UPDATE_ADDITIONAL_INFO_IS_LOADING,
   RESET
 } from './types';
 import { api } from 'lib/api';
@@ -68,6 +69,11 @@ export const setUpdateUserAddressIsLoading = (isLoading = false) => ({
 export const setUpdatePersonInfoIsLoading = (isLoading = false) => ({
   type: SET_UPDATE_PERSON_INFO_IS_LOADING,
   payload: isLoading,
+});
+
+export const setUpdateAdditionalInfoIsLoading = (isLoading = false) => ({
+  type: SET_UPDATE_ADDITIONAL_INFO_IS_LOADING,
+  payload: isLoading
 });
 
 export const addPersonFile = (file) => ({
@@ -260,6 +266,60 @@ export const updateUserAddress = () => (dispatch, getState) => {
       dispatch(setUpdateUserAddressIsLoading(false));
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
     })
+};
+
+export const updateAdditionalInfo = () => (dispatch, getState) => {
+  const {
+    syncErrors,
+    values: {
+      rawDataForm
+    }
+  } = getState().form.VerificationAdditionalInfo;
+
+  if (syncErrors) return;
+
+  const additional = {
+    rawDataForm,
+    socialMedia: [
+      {
+        id: 'string',
+        socialMediaType: 'FACEBOOK',
+        socialMediaReference: 'string'
+      }
+    ],
+    type: 'form_and_social_media'
+  }
+
+  dispatch(setUpdateAdditionalInfoIsLoading(true));
+
+  api.profile.updateAdditionalInfo(additional)
+    .then((data) => {
+
+      if (data.status !== 200) return;
+
+      const { profile } = data.data;
+
+      /**
+       * Промис для паралленьного добавления данных в сайдбар и в основной контейнер профайла
+       */
+      Promise.all([
+        dispatch(pullProfile(profile)),
+        dispatch(pullProfileMain(profile))
+      ])
+        .then(() => {
+          dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Person additional info has been changed', timeout: 4000 }));
+        })
+        .catch(() => {
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+          throw new Error();
+        })
+        .finally(() => dispatch(setUpdateAdditionalInfoIsLoading(false)));
+
+    })
+    .catch(() => {
+      dispatch(setUpdatePersonInfoIsLoading(false));
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error occurred while sending data to the server', timeout: 4000 }));
+    });
 };
 
 /**

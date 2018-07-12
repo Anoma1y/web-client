@@ -35,9 +35,7 @@ import './style.scss';
 }))
 export default class Dashboard extends Component {
 
-  state = {
-    ready: false
-  };
+  state = { ready: false };
 
   componentDidMount() {
     const authToken = Storage.get('session');

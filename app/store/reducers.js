@@ -14,7 +14,25 @@ const appReducer = combineReducers({
 const reducer = (state, action) => {
   switch (action.type) {
     case RESET_ALL:
-      return appReducer(state = undefined, action);
+      const resetStore = {
+        ...state,
+        Auth_Reset: undefined,
+        Auth_Signin: undefined,
+        Auth_Signup: undefined,
+        Dashboard: undefined,
+        AddProduct_Wallet: undefined,
+        Dashboard_Card: undefined,
+        Card_TopUp: undefined,
+        Dashboard_Profile: undefined,
+        Profile_Account: undefined,
+        Profile_Security: undefined,
+        Profile_Verification: undefined,
+        Dashboard_Sidebar: undefined,
+        Dashboard_Transaction: undefined,
+        Dashboard_Wallet: undefined,
+        Wallet_Exchange: undefined,
+      }
+      return appReducer(state = resetStore, action);
     default:
       return appReducer(state, action);
   }

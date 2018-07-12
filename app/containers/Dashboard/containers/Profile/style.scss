@@ -27,6 +27,11 @@
       margin-bottom: 1rem !important;
     }
 
+    &__height {
+      &_180 {
+        height: 180px;
+      }
+    }
     &__inner {
       padding-top: 0 !important;
       padding-bottom: 0 !important;

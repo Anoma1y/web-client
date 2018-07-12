@@ -179,7 +179,6 @@ export default class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
 
             <Button
-              color={'green'}
               disabled={resendOTPIsBlocked || otpIsBlock}
               onClick={this.handleReSendOTP}
               loading={isLoadingResend}

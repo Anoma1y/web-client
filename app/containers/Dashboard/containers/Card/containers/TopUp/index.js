@@ -138,37 +138,37 @@ export default class TopUp extends Component {
     const { activeStep, isFinish } = this.state;
 
     return (
-      <div className={'card-topup'}>
-        <Stepper activeStep={activeStep} alternativeLabel className={'card-topup-header'}>
+      <div className={'stepper'}>
+        <Stepper activeStep={activeStep} alternativeLabel className={'stepper-header'}>
           {steps.map((label) => (
             <Step key={label}>
-              <StepLabel className={'card-topup-header_label'}>{label}</StepLabel>
+              <StepLabel className={'stepper-header_label'}>{label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        <div className={'card-topup-container'}>
-          <div className={'card-topup-content'}>
+        <div className={'stepper-container'}>
+          <div className={'stepper-content'}>
             {
               this.getStepContent(isFinish ? activeStep - 1 : activeStep)
             }
           </div>
-          <div className={'card-topup-control'}>
+          <div className={'stepper-control'}>
             {isFinish ? (
-              <div className={'card-topup-control_item'}>
+              <div className={'stepper-control_item'}>
                 <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
                   <Button
                     variant={'raised'}
                     color={'secondary'}
                     disabled={this.props.Card_TopUp.isLoading}
                     onClick={this.handleReset}
-                    className={'card-topup-control_btn card-topup-control_btn__reset'}
+                    className={'stepper-control_btn stepper-control_btn__reset'}
                   >
                     Add more
                   </Button>
                 </MuiButton>
               </div>
             ) : (
-              <div className={'card-topup-control_item'}>
+              <div className={'stepper-control_item'}>
                 {(activeStep !== 0 && activeStep !== (steps.length - 1)) &&
                   <MuiButton isLoading={this.props.Card_TopUp.isLoading}>
                     <Button
@@ -176,7 +176,7 @@ export default class TopUp extends Component {
                       color={'primary'}
                       disabled={this.props.Card_TopUp.isLoading}
                       onClick={this.handleBack}
-                      className={'card-topup-control_btn card-topup-control_btn__back'}
+                      className={'stepper-control_btn stepper-control_btn__back'}
                     >
                       Back
                     </Button>
@@ -193,7 +193,7 @@ export default class TopUp extends Component {
                       || this.props.Card_TopUp.txType === ''
                     }
                     onClick={this.handleNext}
-                    className={'card-topup-control_btn card-topup-control_btn__next'}
+                    className={'stepper-control_btn stepper-control_btn__next'}
                   >
                     {(activeStep === steps.length - 2) ? 'Submit' : 'Next'}
                   </Button>
