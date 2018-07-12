@@ -26,16 +26,11 @@ export default class Withdraw extends Component {
 
   state = {
     ready: true,
-    activeStep: 1,
+    activeStep: 0,
     isFinish: false,
   }
 
-  componentDidMount() {
-    console.log('I am mounting, senpai~')
-  }
-
   componentWillUnmount() {
-    console.log('~senpai, watashi o nokosanaide kudasai')
     this.props.reset();
   }
 
@@ -47,7 +42,7 @@ export default class Withdraw extends Component {
 
   getType = (type) => {
     switch (type) {
-      case 'BILL_OF_LADING':
+      case 'BOL':
         return <BOLForm />
       case 'BANK_TRANSFER':
         return <RequestForm />;
@@ -153,7 +148,7 @@ export default class Withdraw extends Component {
                     color={'primary'}
                     disabled={
                       this.props.Wallet_Withdraw.activeType === null
-                      || (this.state.activeStep === 1 && (this.props.Wallet_Withdraw.commission.transactionAmount && this.props.Wallet_Withdraw.commission.transactionAmount) !== Number(this.props.Wallet_Withdraw.amount))
+                      || (this.props.Wallet_Withdraw === 'BANK_TRANSFER' && this.state.activeStep === 1 && (this.props.Wallet_Withdraw.commission.transactionAmount && this.props.Wallet_Withdraw.commission.transactionAmount) !== Number(this.props.Wallet_Withdraw.amount))
                     }
                     onClick={this.handleNext}
                     className={'stepper-control_btn stepper-control_btn__next'}

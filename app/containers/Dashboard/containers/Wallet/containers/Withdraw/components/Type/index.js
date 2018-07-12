@@ -22,8 +22,8 @@ export default class Type extends Component {
           <div className={'operation-type-list'}>
 
             <button
-              className={`operation-type-item ${this.props.Wallet_Withdraw.activeType === 'BILL_OF_LADING' ? 'operation-type-item__active' : ''}`}
-              onClick={() => this.props.changeActiveType('BILL_OF_LADING')}
+              className={`operation-type-item ${this.props.Wallet_Withdraw.activeType === 'BOL' ? 'operation-type-item__active' : ''}`}
+              onClick={() => this.props.changeActiveType('BOL')}
             >
               <div className={'operation-type-item_icon'}>
                 <DescriptionIcon />
@@ -37,7 +37,8 @@ export default class Type extends Component {
             </button>
 
             <button
-              className={`operation-type-item ${this.props.Wallet_Withdraw.activeType === 'BANK_TRANSFER' ? 'operation-type-item__active' : ''}`}
+              className={`operation-type-item operation-type-item__disabled ${this.props.Wallet_Withdraw.activeType === 'BANK_TRANSFER' ? 'operation-type-item__active' : ''}`}
+              disabled
               onClick={() => this.props.changeActiveType('BANK_TRANSFER')}
             >
               <div className={'operation-type-item_icon'}>

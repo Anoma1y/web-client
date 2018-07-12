@@ -90,20 +90,20 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Fill in required fields', timeout: 3000 }));
     return
   }
-  console.log(activeType)
-  return;
-
-  api.withdraw.createRequest(serial, amount, values)
-    .then((data) => {
-      if (data.status !== 200) reject();
-      const { process } = data.data;
-
-      dispatch(setTransaction(process));
-      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Successful withdrawal', timeout: 3000 }));
-      resolve();
-    })
-    .catch(() => {
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error transaction', timeout: 3000 }));
-      reject();
-    })
+  
+  console.log(values, activeType, serial)
+  
+  // api.withdraw.createRequest(serial, amount, values)
+  //   .then((data) => {
+  //     if (data.status !== 200) reject();
+  //     const { process } = data.data;
+  //
+  //     dispatch(setTransaction(process));
+  //     dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Successful withdrawal', timeout: 3000 }));
+  //     resolve();
+  //   })
+  //   .catch(() => {
+  //     dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error transaction', timeout: 3000 }));
+  //     reject();
+  //   })
 })

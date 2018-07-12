@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   isLoading: false,
-  activeType: 'BILL_OF_LADING',
+  activeType: null,
   amount: 0,
   commission: {},
   transaction: {}

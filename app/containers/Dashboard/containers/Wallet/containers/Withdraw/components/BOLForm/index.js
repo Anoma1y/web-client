@@ -40,11 +40,7 @@ const validate = (values) => {
   return errors;
 };
 
-const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s]/.test(value)) return value;
-};
-
-@reduxForm({ form: 'WithdrawBOLForm', validate })
+@reduxForm({ form: 'WithdrawRequestForm', validate })
 export default class RequestForm extends Component {
   render() {
     return (
