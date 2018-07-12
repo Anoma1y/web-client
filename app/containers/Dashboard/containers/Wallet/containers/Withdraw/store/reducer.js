@@ -12,11 +12,7 @@ const INITIAL_STATE = {
   activeType: 'BILL_OF_LADING',
   amount: 0,
   commission: {},
-  transaction: {
-    bankDetails: {
-
-    }
-  }
+  transaction: {}
 };
 
 const HANDLERS = {

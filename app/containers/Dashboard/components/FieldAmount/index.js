@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { TextField, FormHelperText } from '@material-ui/core';
 import NumberFormat from 'react-number-format';
 
-function NumberFormatCustom(props) {
+const NumberFormatCustom = (props) => {
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -12,12 +12,8 @@ function NumberFormatCustom(props) {
       decimalScale={2}
       allowNegative={false}
       thousandSeparator
-      onValueChange={values => {
-        onChange({
-          target: {
-            value: values.value,
-          },
-        });
+      onValueChange={(values) => {
+        onChange(values.value);
       }}
     />
   );

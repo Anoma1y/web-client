@@ -76,7 +76,8 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
       }
     },
     Wallet_Withdraw: {
-      amount
+      amount,
+      activeType
     },
     Dashboard_Wallet: {
       coin: {
@@ -85,7 +86,12 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     }
   } = getState();
 
-  if (syncErrors) return;
+  if (syncErrors) {
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Fill in required fields', timeout: 3000 }));
+    return
+  }
+  console.log(activeType)
+  return;
 
   api.withdraw.createRequest(serial, amount, values)
     .then((data) => {

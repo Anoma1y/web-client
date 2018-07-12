@@ -54,7 +54,7 @@ export default class Withdraw extends Component {
       default:
         return null;
     }
-  }
+  };
 
   getStepContent = (step) => {
     const { activeType } = this.props.Wallet_Withdraw;

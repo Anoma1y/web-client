@@ -29,7 +29,10 @@ const validate = (values) => {
   }
   if (!values.amount) {
     errors.amount = 'Required';
+  } else if (values.amount <= 0) {
+    errors.amount = 'Amount cannot be 0';
   }
+
   if (!values.description) {
     errors.description = 'Required';
   }
@@ -53,7 +56,6 @@ export default class RequestForm extends Component {
                 name={'sourceIBAN'}
                 component={FieldText}
                 label={'Source IBAN for withdrawal'}
-                normalize={normalizeLatin}
               />
             </Grid>
             <Grid item xs={12}>

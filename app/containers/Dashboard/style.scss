@@ -218,6 +218,7 @@
     padding: 1rem;
     display: flex;
     border: none;
+    border-radius: 0.3rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -234,7 +235,7 @@
     &:focus {
       outline: none;
     }
-    &:hover {
+    &:not(&__disabled):hover {
       background-color: lighten($lightblue-color, 40%);
     }
     &:hover &_icon {
@@ -269,17 +270,19 @@
   }
 }
 .withdraw-amount {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   &_description {
     font-size: 0.85rem;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.5rem !important;
   }
   &_input {
     height: 50px;
-    margin-top: 2rem !important;
-    margin-bottom: 2rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
   }
   &-commission {
-    margin-top: 1rem !important;
+    margin-top: 0.5rem !important;
     &_item {
       font-size: 0.9rem;
       display: flex;
