@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   reduxForm,
   Field
@@ -7,26 +8,31 @@ import FieldText from 'containers/Dashboard/components/FieldText';
 import FieldAmount from 'containers/Dashboard/components/FieldAmount';
 import {
   Grid,
+  TextField
 } from '@material-ui/core';
+import { changeCountry } from '../../store/actions';
+import countries from 'lib/countries';
+import _ from 'lodash';
 
 const validate = (values) => {
   const errors = {};
 
-  if (!values.sourceIBAN) {
-    errors.sourceIBAN = 'Required';
-  }
   if (!values.targetIBAN) {
     errors.targetIBAN = 'Required';
+  } else if (values.targetIBAN && values.targetIBAN.length > 1 && !/[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}/.test(values.targetIBAN)) {
+    errors.targetIBAN = 'Validation error. Example: LT705555511111111187';
   }
+
   if (!values.bic) {
     errors.bic = 'Required';
+  } else if (values.bic && values.bic.length > 1 && !/[a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?/.test(values.bic)) {
+    errors.bic = 'Validation error. Example: NDEALV2XXXX';
   }
-  if (!values.country) {
-    errors.country = 'Required';
-  }
+
   if (!values.addressLine) {
     errors.addressLine = 'Required';
   }
+
   if (!values.amount) {
     errors.amount = 'Required';
   } else if (values.amount <= 0) {
@@ -40,8 +46,22 @@ const validate = (values) => {
   return errors;
 };
 
+@connect(({ Wallet_Withdraw }) => ({ Wallet_Withdraw }), ({
+  changeCountry
+}))
 @reduxForm({ form: 'WithdrawRequestForm', validate })
 export default class RequestForm extends Component {
+
+  handleIBANchangeCountry = (e, v) => {
+    if (v.length < 2) {
+      this.props.changeCountry();
+    }
+    if (v.length >= 2) {
+      const country = _.find(countries, { key: v.slice(0, 2).toUpperCase() });
+      this.props.changeCountry(country);
+    }
+  };
+
   render() {
     return (
       <Grid container justify={'flex-start'}>
@@ -49,15 +69,9 @@ export default class RequestForm extends Component {
           <Grid container spacing={40}>
             <Grid item xs={12}>
               <Field
-                name={'sourceIBAN'}
-                component={FieldText}
-                label={'Source IBAN for withdrawal'}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Field
                 name={'targetIBAN'}
                 component={FieldText}
+                onChange={(e, v) => this.handleIBANchangeCountry(e, v)}
                 label={'Target IBAN for withdrawal'}
               />
             </Grid>
@@ -68,11 +82,14 @@ export default class RequestForm extends Component {
                 label={'Target BIC for withdrawal'}
               />
             </Grid>
+
             <Grid item xs={12}>
-              <Field
-                name={'country'}
-                component={FieldText}
+              <TextField
+                fullWidth
+                disabled
+                value={this.props.Wallet_Withdraw.country ? this.props.Wallet_Withdraw.country.label : ''}
                 label={'Target country for withdrawal'}
+                helperText={'The field is automatically generated'}
               />
             </Grid>
             <Grid item xs={12}>
@@ -84,16 +101,16 @@ export default class RequestForm extends Component {
             </Grid>
             <Grid item xs={12}>
               <Field
-                name={'amount'}
-                component={FieldAmount}
-                label={'Amount of withdrawal'}
+                name={'description'}
+                component={FieldText}
+                label={'Description of withdrawal'}
               />
             </Grid>
             <Grid item xs={12}>
               <Field
-                name={'description'}
-                component={FieldText}
-                label={'Description of withdrawal'}
+                name={'amount'}
+                component={FieldAmount}
+                label={'Amount of withdrawal'}
               />
             </Grid>
           </Grid>

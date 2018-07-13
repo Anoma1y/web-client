@@ -4,6 +4,7 @@ import {
   SET_COMMISSION,
   CHANGE_ACTIVE_TYPE,
   SET_TRANSACTION,
+  CHANGE_COUNTRY,
   RESET,
 } from './types';
 
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
   isLoading: false,
   activeType: null,
   amount: 0,
+  country: null,
   commission: {},
   transaction: {}
 };
@@ -31,6 +33,10 @@ const HANDLERS = {
   [CHANGE_ACTIVE_TYPE]: (state, { payload }) => ({
     ...state,
     activeType: payload
+  }),
+  [CHANGE_COUNTRY]: (state, { payload }) => ({
+    ...state,
+    country: payload
   }),
   [SET_TRANSACTION]: (state, { payload }) => ({
     ...state,

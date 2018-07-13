@@ -6,11 +6,17 @@ export default class Withdraw {
     this.http = http;
   }
 
-  createRequest(coin, amount, bankDetails) {
-    return this.http.post(config.CREATE_REQUEST, {
+  createRequestViaBank(coin, amount, bankDetails) {
+    return this.http.post(config.CREATE_REQUEST_BANK, {
       coin,
       amount,
       bankDetails
+    });
+  }
+
+  createRequestViaBol(details) {
+    return this.http.post(config.CREATE_REQUEST_BOL, {
+      details
     });
   }
 
