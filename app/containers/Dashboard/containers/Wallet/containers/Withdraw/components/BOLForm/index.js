@@ -89,6 +89,7 @@ export default class RequestForm extends Component {
                 disabled
                 value={this.props.Wallet_Withdraw.country ? this.props.Wallet_Withdraw.country.label : ''}
                 label={'Target country for withdrawal'}
+                helperText={'The field is automatically generated'}
               />
             </Grid>
             <Grid item xs={12}>

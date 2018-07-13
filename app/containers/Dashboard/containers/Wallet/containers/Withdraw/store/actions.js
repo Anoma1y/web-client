@@ -103,25 +103,23 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     return;
   }
 
-  // console.log(values, activeType, serial)
   const BOLdata = {
     sourceIBAN: serial,
     country: country.label,
     ...values,
   };
 
-  console.log(BOLdata)
-  // api.withdraw.createRequest(serial, amount, values)
-  //   .then((data) => {
-  //     if (data.status !== 200) reject();
-  //     const { process } = data.data;
-  //
-  //     dispatch(setTransaction(process));
-  //     dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Successful withdrawal', timeout: 3000 }));
-  //     resolve();
-  //   })
-  //   .catch(() => {
-  //     dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error transaction', timeout: 3000 }));
-  //     reject();
-  //   })
+  api.withdraw.createRequestViaBol(BOLdata)
+    .then((data) => {
+      if (data.status !== 200) reject();
+      const { process } = data.data;
+
+      dispatch(setTransaction(process));
+      dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: 'Successful withdrawal', timeout: 3000 }));
+      resolve();
+    })
+    .catch(() => {
+      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error transaction', timeout: 3000 }));
+      reject();
+    })
 })
