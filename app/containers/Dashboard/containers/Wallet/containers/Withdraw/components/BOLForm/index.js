@@ -46,7 +46,7 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(({ Dashboard_Wallet, Wallet_Withdraw }) => ({ Dashboard_Wallet, Wallet_Withdraw }), ({
+@connect(({ Wallet_Withdraw }) => ({ Wallet_Withdraw }), ({
   changeCountry
 }))
 @reduxForm({ form: 'WithdrawRequestForm', validate })
@@ -56,8 +56,8 @@ export default class RequestForm extends Component {
     if (v.length < 2) {
       this.props.changeCountry();
     }
-    if (v.length === 2) {
-      const country = _.find(countries, { key: v.toUpperCase() });
+    if (v.length >= 2) {
+      const country = _.find(countries, { key: v.slice(0, 2).toUpperCase() });
       this.props.changeCountry(country);
     }
   };
@@ -67,14 +67,6 @@ export default class RequestForm extends Component {
       <Grid container justify={'flex-start'}>
         <Grid item xs={6} className={'dashboard-form'} >
           <Grid container spacing={40}>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                disabled
-                value={this.props.Dashboard_Wallet.coin.serial}
-                label={'Source IBAN for withdrawal'}
-              />
-            </Grid>
             <Grid item xs={12}>
               <Field
                 name={'targetIBAN'}
