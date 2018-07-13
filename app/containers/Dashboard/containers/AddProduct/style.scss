@@ -99,6 +99,22 @@
       margin-top: 0.8rem;
     }
   }
+  &-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    &_item {
+
+    }
+    &_title {
+      color: $black-color;
+      font-family: $font-semibold;
+    }
+    &_description {
+      color: $black-color;
+    }
+  }
   &_list {
     list-style-type: none;
   }

@@ -4,6 +4,7 @@ import {
   SET_IS_LOADING,
   CHANGE_ACTIVE_TYPE,
   SET_TRANSACTION,
+  CHANGE_COUNTRY,
   RESET,
 } from './types';
 import { send } from 'containers/Notification/store/actions';
@@ -32,6 +33,11 @@ export const setCommission = (value) => ({
 
 export const setTransaction = (value) => ({
   type: SET_TRANSACTION,
+  payload: value,
+});
+
+export const changeCountry = (value = null) => ({
+  type: CHANGE_COUNTRY,
   payload: value,
 });
 
@@ -77,6 +83,7 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     },
     Wallet_Withdraw: {
       amount,
+      country,
       activeType
     },
     Dashboard_Wallet: {
@@ -90,9 +97,20 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Fill in required fields', timeout: 3000 }));
     return
   }
-  
-  console.log(values, activeType, serial)
-  
+
+  if (!country) {
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Невалидный IBAN или страна не поддерживается платежной системой SEPA', timeout: 3000 }));
+    return;
+  }
+
+  // console.log(values, activeType, serial)
+  const BOLdata = {
+    sourceIBAN: serial,
+    country: country.label,
+    ...values,
+  };
+
+  console.log(BOLdata)
   // api.withdraw.createRequest(serial, amount, values)
   //   .then((data) => {
   //     if (data.status !== 200) reject();

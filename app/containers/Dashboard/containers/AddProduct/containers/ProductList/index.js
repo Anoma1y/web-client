@@ -89,7 +89,7 @@ export default class ProductList extends React.Component {
               <span className={'addProductItem-price_text addProductItem-price_currency'}>Р</span>
               <span className={'addProductItem-price_text'}>за три года</span>
             </p>
-            <Link to={'/dashboard/'} className={'addProductItem-link'}>Подробней</Link>
+            <Link to={'/dashboard/add/card'} className={'addProductItem-link'}>Подробней</Link>
 
           </Grid>
         </Grid>
