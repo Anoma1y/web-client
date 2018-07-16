@@ -83,11 +83,13 @@ export default class Withdraw extends Component {
 
   handleBack = () => {
     const { activeStep } = this.state;
+
     this.setState({ activeStep: activeStep - 1 });
   };
 
   handleReset = () => {
     this.props.reset();
+
     this.setState({ activeStep: 0, isFinish: false });
   };
 
