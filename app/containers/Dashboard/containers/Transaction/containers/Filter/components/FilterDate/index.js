@@ -85,14 +85,17 @@ class DateFilter extends Component {
   };
 
   handleChangeDate = ({ dateStart, dateEnd }) => {
-    dateStart = dateStart || this.state.dateStart
-    dateEnd = dateEnd || this.state.dateEnd
+    dateStart = dateStart || this.state.dateStart;
+    dateEnd = dateEnd || this.state.dateEnd;
 
     if (dateStart.isAfter(dateEnd)) {
-      dateEnd = dateStart
+      dateEnd = dateStart;
     }
 
-    this.setState({ dateStart, dateEnd })
+    this.setState({
+      dateStart: dateStart.startOf('day'),
+      dateEnd: dateEnd.endOf('day')
+    });
   };
 
   /**
