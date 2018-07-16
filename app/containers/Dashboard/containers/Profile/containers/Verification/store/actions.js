@@ -98,7 +98,7 @@ export const pullDocuments = () => (dispatch) => new Promise((resolve, reject) =
   api.profile.getProfileDocuments()
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const entityDocumentFile = [];
       const { documents } = data.data;
@@ -129,7 +129,7 @@ export const uploadIdentityFile = (fileUpload) => (dispatch, getState) => {
   dispatch(setEntityDocumentIsLoading(true));
   api.media.uploadMediaFile(fileUpload)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { file } = data.data;
       /**
@@ -185,7 +185,7 @@ export const uploadPersonFile = (fileUpload) => (dispatch) => {
   dispatch(setPersonPhotoIsLoading(true));
   api.media.uploadMediaFile(fileUpload)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { file } = data.data;
 
@@ -208,7 +208,7 @@ export const submitPersonFile = () => (dispatch, getState) => {
   dispatch(setPersonPhotoIsLoading(true));
   api.profile.submitDocumentsUpload(personalPhoto.file.id, personalPhoto.type)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { document } = data.data;
 
@@ -241,7 +241,7 @@ export const updateUserAddress = () => (dispatch, getState) => {
 
   api.profile.updateUserAddress(address)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 
@@ -295,7 +295,7 @@ export const updateAdditionalInfo = () => (dispatch, getState) => {
   api.profile.updateAdditionalInfo(additional)
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 
@@ -358,7 +358,7 @@ export const updatePersonInfo = () => (dispatch, getState) => {
   api.profile.updatePersonInfo(personObject)
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 

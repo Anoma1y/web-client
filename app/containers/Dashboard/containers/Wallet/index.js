@@ -49,7 +49,7 @@ export default class Wallet extends Component {
         this.props.setActive({ type: 'wallet', id });
         this.setState({ ready: true });
       });
-  }
+  };
 
   handleChangeTab = ({ activeIndex }) => this.setState({ activeIndex });
 
@@ -91,8 +91,8 @@ export default class Wallet extends Component {
           activeIndex={activeIndex}
         />
       </div>
-    )
-  }
+    );
+  };
 
   renderLoader = (size) => <CircularProgress size={size} className={'dashboard_loading'} />;
 

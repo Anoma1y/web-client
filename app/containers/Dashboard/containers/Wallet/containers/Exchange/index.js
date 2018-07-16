@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Grid,
@@ -92,6 +92,12 @@ export default class Exchange extends Component {
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
 
+  renderEmptyExchange = () => (
+    <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+      <div className={'wallet-exchange_empty'}>No wallets for exchange</div>
+    </Grid>
+  )
+
   renderContent = () => {
     const {
       coins,
@@ -112,103 +118,106 @@ export default class Exchange extends Component {
                 Для обмена, выберите кошелек, в валюту которого вы хотите конвертировать средства
               </div>
             </Grid>
-            <Grid item xs={12} className={'wallet-exchange_wrapper'}>
-              <Grid container spacing={40} justify={'flex-start'} className={'wallet-exchange-form'}>
-
-                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
-
-                  <TextField
-                    fullWidth
-                    label={(rates && rates.rate) ? `Sell ${rates.inIssuer.currency}` : 'Sell'}
-                    disabled={!isLoadRate || !rates}
-                    onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
-                    value={amount.sell}
-                    InputProps={{
-                      inputComponent: NumberFormat,
-                    }}
-                  />
-
-                </Grid>
-
-                <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
-
-                  <TextField
-                    fullWidth
-                    label={(rates && rates.rate) ? `Buy ${rates.outIssuer.currency}` : 'Buy'}
-                    disabled={!isLoadRate || !rates}
-                    onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
-                    value={amount.buy}
-                    InputProps={{
-                      inputComponent: NumberFormat,
-                    }}
-                  />
-
-                </Grid>
-
-                <Grid item xs={3} className={'wallet-exchange-form_item wallet-exchange-form_select'}>
-                  <FormControl fullWidth>
-                    <InputLabel htmlFor={'coin-select'}>Coin</InputLabel>
-                    <Select
-                      fullWidth
-                      native
-                      value={outCoinSerial}
-                      id={'coin-select'}
-                      onChange={this.handleChangeCurrentCoinExchange}
-                      inputProps={{
-                        id: 'coin-select',
-                      }}
-                    >
-                      <option value="" disabled hidden />
-                      {
-                        coins.map((coin) => <option key={coin.serial} value={coin.serial}>{coin.name}</option>)
-                      }
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-              </Grid>
-            </Grid>
 
             {
-              (isLoadRate && rates && rates.rate) &&
-              <Grid item xs={12} className={'wallet-exchange_wrapper wallet-exchange-operations'}>
+              coins.length === 0 ? this.renderEmptyExchange() :
+              <Fragment>
+                <Grid item xs={12} className={'wallet-exchange_wrapper'}>
+                  <Grid container spacing={40} justify={'flex-start'} className={'wallet-exchange-form'}>
 
-                <Grid container>
-                  <Grid item xs={12} className={'wallet-exchange-operations_rates'}>
-                    <p>Rate {`${rates.inIssuer.currency}/${rates.outIssuer.currency}`}: {rates.rate}</p>
+                    <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
+
+                      <TextField
+                        fullWidth
+                        label={(rates && rates.rate) ? `Sell ${rates.inIssuer.currency}` : 'Sell'}
+                        disabled={!isLoadRate || !rates}
+                        onChange={(event) => this.handleChangeAmountExchange(event, 'sell')}
+                        value={amount.sell}
+                        InputProps={{
+                          inputComponent: NumberFormat,
+                        }}
+                      />
+
+                    </Grid>
+
+                    <Grid item xs={2} className={'wallet-exchange-form_item wallet-exchange-form_text'}>
+
+                      <TextField
+                        fullWidth
+                        label={(rates && rates.rate) ? `Buy ${rates.outIssuer.currency}` : 'Buy'}
+                        disabled={!isLoadRate || !rates}
+                        onChange={(event) => this.handleChangeAmountExchange(event, 'buy')}
+                        value={amount.buy}
+                        InputProps={{
+                          inputComponent: NumberFormat,
+                        }}
+                      />
+
+                    </Grid>
+
+                    <Grid item xs={3} className={'wallet-exchange-form_item wallet-exchange-form_select'}>
+                      <FormControl fullWidth>
+                        <InputLabel htmlFor={'coin-select'}>Coin</InputLabel>
+                        <Select
+                          fullWidth
+                          native
+                          value={outCoinSerial}
+                          id={'coin-select'}
+                          onChange={this.handleChangeCurrentCoinExchange}
+                          inputProps={{
+                            id: 'coin-select',
+                          }}
+                        >
+                          <option value="" disabled hidden />
+                          {coins.map((coin) => <option key={coin.serial} value={coin.serial}>{coin.name}</option>)}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
                   </Grid>
-                  <Grid item xs={12}>
-                    <Grid container justify={'flex-start'} spacing={40}>
-                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__success'}>
-                        <MuiButton isLoading={isLoading}>
-                          <Button
-                            fullWidth
-                            variant={'raised'}
-                            color={'primary'}
-                            disabled={isLoading}
-                          >
-                            SUBMIT
-                          </Button>
-                        </MuiButton>
+                </Grid>
+                {
+                  (isLoadRate && rates && rates.rate) &&
+                  <Grid item xs={12} className={'wallet-exchange_wrapper wallet-exchange-operations'}>
+
+                    <Grid container>
+                      <Grid item xs={12} className={'wallet-exchange-operations_rates'}>
+                        <p>Rate {`${rates.inIssuer.currency}/${rates.outIssuer.currency}`}: {rates.rate}</p>
                       </Grid>
-                      <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__update'}>
-                        <MuiButton isLoading={isLoading}>
-                          <Button
-                            fullWidth
-                            variant={'raised'}
-                            color={'primary'}
-                            disabled={this.state.blockUpdate || isLoading}
-                            onClick={this.updateRates}
-                          >
-                            UPDATE RATE
-                          </Button>
-                        </MuiButton>
+                      <Grid item xs={12}>
+                        <Grid container justify={'flex-start'} spacing={40}>
+                          <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__success'}>
+                            <MuiButton isLoading={isLoading}>
+                              <Button
+                                fullWidth
+                                variant={'raised'}
+                                color={'primary'}
+                                disabled={isLoading}
+                              >
+                                SUBMIT
+                              </Button>
+                            </MuiButton>
+                          </Grid>
+                          <Grid item xs={2} className={'wallet-exchange-operations_btn wallet-exchange-operations_btn__update'}>
+                            <MuiButton isLoading={isLoading}>
+                              <Button
+                                fullWidth
+                                variant={'raised'}
+                                color={'primary'}
+                                disabled={this.state.blockUpdate || isLoading}
+                                onClick={this.updateRates}
+                              >
+                                UPDATE RATE
+                              </Button>
+                            </MuiButton>
+                          </Grid>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
+                }
+              </Fragment>
 
-              </Grid>
             }
 
           </Grid>

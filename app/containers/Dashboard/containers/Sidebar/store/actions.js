@@ -50,7 +50,7 @@ export const applyRemove = (index) => (dispatch, getState) => {
   dispatch(setEditIsLoading(true));
   api.coins.deleteCoin(serial)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       dispatch(send({ id: uuid(), status: 'success', title: 'Success', message: `Кошелек ${serial} был удален`, timeout: 4000 }));
       dispatch(removeWalletMain(serial));
@@ -89,7 +89,7 @@ export const applyEditNameWallet = (index) => (dispatch, getState) => {
   dispatch(setEditIsLoading(true));
   api.coins.editName(serial, editNameWallet)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { coin } = data.data;
 
@@ -113,7 +113,7 @@ export const updateCard = (cardId, index) => (dispatch, getState) => new Promise
   dispatch(setCardIsUpdate(true));
   api.cards.updateState(cardId)
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { cards } = getState().Dashboard;
       const { cardInfo } = data.data;

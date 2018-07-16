@@ -72,7 +72,7 @@ export const setThirdPartyCards = (tCards) => ({
 export const pullWallets = () => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getWalletsList()
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       dispatch(setWallets(data.data.coins));
       resolve();
@@ -87,7 +87,7 @@ export const pullWallets = () => (dispatch) => new Promise((resolve, reject) => 
 export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, reject) => {
   api.cards.getThirdPartyCards()
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { cards } = data.data;
 
@@ -105,7 +105,7 @@ export const pullThirdPartyCards = () => (dispatch) => new Promise((resolve, rej
 export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) => {
   api.cards.getInfo(cardId)
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { cardInfo } = data.data;
 
@@ -122,7 +122,7 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
 export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfile()
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { profile, profile: { contact } } = data.data;
 

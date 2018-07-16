@@ -13,7 +13,7 @@ export const pullCard = (cardId) => (dispatch) => new Promise((resolve, reject) 
   api.cards.getInfo(cardId)
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { cardInfo } = data.data;
 

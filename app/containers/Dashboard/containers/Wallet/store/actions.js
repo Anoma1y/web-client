@@ -14,7 +14,7 @@ export const pullCoin = (id) => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getWalletsList()
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { coins } = data.data;
       const coin = _.find(coins, { 'serial': id });

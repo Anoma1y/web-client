@@ -104,7 +104,7 @@ export const getOTP = () => (dispatch, getState) => {
   api.auth.reset(authLogin)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         dispatch(setErrorMessage('Server error')); // ?, upd 15.06.18: чо не понятно?
         return;
       }
@@ -152,7 +152,7 @@ export const sendConfirm = () => (dispatch, getState) => {
   api.auth.resetConfirm(authLogin, OTP, newUserPassword)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         Storage.clear();
         return;
       }

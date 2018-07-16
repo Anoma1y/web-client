@@ -109,7 +109,7 @@ export const createWallet = () => (dispatch, getState) => {
    */
   api.coins.getWalletsList()
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       /**
        * Добавление нового кошелька, если валюта не занята
@@ -118,7 +118,7 @@ export const createWallet = () => (dispatch, getState) => {
        */
       api.coins.createCoin(name, currency, TYPE)
         .then((data) => {
-          if (data.status !== 200) return;
+          if (data.status !== api.code.OK) return;
 
           const { coin } = data.data;
           const newCoins = [...wallets, coin];

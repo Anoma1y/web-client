@@ -2,6 +2,7 @@ import React from 'react';
 import Text from 'components/Text';
 import Amount from 'components/Amount';
 
+// TODO need fix
 export default (props) => {
   const { data } = props;
 
@@ -11,7 +12,7 @@ export default (props) => {
         <div className={'wallet-content'}>
           <Text className={'wallet-content_text'}>
             <Text.Content>
-              Available on My Euro wallet
+              Available on {data && data.name ? data.name : ''}
             </Text.Content>
             <Text.Sub>
               <Amount

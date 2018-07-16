@@ -133,7 +133,7 @@ export const signin = () => (dispatch, getState) => {
   api.auth.authorization(authLogin, password)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;
@@ -226,7 +226,7 @@ export const sendConfirm = () => (dispatch, getState) => {
   api.auth.authorizationConfirm(authLogin, OTP)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;

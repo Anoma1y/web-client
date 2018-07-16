@@ -84,7 +84,7 @@ export const pullWallets = (cardId) => (dispatch, getState) => new Promise((reso
 
   api.coins.getWalletsList()
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { coins: wallets } = data.data;
       const wallet = _.find(wallets, { issuer: { currency: currentCard.card.currency } });
@@ -106,7 +106,7 @@ export const calculateCommission = () => (dispatch, getState) => new Promise((re
   dispatch(setIsLoading(true));
   api.topup.calculateCommission(provider.accountId, wallet.serial, amount, txType)
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       dispatch(setCommission(data.data));
       resolve();
@@ -142,7 +142,7 @@ export const retrieveListPaymentProviders = (txType) => (dispatch, getState) => 
   dispatch(setTXtype(txType));
   api.topup.getPaymentProviders(txType, wallet.serial)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { records } = data.data;
 

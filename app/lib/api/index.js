@@ -13,6 +13,7 @@ import WithdrawApiModule from './Withdraw';
 class Api {
 
   constructor() {
+    this.code = config.STATUS_CODES;
     this.http = axios.create({
       baseURL: config.BASE_URL,
       timeout: config.TIMEOUT,
