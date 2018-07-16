@@ -43,7 +43,7 @@ export default class Wallet extends Component {
   initialData = () => {
     const { id } = this.props.match.params;
 
-    this.setState({ ready: false });
+    this.setState({ ready: false, activeIndex: 0 });
     this.props.pullCoin(id)
       .then(() => {
         this.props.setActive({ type: 'wallet', id });

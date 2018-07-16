@@ -86,9 +86,7 @@ export const removePersonFile = (id) => ({
   payload: id,
 });
 
-export const reset = () => ({
-  type: RESET
-});
+export const reset = () => ({ type: RESET });
 
 /**
  * Экшен для получения списка загруженных файлов
@@ -268,6 +266,11 @@ export const updateUserAddress = () => (dispatch, getState) => {
     })
 };
 
+/**
+ * Экшен для обновления дополнительной информации
+ * В форму пихать что угодно, главное сделать проверку на obj !== null
+ * @returns {function(*=, *)}
+ */
 export const updateAdditionalInfo = () => (dispatch, getState) => {
   const {
     syncErrors,
@@ -288,10 +291,9 @@ export const updateAdditionalInfo = () => (dispatch, getState) => {
       }
     ],
     type: 'form_and_social_media'
-  }
+  };
 
   dispatch(setUpdateAdditionalInfoIsLoading(true));
-
   api.profile.updateAdditionalInfo(additional)
     .then((data) => {
 
@@ -354,7 +356,6 @@ export const updatePersonInfo = () => (dispatch, getState) => {
   };
 
   dispatch(setUpdatePersonInfoIsLoading(true));
-
   api.profile.updatePersonInfo(personObject)
     .then((data) => {
 
