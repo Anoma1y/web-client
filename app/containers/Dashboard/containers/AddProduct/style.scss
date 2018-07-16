@@ -136,16 +136,20 @@
     color: #e9de1a;
     font-family: $font-semibold;
     font-size: 1.3rem;
+    line-height: 0;
     &_currency {
       margin-left: 0.3rem;
       margin-right: 0.4rem;
     }
   }
   &-link {
-    color: $white-color;
-    font-family: $font-regular;
-    text-decoration: none;
-    border: 2px solid $white-color;
-    padding: 0.4rem 1rem;
+    margin-top: 3rem;
+    a {
+      color: $white-color;
+      font-family: $font-regular;
+      text-decoration: none;
+      border: 2px solid $white-color;
+      padding: 0.4rem 1rem;
+    }
   }
 }

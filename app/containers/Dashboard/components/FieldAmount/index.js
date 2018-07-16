@@ -25,7 +25,7 @@ export default ({ input, label, helperText, meta: { touched, error }, ...custom 
       fullWidth
       label={label}
       error={error && touched}
-      className={'base-form_amount'}
+      className={'dashboard-form_input dashboard-form-input__amount'}
       {...input}
       {...custom}
       InputProps={{

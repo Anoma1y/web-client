@@ -1,4 +1,5 @@
 @import 'lib/style/vars.scss';
+@import 'lib/style/mixin.scss';
 
 .page {
 
@@ -79,6 +80,14 @@
   }
 }
 
+.dashboard-form {
+  &_input {
+    label {
+      //font-size: 0.9rem;
+    }
+  }
+}
+
 /**
 Стили для лоадера посреди экрана (по горизонтали и вертикали)
  */
@@ -152,9 +161,7 @@
 }
 
 .stepper {
-  p {
-    margin: 0;
-  }
+
   &-wrapper {
     padding-top: 2rem;
     padding-bottom: 2rem;
