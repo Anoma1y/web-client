@@ -242,19 +242,30 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  background-color: #283e79;
-
+  background-color: #0a4879;
+  border-radius: 5px;
   padding: 2rem !important;
+
   &:focus {
     border: none;
     outline: none;
   }
-
+  &_divider {
+    background-color: rgba(255,255,255,0.2) !important;
+  }
   &_header {
     color: $white-color !important;
     font-size: 1.1rem;
     font-family: $font-semibold;
     margin-bottom: 0.5rem !important;
+  }
+
+  &-content {
+    margin-top: 1rem !important;
+    padding: 1rem 1.5rem;
+    background-color: $white-color;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 30px 0 rgba(255,255,255,0.25);
   }
 
   &_amount {
@@ -297,13 +308,6 @@
     svg {
       font-size: 2rem;
     }
-  }
-
-  &-content {
-    margin-top: 1rem !important;
-    padding: 1rem 1.5rem;
-    background-color: $white-color;
-    border-radius: 0.3rem;
   }
 }
 

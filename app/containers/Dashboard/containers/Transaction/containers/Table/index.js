@@ -142,7 +142,7 @@ export default class DataTable extends Component {
                       </Grid>
 
                       <Grid item xs={12}>
-                        <Divider />
+                        <Divider className={'transactions-modal_divider'} />
                       </Grid>
 
                       <Grid item xs={12}>
