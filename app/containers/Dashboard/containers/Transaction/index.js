@@ -17,9 +17,6 @@ import {
 import { getDays } from 'lib/date';
 import './style.scss';
 
-// todo проблема с временем (не соответствует поясу и isoString)
-// куча мелких багов
-// баг с одинаковыми key
 @connect(({ Dashboard_Transaction }) => ({ Dashboard_Transaction }), ({
   pullTransactions,
   reset
@@ -41,13 +38,16 @@ export default class Transaction extends React.Component {
     this.filter.statuses = TRANSACTION_STATUSES.filter((status) => status.selected).map((status) => status.type);
 
     if (this.props.filter) {
-      this.filter = { ...this.filter, ...this.props.filter };
+      this.filter = {
+        ...this.filter,
+        ...this.props.filter
+      };
     }
 
     this.props.pullTransactions(date, this.filter || {})
       .then(() => {})
       .catch(() => this.setState({ errorText: 'Ошибка загрузки данных' }))
-      .finally(() => this.setState({ ready: true }))
+      .finally(() => this.setState({ ready: true }));
   }
 
   componentWillUnmount() {
@@ -68,7 +68,9 @@ export default class Transaction extends React.Component {
     return (
       <Grid container className={'transactions'}>
         <Grid item xs={12}>
+
           <Filter onEvent={(type, event) => this.updateTransactions(type, event)} />
+
         </Grid>
         <Grid item xs={12} className={'dashboard-container'}>
           {
