@@ -28,17 +28,17 @@ const validate = values => {
     }
   };
 
-  if (values.rawDataForm.birthday.length === 10) {
+  if (values.rawDataForm.birthday.length >= 4) {
     const dateBirthday = moment(values.rawDataForm.birthday, 'DD/MM/YYYY')
     const years = moment().diff(dateBirthday, 'years');
     if (isNaN(years)) {
-      errors.rawDataForm.birthday = 'Неверный формат даты (День/Месяц/Год)';
+      errors.rawDataForm.birthday = 'Enter a valid date (Example: 31/12/1999)';
     }
     if (years < 18) {
-      errors.rawDataForm.birthday = 'Младше 18';
+      errors.rawDataForm.birthday = 'Your age must be at least 18 years old';
     }
     if (years > 100) {
-      errors.rawDataForm.birthday = 'Старше 100';
+      errors.rawDataForm.birthday = 'Your age must be no more than 100 years old';
     }
 
   }
