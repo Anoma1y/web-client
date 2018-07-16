@@ -7,6 +7,7 @@ import {
   TableCell,
   TableRow,
   Modal,
+  Divider,
   CircularProgress
 } from '@material-ui/core';
 import {
@@ -125,30 +126,49 @@ export default class DataTable extends Component {
                   onClose={this.handleCloseModal}
                 >
                   <div className={'transactions-modal'}>
-                    <div className={'transactions-modal_title'}>
-                      Transaction
-                    </div>
-                    <Grid container className={'transactions-modal-content'}>
-                      <Grid item xs={4}>
-                        <div>Where: Bank of America</div>
-                        <div>When: {moment(data.createdAt).format('DD.MM.YYYY, HH:mm')}</div>
-                        <div>From: 10</div>
+                    <Grid container className={'transactions-modal-container'}>
+
+                      <Grid item xs={12} className={'transactions-modal_header'}>
+                        <Grid container justify={'space-between'}>
+                          <Grid item xs={4}>
+                            {getTransactionsType(data.type).description}
+                          </Grid>
+                          <Grid item xs={4}>
+                            <div className={'transactions-modal_amount'}>
+                              Amount: <Amount operation={findFrom ? 'minus' : 'plus'} value={AMOUNT} />
+                            </div>
+                          </Grid>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={4}>
-                        <div>Amount:
-                          <Amount
-                            operation={findFrom ? 'minus' : 'plus'}
-                            value={AMOUNT}
-                          />
-                        </div>
+
+                      <Grid item xs={12}>
+                        <Divider className={'transactions-modal_divider'} />
                       </Grid>
-                      <Grid item xs={4}>
-                        <div>Status: {getTransactionsStatus(data.status).description}</div>
-                        <div>
-                          <PlayForWorkIcon />
-                          <PrintIcon />
-                        </div>
+
+                      <Grid item xs={12}>
+                        <Grid container className={'transactions-modal-content'}>
+                          <Grid item xs={4} className={'transactions-modal_col'}>
+                            <div className={'transactions-modal_text'}><span className={'transactions-modal_text__header'}>Where</span> Bank of America</div>
+                            <div className={'transactions-modal_text'}><span className={'transactions-modal_text__header'}>When</span> {moment(data.createdAt).format('DD.MM.YYYY, HH:mm')}</div>
+                            <div className={'transactions-modal_text'}><span className={'transactions-modal_text__header'}>From</span> Wallet EUR</div>
+                          </Grid>
+                          <Grid item xs={5} className={'transactions-modal_col'}>
+                            <div className={'transactions-modal_text'}><span className={'transactions-modal_text__header'}>Description</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, sunt!</div>
+                          </Grid>
+                          <Grid item xs={3} className={'transactions-modal_col'}>
+                            <div className={'transactions-modal_text'}><span className={'transactions-modal_text__header'}>Status</span> {getTransactionsStatus(data.status).description}</div>
+                            <div className={'transactions-modal_text transactions-modal_icons'}>
+                              <div className={'transactions-modal_icon'}>
+                                <PlayForWorkIcon />
+                              </div>
+                              <div className={'transactions-modal_icon'}>
+                                <PrintIcon />
+                              </div>
+                            </div>
+                          </Grid>
+                        </Grid>
                       </Grid>
+
                     </Grid>
                   </div>
                 </Modal>

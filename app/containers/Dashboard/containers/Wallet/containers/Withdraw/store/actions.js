@@ -61,7 +61,7 @@ export const calculateCommission = () => (dispatch, getState) => new Promise((re
   dispatch(setIsLoading(true));
   api.withdraw.calculateCommission(coin.serial, amount)
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       dispatch(setCommission(data.data));
       resolve();
@@ -120,7 +120,7 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
   dispatch(setIsLoading(true));
   api.withdraw.createRequestViaBol(BOLdata)
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
       const { process } = data.data;
 
       dispatch(setTransaction(process));

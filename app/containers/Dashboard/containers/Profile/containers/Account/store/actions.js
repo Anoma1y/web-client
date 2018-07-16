@@ -59,7 +59,7 @@ export const updateUserContactRequest = (type) => (dispatch, getState) => {
 
   api.profile.updateContactRequest(login)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { action } = data.data;
       const message = `${action === 'EMAIL_SENT' ? 'Email' : 'SMS code'} was sent`;
@@ -117,7 +117,7 @@ export const updateUserContactConfirm = (type) => (dispatch, getState) => {
   api.profile.updateContactConfirm(login, contact.otp)
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 

@@ -110,7 +110,7 @@ export const getOTP = () => (dispatch, getState) => {
   api.auth.registration(authLogin, role, country)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         dispatch(setErrorMessage('Server error')); // ?
         return;
       }
@@ -158,7 +158,7 @@ export const sendConfirm = () => (dispatch, getState) => {
   api.auth.registrationConfirm(authLogin, OTP)
 
     .then((data) => {
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
 
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));

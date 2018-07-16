@@ -14,14 +14,11 @@ import {
   SET_ERROR,
   RESET
 } from './types';
-import { RESET_ALL } from 'store/reducers';
 import Storage from 'lib/storage';
 import { api } from 'lib/api';
-import { send } from 'containers/Notification/store/actions'
 import moment from 'moment';
 import { checkIsPhone } from 'lib/auth';
 import { clearAll } from 'containers/Notification/store/actions';
-import uuid from 'uuid/v1'
 
 export const changeLogin = (login) => ({
   type: CHANGE_LOGIN,
@@ -88,16 +85,6 @@ export const reset = () => ({
 });
 
 /**
- * Экшен очищает локальное хранищиле и сбарсывает весь стейт на INITIAL_STATE
- * @returns {function(*)}
- */
-export const logout = () => (dispatch) => {
-  Storage.clear();
-  dispatch({ type: RESET_ALL });
-  dispatch(replace('/auth/signin'));
-};
-
-/**
  * Экшен для входа в систему
  * Если установлена двухфакторка, то будет переход к следующему шагу (отправку ОТП)
  * Иначе - вход в систему
@@ -133,7 +120,7 @@ export const signin = () => (dispatch, getState) => {
   api.auth.authorization(authLogin, password)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;
@@ -226,7 +213,7 @@ export const sendConfirm = () => (dispatch, getState) => {
   api.auth.authorizationConfirm(authLogin, OTP)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         Storage.clear();
         dispatch(setErrorMessage('Ошибка авторизации'));
         return;

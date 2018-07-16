@@ -66,7 +66,6 @@ class DateFilter extends Component {
    * @param event возвращает начальную и конечную дату в обработчик события props
    */
   handleChange = (event) => {
-
     const { value } = event.target;
     const { dateStart, dateEnd } = getDays(value);
     const { label, id } = _.filter(selectItems, { id: value })[0];
@@ -85,14 +84,17 @@ class DateFilter extends Component {
   };
 
   handleChangeDate = ({ dateStart, dateEnd }) => {
-    dateStart = dateStart || this.state.dateStart
-    dateEnd = dateEnd || this.state.dateEnd
+    dateStart = dateStart || this.state.dateStart;
+    dateEnd = dateEnd || this.state.dateEnd;
 
     if (dateStart.isAfter(dateEnd)) {
-      dateEnd = dateStart
+      dateEnd = dateStart;
     }
 
-    this.setState({ dateStart, dateEnd })
+    this.setState({
+      dateStart: dateStart.startOf('day'),
+      dateEnd: dateEnd.endOf('day')
+    });
   };
 
   /**

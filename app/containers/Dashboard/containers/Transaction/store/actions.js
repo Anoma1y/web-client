@@ -1,50 +1,7 @@
-// const ff = {
-//   filter: {
-//     ids: [
-//       'string'
-//     ],
-//     types: [
-//       'string'
-//     ],
-//     statuses: [
-//       'limited',
-//       'pending',
-//       'declined',
-//       'processed',
-//       'rejected',
-//       'error'
-//     ],
-//     dateFrom: '2018-05-25T12:55:38.307Z',
-//     dateTo: '2018-05-25T12:55:38.307Z',
-//     coinSerials: [
-//       'string'
-//     ],
-//     orgIds: [
-//       'string'
-//     ],
-//     issuerIds: [
-//       'string'
-//     ],
-//     currencyCodes: [
-//       'string'
-//     ],
-//     requestIdentifiers: [
-//       0
-//     ]
-//   },
-//   sort: {
-//     date: 'asc',
-//     status: 'asc',
-//     type: 'asc'
-//   },
-//   pageNumber: 0,
-//   pageSize: 0
-// };
 import {
   SET_RECORDS_LIST,
   CHANGE_PAGE_NUMBER,
   CHANGE_PAGE_SIZE,
-  SET_FILTER_VALUE,
   CHANGE_FILTER_DATE,
   CHANGE_TOTAL_PAGES,
   CHANGE_TOTAL_RECORDS,
@@ -68,11 +25,6 @@ export const appendRecords = (records) => ({
 
 export const changePageNumber = (value) => ({
   type: CHANGE_PAGE_NUMBER,
-  payload: value,
-});
-
-export const changePageSize = (value) => ({
-  type: CHANGE_PAGE_SIZE,
   payload: value,
 });
 
@@ -126,13 +78,16 @@ export const pullTransactions = (date, filterProps = {}, isUpdate = false, isApp
 
   if (blockedAppend && !isUpdate) return;
 
+  const DATE_START = date.dateStart ? `${moment(date.dateStart).format('YYYY-MM-DDTHH:mm:ss.SSS')}Z` : filter.dateFrom;
+  const DATE_END = date.dateEnd ? `${moment(date.dateEnd).format('YYYY-MM-DDTHH:mm:ss.SSS')}Z` : filter.dateTo;
+
   const currentFilter = {
     ...filterProps,
-    dateFrom: date.dateStart ? moment(date.dateStart).toISOString() : filter.dateFrom,
-    dateTo: date.dateEnd ? moment(date.dateEnd).toISOString() : filter.dateTo
+    dateFrom: DATE_START,
+    dateTo: DATE_END
   };
 
-  dispatch(changeFilterDate(moment(date.dateStart).toISOString(), moment(date.dateEnd).toISOString()));
+  dispatch(changeFilterDate(DATE_START, DATE_END));
 
   let nextPage = pageNumber;
 

@@ -26,6 +26,7 @@ export const getValuesDeep = (object) => {
       }
     }
   };
+
   getVal(object);
   return arr;
 };

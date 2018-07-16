@@ -53,7 +53,7 @@ export const reset = () => ({ type: RESET })
 export const pullCoins = (coinException) => (dispatch) => new Promise((resolve, reject) => {
   api.coins.getWalletsList()
     .then((data) => {
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { coins } = data.data;
       const exceptionCoins = coins.filter((coin) => coin.serial !== coinException);
@@ -87,7 +87,7 @@ export const pullRates = (isUpdate) => (dispatch, getState) => new Promise((reso
   api.exchange.getRates(inIssuerId, outIssuerId)
     .then((data) => {
 
-      if (data.status !== 200) reject();
+      if (data.status !== api.code.OK) reject();
 
       const { records } = data.data;
       const rates = _.find(records, { direction: 'buy' }); // Обмен валют для каждого кошелька подразумевает лишь продажу этой валюты и покупку другой

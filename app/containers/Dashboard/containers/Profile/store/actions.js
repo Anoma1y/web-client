@@ -32,7 +32,7 @@ export const reset = () => ({
 export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getAllDocumentsType()
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { documentTypes } = data.data;
       const types = documentTypes
@@ -55,7 +55,7 @@ export const pullDocumentTypeList = () => (dispatch) => new Promise((resolve, re
 export const pullDocumentsType = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfileDocuments()
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { documents } = data.data;
       const usedTypes = documents
@@ -76,7 +76,7 @@ export const pullDocumentsType = () => (dispatch) => new Promise((resolve, rejec
 export const pullProfile = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getProfile()
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 

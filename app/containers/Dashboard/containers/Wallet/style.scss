@@ -46,6 +46,11 @@
     font-family: $font-regular;
     font-size: 0.9rem;
   }
+  &_empty {
+    padding: 2rem 1rem;
+    font-family: $font-semibold;
+    font-size: 1.1rem;
+  }
   &-form {
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;

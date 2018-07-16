@@ -37,7 +37,7 @@ export const changeNotificationSend = () => (dispatch, getState) => {
   api.profile.changeUserNotification(security)
     .then((data) => {
 
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 
@@ -99,7 +99,7 @@ export const changePassword = () => (dispatch, getState) => {
   api.profile.changeUserPassword(current, newPassword)
     .then((data) => {
 
-      if (data.status !== 200) {
+      if (data.status !== api.code.OK) {
         dispatch(resetChangePassword('error'));
         return;
       }
@@ -136,7 +136,7 @@ export const changePassword = () => (dispatch, getState) => {
 export const pullSession = () => (dispatch) => new Promise((resolve, reject) => {
   api.profile.getLimitedSessionList(Config.SESSION_ENTRIES_COUNT)
     .then((data) => {
-      if (data.status !== 200) return;
+      if (data.status !== api.code.OK) return;
 
       const { loginHistory } = data.data;
 

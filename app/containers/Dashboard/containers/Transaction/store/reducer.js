@@ -19,12 +19,8 @@ const INITIAL_STATE = {
   totalPages: 0,
   blockedAppend: false,
   appendIsLoading: false,
-  filter: {
-
-  },
-  records: [
-
-  ]
+  filter: {},
+  records: []
 };
 
 const HANDLERS = {

@@ -79,10 +79,12 @@ export default class Dashboard extends Component {
       .then(() => {
         Promise.all(currentRoleInitialActions.map((action) => action())) // получение всех необходимых данных по ролям
           .then(() => {
+
             if (!ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
               this.setState({ ready: true });
               return;
             }
+
             const { thirdPartyCards } = this.props.Dashboard;
             const pullCardList = thirdPartyCards.map((card) => () => this.props.pullCard(card.cardId));
 
