@@ -19,14 +19,14 @@ import {
 } from '../../store/actions';
 import countries from 'lib/countries';
 
-@connect((state) => ({
-  Profile_Verification: state.Profile_Verification,
-  initialValues: {
-    address: state.Dashboard_Profile.profile.address,
-  }
-}), ({
-    updateUserAddress,
-  }))
+const normalizeZip = value => {
+  if (!value) return value;
+  if (value.length < 10) return value;
+}
+
+@connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { address: Dashboard_Profile.profile.address } }), ({
+  updateUserAddress,
+}))
 @reduxForm({
   form: 'VerificationUserAddress',
   enableReinitialize: true
@@ -39,6 +39,31 @@ export default class FormUserAddress extends Component {
     <FormControl fullWidth className={'profile-form_control'}>
       <FormLabel component={'legend'} className={'profile-form_label'}>Post address</FormLabel>
       <Grid container justify={'flex-start'}>
+
+        <Grid item xs={12} className={'profile-form'}>
+          <Grid container spacing={40}>
+            <Grid item xs={4}>
+              <FormControl fullWidth>
+                <InputLabel>Country</InputLabel>
+                <Field
+                  name={'address.country'}
+                  component={FieldSelect}
+                >
+                  {countries.map((item) => <option key={item.key} value={item.value}>{item.label}</option>)}
+                </Field>
+              </FormControl>
+            </Grid>
+            <Grid item xs={5}>
+              <Field
+                name={'address.city'}
+                component={FieldText}
+                label={'City'}
+                placeholder={'City'}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
         <Grid item xs={12} className={'profile-form'} >
           <Grid container spacing={40}>
             <Grid item xs={5}>
@@ -64,33 +89,12 @@ export default class FormUserAddress extends Component {
                 component={FieldText}
                 label={'ZIP/Postal code'}
                 placeholder={'ZIP/Postal code'}
+                normalize={normalizeZip}
               />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} className={'profile-form'}>
-          <Grid container spacing={40}>
-            <Grid item xs={5}>
-              <Field
-                name={'address.city'}
-                component={FieldText}
-                label={'City'}
-                placeholder={'City'}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <FormControl fullWidth>
-                <InputLabel>Country</InputLabel>
-                <Field
-                  name={'address.country'}
-                  component={FieldSelect}
-                >
-                  {countries.map((item) => <option key={item.key} value={item.value}>{item.label}</option>)}
-                </Field>
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Grid>
+
         <Grid item xs={2}>
           <div className={'mui-btn'}>
             <Button

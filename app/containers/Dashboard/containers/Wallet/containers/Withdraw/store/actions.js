@@ -82,33 +82,42 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
       }
     },
     Wallet_Withdraw: {
-      amount,
       country,
       activeType
     },
     Dashboard_Wallet: {
       coin: {
-        serial
+        serial: COIN_SERIAL,
+        availableAmount: COIN_AVAILABLE_AMOUNT,
       }
     }
   } = getState();
 
   if (syncErrors) {
     dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Fill in required fields', timeout: 3000 }));
-    return
+    return;
+  }
+
+  const FORM_AMOUNT = Number(values.amount.replace(/,/, ''));
+
+  if (FORM_AMOUNT > COIN_AVAILABLE_AMOUNT) {
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'There are not enough funds on your account.', timeout: 3000 }));
+    return;
   }
 
   if (!country) {
-    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Невалидный IBAN или страна не поддерживается платежной системой SEPA', timeout: 3000 }));
+    dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'The invalid IBAN or country is not supported by the SEPA payment system', timeout: 3000 }));
     return;
   }
 
   const BOLdata = {
-    sourceIBAN: serial,
+    sourceIBAN: COIN_SERIAL,
     country: country.label,
     ...values,
+    amount: FORM_AMOUNT
   };
 
+  dispatch(setIsLoading(true));
   api.withdraw.createRequestViaBol(BOLdata)
     .then((data) => {
       if (data.status !== 200) reject();
@@ -122,4 +131,5 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
       dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'Error transaction', timeout: 3000 }));
       reject();
     })
+    .finally(() => dispatch(setIsLoading(false)));
 })

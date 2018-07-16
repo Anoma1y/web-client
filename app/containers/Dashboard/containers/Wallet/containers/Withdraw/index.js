@@ -83,11 +83,13 @@ export default class Withdraw extends Component {
 
   handleBack = () => {
     const { activeStep } = this.state;
+
     this.setState({ activeStep: activeStep - 1 });
   };
 
   handleReset = () => {
     this.props.reset();
+
     this.setState({ activeStep: 0, isFinish: false });
   };
 
@@ -147,7 +149,8 @@ export default class Withdraw extends Component {
                     variant={'raised'}
                     color={'primary'}
                     disabled={
-                      this.props.Wallet_Withdraw.activeType === null
+                      this.props.Wallet_Withdraw.isLoading
+                      || this.props.Wallet_Withdraw.activeType === null
                       || (this.props.Wallet_Withdraw === 'BANK_TRANSFER' && this.state.activeStep === 1 && (this.props.Wallet_Withdraw.commission.transactionAmount && this.props.Wallet_Withdraw.commission.transactionAmount) !== Number(this.props.Wallet_Withdraw.amount))
                     }
                     onClick={this.handleNext}

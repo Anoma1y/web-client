@@ -15,7 +15,7 @@ import {
   submitPersonFile
 } from '../../store/actions';
 
-@connect((state) => ({ Profile_Verification: state.Profile_Verification }), ({
+@connect(({ Profile_Verification }) => ({ Profile_Verification }), ({
   uploadPersonFile,
   removePersonFile,
   submitPersonFile

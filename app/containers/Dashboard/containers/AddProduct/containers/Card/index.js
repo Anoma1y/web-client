@@ -19,7 +19,7 @@ export default class Card extends Component {
           <Grid item xs={7} className={'addProductItem-content'}>
 
             <div className={'addProductItem-container'}>
-              <h3 className={'addProductItem-container_title'}>Пластиковая карта Jago</h3>
+              <h3 className={'addProductItem-container_title'}>Jago Card</h3>
               <div className={'addProductItem-container_item addProductItem-container_description'}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam et facilis modi optio! Alias amet architecto, asperiores at cum, dolor dolore eum fugiat harum hic inventore laudantium magnam minus modi mollitia nisi non numquam obcaecati odit officia omnis perferendis possimus provident quae, quaerat quod sapiente sit sunt suscipit totam veritatis.
               </div>

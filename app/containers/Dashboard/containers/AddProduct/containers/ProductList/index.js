@@ -10,8 +10,11 @@ export default class ProductList extends React.Component {
   state = {
     ready: false,
     walletIsAvailable: false
-  }
+  };
 
+  /**
+   * Если кошельки все заняты - убирается блок добавления кошелька
+   */
   componentDidMount() {
     this.props.pullAwailableIssuers()
       .then((walletIsAvailable) => {
@@ -36,23 +39,17 @@ export default class ProductList extends React.Component {
 
           <Grid item xs={7} className={'addProductItem-content'}>
 
-            <h3 className={'addProductItem-content_title'}>Кошелек Jago</h3>
+            <h3 className={'addProductItem-content_title'}>Jago Wallet</h3>
             <p className={'addProductItem-content_paragraph'}>
-              Это дополнение к кошельку.
-              <span className={'addProductItem-content__break'}> Баланс карты и кошелька — одно и то же.</span>
+              <span className={'addProductItem-content__break'}> The balance of the card and the wallet are the same.</span>
             </p>
             <ul className={'addProductItem_list'}>
-              <li className={'addProductItem_list-item'}>Платежи винтернете</li>
-              <li className={'addProductItem_list-item'}>Платежи в обычных магазинах</li>
-              <li className={'addProductItem_list-item'}>Наличные без комиссии, 10000 ₽/мес</li>
+              <li className={'addProductItem_list-item'}>Payments on the Internet</li>
+              <li className={'addProductItem_list-item'}>Money Transfers</li>
             </ul>
-            <p className={'addProductItem-price'}>
-              <span className={'addProductItem-price_text addProductItem-price_amount'}>200</span>
-              <span className={'addProductItem-price_text addProductItem-price_currency'}>Р</span>
-              <span className={'addProductItem-price_text'}>за три года</span>
-            </p>
-            <Link to={'/dashboard/add/wallet'} className={'addProductItem-link'}>Подробней</Link>
-
+            <div className={'addProductItem-link'}>
+              <Link to={'/dashboard/add/wallet'}>More detailed</Link>
+            </div>
           </Grid>
         </Grid>
       </Grid>
@@ -74,23 +71,24 @@ export default class ProductList extends React.Component {
 
           <Grid item xs={7} className={'addProductItem-content'}>
 
-            <h3 className={'addProductItem-content_title'}>Пластиковая карта Jago</h3>
+            <h3 className={'addProductItem-content_title'}>Jago Card</h3>
             <p className={'addProductItem-content_paragraph'}>
               Это дополнение к кошельку.
               <span className={'addProductItem-content__break'}> Баланс карты и кошелька — одно и то же.</span>
             </p>
             <ul className={'addProductItem_list'}>
-              <li className={'addProductItem_list-item'}>Платежи винтернете</li>
-              <li className={'addProductItem_list-item'}>Платежи в обычных магазинах</li>
-              <li className={'addProductItem_list-item'}>Наличные без комиссии, 10000 ₽/мес</li>
+              <li className={'addProductItem_list-item'}>Money Transfers</li>
+              <li className={'addProductItem_list-item'}>Card-to-Card Payments</li>
+              <li className={'addProductItem_list-item'}>eCommerce Gateway</li>
             </ul>
             <p className={'addProductItem-price'}>
-              <span className={'addProductItem-price_text addProductItem-price_amount'}>200</span>
-              <span className={'addProductItem-price_text addProductItem-price_currency'}>Р</span>
-              <span className={'addProductItem-price_text'}>за три года</span>
+              <span className={'addProductItem-price_text addProductItem-price_amount'}>10</span>
+              <span className={'addProductItem-price_text addProductItem-price_currency'}>€</span>
+              <span className={'addProductItem-price_text'}>per year</span>
             </p>
-            <Link to={'/dashboard/add/card'} className={'addProductItem-link'}>Подробней</Link>
-
+            <div className={'addProductItem-link'}>
+              <Link to={'/dashboard/add/card'}>More detailed</Link>
+            </div>
           </Grid>
         </Grid>
       </Grid>

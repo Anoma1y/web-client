@@ -51,9 +51,7 @@ export default class ImageUpload extends Component {
 
     const file = dataURLtoFile(imageSrc, `file_${String(_.random(10, 999999))}.png`);
 
-    this.setState({
-      webcamIsVisible: false,
-    });
+    this.setState({ webcamIsVisible: false });
 
     const formData = this.convertingImageToFile(file);
 

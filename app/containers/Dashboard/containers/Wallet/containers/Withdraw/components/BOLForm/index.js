@@ -46,7 +46,7 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(({ Wallet_Withdraw }) => ({ Wallet_Withdraw }), ({
+@connect(({ Dashboard_Wallet, Wallet_Withdraw }) => ({ Dashboard_Wallet, Wallet_Withdraw }), ({
   changeCountry
 }))
 @reduxForm({ form: 'WithdrawRequestForm', validate })
@@ -87,6 +87,7 @@ export default class RequestForm extends Component {
               <TextField
                 fullWidth
                 disabled
+                className={'dashboard-form_input'}
                 value={this.props.Wallet_Withdraw.country ? this.props.Wallet_Withdraw.country.label : ''}
                 label={'Target country for withdrawal'}
                 helperText={'The field is automatically generated'}

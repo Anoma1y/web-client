@@ -28,33 +28,36 @@ const validate = values => {
     }
   };
 
-  if (values.rawDataForm.birthday.length === 10) {
-    const dateBirthday = moment(values.rawDataForm.birthday, 'DD/MM/YYYY')
-    const years = moment().diff(dateBirthday, 'years');
-    if (isNaN(years)) {
-      errors.rawDataForm.birthday = 'Неверный формат даты (День/Месяц/Год)';
-    }
-    if (years < 18) {
-      errors.rawDataForm.birthday = 'Младше 18';
-    }
-    if (years > 100) {
-      errors.rawDataForm.birthday = 'Старше 100';
-    }
+  if (!values.rawDataForm) return;
 
+  if (values.rawDataForm.birthday) {
+    if (values.rawDataForm.birthday.length >= 4) {
+      const dateBirthday = moment(values.rawDataForm.birthday, 'DD/MM/YYYY');
+      const years = moment().diff(dateBirthday, 'years');
+
+      if (isNaN(years)) {
+        errors.rawDataForm.birthday = 'Enter a valid date (Example: 31/12/1999)';
+      }
+      if (years < 18) {
+        errors.rawDataForm.birthday = 'Your age must be at least 18 years old';
+      }
+      if (years > 100) {
+        errors.rawDataForm.birthday = 'Your age must be no more than 100 years old';
+      }
+    }
   }
 
   return getValuesDeep(errors).every((item) => item === '') ? {} : errors;
-
-}
+};
 
 const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s]/.test(value)) return value;
+  if (!/[^a-zA-Z\s-]/.test(value)) return value;
 };
 
 const normalizeZip = value => {
   if (!value) return value;
   if (value.length < 10) return value;
-}
+};
 
 const normalizeBirthday = value => {
   if (!value) return value;
@@ -68,14 +71,9 @@ const normalizeBirthday = value => {
   return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}/${onlyNums.slice(4, 8)}`;
 };
 
-@connect((state) => ({
-  Profile_Verification: state.Profile_Verification,
-  initialValues: {
-    rawDataForm: state.Dashboard_Profile.profile.additional.rawDataForm,
-  }
-}), ({
-    updateAdditionalInfo
-  }))
+@connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { rawDataForm: Dashboard_Profile.profile.additional.rawDataForm } }), ({
+  updateAdditionalInfo
+}))
 @reduxForm({
   form: 'VerificationAdditionalInfo',
   validate,
@@ -83,7 +81,7 @@ const normalizeBirthday = value => {
 })
 export default class FormAdditionalInfo extends Component {
 
-  handleSubmitAdditionalInfo = () => this.props.updateAdditionalInfo()
+  handleSubmitAdditionalInfo = () => this.props.updateAdditionalInfo();
 
   renderAdditionalInformation = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
@@ -109,6 +107,7 @@ export default class FormAdditionalInfo extends Component {
                 component={FieldText}
                 label={'City'}
                 placeholder={'City'}
+                normalize={normalizeLatin}
               />
             </Grid>
           </Grid>

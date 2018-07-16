@@ -18,7 +18,7 @@ import {
 } from '../../store/actions';
 
 const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s]/.test(value)) return value;
+  if (!/[^a-zA-Z\s-]/.test(value)) return value;
 };
 
 const validate = (values) => {
