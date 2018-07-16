@@ -66,7 +66,6 @@ class DateFilter extends Component {
    * @param event возвращает начальную и конечную дату в обработчик события props
    */
   handleChange = (event) => {
-
     const { value } = event.target;
     const { dateStart, dateEnd } = getDays(value);
     const { label, id } = _.filter(selectItems, { id: value })[0];

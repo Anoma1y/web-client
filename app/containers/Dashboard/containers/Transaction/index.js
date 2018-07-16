@@ -18,7 +18,6 @@ import { getDays } from 'lib/date';
 import './style.scss';
 
 // todo проблема с временем (не соответствует поясу и isoString)
-// не всегда работает рендж фильтр даты
 // куча мелких багов
 // баг с одинаковыми key
 @connect(({ Dashboard_Transaction }) => ({ Dashboard_Transaction }), ({
