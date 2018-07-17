@@ -184,7 +184,7 @@ export default class DataTable extends Component {
     <TableBody className={'transactions-table_item'}>
       <TableRow className={'transactions-table_head'}>
         <TableCell colSpan={16}>
-          You don't have any transactions yet - let's buy something?
+          No transactions!
         </TableCell>
       </TableRow>
     </TableBody>

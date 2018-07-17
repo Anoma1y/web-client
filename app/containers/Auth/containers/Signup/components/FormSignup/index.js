@@ -116,7 +116,7 @@ export default class FormSignup extends Component {
             icon={<PlaceIcon color={'action'} />}
             iconPosition={'left'}
             iconSize={18}
-            placeholder={'Country'}
+            placeholder={'Choose your location'}
             required
             onChange={this.handleChangeCountry}
           />

@@ -1,6 +1,9 @@
 @import 'lib/style/vars.scss';
 
 .profile {
+  label, input, select {
+    font-family: $font-regular-serif;
+  }
   &-container {
     margin-top: 2rem;
   }
