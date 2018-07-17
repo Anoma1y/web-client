@@ -124,10 +124,10 @@ export default class Account extends Component {
    */
   renderFormMain = (type) => {
     const { contact } = this.props.Dashboard_Profile.profile;
-    const label = type === 'email' ? 'Email' : 'Phone';
 
     if (!contact) return null;
 
+    const label = type === 'email' ? 'Email' : 'Phone';
     const isVerified = type === 'email' ? contact.emailVerified : contact.phoneVerified;
 
     return (

@@ -134,7 +134,7 @@ export default class FormOTP extends Component {
         <div className={'auth-form_item'}>
 
           <Input
-            type={'text'}
+            type={'password'}
             placeholder={'Entering new password'}
             icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
