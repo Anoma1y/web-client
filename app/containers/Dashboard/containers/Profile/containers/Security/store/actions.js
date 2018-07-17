@@ -36,19 +36,25 @@ export const changeNotificationSend = () => (dispatch, getState) => {
   dispatch(setNotificationIsLoading(true));
   api.profile.changeUserNotification(security)
     .then((data) => {
-
       if (data.status !== api.code.OK) return;
 
       const { profile } = data.data;
 
       dispatch(pullProfile(profile));
-      dispatch(setNotificationIsLoading(false));
       dispatch(send({ id: uuid(), status: 'success', title: 'Change notification', message: 'Notification was changed', timeout: 3000 }));
     })
-    .catch(() => {
-      dispatch(setNotificationIsLoading(false));
-      dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+    .catch((err) => {
+      const { code, message } = err.response.data;
+
+      switch (code) {
+        case 'USER_PHONE_NOT_VERIFIED':
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message, timeout: 3000 }));
+          break;
+        default:
+          dispatch(send({ id: uuid(), status: 'error', title: 'Error', message: 'An error has occurred, please try again later', timeout: 3000 }));
+      }
     })
+    .finally(() => dispatch(setNotificationIsLoading(false)));
 };
 
 /**

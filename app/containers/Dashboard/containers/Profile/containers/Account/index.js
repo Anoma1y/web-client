@@ -20,6 +20,7 @@ import {
 import FieldTextAuth from '../../components/FieldTextAuth';
 import FieldText from '../../components/FieldText';
 import { clearAll } from 'containers/Notification/store/actions';
+import { getValuesDeep } from 'lib/utils';
 import CONFIG from 'lib/config';
 
 /**
@@ -45,7 +46,7 @@ const validate = (values) => {
     errors.contact.phoneNumber = 'Invalid phone number';
   }
 
-  return errors;
+  return getValuesDeep(errors).every((item) => item === '') ? {} : errors;
 };
 
 const normalizeNumber = value => {
@@ -124,6 +125,9 @@ export default class Account extends Component {
   renderFormMain = (type) => {
     const { contact } = this.props.Dashboard_Profile.profile;
     const label = type === 'email' ? 'Email' : 'Phone';
+
+    if (!contact) return null;
+
     const isVerified = type === 'email' ? contact.emailVerified : contact.phoneVerified;
 
     return (

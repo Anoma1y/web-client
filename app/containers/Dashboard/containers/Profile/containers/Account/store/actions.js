@@ -48,7 +48,15 @@ export const reset = () => ({ type: RESET });
  * @returns {function(*, *)}
  */
 export const updateUserContactRequest = (type) => (dispatch, getState) => {
-  const { contact } = getState().form.ProfileAccount.values;
+  const {
+    values: {
+      contact
+    },
+    syncErrors
+  } = getState().form.ProfileAccount;
+
+  if (syncErrors) return;
+
   let login = contact[type].toLowerCase();
 
   dispatch(setOTPisLoading(true));
