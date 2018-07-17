@@ -18,7 +18,7 @@ import {
   createWallet,
 } from './store/actions';
 
-@connect((state) => ({ AddProduct_Wallet: state.AddProduct_Wallet }), ({
+@connect(({ AddProduct_Wallet }) => ({ AddProduct_Wallet }), ({
   pullAwailableIssuers,
   changeName,
   changeCurrency,
@@ -80,25 +80,9 @@ export default class Wallet extends Component {
 
     return (
       <FormControl fullWidth className={'addProduct-form_control'}>
-        <FormLabel component={'legend'} className={'addProduct-form_label'} disabled>Create wallet</FormLabel>
+        <FormLabel component={'legend'} className={'addProduct-form_label'} disabled>Create a wallet</FormLabel>
         <Grid container justify={'center'} className={'addProduct-form'}>
           <Grid item xs={6}>
-
-            <Grid container className={'addProduct-form_item'}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label={'Wallet name'}
-                  placeholder={'Wallet name'}
-                  error={nameError}
-                  value={name}
-                  onChange={this.handleNameChange}
-                />
-                {
-                  nameError && <FormHelperText className={'addProduct-form_error'}>Минимальная длина кошелька - 2 символа</FormHelperText>
-                }
-              </Grid>
-            </Grid>
 
             <Grid container className={'addProduct-form_item'}>
               <Grid item xs={12}>
@@ -115,7 +99,23 @@ export default class Wallet extends Component {
                   }
                 </Select>
                 {
-                  currencyError && <FormHelperText className={'addProduct-form_error'}>Укажите currency</FormHelperText>
+                  currencyError && <FormHelperText className={'addProduct-form_error'}>Set currency</FormHelperText>
+                }
+              </Grid>
+            </Grid>
+
+            <Grid container className={'addProduct-form_item'}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label={'Wallet name'}
+                  placeholder={'Wallet name'}
+                  error={nameError}
+                  value={name}
+                  onChange={this.handleNameChange}
+                />
+                {
+                  nameError && <FormHelperText className={'addProduct-form_error'}>Минимальная длина кошелька - 2 символа</FormHelperText>
                 }
               </Grid>
             </Grid>

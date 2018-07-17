@@ -56,9 +56,9 @@ export default class Session extends Component {
     <Table className={'session-history'}>
       <TableHead className={'session-history_header'}>
         <TableRow>
-          <TableCell className={'session-history__align_left'}>Тип доступа</TableCell>
-          <TableCell className={'session-history__align_center'}>Время</TableCell>
-          <TableCell className={'session-history__align_center'}>IP-адрес (Страна)</TableCell>
+          <TableCell className={'session-history__align_left'}>Access type</TableCell>
+          <TableCell className={'session-history__align_center'}>Time</TableCell>
+          <TableCell className={'session-history__align_center'}>IP (Host)</TableCell>
         </TableRow>
       </TableHead>
       <TableBody className={'session-history_body'}>

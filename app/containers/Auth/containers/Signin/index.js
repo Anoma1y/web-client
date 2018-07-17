@@ -19,7 +19,7 @@ export default class Signin extends Component {
   renderHeader = () => {
     const { otpIsSend, isPhone } = this.props.Auth_Signin;
 
-    return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Hello! lets get started'} message={'Enter your details below.'} />;
+    return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Lets get started.'} message={'Enter your details below.'} />;
   };
 
   render() {

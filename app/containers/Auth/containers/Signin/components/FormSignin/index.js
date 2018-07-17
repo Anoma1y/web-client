@@ -125,7 +125,7 @@ export default class FormSignin extends Component {
 
           <Input
             type="text"
-            placeholder={'Entering EMail or phone number'}
+            placeholder={'Enter your email or phone number'}
             icon={<PersonIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.loginError}
@@ -140,7 +140,7 @@ export default class FormSignin extends Component {
 
           <Input
             type={this.state.passwordInputType}
-            placeholder={'Entering password'}
+            placeholder={'Enter your password'}
             icon={<LockIcon color={'action'} />}
             iconPosition={'left'}
             onChange={this.handleChangePassword}
