@@ -151,7 +151,7 @@ export default class FormOTP extends Component {
 
           <Input
             type={'text'}
-            placeholder={'Entering OTP'}
+            placeholder={'Enter the OTP'}
             icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.otpError}
@@ -166,7 +166,7 @@ export default class FormOTP extends Component {
           <div className={'auth-form_inline-btn'}>
 
             <Button
-              color={'blue'}
+              color={'green'}
               onClick={this.handleSendOTP}
               disabled={otpIsBlock}
               loading={isLoading}

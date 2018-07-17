@@ -42,7 +42,7 @@ export default class DataTable extends Component {
   }
 
   handleOpenModal = (id) => {
-    this.setState({ modal: { isOpen: true, id } })
+    this.setState({ modal: { isOpen: true, id } });
   }
   handleCloseModal = () => {
     this.setState({
@@ -50,7 +50,7 @@ export default class DataTable extends Component {
         isOpen: false,
         id: 0
       }
-    })
+    });
   }
 
   handleScroll = () => {
@@ -184,7 +184,7 @@ export default class DataTable extends Component {
     <TableBody className={'transactions-table_item'}>
       <TableRow className={'transactions-table_head'}>
         <TableCell colSpan={16}>
-          No transactions
+          You don't have any transactions yet - let's buy something?
         </TableCell>
       </TableRow>
     </TableBody>
@@ -204,7 +204,7 @@ export default class DataTable extends Component {
     return this.props.Dashboard_Transaction.appendIsLoading &&
       <div className={'data-table_loader'}>
         <CircularProgress size={24} className={'table_loading'} />
-      </div>
+      </div>;
   }
 
   render() {

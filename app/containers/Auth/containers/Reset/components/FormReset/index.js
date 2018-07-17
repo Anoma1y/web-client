@@ -96,7 +96,7 @@ export default class FormReset extends Component {
 
           <Input
             type="text"
-            placeholder={'Entering EMail or phone number'}
+            placeholder={'Enter your email or phone number'}
             icon={<PersonIcon color={'action'} />}
             iconPosition={'left'}
             error={this.state.loginError}
