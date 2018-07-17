@@ -17,9 +17,9 @@ export default class Reset extends Component {
   };
 
   renderHeader = () => {
-    const { otpIsSend, isPhone } = this.props.Auth_Reset;
+    const { otpIsSend } = this.props.Auth_Reset;
 
-    return otpIsSend ? <HeaderConfirm isPhone={isPhone} /> : <HeaderForm title={'Reset'} message={'Enter the login for password recovery'} />;
+    return otpIsSend ? <HeaderConfirm /> : <HeaderForm title={'Reset'} message={'Enter the login for password recovery'} />;
   };
 
   render() {

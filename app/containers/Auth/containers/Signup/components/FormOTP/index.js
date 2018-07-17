@@ -115,7 +115,7 @@ export default class FormOTP extends Component {
         <div className={'auth-form_item'}>
 
           <Input
-            type="text"
+            type={'text'}
             placeholder={'Enter the OTP'}
             icon={<HttpsIcon color={'action'} />}
             iconPosition={'left'}

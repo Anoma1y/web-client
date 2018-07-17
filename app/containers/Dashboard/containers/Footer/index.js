@@ -27,7 +27,7 @@ export default () => {
           </div>
 
           <div className={'footer-copyright_content'}>
-            <p>© 2017. All rights reserved.</p>
+            <p>© 2018. All rights reserved.</p>
             <p>See our Terms of Use and Privacy Policy</p>
           </div>
         </div>
