@@ -55,6 +55,10 @@
   position: relative;
 }
 
+label, input, select, p {
+  font-family: $font-regular-serif !important;
+}
+
 /**
 Стили для дашбордных контейнеров
  */
@@ -225,6 +229,7 @@
     padding: 1rem;
     display: flex;
     border: none;
+    font-family: $font-regular-serif;
     border-radius: 0.3rem;
     flex-direction: column;
     justify-content: center;

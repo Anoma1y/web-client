@@ -1,9 +1,6 @@
 @import 'lib/style/vars.scss';
 
 .profile {
-  label, input, select {
-    font-family: $font-regular-serif;
-  }
   &-container {
     margin-top: 2rem;
   }
@@ -286,13 +283,16 @@
       color: $black-color !important;
     }
   }
+  &_line {
+    height: 84px !important;
+  }
   & tbody tr {
     &:nth-child(even) {
       background-color: rgba(241, 250, 255, 0.6);
     }
   }
   &_item {
-    border-bottom-color: rgba(224, 224, 224, 0.3) !important;
+    border-bottom-color: rgba(224, 224, 224, 0.2) !important;
     padding-top: 1.3rem !important;
     padding-bottom: 1.3rem !important;
   }

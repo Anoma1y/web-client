@@ -132,7 +132,6 @@ export default class Account extends Component {
 
     return (
       <Fragment>
-        <FormLabel component={'legend'} className={'profile-form_label'}>{label}</FormLabel>
         <Grid container alignItems={'center'} spacing={8} className={'profile-form'} justify={'flex-start'}>
           <Grid item xs={6}>
             <Field
@@ -167,11 +166,8 @@ export default class Account extends Component {
    * @returns {*}
    */
   renderFormOTP = (type) => {
-    const label = type === 'email' ? 'Email' : 'Phone';
-
     return (
       <Fragment>
-        <FormLabel component={'legend'} className={'profile-form_label'}>{label}</FormLabel>
         <Grid container alignItems={'center'} spacing={8} className={'profile-form'} justify={'flex-start'}>
           <Grid item xs={3}>
             <Field
@@ -216,6 +212,9 @@ export default class Account extends Component {
     return (
       <Grid container className={'profile'}>
         <Grid container className={'profile-form_wrapper'}>
+          <Grid item xs={12}>
+            <FormLabel component={'legend'} className={'profile-form_label'}>Account verify</FormLabel>
+          </Grid>
           <Grid item xs={5}>
             <FormControl fullWidth>
               {
