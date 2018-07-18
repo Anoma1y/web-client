@@ -184,7 +184,7 @@ export default class DataTable extends Component {
     <TableBody className={'transactions-table_item'}>
       <TableRow className={'transactions-table_head'}>
         <TableCell colSpan={16}>
-          No transactions!
+          There are no transactions for the selected period!
         </TableCell>
       </TableRow>
     </TableBody>
