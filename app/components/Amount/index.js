@@ -17,6 +17,7 @@ const Amount = (props) => {
     value = 0, // Значение, может быть меньше 0
     id,
     currency = 'EUR', // Валюты
+    isLabelCurrency = false,
     showZeroMinorPart = true, // Показывать копейки
     operation, // Операция зачисления или снятия, принимает параметры plus или minus
     lightMinor = true, // Засветление копеек
@@ -110,7 +111,9 @@ const Amount = (props) => {
         { majorPart }
       </span>
       {renderSeparatorAndMinorPart(minorPart)}
-      {renderCurrencySymbol(currencySymbol)}
+      {
+        isLabelCurrency ? <span className={'amount__label-currency'}>{currency}</span> : renderCurrencySymbol(currencySymbol)
+      }
     </span>
   );
 

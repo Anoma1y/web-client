@@ -67,10 +67,10 @@ export default class Verification extends Component {
           <FormPersonInfo />
         </Grid>
         <Grid container className={'profile-form_wrapper'}>
-          <FormUserAddress />
+          <FormAdditionalInfo />
         </Grid>
         <Grid container className={'profile-form_wrapper'}>
-          <FormAdditionalInfo />
+          <FormUserAddress />
         </Grid>
         <Grid container className={'profile-form_wrapper profile-form_documents-wrapper'}>
           {

@@ -204,7 +204,7 @@ export default class SidebarWallet extends React.Component {
               {item.name}
             </Text.Content>
             <Text.Sub className={'sidebar-wallet-amount_value'}>
-              <Amount value={item.amount} currency={item.issuer.currency} />
+              <Amount value={item.amount} currency={item.issuer.currency} isLabelCurrency />
             </Text.Sub>
           </Link>
         </Text>

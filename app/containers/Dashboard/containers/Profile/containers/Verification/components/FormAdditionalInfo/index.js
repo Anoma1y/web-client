@@ -51,7 +51,7 @@ const validate = values => {
 };
 
 const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s-]/.test(value)) return value;
+  if (!/[^a-zA-Z\s\d-]/.test(value)) return value;
 };
 
 const normalizeZip = value => {
@@ -85,7 +85,7 @@ export default class FormAdditionalInfo extends Component {
 
   renderAdditionalInformation = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
-      <FormLabel component={'legend'} className={'profile-form_label'}>Additional information</FormLabel>
+      <FormLabel component={'legend'} className={'profile-form_label'}>Legal address</FormLabel>
       <Grid container justify={'flex-start'}>
         <Grid item xs={12} className={'profile-form'}>
           <Grid container spacing={40}>
@@ -121,6 +121,7 @@ export default class FormAdditionalInfo extends Component {
                 component={FieldText}
                 label={'Street'}
                 placeholder={'Street'}
+                normalize={normalizeLatin}
               />
             </Grid>
 
@@ -130,6 +131,7 @@ export default class FormAdditionalInfo extends Component {
                 component={FieldText}
                 label={'House number'}
                 placeholder={'House number'}
+                normalize={normalizeLatin}
               />
             </Grid>
             <Grid item xs={2}>

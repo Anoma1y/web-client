@@ -19,6 +19,10 @@ import {
 } from '../../store/actions';
 import countries from 'lib/countries';
 
+const normalizeLatin = value => {
+  if (!/[^a-zA-Z\s\d-]/.test(value)) return value;
+};
+
 const normalizeZip = value => {
   if (!value) return value;
   if (value.length < 10) return value;
@@ -59,6 +63,7 @@ export default class FormUserAddress extends Component {
                 component={FieldText}
                 label={'City'}
                 placeholder={'City'}
+                normalize={normalizeLatin}
               />
             </Grid>
           </Grid>
@@ -72,6 +77,7 @@ export default class FormUserAddress extends Component {
                 component={FieldText}
                 label={'Street'}
                 placeholder={'Street'}
+                normalize={normalizeLatin}
               />
             </Grid>
 
@@ -81,6 +87,7 @@ export default class FormUserAddress extends Component {
                 component={FieldText}
                 label={'House number'}
                 placeholder={'House number'}
+                normalize={normalizeLatin}
               />
             </Grid>
             <Grid item xs={2}>

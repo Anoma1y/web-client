@@ -157,7 +157,7 @@ export default class Exchange extends Component {
 
                     <Grid item xs={3} className={'wallet-exchange-form_item wallet-exchange-form_select'}>
                       <FormControl fullWidth>
-                        <InputLabel htmlFor={'coin-select'}>Coin</InputLabel>
+                        <InputLabel htmlFor={'coin-select'}>Wallet</InputLabel>
                         <Select
                           fullWidth
                           native

@@ -15,7 +15,7 @@ import {
 } from '../../store/actions';
 import CONFIG from 'lib/config';
 
-const FILE_FORMAT_INFO = 'your ID, which clearly shows: your full name, photo, date of birth, expiry date, official document number and your signature.';
+const FILE_FORMAT_INFO = `Upload no more than ${CONFIG.ENTITY_DOCUMENT_FILE_COUNT} images that contain Your ID, which clearly shows: your full name, photo, date of birth, expiry date, official document number and your signature.`;
 const FILE_FORMAT_TEXT = 'The files are in JPG or PNG format, max size up to 5 MB';
 
 @connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, Dashboard_Profile }), ({
