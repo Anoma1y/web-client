@@ -75,6 +75,7 @@
     display: inline-block;
     width: 70%;
     height: 42px;
+    z-index: -1;
     &_icon {
       font-size: 2rem !important;
       path {
@@ -320,6 +321,10 @@
   letter-spacing: 1px;
   text-align: center;
   border: 1px solid $gray-color;
+}
+
+.react-datepicker-popper {
+
 }
 
 .date-datepicker-v1 {
