@@ -134,7 +134,7 @@ export default class SidebarWallet extends React.Component {
     return (
       <div className={'sidebar-wallet_edit'}>
         {
-          (this.state.controlWallet.isChange && this.state.controlWallet.index === index) ?
+          (this.state.controlWallet.isChange && this.state.controlWallet.index === index) ? (
             <React.Fragment>
               <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__apply ${isLoading}`} onClick={() => this.handleApplyControl()}>
                 <Tooltip
@@ -159,32 +159,32 @@ export default class SidebarWallet extends React.Component {
                 </Tooltip>
               </button>
             </React.Fragment>
-            :
-            <React.Fragment>
-              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
-                <Tooltip
-                  enterDelay={150}
-                  id={'tooltip-controlled_Edit'}
-                  leaveDelay={50}
-                  placement={'left'}
-                  title={'Edit'}
-                >
-                  <EditIcon />
-                </Tooltip>
-              </button>
-              <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__delete ${isLoading}`} onClick={() => this.handleOpenControl('remove', index)}>
-                <Tooltip
-                  enterDelay={150}
-                  id={'tooltip-controlled_Remove'}
-                  leaveDelay={50}
-                  placement={'left'}
-                  title={'Remove'}
-                >
-                  <DeleteIcon />
-                </Tooltip>
-              </button>
-            </React.Fragment>
-
+            ) : (
+              <React.Fragment>
+                <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__rename ${isLoading}`} onClick={() => this.handleOpenControl('edit', index)}>
+                  <Tooltip
+                    enterDelay={150}
+                    id={'tooltip-controlled_Edit'}
+                    leaveDelay={50}
+                    placement={'left'}
+                    title={'Edit'}
+                  >
+                    <EditIcon />
+                  </Tooltip>
+                </button>
+                <button className={`sidebar-wallet_edit-btn sidebar-wallet_edit__delete ${isLoading}`} onClick={() => this.handleOpenControl('remove', index)}>
+                  <Tooltip
+                    enterDelay={150}
+                    id={'tooltip-controlled_Remove'}
+                    leaveDelay={50}
+                    placement={'left'}
+                    title={'Remove'}
+                  >
+                    <DeleteIcon />
+                  </Tooltip>
+                </button>
+              </React.Fragment>
+            )
         }
       </div>
     )
