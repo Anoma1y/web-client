@@ -60,18 +60,6 @@ const normalizeZip = value => {
   if (value.length < 10) return value;
 };
 
-const normalizeBirthday = value => {
-  if (!value) return value;
-
-  const onlyNums = value.replace(/[^\d]/g, '');
-
-  if (onlyNums.length <= 2) return onlyNums;
-
-  if (onlyNums.length <= 4) return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2)}`;
-
-  return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}/${onlyNums.slice(4, 8)}`;
-};
-
 @connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { rawDataForm: Dashboard_Profile.profile.additional.rawDataForm } }), ({
   updateAdditionalInfo
 }))
