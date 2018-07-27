@@ -32,20 +32,26 @@ const validate = values => {
   if (!values.rawDataForm) return;
 
   if (values.rawDataForm.birthday) {
+
     if (values.rawDataForm.birthday.length >= 4) {
+
       const dateBirthday = moment(values.rawDataForm.birthday, 'DD/MM/YYYY');
       const years = moment().diff(dateBirthday, 'years');
 
-      if (isNaN(years)) {
+      if (Number.isNaN(years)) {
         errors.rawDataForm.birthday = 'Enter a valid date (Example: 31/12/1999)';
       }
+
       if (years < 18) {
         errors.rawDataForm.birthday = 'Your age must be at least 18 years old';
       }
+
       if (years > 100) {
         errors.rawDataForm.birthday = 'Your age must be no more than 100 years old';
       }
+
     }
+
   }
 
   return getValuesDeep(errors).every((item) => item === '') ? {} : errors;
