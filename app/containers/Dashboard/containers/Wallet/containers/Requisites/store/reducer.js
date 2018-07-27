@@ -1,5 +1,6 @@
 import {
-  SET_REQUISITES
+  SET_REQUISITES,
+  RESET
 } from './types';
 
 const INITIAL_STATE = {
@@ -10,6 +11,9 @@ const HANDLERS = {
   [SET_REQUISITES]: (state, { payload }) => ({
     ...state,
     requisites: payload
+  }),
+  [RESET]: () => ({
+    ...INITIAL_STATE
   }),
 };
 

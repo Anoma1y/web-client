@@ -10,10 +10,14 @@ import {
   TableCell
 } from '@material-ui/core';
 import QRCode from 'qrcode.react';
-import { pullRequisites } from './store/actions';
+import {
+  pullRequisites,
+  resetRequisites
+} from './store/actions';
 
 @connect(({ Wallet_Requisites }) => ({ Wallet_Requisites }), ({
-  pullRequisites
+  pullRequisites,
+  resetRequisites
 }))
 export default class Requisites extends Component {
 
@@ -24,6 +28,10 @@ export default class Requisites extends Component {
   componentDidMount() {
     this.props.pullRequisites()
       .then(() => this.setState({ ready: true }));
+  }
+
+  componentWillUnmount() {
+    this.props.resetRequisites();
   }
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;

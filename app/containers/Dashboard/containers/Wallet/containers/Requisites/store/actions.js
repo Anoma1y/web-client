@@ -1,11 +1,14 @@
 import {
-  SET_REQUISITES
+  SET_REQUISITES,
+  RESET
 } from './types';
 
 export const setRequisites = (value) => ({
   type: SET_REQUISITES,
   payload: value,
 });
+
+export const resetRequisites = () => ({ type: RESET });
 
 export const pullRequisites = () => (dispatch, getState) => new Promise((resolve, reject) => {
   const {

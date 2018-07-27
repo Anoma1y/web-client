@@ -15,6 +15,8 @@ import Tab from 'components/Tab';
 import WalletInfo from './components/WalletInfo';
 import Exchange from './containers/Exchange';
 import Withdraw from './containers/Withdraw';
+import Payments from './containers/Payments';
+import Balance from './containers/Balance';
 import Requisites from './containers/Requisites';
 import Transaction from 'containers/Dashboard/containers/Transaction';
 import { setActive } from 'containers/Dashboard/containers/Sidebar/store/actions';
@@ -76,12 +78,12 @@ export default class Wallet extends Component {
       {
         icon: <SendIcon />,
         menuItem: 'Payments',
-        render: () => <Transaction />
+        render: () => <Payments />
       },
       {
         icon: <Icon name={'filter'} />,
         menuItem: 'Balance & limits',
-        render: () => <Transaction />
+        render: () => <Balance />
       },
       {
         icon: <NoteIcon />,
