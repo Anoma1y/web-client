@@ -59,9 +59,9 @@ export default class Wallet extends Component {
 
     const panes = [
       {
-        icon: <NoteIcon />,
-        menuItem: 'Requisites',
-        render: () => <Requisites />
+        icon: <Icon name={'sent_m'} />,
+        menuItem: 'Withdraw',
+        render: () => <Withdraw />
       },
       {
         icon: <ReorderIcon />,
@@ -74,11 +74,6 @@ export default class Wallet extends Component {
         render: () => <Exchange coinException={this.props.Dashboard_Wallet.coin.serial} />
       },
       {
-        icon: <Icon name={'sent_m'} />,
-        menuItem: 'Withdraw',
-        render: () => <Withdraw />
-      },
-      {
         icon: <SendIcon />,
         menuItem: 'Payments',
         render: () => <Transaction />
@@ -87,6 +82,11 @@ export default class Wallet extends Component {
         icon: <Icon name={'filter'} />,
         menuItem: 'Balance & limits',
         render: () => <Transaction />
+      },
+      {
+        icon: <NoteIcon />,
+        menuItem: 'Requisites',
+        render: () => <Requisites />
       },
     ];
 

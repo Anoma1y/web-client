@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Button,
+  CircularProgress,
   Grid,
   Table,
   TableBody,
@@ -9,11 +10,27 @@ import {
   TableCell
 } from '@material-ui/core';
 import QRCode from 'qrcode.react';
+import { pullRequisites } from './store/actions';
 
-@connect(({ Wallet_Requisites }) => ({ Wallet_Requisites }))
+@connect(({ Wallet_Requisites }) => ({ Wallet_Requisites }), ({
+  pullRequisites
+}))
 export default class Requisites extends Component {
 
-  render() {
+  state = {
+    ready: false
+  };
+
+  componentDidMount() {
+    this.props.pullRequisites()
+      .then(() => this.setState({ ready: true }));
+  }
+
+  renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
+
+  renderContent = () => {
+    const { requisites } = this.props.Wallet_Requisites;
+
     return (
       <Grid container className={'requisites'}>
 
@@ -25,7 +42,7 @@ export default class Requisites extends Component {
               <Table className={'requisites-table'}>
                 <TableBody className={'requisites-table_body'}>
                   {
-                    this.props.Wallet_Requisites.requisites
+                    requisites
                       .map((requisit) => (
                         <TableRow key={requisit.key} className={'requisites-table_row'}>
                           <TableCell className={'requisites-table_item'}>
@@ -71,6 +88,10 @@ export default class Requisites extends Component {
 
         </Grid>
       </Grid>
-    );
+    )
+  }
+
+  render() {
+    return this.state.ready ? this.renderContent() : this.renderLoader();
   }
 }

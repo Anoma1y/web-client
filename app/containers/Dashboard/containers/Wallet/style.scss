@@ -87,7 +87,7 @@
       }
     }
     &_key {
-      color: $gray-color;
+      color: lighten($gray-color, 10%);
       font-family: $font-regular-serif;
       font-size: 0.9rem;
     }
