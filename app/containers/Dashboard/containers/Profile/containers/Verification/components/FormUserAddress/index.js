@@ -19,7 +19,7 @@ import { setAddress } from '../../../../store/actions';
 import countries from 'lib/countries';
 
 const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s\d-]/.test(value)) return value;
+  if (!/[^a-zA-Z\s\d-.]/.test(value)) return value;
 };
 
 const normalizeZip = value => {

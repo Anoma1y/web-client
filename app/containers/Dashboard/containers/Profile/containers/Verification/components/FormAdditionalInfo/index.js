@@ -52,7 +52,7 @@ const validate = values => {
 };
 
 const normalizeLatin = value => {
-  if (!/[^a-zA-Z\s\d-]/.test(value)) return value;
+  if (!/[^a-zA-Z\s\d-.]/.test(value)) return value;
 };
 
 const normalizeZip = value => {
