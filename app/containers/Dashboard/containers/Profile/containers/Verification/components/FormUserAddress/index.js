@@ -27,17 +27,10 @@ const normalizeZip = value => {
   if (value.length < 10) return value;
 }
 
-// @connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { address: Dashboard_Profile.profile.address } }), ({
-//   updateUserAddress,
-// }))
-@connect((state) => ({
-  Profile_Verification: state.Profile_Verification,
-  Dashboard_Profile: state.Dashboard_Profile,
-  VerificationAdditionalInfo: state.form.VerificationAdditionalInfo,
-  initialValues: {
-    address: state.Dashboard_Profile.profile.address
-  }
-}), ({ updateUserAddress, setAddress }))
+@connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { address: Dashboard_Profile.profile.address } }), ({
+  updateUserAddress,
+  setAddress
+}))
 @reduxForm({
   form: 'VerificationUserAddress',
   enableReinitialize: true
@@ -46,10 +39,7 @@ export default class FormUserAddress extends Component {
 
   handleSubmitPostAddress = () => this.props.updateUserAddress();
 
-  handleFillAsLegalAddress = () => {
-    const { VerificationAdditionalInfo } = this.props;
-    this.props.setAddress();
-  };
+  handleFillAsLegalAddress = () => this.props.setAddress();
 
   renderUserAddress = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
