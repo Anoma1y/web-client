@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import FieldSelect from '../../../../components/FieldSelect';
 import FieldText from '../../../../components/FieldText';
+import FieldBirthday from '../../../../components/FieldBirthday';
 import countries from 'lib/countries';
 import { getValuesDeep } from 'lib/utils';
 import moment from 'moment';
@@ -151,10 +152,8 @@ export default class FormAdditionalInfo extends Component {
             <Grid item xs={5}>
               <Field
                 name={'rawDataForm.birthday'}
-                component={FieldText}
+                component={FieldBirthday}
                 label={'Birthday'}
-                placeholder={'Birthday'}
-                normalize={normalizeBirthday}
               />
             </Grid>
           </Grid>
