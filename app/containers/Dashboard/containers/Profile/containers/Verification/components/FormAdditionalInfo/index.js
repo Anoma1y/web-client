@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import FieldSelect from '../../../../components/FieldSelect';
 import FieldText from '../../../../components/FieldText';
+import FieldBirthday from '../../../../components/FieldBirthday';
 import countries from 'lib/countries';
 import { getValuesDeep } from 'lib/utils';
 import moment from 'moment';
@@ -57,18 +58,6 @@ const normalizeLatin = value => {
 const normalizeZip = value => {
   if (!value) return value;
   if (value.length < 10) return value;
-};
-
-const normalizeBirthday = value => {
-  if (!value) return value;
-
-  const onlyNums = value.replace(/[^\d]/g, '');
-
-  if (onlyNums.length <= 2) return onlyNums;
-
-  if (onlyNums.length <= 4) return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2)}`;
-
-  return `${onlyNums.slice(0, 2)}/${onlyNums.slice(2, 4)}/${onlyNums.slice(4, 8)}`;
 };
 
 @connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { rawDataForm: Dashboard_Profile.profile.additional.rawDataForm } }), ({
@@ -151,10 +140,8 @@ export default class FormAdditionalInfo extends Component {
             <Grid item xs={5}>
               <Field
                 name={'rawDataForm.birthday'}
-                component={FieldText}
+                component={FieldBirthday}
                 label={'Birthday'}
-                placeholder={'Birthday'}
-                normalize={normalizeBirthday}
               />
             </Grid>
           </Grid>

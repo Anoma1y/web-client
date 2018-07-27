@@ -98,7 +98,7 @@ export const requestToWithdraw = () => (dispatch, getState) => new Promise((reso
     return;
   }
 
-  const FORM_AMOUNT = Number(values.amount.replace(/,/, ''));
+  const FORM_AMOUNT = Number(values.amount.replace(/,/g, ''));
 
   if (FORM_AMOUNT > COIN_AVAILABLE_AMOUNT) {
     dispatch(send({ id: uuid(), status: 'warning', title: 'Warning', message: 'There are not enough funds on your account.', timeout: 3000 }));

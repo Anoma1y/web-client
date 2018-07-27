@@ -76,3 +76,42 @@
   }
 }
 
+.requisites {
+  &-table {
+    &_item {
+      border-color: lighten($lightgray-color, 25%) !important;
+      padding-top: 1.2rem !important;
+      padding-bottom: 1.2rem !important;
+      &__right {
+        text-align: right !important;
+      }
+    }
+    &_key {
+      color: lighten($gray-color, 10%);
+      font-family: $font-regular-serif;
+      font-size: 0.9rem;
+    }
+    &_value {
+      color: $black-color;
+      text-transform: uppercase;
+      font-family: $font-regular-serif;
+      font-size: 1rem;
+    }
+  }
+
+  &_qrcode {
+    &-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #EEF2F7;
+    }
+    &-content {
+      width: 90%;
+      height: 90%;
+    }
+  }
+  &_btn {
+    margin-top: 2rem !important;
+  }
+}

@@ -4,12 +4,29 @@ import {
   CHANGE_USED_TYPES,
   RESET
 } from './types';
+import {
+  initialize as initializeReduxForm,
+} from 'redux-form';
 import { api } from 'lib/api';
 
 export const setProfile = (value) => ({
   type: SET_PROFILE,
   payload: value,
 });
+
+export const setAddress = () => (dispatch, getState) => {
+  const {
+    VerificationAdditionalInfo: {
+      values: {
+        rawDataForm
+      }
+    }
+  } = getState().form;
+
+  if (!rawDataForm) return;
+
+  dispatch(initializeReduxForm('VerificationUserAddress', { address: rawDataForm.post_address }))
+};
 
 export const setDocumentTypes = (types) => ({
   type: SET_DOCUMENT_TYPES,

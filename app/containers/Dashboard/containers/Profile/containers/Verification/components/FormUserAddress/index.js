@@ -14,9 +14,8 @@ import {
 } from '@material-ui/core';
 import FieldSelect from '../../../../components/FieldSelect';
 import FieldText from '../../../../components/FieldText';
-import {
-  updateUserAddress,
-} from '../../store/actions';
+import { updateUserAddress } from '../../store/actions';
+import { setAddress } from '../../../../store/actions';
 import countries from 'lib/countries';
 
 const normalizeLatin = value => {
@@ -30,6 +29,7 @@ const normalizeZip = value => {
 
 @connect(({ Profile_Verification, Dashboard_Profile }) => ({ Profile_Verification, initialValues: { address: Dashboard_Profile.profile.address } }), ({
   updateUserAddress,
+  setAddress
 }))
 @reduxForm({
   form: 'VerificationUserAddress',
@@ -38,6 +38,8 @@ const normalizeZip = value => {
 export default class FormUserAddress extends Component {
 
   handleSubmitPostAddress = () => this.props.updateUserAddress();
+
+  handleFillAsLegalAddress = () => this.props.setAddress();
 
   renderUserAddress = (isLoading) => (
     <FormControl fullWidth className={'profile-form_control'}>
@@ -69,7 +71,7 @@ export default class FormUserAddress extends Component {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} className={'profile-form'} >
+        <Grid item xs={12} className={'profile-form'}>
           <Grid container spacing={40}>
             <Grid item xs={5}>
               <Field
@@ -102,23 +104,37 @@ export default class FormUserAddress extends Component {
           </Grid>
         </Grid>
 
-        <Grid item xs={2}>
-          <div className={'mui-btn'}>
-            <Button
-              fullWidth
-              color={'primary'}
-              variant={'raised'}
-              size={'large'}
-              disabled={isLoading}
-              onClick={this.handleSubmitPostAddress}
-            >
-              Submit
-            </Button>
-            {
-              isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
-            }
-          </div>
+        <Grid item xs={9} className={'profile-form'}>
+          <Grid container spacing={40} justify={'space-between'}>
+            <Grid item xs={2}>
+              <div className={'mui-btn'}>
+                <Button
+                  fullWidth
+                  color={'primary'}
+                  variant={'raised'}
+                  size={'large'}
+                  disabled={isLoading}
+                  onClick={this.handleSubmitPostAddress}
+                >
+                  Submit
+                </Button>
+                {
+                  isLoading && <CircularProgress size={24} className={'mui-btn_progress mui-btn_progress__24'} />
+                }
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                fullWidth
+                variant={'outlined'}
+                onClick={this.handleFillAsLegalAddress}
+              >
+                As the legal address
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
+
       </Grid>
     </FormControl>
   );
