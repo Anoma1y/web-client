@@ -1,26 +1,37 @@
-import React, { Component } from 'react';
+import React, {
+  Component,
+  Fragment
+} from 'react';
 import { connect } from 'react-redux';
 import MuiButton from 'components/MuiButton';
 import {
   Grid,
   Stepper,
   Step,
+  Modal,
   StepLabel,
   CircularProgress,
   Button,
 } from '@material-ui/core';
+import {
+  Close as CloseIcon,
+  Done as DoneIcon,
+} from '@material-ui/icons';
 import Type from './components/Type';
 import BOLForm from './components/BOLForm';
 import RequestForm from './components/RequestForm';
 import Finish from './components/Finish';
+import { send } from 'containers/Notification/store/actions';
 import {
   requestToWithdraw,
   reset,
 } from './store/actions';
+import uuid from 'uuid/v1';
 
-@connect(({ Dashboard_Wallet, Wallet_Withdraw }) => ({ Dashboard_Wallet, Wallet_Withdraw }), ({
+@connect(({ form, Dashboard_Wallet, Wallet_Withdraw }) => ({ form, Dashboard_Wallet, Wallet_Withdraw }), ({
   requestToWithdraw,
   reset,
+  send,
 }))
 export default class Withdraw extends Component {
 
@@ -28,6 +39,7 @@ export default class Withdraw extends Component {
     ready: true,
     activeStep: 0,
     isFinish: false,
+    modalConfirmOpen: false,
   }
 
   componentWillUnmount() {
@@ -65,6 +77,35 @@ export default class Withdraw extends Component {
         return 'What is love. Baby dont hurt me, dont hurt me, no more';
     }
   };
+
+  handleOpenConfirmOperationModal = () =>  {
+    const {
+      WithdrawRequestForm: {
+        syncErrors
+      }
+    } = this.props.form;
+
+    if (syncErrors) {
+      this.props.send({ id: uuid(), status: 'warning', title: 'Warning', message: 'Fill in required fields', timeout: 1200 });
+      return;
+    }
+
+    this.setState({ modalConfirmOpen: true });
+  };
+
+  handleConfirmOperation = () => {
+    const { activeStep } = this.state;
+
+    this.setState({ modalConfirmOpen: false });
+    this.props.requestToWithdraw()
+      .then(() => this.setState({ isFinish: true, activeStep: activeStep + 2 }));
+
+  };
+
+  handleCancelOperation = () => {
+    this.setState({ modalConfirmOpen: false });
+  };
+
   handleNext = () => {
     const { activeStep } = this.state;
 
@@ -73,8 +114,7 @@ export default class Withdraw extends Component {
         this.setState({ activeStep: activeStep + 1 });
         break;
       case 1:
-        this.props.requestToWithdraw()
-          .then(() => this.setState({ isFinish: true, activeStep: activeStep + 2 }));
+        this.handleOpenConfirmOperationModal();
         break;
       default:
         this.setState({ activeStep: activeStep + 1 });
@@ -91,6 +131,48 @@ export default class Withdraw extends Component {
     this.props.reset();
 
     this.setState({ activeStep: 0, isFinish: false });
+  };
+
+  renderConfirmModal = () => {
+    const { modalConfirmOpen } = this.state;
+
+    return (
+      <Modal open={modalConfirmOpen}>
+        <div className={'modal-confirm-operation'}>
+          <div className={'modal-confirm-operation_wrapper'}>
+
+            <div className={'modal-confirm-operation_header'}>
+              <h3>Operation confirmation</h3>
+            </div>
+
+            <div className={'modal-confirm-operation_content'}>
+              <div className={'modal-confirm-operation_btn'}>
+                <Button
+                  fullWidth
+                  variant={'raised'}
+                  color={'primary'}
+                  onClick={this.handleConfirmOperation}
+                >
+                  <DoneIcon />
+                  Submit
+                </Button>
+              </div>
+              <div className={'modal-confirm-operation_btn'}>
+                <Button
+                  fullWidth
+                  variant={'raised'}
+                  onClick={this.handleCancelOperation}
+                >
+                  <CloseIcon />
+                  Cancel
+                </Button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </Modal>
+    );
   };
 
   renderLoader = () => <CircularProgress size={24} className={'dashboard_loading'} />;
@@ -111,7 +193,10 @@ export default class Withdraw extends Component {
         <div className={'stepper-container'}>
           <div className={'stepper-content'}>
             {
-              this.getStepContent(isFinish ? activeStep - 1 : activeStep)
+              <Fragment>
+                {this.getStepContent(isFinish ? activeStep - 1 : activeStep)}
+                {this.renderConfirmModal()}
+              </Fragment>
             }
           </div>
           <div className={'stepper-control'}>
