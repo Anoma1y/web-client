@@ -1,6 +1,6 @@
 import {
   SET_PROFILE,
-  SET_DOCUMENTS,
+  SET_ADDRESS,
   SET_DOCUMENT_TYPES,
   CHANGE_USED_TYPES,
   RESET
@@ -19,6 +19,16 @@ const HANDLERS = {
   [SET_DOCUMENT_TYPES]: (state, { payload }) => ({
     ...state,
     documentTypes: payload
+  }),
+  [SET_ADDRESS]: (state) => ({
+    ...state,
+    profile: {
+      ...state.profile,
+      address: {
+        ...state.profile.address,
+        ...state.profile.additional.rawDataForm.post_address,
+      }
+    }
   }),
   [CHANGE_USED_TYPES]: (state, { payload }) => ({
     ...state,

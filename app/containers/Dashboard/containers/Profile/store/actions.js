@@ -1,5 +1,6 @@
 import {
   SET_PROFILE,
+  SET_ADDRESS,
   SET_DOCUMENT_TYPES,
   CHANGE_USED_TYPES,
   RESET
@@ -8,6 +9,11 @@ import { api } from 'lib/api';
 
 export const setProfile = (value) => ({
   type: SET_PROFILE,
+  payload: value,
+});
+
+export const setAddress = (value) => ({
+  type: SET_ADDRESS,
   payload: value,
 });
 
