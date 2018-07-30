@@ -10,6 +10,7 @@
   position: relative;
 }
 .transactions-table {
+
   &_head {
     td {
       color: $blue-color;
@@ -24,6 +25,7 @@
       }
     }
   }
+
   &_content {
     cursor: pointer;
     font-family: $font-regular !important;
@@ -37,6 +39,7 @@
       color: #333333;
     }
   }
+
   &_amount {
     font-family: $font-regular-serif;
     .amount {
@@ -58,11 +61,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
   &-date {
     width: 30%;
     height: 100%;
     position: relative;
   }
+
   &_date {
     position: absolute;
     width: 90%;
@@ -75,9 +80,11 @@
     font-size: 1.1rem;
     font-family: $font-semibold;
   }
+
   .input_icon {
     top: calc(50% + 0.1rem);
   }
+
   &-search {
     display: inline-block;
     width: 70%;
@@ -90,6 +97,7 @@
       }
     }
   }
+
   &_input {
     width: 100%;
     margin: 0;
