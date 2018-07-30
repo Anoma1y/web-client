@@ -16,6 +16,13 @@
       font-family: $font-semibold-serif;
       font-size: 0.95rem;
     }
+    &__empty {
+      cursor: default;
+      td {
+        border-bottom: none !important;
+        padding-left: 0 !important;
+      }
+    }
   }
   &_content {
     cursor: pointer;

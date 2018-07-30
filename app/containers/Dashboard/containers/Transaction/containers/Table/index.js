@@ -182,7 +182,7 @@ export default class DataTable extends Component {
 
   renderEmptyRecords = () => (
     <TableBody className={'transactions-table_item'}>
-      <TableRow className={'transactions-table_head'}>
+      <TableRow className={'transactions-table_head transactions-table_head__empty'}>
         <TableCell colSpan={16}>
           There are no transactions for the selected period!
         </TableCell>

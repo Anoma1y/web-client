@@ -35,12 +35,13 @@ import './style.scss';
 }))
 export default class Dashboard extends Component {
 
-  state = { ready: false };
+  state = {
+    ready: false
+  };
 
   componentDidMount() {
     const authToken = Storage.get('session');
 
-    // Если токена нету в локальном хранилище, то вызов ошибки
     if (authToken === null) {
       this.handlerError('error', 'Ошибка', 'Произошла непредвиденная ошибка');
       return;
@@ -48,8 +49,6 @@ export default class Dashboard extends Component {
 
     const { token, expiresAt } = authToken;
 
-    // Если время жизни токена истек, то вызов ошибки
-    // Иначе вызов промисов для добавления заголовков и инициализации данных
     if (authToken && (moment() < moment(expiresAt))) {
       this.handlerInit(token);
     } else {
@@ -80,7 +79,7 @@ export default class Dashboard extends Component {
         Promise.all(currentRoleInitialActions.map((action) => action())) // получение всех необходимых данных по ролям
           .then(() => {
 
-            if (!ROLES_HAS_CARD.includes(role)) { // для всех ролей (будет добавлено поздней) у которых имеются карты, происходит получения данных о карте
+            if (!ROLES_HAS_CARD.includes(role)) {
               this.setState({ ready: true });
               return;
             }
@@ -115,20 +114,16 @@ export default class Dashboard extends Component {
   renderDashboard = () => (
     <div className={'page'}>
 
-      {/* SIDEBAR SECTION */}
       <div className={'page-sidebar'}>
         <Sidebar />
       </div>
 
-      {/* MAIN SECTION */}
       <div className={'page-main'}>
 
-        {/* MAIN SECTION - HEADER */}
         <div className={'header-wrapper'}>
           <Header />
         </div>
 
-        {/* MAIN SECTION - CONTENT */}
         <div className={'content-wrapper'}>
           <Switch>
             <Route exact path={`${this.props.match.url}`} component={Main} />
@@ -140,7 +135,6 @@ export default class Dashboard extends Component {
           </Switch>
         </div>
 
-        {/* MAIN SECTION - FOOTER */}
         <div className={'footer-wrapper'}>
           <Footer />
         </div>
