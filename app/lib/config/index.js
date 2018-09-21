@@ -14,4 +14,4 @@ export default {
     B_LG: 1200,
     B_1337: 1337
   }
-}
+};
